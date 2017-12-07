@@ -8,6 +8,18 @@ import GameState from './states/Game'
 
 import config from './config'
 
+import Vue from 'vue';
+import App from './App.vue';
+
+// Vue.config.productionTip = false;
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  template: '<App/>',
+  components: { App },
+});
+
 class Game extends Phaser.Game {
   constructor () {
     const docElement = document.documentElement
