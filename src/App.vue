@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <p>yoooooooo</p>
+    <p>yooooooooi</p>
+    <div id="content" v-show="true"></div>
   </div>
 </template>
 
