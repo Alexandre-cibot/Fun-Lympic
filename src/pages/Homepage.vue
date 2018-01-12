@@ -5,7 +5,7 @@
       <p>Olympic's fingers</p>
     </div>
   </div>
-  <DidYouKnow :show="false" image="athletisme"/>
+  <DidYouKnow :show="show" image="athletisme" @closeModal="closeModal" />
   <div class="block select-category">
     
     <router-link :to="{ path: '/training' }" style="width:100%;">
@@ -52,8 +52,14 @@ export default {
   data() {
     return {
       msg: 'test',
+      show: true,
     };
   },
+  methods: {
+    closeModal () {
+      this.show = false;
+    }
+  }
 };
 </script>
 
