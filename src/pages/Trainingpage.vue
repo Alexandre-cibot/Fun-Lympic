@@ -1,8 +1,3 @@
-<!--
-Ici, on testera l'implementation de phaser.
-Plus tard il y aura une page de selection de jeux en amont, mais ce n'est pas interessant pour le moment.
-Pour l'instant, nous testons ici.
--->
 <template>
 <div class="wrapper">
     <Navbar text="Entrainement" />
