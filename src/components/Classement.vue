@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     imagePath() {
-      return require('../../assets/julien.jpg');
+      return require('../assets/julien.jpg');
     }
   },
   // computed: {

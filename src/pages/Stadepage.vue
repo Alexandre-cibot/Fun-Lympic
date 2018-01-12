@@ -4,25 +4,28 @@ Plus tard il y aura une page de selection de jeux en amont, mais ce n'est pas in
 Pour l'instant, nous testons ici.
 -->
 <template>
-<div class="wrapper">
-  <Navbar text="stade" secondBtn="podium"/>
-  <div>
+  <div class="wrapper-page">
+    <Navbar text="stade" secondBtn="podium"/>
+    <div class="wrapper">
+      <div class="info-content">
+          <img src="../assets/facebook-2.png" alt="">
+          <p>Connectez-vous pour accéder au stade et défie tes amis</p>
+      </div>
+      <BasicButton class="connexionBtn" title="connexion" image="facebook" btnColor="btnBlue" />
+
+    </div>
   </div>
-  
-</div>
 </template>
 
 <script>
-import Card from '../components/Card';
 import Navbar from '../components/Navbar';
-import Classement from '../components/Classement';
+import BasicButton from '../components/BasicButton';
 
 export default {
-  name: 'Training',
+  name: 'Stade',
   components: {
-    Card,
     Navbar,
-    Classement,
+    BasicButton
   },
   data() {
     return {
@@ -34,10 +37,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>  
-.wrapper {
+.wrapper-page {
   background: #F5F5F5;
+  height:100vh;
+}
+.wrapper {
   overflow: hidden;
-  height: 100vh;
+  height: calc(100% - 14vh);
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 h2, p {
   font-family: 'Roboto';
@@ -53,4 +63,22 @@ h2 {
   font-size: 2.2em;
   margin-bottom: 1vh;
 }
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 70%;
+  align-items: center;
+}
+
+.info-content p {
+  font-size: 18px;
+  font-family: Arial;
+}
+
+.info-content img {
+  margin-bottom: 10px;
+}
+
 </style>
