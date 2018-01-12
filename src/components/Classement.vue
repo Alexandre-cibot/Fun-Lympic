@@ -86,17 +86,16 @@ export default {
 .circle, .circleCenter{
   min-height: 0;
   overflow: visible;
-  height: 100%;
+  height: 90%;
   width:100%;
   text-align: center;
   margin-bottom: 10px;
 }
 .circleCenter{
-  height: 100%;
+  height: 60%;
   overflow: visivle;
   transform: scale(1.3);
 }
-
 .circleCenter img {
   position: absolute;
   left: 0;
@@ -105,28 +104,27 @@ export default {
   transform: translateX(-50%);
 }
 .score{
-  width: 55%;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: flex-end;
 }
 .stars {
-  float: left; 
-  display: inline-block;
+  margin-bottom: 5px;
 }
-p {
-  display: inline-block;
+.score p {
+  margin-left: 5px;
+  margin-bottom: 0;
 }
 .first, .second, .third {
   display: flex;
   flex-direction: column;
-  /* border: 1px solid red; */
-  align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   font-family: Roboto;
-  width: 100%;
+  width: 110%;
 }
 .background {
+  display: flex;
   position: absolute;
   bottom: 0;
   width: 84vw;
@@ -136,23 +134,19 @@ p {
   transform: translateX(-50%);
   left: 50%;
 }
-
 .container{
   display: flex;
-  flex-direction: row;
   position: absolute;
+  flex-direction: row;
+  justify-content: space-around;
   bottom: 20%;
   width: 100%;
-  height: 150%;
+  height: 180%;
   border-radius: 20px 20px 0 0;
-  transform: translateX(-50%);
-  left: 50%;
-  justify-content: space-evenly;
-  margin-bottom: 0px;
 }
 .circle img, .circleCenter img{
-  width:auto;
-  height: calc(100% - 8px);
+  width:70%;
+  height: auto;
   /* border: 1px solid green; */
   border-radius: 50%;
   border: 8px solid white;
