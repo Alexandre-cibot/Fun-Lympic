@@ -19,7 +19,7 @@ module.exports = {
     productionGzipExtensions: ['js', 'css', ],
   },
   dev: {
-    env: require('./dev.env'),
+    // env: require('./dev.env'),
     port: process.env.DEV_PORT || 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'assets',
