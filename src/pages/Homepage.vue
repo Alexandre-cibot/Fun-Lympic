@@ -5,7 +5,7 @@
       <p>Olympic's fingers</p>
     </div>
   </div>
-
+  <DidYouKnow :show="show" image="athletisme" @closeModal="closeModal" />
   <div class="block select-category">
     
     <router-link :to="{ path: '/training' }" style="width:100%;">
@@ -15,7 +15,6 @@
     <router-link :to="{ path: '/stade' }" style="width:100%">
       <BasicButton title="Le stade" btnColor="btnBlue" image="olympique"/>
     </router-link>
-    
   </div>
 
   <div class="block">
@@ -41,18 +40,26 @@
 </template>
 
 <script>
-import BasicButton from '../components/basicButton';
+import BasicButton from '../components/BasicButton';
+import DidYouKnow from '../components/DidYouKnow';
 
 export default {
   name: 'Homepage',
   components: {
-    BasicButton
+    BasicButton,
+    DidYouKnow
   },
   data() {
     return {
       msg: 'test',
+      show: true,
     };
   },
+  methods: {
+    closeModal () {
+      this.show = false;
+    }
+  }
 };
 </script>
 
