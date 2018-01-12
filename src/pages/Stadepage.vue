@@ -5,13 +5,10 @@ Pour l'instant, nous testons ici.
 -->
 <template>
 <div class="wrapper">
-    <Navbar text="Entrainement" secondBtn="medal" />
+  <Navbar text="stade" secondBtn="podium"/>
   <div>
-    <h2>Meilleur score</h2>
-    <p class="score">30</p>
-    <Card text="Athlétisme" image="athletisme" @click="runAthletismeGame" />
   </div>
-  <Classement firstScore="237" secondScore="183" thirdScore="93" image="../assets/alex.png"/>
+  
 </div>
 </template>
 
@@ -32,12 +29,6 @@ export default {
       msg: 'test',
     };
   },
-  methods: {
-    runAthletismeGame () {
-      console.log('run game');
-      this.$router.push({path: '/athletics'})
-    }
-  }
 };
 </script>
 
@@ -52,15 +43,11 @@ h2, p {
   font-family: 'Roboto';
   font-weight: 100;
   text-align: center;
-  padding: 0;
-  margin: 0;
 }
 h2 {
-  font-size: 1.1em;  
+  font-size: 1.2em;  
   text-transform: uppercase;
-}
-p {
-  margin-top: 0;
+  padding-bottom: 1vh;
 }
 .score {
   font-size: 2.2em;
