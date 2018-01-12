@@ -9,7 +9,7 @@ Pour l'instant, nous testons ici.
   <div>
     <h2>Meilleur score</h2>
     <p class="score">30</p>
-    <Card text="Athlétisme" image="athletisme"/>
+    <Card text="Athlétisme" image="athletisme" @click="runAthletismeGame" />
   </div>
   <Classement firstScore="237" secondScore="183" thirdScore="93" image="../assets/alex.png"/>
 </div>
@@ -32,6 +32,12 @@ export default {
       msg: 'test',
     };
   },
+  methods: {
+    runAthletismeGame () {
+      console.log('run game');
+      this.$router.push({path: '/athletics'})
+    }
+  }
 };
 </script>
 
