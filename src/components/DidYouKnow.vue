@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-show="show">
+  <div class="container" v-show="show" @click="closeModal">
     <div class="know">
       <h2>Le saviez-vous ?</h2>
       <img :src="imagePath" />
@@ -36,8 +36,13 @@ export default {
           console.log('No default found');
         break;
       }
-    }
+    },
   },
+  methods: {
+    closeModal () {
+      this.$emit('closeModal')
+    }
+  }
 };
 </script>
 
