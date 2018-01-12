@@ -5,7 +5,7 @@
       <p>Olympic's fingers</p>
     </div>
   </div>
-
+  <DidYouKnow :show="false" image="athletisme"/>
   <div class="block select-category">
     
     <router-link :to="{ path: '/training' }" style="width:100%;">
@@ -15,7 +15,6 @@
     <router-link :to="{ path: '/stade' }" style="width:100%">
       <BasicButton title="Le stade" btnColor="btnBlue" image="olympique"/>
     </router-link>
-    
   </div>
 
   <div class="block">
@@ -42,11 +41,13 @@
 
 <script>
 import BasicButton from '../components/BasicButton';
+import DidYouKnow from '../components/DidYouKnow';
 
 export default {
   name: 'Homepage',
   components: {
-    BasicButton
+    BasicButton,
+    DidYouKnow
   },
   data() {
     return {
