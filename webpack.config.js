@@ -15,6 +15,10 @@ var definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true'))
 })
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 module.exports = {
   entry: {
     app: [
@@ -107,7 +111,8 @@ module.exports = {
       'phaser': phaser,
       'pixi': pixi,
       'p2': p2,
-      vue: 'vue/dist/vue.js'
+      vue: 'vue/dist/vue.js',
+      '@': resolve('src')
     }
   }
 }
