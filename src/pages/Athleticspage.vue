@@ -1,14 +1,10 @@
 <template>
-<div class="wrapper">
+  <div>
     <div id="content" v-show="true"></div>
-</div>
+  </div>
 </template>
 
 <script>
-import Card from '../components/Card';
-import Navbar from '../components/Navbar';
-import Classement from '../components/Classement';
-
 
 import Phaser from 'phaser'
 
@@ -19,15 +15,10 @@ import GameState from '../states/Game'
 import config from '../config'
 
 export default {
-  name: 'Training',
-  components: {
-    Card,
-    Navbar,
-    Classement,
-  },
+  name: 'AthleticsGame',
   data() {
     return {
-      msg: 'test',
+      
     };
   },
   mounted () {
