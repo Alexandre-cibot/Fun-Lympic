@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import BasicButton from '../components/BasicButton.cue';
+import BasicButton from '../components/BasicButton.vue';
 
 export default {
   name: 'Homepage',
