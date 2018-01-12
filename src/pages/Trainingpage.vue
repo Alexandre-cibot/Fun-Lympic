@@ -1,12 +1,12 @@
 <template>
-<div class="wrapper">
-    <Navbar text="Entrainement" secondBtn="medal" />
-  <div>
+<div class="page-wrapper">
+  <Navbar text="Entrainement" secondBtn="medal" />
+  <div class="wrapper">
     <h2>Meilleur score</h2>
     <p class="score">30</p>
     <Card text="Athlétisme" image="athletisme" @click="runAthletismeGame" />
+    <Classement firstScore="237" secondScore="183" thirdScore="93" image="../assets/alex.png"/>
   </div>
-  <Classement firstScore="237" secondScore="183" thirdScore="93" image="../assets/alex.png"/>
 </div>
 </template>
 
@@ -14,6 +14,7 @@
 import Card from '../components/Card';
 import Navbar from '../components/Navbar';
 import Classement from '../components/Classement';
+import DidYouKnow from '../components/DidYouKnow';
 
 export default {
   name: 'Training',
@@ -38,10 +39,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>  
+
+.page-wrapper {
+  background: #F5F5F5;
+  height: 100vh;
+}
 .wrapper {
   background: #F5F5F5;
   overflow: hidden;
-  height: 100vh;
+  height: calc(100% - 14vh);
 }
 h2, p {
   font-family: 'Roboto';
