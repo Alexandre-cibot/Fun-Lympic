@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" @click="click">
     <h3>{{text}}</h3>
     <img :src="imagePath" />
   </div>
@@ -34,6 +34,11 @@ export default {
           console.log('No default found');
         break;
       }
+    }
+  },
+  methods: {
+    click () {
+      this.$emit('click')
     }
   }
 };
