@@ -46,11 +46,12 @@ export default {
 
 <style scoped>
 .card {
-  position: relative;
-  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
   background: #F7BE51;
   border-radius: 20px;
-  height: 42vh;
+  height: 50vh;
   z-index: 20;
   width: 75%;
   margin: auto;
@@ -70,9 +71,8 @@ export default {
 img{
   display: block;
   position: relative;
-  width: 129px;
+  width: 60%;
   margin: auto;
-  margin-top: 30px;
 }
 h3{
   padding: 15px;
