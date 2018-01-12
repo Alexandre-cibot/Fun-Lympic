@@ -46,11 +46,15 @@ h2, p {
   font-family: 'Roboto';
   font-weight: 100;
   text-align: center;
+  padding: 0;
+  margin: 0;
 }
 h2 {
-  font-size: 1.2em;  
+  font-size: 1.1em;  
   text-transform: uppercase;
-  padding-bottom: 1vh;
+}
+p {
+  margin-top: 0;
 }
 .score {
   font-size: 2.2em;
