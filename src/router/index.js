@@ -5,6 +5,7 @@ import Homepage from '../pages/Homepage.vue'
 import Trainingpage from '../pages/Trainingpage.vue'
 import Stadepage from '../pages/Stadepage.vue'
 import Athleticspage from '../pages/Athleticspage.vue'
+import Challengepage from '../pages/Challengepage.vue'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/athletics',
       name: 'Athletics',
       component: Athleticspage
+    },
+    {
+      path: '/stade/challenge',
+      name: 'Challenge',
+      component: Challengepage
     }
   ]
 })
