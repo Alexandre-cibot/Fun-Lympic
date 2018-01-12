@@ -9,7 +9,6 @@
     </div>
     <div class="title">
       <h1>{{text}}</h1>
-      <p>{{secondBtnSrc}}</p>
     </div>
     <div class="button2">
       <button>
