@@ -9,10 +9,11 @@
     </div>
     <div class="title">
       <h1>{{text}}</h1>
+      <p>{{secondBtnSrc}}</p>
     </div>
     <div class="button2">
       <button>
-        <img src="../assets/medals.png" />
+        <img :src="secondBtnPath" />
       </button>
     </div>
   </header>
@@ -26,13 +27,28 @@ export default {
     text: {
       type: String,
       required: true,
-    },  
+    },
+    secondBtn: {
+      type: String,
+      required: true
+    }  
   },
   data() {
     return {
       msg: '',
     };
   },
+  computed: {
+    secondBtnPath() {
+      switch(this.secondBtn) {
+        case 'podium':
+          return require('../assets/podium.png');
+          break;
+        case 'medal':
+          return require('../assets/medals.png');
+      }
+    }
+  }
 };
 </script>
 

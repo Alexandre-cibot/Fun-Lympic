@@ -5,7 +5,7 @@ Pour l'instant, nous testons ici.
 -->
 <template>
 <div class="wrapper">
-    <Navbar text="Entrainement" />
+    <Navbar text="Entrainement" secondBtn="medal" />
   <div>
     <h2>Meilleur score</h2>
     <p class="score">30</p>
