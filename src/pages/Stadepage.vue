@@ -19,7 +19,7 @@ Pour l'instant, nous testons ici.
 
 <script>
 import Navbar from '../components/Navbar';
-import BasicButton from '../components/BasicButton.vue';
+import BasicButton from '../components/basicButton';
 
 export default {
   name: 'Stade',
