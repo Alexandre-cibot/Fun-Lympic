@@ -9,7 +9,7 @@ Pour l'instant, nous testons ici.
     <div class="wrapper">
       <div class="info-content">
           <img src="../assets/facebook-2.png" alt="">
-          <p>Connectez-vous pour accéder au stade et défie tes amis</p>
+          <p>Connectez-vous pour accéder au stade et défier vos amis</p>
       </div>
       <BasicButton class="connexionBtn" title="connexion" image="facebook" btnColor="btnBlue" />
 
