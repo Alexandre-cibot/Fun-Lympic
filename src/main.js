@@ -8,38 +8,39 @@ import GameState from './states/Game'
 
 import config from './config'
 
-import Vue from 'vue';
-import App from './App.vue';
+import Vue from 'vue'
+import router from './router'
+import App from './App.vue'
 
 // Vue.config.productionTip = false;
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  router,
   template: '<App/>',
-  components: { App },
-});
+  components: { App }
+})
 
-class Game extends Phaser.Game {
-  constructor () {
-    const docElement = document.documentElement
-    const width = docElement.clientWidth > config.gameWidth ? config.gameWidth : docElement.clientWidth
-    const height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
+// class Game extends Phaser.Game {
+//   constructor () {
+//     const docElement = document.documentElement
+//     const width = docElement.clientWidth > config.gameWidth ? config.gameWidth : docElement.clientWidth
+//     const height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
 
-    super(width, height, Phaser.CANVAS, 'content', null)
+//     super(width, height, Phaser.CANVAS, 'content', null)
 
-    this.state.add('Boot', BootState, false)
-    this.state.add('Splash', SplashState, false)
-    this.state.add('Game', GameState, false)
+//     this.state.add('Boot', BootState, false)
+//     this.state.add('Splash', SplashState, false)
+//     this.state.add('Game', GameState, false)
 
-    // with Cordova with need to wait that the device is ready so we will call the Boot state in another file
-    if (!window.cordova) {
-      this.state.start('Boot')
-    }
-  }
-}
+//     // with Cordova with need to wait that the device is ready so we will call the Boot state in another file
+//     if (!window.cordova) {
+//       this.state.start('Boot')
+//     }
+//   }
+// }
 
-window.game = new Game()
+// window.game = new Game()
 
 if (window.cordova) {
   var app = {

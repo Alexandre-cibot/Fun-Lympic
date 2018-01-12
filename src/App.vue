@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <p>{{text}}</p>
-    <div id="content" v-show="true"></div>
+    <!-- <p>{{text}}</p>
+    <div id="content" v-show="true"></div> -->
+    <router-view/>
   </div>
 </template>
 
@@ -15,3 +16,9 @@ export default {
   }
 };
 </script>
+
+<style>
+#app{
+  height: 100vh;
+}
+</style>
