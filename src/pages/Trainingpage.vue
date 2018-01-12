@@ -6,7 +6,7 @@ Pour l'instant, nous testons ici.
 <template>
 <div class="wrapper">
     <Navbar text="Entrainement" secondBtn="medal" />
-  <div>
+  <div>    
     <h2>Meilleur score</h2>
     <p class="score">30</p>
     <Card text="Athlétisme" image="athletisme" @click="runAthletismeGame" />
@@ -19,6 +19,7 @@ Pour l'instant, nous testons ici.
 import Card from '../components/Card';
 import Navbar from '../components/Navbar';
 import Classement from '../components/Classement';
+import DidYouKnow from '../components/DidYouKnow';
 
 export default {
   name: 'Training',
