@@ -1,5 +1,5 @@
 <template>
-  <header>  
+  <header>
     <div class="button">
     <router-link :to="{ path: '/' }">
       <button>
@@ -10,7 +10,7 @@
     <div class="title">
       <h1>{{text}}</h1>
     </div>
-    <div class="button2">
+    <div class="button">
       <button>
         <img :src="secondBtnPath" />
       </button>
@@ -52,19 +52,29 @@ export default {
 </script>
 
 <style scoped>
+
+header {
+  height: 9vh;
+  padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  background: #595BEE;
+  box-shadow: 0px 8px 0px 0px rgba(46,0,171,1);
+  margin-bottom: 5vh;
+}
+
 .button {
-  position: absolute;
+  background: #2E00AB;
+  border-radius: 10px;
+  border: none;
 }
-.button2 {
-  position: absolute;
-  float: right;
-  right: 2vw;
-}
+
 .title {
   width: 100%;
 }
 button{
-  margin: 0vh 0px 0 1vh;
   background: #2E00AB;
   height: 50px;
   border-radius: 10px;
