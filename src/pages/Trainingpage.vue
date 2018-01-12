@@ -14,6 +14,7 @@
 import Card from '../components/Card';
 import Navbar from '../components/Navbar';
 import Classement from '../components/Classement';
+import DidYouKnow from '../components/DidYouKnow';
 
 export default {
   name: 'Training',
