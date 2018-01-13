@@ -88,8 +88,8 @@ export default {
   .btnYellow {
     border: none;
     border-radius: 10px;
-    box-shadow: 0px 8px 0px 0px #C09033;
-    background-color: #F7BE51;
+    box-shadow: 0px 8px 0px 0px #F1B946;
+    background-color: #FFD360;
   }
   .btn-fLeft {
     float:left;

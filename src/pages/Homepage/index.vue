@@ -9,11 +9,11 @@
   <div class="block select-category">
     
     <router-link :to="{ path: '/training' }" style="width:100%;">
-      <BasicButton title="Jouer" btnColor="btnBlue" image="megaphone"/>
+      <BasicButton title="Jouer" btnColor="btnYellow" image="megaphone"/>
     </router-link>
     
     <router-link :to="{ path: '/competition' }" style="width:100%">
-      <BasicButton title="Compétition" btnColor="btnBlue" image="olympique"/>
+      <BasicButton title="Compétition" btnColor="btnYellow" image="olympique"/>
     </router-link>
   </div>
 
