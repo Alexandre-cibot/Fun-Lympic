@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper">
     <div class="info-content">
-          <img src="@/assets/facebook-2.png" alt="">
+          <img src="@/assets/facebook.svg" alt="">
           <p>Connectez-vous pour accéder au stade et défier vos amis</p>
       </div>
       <router-link :to="{ path: '/stade/challenge' }" style="width:100%;">
-        <BasicButton class="connexionBtn" title="connexion" image="facebook" btnColor="btnBlue" />
+        <BasicButton class="connexionBtn" title="connexion" image="facebook" btnColor="btnYellow" />
       </router-link>
   </div>
 </template>
@@ -54,7 +54,7 @@ h2 {
 }
 
 .info-content img {
-  margin-bottom: 10px;
+  margin-bottom: 35px;
 }
 </style>
 
