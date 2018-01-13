@@ -79,7 +79,7 @@ img{
 h1{
   text-align:center;
   font-size: 1.2em;
-  font-family: 'Helvetica';
+  font-family: 'myfrida', sans-serif;
   font-weight: 100;
   color: white;
   text-transform: uppercase;

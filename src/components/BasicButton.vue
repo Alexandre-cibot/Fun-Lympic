@@ -1,6 +1,6 @@
 <!--
 Exemple pour apeller ce composant : 
-<BasicButton title="entrainement" image="" btnColor="btnBlue" @doAction="handleClick" />
+<B title="entrainement" image="" btnColor="btnBlue" @doAction="handleClick" />
 -->
 <template>
   <button class="BasicButton" :class="btnColor" @click="handleClick" v-bind:style="{ 'justify-content': image ? 'space-between' : 'center' }">
@@ -74,9 +74,8 @@ export default {
     padding: 15px 30px;
     max-height: 65px;
   }
-  .basicButton p {
-    font-family: roboto, sans-serif;
-    font-weight: lighter;
+  .BasicButton p {
+    font-family: 'myfrida', sans-serif;
     margin: 0;
   }
   .btnBlue {
@@ -104,6 +103,7 @@ export default {
     font-size: 20px;
     text-transform: uppercase;
     color: white;
+    font-family: 'myfrida', sans-serif;
   }
   .btn-icone {
     width: auto;

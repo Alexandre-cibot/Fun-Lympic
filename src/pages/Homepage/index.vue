@@ -90,8 +90,8 @@ export default {
 }
 
 .game-title p {
+  font-family: 'myfrida', sans-serif;
   color: white;
-  font-family: sans-serif;
   font-size: 21px;
 }
 
