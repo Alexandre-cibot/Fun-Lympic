@@ -5,34 +5,34 @@
       <p>Olympic's fingers</p>
     </div>
   </div>
-  <DidYouKnow :show="show" image="athletisme" @closeModal="closeModal" />
+  <!-- <DidYouKnow :show="show" image="athletisme" @closeModal="closeModal" /> -->
   <div class="block select-category">
     
     <router-link :to="{ path: '/training' }" style="width:100%;">
       <BasicButton title="Jouer" btnColor="btnBlue" image="megaphone"/>
     </router-link>
     
-    <router-link :to="{ path: '/stade' }" style="width:100%">
-      <BasicButton title="Le stade" btnColor="btnBlue" image="olympique"/>
+    <router-link :to="{ path: '/competition' }" style="width:100%">
+      <BasicButton title="Compétition" btnColor="btnBlue" image="olympique"/>
     </router-link>
   </div>
 
   <div class="block">
     <div class="other-buttons">
       <button>
-        <img src="../assets/icone.png" alt="">
+        <img src="../../assets/icone.png" alt="">
       </button>
       <button>
-        <img src="../assets/icone.png" alt="">
+        <img src="../../assets/icone.png" alt="">
       </button>
       <button>
-        <img src="../assets/icone.png" alt="">
+        <img src="../../assets/icone.png" alt="">
       </button>
       <button>
-        <img src="../assets/icone.png" alt="">
+        <img src="../../assets/icone.png" alt="">
       </button>
       <button>
-        <img src="../assets/icone.png" alt="">
+        <img src="../../assets/icone.png" alt="">
       </button>
     </div>
   </div>
@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import BasicButton from '../components/BasicButton';
-import DidYouKnow from '../components/DidYouKnow';
+import BasicButton from '../../components/BasicButton';
+import DidYouKnow from '../../components/DidYouKnow';
 
 export default {
   name: 'Homepage',
