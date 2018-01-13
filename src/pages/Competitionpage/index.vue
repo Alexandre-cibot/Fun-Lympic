@@ -5,10 +5,10 @@ Pour l'instant, nous testons ici.
 -->
 <template>
   <div class="wrapper-page">
-    <Navbar text="stade" secondBtn="podium"/>
+    <Navbar text="compétition" secondBtn="podium"/>
     <div class="wrapper">
       <div class="info-content">
-          <img src="../assets/facebook-2.png" alt="">
+          <img src="../../assets/facebook-2.png" alt="">
           <p>Connectez-vous pour accéder au stade et défier vos amis</p>
       </div>
       <router-link :to="{ path: '/stade/challenge' }" style="width:100%;">
@@ -20,8 +20,13 @@ Pour l'instant, nous testons ici.
 </template>
 
 <script>
+<<<<<<< HEAD:src/pages/Stadepage.vue
 import Navbar from '../components/Navbar';
 import BasicButton from '../components/basicButton';
+=======
+import Navbar from '../../components/Navbar';
+import BasicButton from '../../components/BasicButton';
+>>>>>>> integration:src/pages/Competitionpage/index.vue
 
 export default {
   name: 'Stade',
