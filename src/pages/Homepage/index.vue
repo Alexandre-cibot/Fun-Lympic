@@ -20,19 +20,19 @@
   <div class="block">
     <div class="other-buttons">
       <button>
-        <img src="../../assets/icone.png" alt="">
+        <img src="@/assets/icone.png" alt="">
       </button>
       <button>
-        <img src="../../assets/icone.png" alt="">
+        <img src="@/assets/icone.png" alt="">
       </button>
       <button>
-        <img src="../../assets/icone.png" alt="">
+        <img src="@/assets/icone.png" alt="">
       </button>
       <button>
-        <img src="../../assets/icone.png" alt="">
+        <img src="@/assets/icone.png" alt="">
       </button>
       <button>
-        <img src="../../assets/icone.png" alt="">
+        <img src="@/assets/icone.png" alt="">
       </button>
     </div>
   </div>
@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import BasicButton from '../../components/BasicButton';
-import DidYouKnow from '../../components/DidYouKnow';
+import BasicButton from '@/components/BasicButton';
+import DidYouKnow from '@/components/DidYouKnow';
 
 export default {
   name: 'Homepage',
