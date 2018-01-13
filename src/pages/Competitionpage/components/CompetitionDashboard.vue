@@ -43,7 +43,7 @@ export default {
 .wrapper {
   background: #F5F5F5;
   overflow: hidden;
-  height: calc(100% - 14vh);
+  height: calc(100% - 15vh);
   margin: 0 30px;
 }
 h3 {

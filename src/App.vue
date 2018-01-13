@@ -18,6 +18,7 @@ export default {
 </script>
 
 <style>
+@import './css/vendor/reset.css';
 #app{
   height: 100vh;
 }

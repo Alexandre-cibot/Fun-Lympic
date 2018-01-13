@@ -7,14 +7,7 @@ Pour l'instant, nous testons ici.
   <div class="wrapper-page">
     <Navbar text="compétition" secondBtn="podium"/>
     <div class="wrapper">
-      <div class="info-content">
-          <img src="../../assets/facebook-2.png" alt="">
-          <p>Connectez-vous pour accéder au stade et défier vos amis</p>
-      </div>
-      <router-link :to="{ path: '/stade/challenge' }" style="width:100%;">
-        <BasicButton class="connexionBtn" title="connexion" image="facebook" btnColor="btnBlue" />
-      </router-link>
-
+      <ConnexionFB />
     </div>
   </div>
 </template>
@@ -22,12 +15,15 @@ Pour l'instant, nous testons ici.
 <script>
 import Navbar from '../../components/Navbar';
 import BasicButton from '../../components/BasicButton';
+// Composants propre a cette page
+import ConnexionFB from './components/ConnexionFB.vue';
 
 export default {
   name: 'Stade',
   components: {
     Navbar,
-    BasicButton
+    BasicButton,
+    ConnexionFB
   },
   data() {
     return {
@@ -41,46 +37,14 @@ export default {
 <style scoped>  
 .wrapper-page {
   background: #F5F5F5;
-  height:100vh;
+  height:100%;
 }
 .wrapper {
   overflow: hidden;
-  height: calc(100% - 14vh);
+  height: calc(100% - 15vh);
   padding: 0 30px;
-  display: flex;
   flex-direction: column;
   justify-content: space-around;
-}
-h2, p {
-  font-family: 'Roboto';
-  font-weight: 100;
-  text-align: center;
-}
-h2 {
-  font-size: 1.2em;  
-  text-transform: uppercase;
-  padding-bottom: 1vh;
-}
-.score {
-  font-size: 2.2em;
-  margin-bottom: 1vh;
-}
-
-.info-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 70%;
-  align-items: center;
-}
-
-.info-content p {
-  font-size: 18px;
-  font-family: Arial;
-}
-
-.info-content img {
-  margin-bottom: 10px;
 }
 
 </style>
