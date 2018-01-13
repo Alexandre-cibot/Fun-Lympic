@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import Navbar from '../components/Navbar';
-import BasicButton from '../components/BasicButton';
+import Navbar from '../../../components/Navbar';
+import BasicButton from '../../../components/BasicButton';
 
 export default {
   name: 'Challengepage',
