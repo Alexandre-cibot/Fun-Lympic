@@ -1,13 +1,10 @@
 <template>
-<div class="page-wrapper">
-  <Navbar text="Le stade" secondBtn="medal" />
   <div class="wrapper">
       <BasicButton class="challengeBtn" title="defier un ami" btnColor="btnYellow" />
       <BasicButton class="challengeBtn" title="defi aleatoire" btnColor="btnYellow" />
       <h3>Ils te défient</h3>
       <h3>Les défis terminés</h3>
   </div>
-</div>
 </template>
 
 <script>

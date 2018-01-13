@@ -3,10 +3,10 @@
      <div class="container">
     <div class="second">
       <div class="circle">
-        <img src="../assets/enora.jpg" />
+        <img src="@/assets/enora.jpg" />
       </div>
       <div class="score">
-        <img src="../assets/stars_black.png" class="stars"/><p>{{ secondScore }}</p>
+        <img src="@/assets/stars_black.png" class="stars"/><p>{{ secondScore }}</p>
       </div>
     </div>
     <div class="first">
@@ -14,15 +14,15 @@
         <img :src="imagePath" />
         </div>
       <div class="score">
-        <img src="../assets/stars_black.png" class="stars" /><p>{{ firstScore }}</p>
+        <img src="@/assets/stars_black.png" class="stars" /><p>{{ firstScore }}</p>
       </div>
     </div>
     <div class="third">
       <div class="circle">
-        <img src="../assets/hugo.jpg" />
+        <img src="@/assets/hugo.jpg" />
         </div>
       <div class="score">
-        <img src="../assets/stars_black.png" class="stars"/><p>{{ thirdScore }}</p>
+        <img src="@/assets/stars_black.png" class="stars"/><p>{{ thirdScore }}</p>
       </div>      
     </div>
   </div>
@@ -58,20 +58,20 @@ export default {
   },
   computed: {
     imagePath() {
-      return require('../assets/julien.jpg');
+      return require('@/assets/julien.jpg');
     }
   },
   // computed: {
   //   imagePath() {
   //     switch (this.image) {
   //       case 'hugo': 
-  //         return require('../assets/hugo.png');
+  //         return require('@/assets/hugo.png');
   //       break;
   //       case 'julien': 
-  //         return require('../assets/julien.png');
+  //         return require('@/assets/julien.png');
   //       break;
   //       case 'enora': 
-  //         return require('../assets/enora.png');
+  //         return require('@/assets/enora.png');
   //       break;
   //       default: 
   //         console.log('No default found');
