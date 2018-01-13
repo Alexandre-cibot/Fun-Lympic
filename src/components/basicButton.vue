@@ -42,16 +42,16 @@ export default {
     imagePath() {
       switch(this.image) {
         case 'megaphone':
-          return require('../assets/loud.png');
+          return require('@/assets/loud.png');
         break;
         case 'olympique':
-          return require('../assets/olympique.png');
+          return require('@/assets/olympique.png');
         break;
         case 'facebook':
-          return require('../assets/facebook.png');
+          return require('@/assets/facebook.png');
         break;
         case 'run':
-          return require('../assets/run.png');
+          return require('@/assets/run.png');
         break;
         default:
           console.log('no image default found.');

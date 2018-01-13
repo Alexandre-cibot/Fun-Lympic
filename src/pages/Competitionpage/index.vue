@@ -7,7 +7,8 @@ Pour l'instant, nous testons ici.
   <div class="wrapper-page">
     <Navbar text="compétition" secondBtn="podium"/>
     <div class="wrapper">
-      <ConnexionFB />
+      <ConnexionFB v-if="true"/>
+      <CompetitionDashboard v-if="false"/>
     </div>
   </div>
 </template>
@@ -17,13 +18,15 @@ import Navbar from '@/components/Navbar';
 import BasicButton from '@/components/BasicButton';
 // Composants propre a cette page
 import ConnexionFB from './components/ConnexionFB.vue';
+import CompetitionDashboard from './components/CompetitionDashboard';
 
 export default {
   name: 'Stade',
   components: {
     Navbar,
     BasicButton,
-    ConnexionFB
+    ConnexionFB,
+    CompetitionDashboard
   },
   data() {
     return {

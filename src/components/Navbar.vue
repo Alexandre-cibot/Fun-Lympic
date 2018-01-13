@@ -3,7 +3,7 @@
     <div class="button">
     <router-link :to="{ path: '/' }">
       <button>
-        <img src="../assets/arrow.png" />
+        <img src="@/assets/arrow.png" />
       </button>
     </router-link>
     </div>
@@ -41,10 +41,10 @@ export default {
     secondBtnPath() {
       switch(this.secondBtn) {
         case 'podium':
-          return require('../assets/podium.png');
+          return require('@/assets/podium.png');
           break;
         case 'medal':
-          return require('../assets/medals.png');
+          return require('@/assets/medals.png');
       }
     }
   }
