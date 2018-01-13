@@ -28,7 +28,7 @@ export default {
     imagePath() {
       switch (this.image) {
         case 'athletisme': 
-          return require('@/assets/escrime.png');
+          return require('@/assets/run-couverture.svg');
         break;
         default: 
           console.log('No default found');
@@ -49,13 +49,13 @@ export default {
   display: flex;
   flex-direction: column;
   align-content: space-around;
-  background: #F7BE51;
+  background: #FFBD7A;
   border-radius: 20px;
   height: 50vh;
   z-index: 20;
   width: 75%;
   margin: auto;
-  box-shadow: 0px 8px 0px 0px rgba(192,144,51,1);
+  box-shadow: 0px 8px 0px 0px #F1853F
 }
 .card:before {
   /* content: "";
@@ -80,8 +80,9 @@ h3{
   font-family: 'Helvetica';
   font-weight: 100;
   text-align: center;
-  background: #DCA233;
+  background: #F1853F;
   color: white;
   text-transform: uppercase;
+  margin-top: 20px;
 }
 </style>

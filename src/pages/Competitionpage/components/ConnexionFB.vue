@@ -5,7 +5,7 @@
           <p>Connectez-vous pour accéder au stade et défier vos amis</p>
       </div>
       <router-link :to="{ path: '/stade/challenge' }" style="width:100%;">
-        <BasicButton class="connexionBtn" title="connexion" image="facebook" btnColor="btnYellow" />
+        <BasicButton class="connexionBtn" title="connexion" image="facebook" btnColor="btnYellow" @click="connectionFb" />
       </router-link>
   </div>
 </template>
@@ -18,6 +18,15 @@ export default {
   components: {
     BasicButton
   },
+  methods: {
+    connectionFb() {
+      FB.getLoginStatus(function(response) {
+          if (response.status !== "connected") {
+            FB.login();
+          }
+      });
+    }
+  }
 }
 </script>
 
