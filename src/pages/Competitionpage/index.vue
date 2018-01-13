@@ -13,8 +13,8 @@ Pour l'instant, nous testons ici.
 </template>
 
 <script>
-import Navbar from '../../components/Navbar';
-import BasicButton from '../../components/BasicButton';
+import Navbar from '@/components/Navbar';
+import BasicButton from '@/components/BasicButton';
 // Composants propre a cette page
 import ConnexionFB from './components/ConnexionFB.vue';
 

@@ -28,7 +28,7 @@ export default {
     imagePath() {
       switch (this.image) {
         case 'athletisme': 
-          return require('../assets/escrime.png');
+          return require('@/assets/escrime.png');
         break;
         default: 
           console.log('No default found');
