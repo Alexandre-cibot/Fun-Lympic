@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Homepage from '../pages/Homepage.vue'
-import Trainingpage from '../pages/Trainingpage.vue'
-import Stadepage from '../pages/Stadepage.vue'
+import Homepage from '../pages/Homepage/index.vue'
+import Trainingpage from '../pages/Trainingpage/index.vue'
+import Competitionpage from '../pages/Competitionpage/index.vue'
 import Athleticspage from '../pages/Athleticspage.vue'
-import Challengepage from '../pages/Challengepage.vue'
 
 Vue.use(Router)
 
@@ -22,19 +21,14 @@ export default new Router({
       component: Trainingpage
     },
     {
-      path: '/stade',
-      name: 'Stadepage',
-      component: Stadepage
+      path: '/competition',
+      name: 'Competitionpage',
+      component: Competitionpage
     },
     {
       path: '/athletics',
       name: 'Athletics',
       component: Athleticspage
-    },
-    {
-      path: '/stade/challenge',
-      name: 'Challenge',
-      component: Challengepage
     }
   ]
 })
