@@ -20,13 +20,8 @@ Pour l'instant, nous testons ici.
 </template>
 
 <script>
-<<<<<<< HEAD:src/pages/Stadepage.vue
-import Navbar from '../components/Navbar';
-import BasicButton from '../components/basicButton';
-=======
 import Navbar from '../../components/Navbar';
 import BasicButton from '../../components/BasicButton';
->>>>>>> integration:src/pages/Competitionpage/index.vue
 
 export default {
   name: 'Stade',
