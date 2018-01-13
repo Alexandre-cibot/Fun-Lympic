@@ -19,6 +19,14 @@ export default {
 
 <style>
 @import './css/vendor/reset.css';
+
+@font-face {
+  font-family: 'myfrida';
+  src: url('./assets/fonts/myfrida/Myfrida_Bold.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 #app{
   height: 100vh;
 }
