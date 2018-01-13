@@ -53,29 +53,8 @@ export default {
 
 <style scoped>
 
-header {
-  height: 9vh;
-  padding: 4px;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-  background: #595BEE;
-  box-shadow: 0px 8px 0px 0px rgba(46,0,171,1);
-  margin-bottom: 5vh;
-}
-
-.button {
-  background: #2E00AB;
-  border-radius: 10px;
-  border: none;
-}
-
-.title {
-  width: 100%;
-}
 button{
-  background: #2E00AB;
+  background: #F1B946;
   height: 50px;
   border-radius: 10px;
   border: none;
@@ -85,9 +64,11 @@ header {
   display: flex;
   flex-direction: row; 
   align-items: center;
-  background: #595BEE;
-  box-shadow: 0px 8px 0px 0px rgba(46,0,171,1);
+  justify-content: space-between;
+  background-color: #FFD360;
+  box-shadow: 0px 8px 0px 0px #F1B946;
   margin-bottom: 5vh;
+  padding: 5px;
 }
 img{
   display: block;
