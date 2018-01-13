@@ -3,7 +3,7 @@ Exemple pour apeller ce composant :
 <BasicButton title="entrainement" image="" btnColor="btnBlue" @doAction="handleClick" />
 -->
 <template>
-  <button class="basicButton" :class="btnColor" @click="handleClick" v-bind:style="{ 'justify-content': image ? 'space-between' : 'center' }">
+  <button class="BasicButton" :class="btnColor" @click="handleClick" v-bind:style="{ 'justify-content': image ? 'space-between' : 'center' }">
     <img v-if="image" :src="imagePath" alt="" class="btn-fLeft btn-icone">
     <p class="btn-fRight btn-title">
       {{title}}
@@ -13,7 +13,7 @@ Exemple pour apeller ce composant :
 
 <script>
 export default {
-  name: 'basicButton',
+  name: 'BasicButton',
   props: {
     btnColor: {
       type: String,
@@ -65,7 +65,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>  
 
-  .basicButton {
+  .BasicButton {
     display: flex;
     width: 100%;
     justify-content: space-between;
