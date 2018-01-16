@@ -1,21 +1,25 @@
 <template>
   <div class="wrapper">
-      <BasicButton class="challengeBtn" title="defier un ami" btnColor="btnYellow" />
-      <BasicButton class="challengeBtn" title="defi aleatoire" btnColor="btnYellow" />
+      <BasicButton class="challengeBtn" title="défier un ami" btnColor="btnYellow" image="facebook" />
+      <BasicButton class="challengeBtn" title="défi à proximité" btnColor="btnYellow" image="place" />
       <h3>Ils te défient</h3>
       <h3>Les défis terminés</h3>
+        <ChallengeButton challengerName="Enora" :challengerPoints="120" currentName="Véronique" :currentPoints="150" btnColor="btnGreen" image="win" />
+        <ChallengeButton challengerName="Enora" :challengerPoints="100" currentName="Véronique" :currentPoints="50" btnColor="btnRed" image="lose"/>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar';
 import BasicButton from '@/components/BasicButton';
+import ChallengeButton from '@/components/ChallengeButton';
 
 export default {
   name: 'Challengepage',
   components: {
     Navbar,
-    BasicButton
+    BasicButton,
+    ChallengeButton
   },
   data() {
     return {
@@ -45,7 +49,9 @@ export default {
 }
 h3 {
   text-transform: uppercase;
-  font-family: 'Helvetica';
+  font-family: 'myfrida';
+  color: #393939;
+  margin: 5vh 0 5vh 0;
 }
 .challengeBtn {
   margin-bottom: 5vh;
