@@ -6,10 +6,8 @@ Pour l'instant, nous testons ici.
 <template>
   <div class="wrapper-page">
     <Navbar text="compétition" secondBtn="podium"/>
-    <div class="wrapper">
-      <ConnexionFB v-if="true"/>
-      <CompetitionDashboard v-if="false"/>
-    </div>
+      <ConnexionFB v-if="false"/>
+      <CompetitionDashboard v-if="true"/>
   </div>
 </template>
 
@@ -45,7 +43,6 @@ export default {
 .wrapper {
   overflow: hidden;
   height: calc(100% - 15vh);
-  padding: 0 30px;
   flex-direction: column;
   justify-content: space-around;
 }

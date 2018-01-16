@@ -53,6 +53,9 @@ export default {
         case 'run':
           return require('@/assets/run.png');
         break;
+        case 'place':
+          return require('@/assets/place.svg');
+        break;
         default:
           console.log('no image default found.');
         break;
@@ -95,9 +98,6 @@ export default {
   }
   .btn-Right {
     float:right;
-  }
-  .btn-dFlex {
-    
   }
   .btn-title {
     font-size: 20px;
