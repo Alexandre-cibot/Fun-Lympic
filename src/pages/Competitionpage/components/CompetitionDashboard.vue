@@ -3,9 +3,10 @@
       <BasicButton class="challengeBtn" title="défier un ami" btnColor="btnYellow" image="facebook" />
       <BasicButton class="challengeBtn" title="défi à proximité" btnColor="btnYellow" image="place" />
       <h3>Ils te défient</h3>
+        <ChallengeButton challengerName="Enora" :challengerPoints="120" btnColor="btnGreen" logo="win" image="julien" :finish="true" />
       <h3>Les défis terminés</h3>
-        <ChallengeButton challengerName="Enora" :challengerPoints="120" currentName="Véronique" :currentPoints="150" btnColor="btnGreen" image="win" />
-        <ChallengeButton challengerName="Enora" :challengerPoints="100" currentName="Véronique" :currentPoints="50" btnColor="btnRed" image="lose"/>
+        <ChallengeButton challengerName="Enora" :challengerPoints="120" currentName="Véronique" :currentPoints="150" btnColor="btnGreen" logo="win" image="enora" :finish="false" />
+        <ChallengeButton challengerName="Enora" :challengerPoints="100" currentName="Véronique" :currentPoints="50" btnColor="btnRed" logo="lose" image="enora" :finish="false"/>
   </div>
 </template>
 
@@ -43,15 +44,15 @@ export default {
 }
 .wrapper {
   background: #F5F5F5;
-  overflow: hidden;
-  height: calc(100% - 15vh);
+  /* overflow: hidden;
+  height: calc(100% - 15vh); */
   margin: 0 30px;
 }
 h3 {
   text-transform: uppercase;
   font-family: 'myfrida';
   color: #393939;
-  margin: 5vh 0 5vh 0;
+  margin-top: 5vh;
 }
 .challengeBtn {
   margin-bottom: 5vh;
