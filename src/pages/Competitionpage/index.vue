@@ -6,8 +6,8 @@ Pour l'instant, nous testons ici.
 <template>
   <div class="wrapper-page">
     <Navbar text="compétition" secondBtn="podium"/>
-      <ConnexionFB v-if="false"/>
-      <CompetitionDashboard v-if="true"/>
+      <ConnexionFB v-if="connexion"/>
+      <CompetitionDashboard v-if="competition"/>
   </div>
 </template>
 
@@ -29,8 +29,15 @@ export default {
   data() {
     return {
       msg: 'test',
+      competition : true,
+      connexion : false
     };
   },
+  methods: {
+    showCompetition() {
+
+    }
+  }
 };
 </script>
 
@@ -38,11 +45,11 @@ export default {
 <style scoped>  
 .wrapper-page {
   background: #F5F5F5;
-  height:100%;
+  min-height:100%;
 }
 .wrapper {
-  overflow: hidden;
-  height: calc(100% - 15vh);
+  /* overflow: hidden; */
+  min-height: calc(100% - 15vh);
   flex-direction: column;
   justify-content: space-around;
 }
