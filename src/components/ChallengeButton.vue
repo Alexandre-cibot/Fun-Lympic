@@ -1,15 +1,15 @@
 <template>
   <button class="challengeButton" :class="btnColor">
-    <img :src="imagePath" class="btnIcone btnLeft"/>
-      <div v-if="true" class="name">
+    <img :src="imagePath" class="btnLeft"/>
+      <div v-if="!finish" class="name">
         <p>{{currentName}} : <span class="points">{{currentPoints}} points</span></p> 
         <p>{{challengerName}} : <span class="points">{{challengerPoints}} points</span></p> 
       </div>
       
-      <div v-if="false">
-        <p>{{challengerName}} <br> {{challengerPoints}}</p> 
+      <div v-if="finish" class="name">
+        <p>{{challengerName}} <br> <span class="points">{{challengerPoints}} points</span></p> 
       </div>
-    <img :src="imagePath" class="btnIcone" >
+    <img :src="logoPath" class="btnIcone" >
   </button>  
 </template>
 
@@ -19,6 +19,10 @@ export default {
   props: {
     btnColor: {
       type: String,
+      required: true
+    },
+    finish: {
+      type: Boolean,
       required: true
     },
     currentName: {
@@ -35,6 +39,10 @@ export default {
       type: Number,
       required: true
     },
+    logo: {
+      type: String,
+      required: true
+    },
     image: {
       type: String,
       required: true
@@ -44,8 +52,8 @@ export default {
     return{}
   },
   computed: {
-    imagePath() {
-      switch (this.image) {
+    logoPath() {
+      switch (this.logo) {
         case 'lose': 
           return require('@/assets/lose.svg');
         break;
@@ -54,6 +62,19 @@ export default {
         break;
         case 'challenge':
           return require('@/assets/challenge.png');
+        break;
+        default: 
+          console.log('No image found');
+        break;
+      }
+    },
+    imagePath() {
+      switch (this.image) {
+        case 'julien': 
+          return require('@/assets/julien.jpg');
+        break;
+        case 'enora': 
+          return require('@/assets/enora.jpg');
         break;
         default: 
           console.log('No image found');
@@ -72,8 +93,8 @@ export default {
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
-  padding: 15px 30px;
-  margin-bottom: 5vh;
+  padding: 15px 10px;
+  margin-top: 3vh;
 }
 .btnRed {
     border: none;
@@ -93,17 +114,23 @@ export default {
 .name p{
   font-family: 'myfrida';
   font-size: 1.3em;
+  line-height: 1.3em;
   color: white;
+  text-align: left;
 }
 .points {
-  font-size: 1em;
+  font-size: 0.8em;
 }
 .btnIcone {
-  flex-grow: 1;
+  float: right;
   height: 40px;
   width: auto;
 }
 .btnLeft {
+  border-radius: 50%;
+  border: 2px solid white;
+  margin-right: 10px;
+  height: 40px;
   float: left;
 }
 .btnRight {
