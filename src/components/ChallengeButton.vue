@@ -61,7 +61,6 @@ export default {
           return require('@/assets/win.svg');
         break;
         case 'challenge':
-          // return require('@/assets/challenge.png');
           return require('@/assets/win.svg');
         break;
         default: 
