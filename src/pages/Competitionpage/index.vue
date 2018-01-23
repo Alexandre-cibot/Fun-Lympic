@@ -7,8 +7,8 @@ Pour l'instant, nous testons ici.
   <div class="wrapper-page">
     <Navbar text="compétition" secondBtn="podium"/>
       <ConnexionFB v-if="false" @showChallenge="showChallenge"/>
-      <CompetitionDashboard v-if="false"/>
-      <Friends v-if="friends"/>
+      <CompetitionDashboard v-if="true"/>
+      <Friends v-if="false"/>
   </div>
 </template>
 
