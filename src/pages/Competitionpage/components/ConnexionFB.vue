@@ -5,7 +5,7 @@
           <p>Connectez-vous pour accéder au stade et défier vos amis</p>
       </div>
       <!-- <router-link :to="{ path: '/stade/challenge' }" style="width:100%;"> -->
-        <BasicButton class="connexionBtn" title="connexion" image="facebook" btnColor="btnYellow" @click="connectionFb" />
+        <BasicButton class="connexionBtn" title="connexion" image="facebook" btnColor="btnYellow" @click="showChallenge" />
       <!-- </router-link> -->
   </div>
 </template>
@@ -26,14 +26,18 @@ export default {
             FB.login();
           }
       });
+    },
+    showChallenge () {
+      this.$emit('showChallenge')
     }
   }
 }
 </script>
 
 <style scoped>
-  .wrapper {
-  height: 100%;
+.wrapper{
+  display: flex;
+  justify-content: center;
 }
 h2, p {
   font-family: 'Roboto';
@@ -49,15 +53,14 @@ h2 {
   font-size: 2.2em;
   margin-bottom: 1vh;
 }
-
 .info-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 80%;
+  height: 6
+  0vh;
   align-items: center;
 }
-
 .info-content p {
   font-size: 18px;
   font-family: Arial;
