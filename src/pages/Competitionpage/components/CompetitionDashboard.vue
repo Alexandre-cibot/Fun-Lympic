@@ -31,6 +31,9 @@ export default {
     runAthletismeGame () {
       console.log('run game');
       this.$router.push({path: '/athletics'})
+    },
+    closeModal () {
+      this.$emit('closeModal')
     }
   }
 };
@@ -41,12 +44,6 @@ export default {
 .page-wrapper {
   background: #F5F5F5;
   height: 100vh;
-}
-.wrapper {
-  background: #F5F5F5;
-  /* overflow: hidden;
-  height: calc(100% - 15vh); */
-  margin: 0 30px;
 }
 h3 {
   text-transform: uppercase;
