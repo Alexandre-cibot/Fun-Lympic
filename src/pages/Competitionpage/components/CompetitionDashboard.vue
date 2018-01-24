@@ -34,6 +34,9 @@ export default {
     runAthletismeGame () {
       console.log('run game');
       this.$router.push({path: '/athletics'})
+    },
+    closeModal () {
+      this.$emit('closeModal')
     }
   },
   mounted() {
