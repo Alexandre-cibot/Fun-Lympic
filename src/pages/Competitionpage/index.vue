@@ -1,15 +1,12 @@
-<!--
-Ici, on testera l'implementation de phaser.
-Plus tard il y aura une page de selection de jeux en amont, mais ce n'est pas interessant pour le moment.
-Pour l'instant, nous testons ici.
--->
 <template>
   <div class="wrapper-page">
     <Navbar text="compétition" secondBtn="podium"/>
     <div class="wrapper">
-      <ConnexionFB v-if="connexion"/>
-      <CompetitionDashboard v-if="competition"/>
+      <ConnexionFB v-if="false" @showChallenge="showChallenge"/>
+      <CompetitionDashboard v-if="true"/>
+      <Friends v-if="false"/>
     </div>
+
   </div>
 </template>
 
@@ -19,11 +16,13 @@ import BasicButton from '@/components/BasicButton';
 // Composants propre a cette page
 import ConnexionFB from './components/ConnexionFB.vue';
 import CompetitionDashboard from './components/CompetitionDashboard';
+import Friends from './components/Friends.vue';
 
 export default {
   name: 'Stade',
   components: {
     Navbar,
+    Friends,
     BasicButton,
     ConnexionFB,
     CompetitionDashboard
@@ -31,13 +30,13 @@ export default {
   data() {
     return {
       msg: 'test',
-      competition : true,
-      connexion : false
+      connexion : false,
+      friends : true,
     };
   },
   methods: {
-    showCompetition() {
-
+    showChallenge() {
+      this.connexion = !this.connexion;
     }
   }
 };
@@ -56,6 +55,7 @@ export default {
   min-height: calc(100% - 15vh);
   flex-direction: column;
   justify-content: space-around;
+<<<<<<< HEAD
 } */
 .wrapper {
   display:block;
