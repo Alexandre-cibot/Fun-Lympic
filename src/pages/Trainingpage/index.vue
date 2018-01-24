@@ -47,6 +47,8 @@ export default {
   background: #F5F5F5;
   overflow: hidden;
   height: calc(100% - 15vh);
+  margin-top: 8px;
+  padding-top: 3vh;
 }
 h2, p {
   font-family: 'Roboto';
