@@ -6,8 +6,10 @@ Pour l'instant, nous testons ici.
 <template>
   <div class="wrapper-page">
     <Navbar text="compétition" secondBtn="podium"/>
+    <div class="wrapper">
       <ConnexionFB v-if="connexion"/>
       <CompetitionDashboard v-if="competition"/>
+    </div>
   </div>
 </template>
 
@@ -44,14 +46,26 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>  
 .wrapper-page {
+
   background: #F5F5F5;
-  min-height:100%;
+  height: 100%;
+  overflow-y: hidden;
 }
-.wrapper {
-  /* overflow: hidden; */
+/* .wrapper {
+  
   min-height: calc(100% - 15vh);
   flex-direction: column;
   justify-content: space-around;
+} */
+.wrapper {
+  display:block;
+  background: #F5F5F5;
+  overflow-y: scroll;
+  height: calc(100% - 15vh);
+  margin: 0 30px;
+  margin-top: 8px; /* Because header has a box-shadow bottom of 8px */
+  padding-top: 3vh;
 }
-
+/* Remove the scrollbar  */
+.wrapper::-webkit-scrollbar { width: 0 !important }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <button class="challengeButton" :class="btnColor">
+  <button class="challengeButton" :class="btnColor" @click="handleClick">
     <img :src="imagePath" class="btnLeft"/>
       <div v-if="!finish" class="name">
         <p>{{currentName}} : <span class="points">{{currentPoints}} points</span></p> 
@@ -82,6 +82,14 @@ export default {
         break;
       }
     }
+  },
+  methods: {
+    handleClick() {
+      this.$el.style.opacity = 0.5;
+      setTimeout(() => {
+        this.$el.style.opacity = 1
+      },100)
+    }
   }
 }
 </script>
@@ -137,5 +145,33 @@ export default {
 .btnRight {
   float: right;
 }
+
+.taint {
+  display: block;
+  position: absolute;
+  background: rgba(130, 177, 255, 0.5);
+  border-radius: 100%;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+.taint.drop {
+  -webkit-animation: ripple 0.65s linear;
+          animation: ripple 0.65s linear;
+}
+@-webkit-keyframes ripple {
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(2.5);
+            transform: scale(2.5);
+  }
+}
+@keyframes ripple {
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(2.5);
+            transform: scale(2.5);
+  }
+}
+
 </style>
 
