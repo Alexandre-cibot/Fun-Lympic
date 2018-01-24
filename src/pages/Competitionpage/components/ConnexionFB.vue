@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="connexionFB">
     <div class="info-content">
           <img src="@/assets/facebook.svg" alt="">
           <p>Connectez-vous pour accéder au stade et défier vos amis</p>
@@ -35,9 +35,11 @@ export default {
 </script>
 
 <style scoped>
-.wrapper{
+.connexionFB{
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
 }
 h2, p {
   font-family: 'Roboto';
