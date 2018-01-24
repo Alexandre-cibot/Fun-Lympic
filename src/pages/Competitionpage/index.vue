@@ -79,7 +79,7 @@ export default {
   background: #F5F5F5;
   overflow-y: scroll;
   height: calc(100% - 15vh);
-  margin: 0 30px;
+  padding: 0 30px;
   margin-top: 8px; /* Because header has a box-shadow bottom of 8px */
   padding-top: 3vh;
 }
