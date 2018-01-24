@@ -1,6 +1,6 @@
 <template>
 <div class="page-wrapper">
-  <Navbar text="Entrainement" secondBtn="medal" />
+  <Navbar text="Entrainement" secondBtn="medal" @goBack="()=>this.$router.push('/')" />
   <div class="wrapper">
     <h2>Meilleur score</h2>
     <p class="score">30</p>
@@ -25,7 +25,6 @@ export default {
   },
   data() {
     return {
-      msg: 'test',
     };
   },
   methods: {

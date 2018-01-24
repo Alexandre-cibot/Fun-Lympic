@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper-page">
-    <Navbar text="compétition" secondBtn="podium"/>
+    <Navbar text="compétition" secondBtn="podium" @goBack="goBack"/>
     <div class="wrapper">
       <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
       <CompetitionDashboard v-if="currentState === 'competitionDashboard'" @chooseFriends="chooseFriends"/>
@@ -29,7 +29,8 @@ export default {
   },
   data() {
     return {
-      currentState: 'competitionDashboard',
+      currentState: 'competitionDashboard', //notConnected, competitionDashboard, chooseFriends
+      history: [],
       connexion : false,
       friends : true,
     };
@@ -39,7 +40,20 @@ export default {
       this.connexion = !this.connexion;
     },
     chooseFriends() {
+      this.updateHistory(this.currentState);
       this.currentState = "chooseFriends"
+    },
+    updateHistory(previousState) {
+      this.history.push(previousState);
+    },
+    goBack(){
+      let previousState = this.history[this.history.length-1];
+      if (!previousState || this.currentState === 'competitionDashboard') {
+        this.$router.push('/')
+      } else {
+        this.currentState = previousState; // Go to the previous state
+        this.history.pop(); // Remove the last one
+      }
     }
   }
 };
