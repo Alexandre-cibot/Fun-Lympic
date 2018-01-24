@@ -19,6 +19,7 @@ import ConnexionFB from './components/ConnexionFB.vue';
 import CompetitionDashboard from './components/CompetitionDashboard';
 import Friends from './components/Friends.vue';
 import ChallengeFriend from './components/ChallengeFriend.vue';
+import ClassementGame from './components/ClassementGame.vue';
 
 export default {
   name: 'Stade',
@@ -27,6 +28,7 @@ export default {
     Friends,
     BasicButton,
     ConnexionFB,
+    ClassementGame,
     ChallengeFriend,
     CompetitionDashboard
   },
