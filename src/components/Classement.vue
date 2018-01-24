@@ -83,25 +83,21 @@ export default {
 </script>
 
 <style scoped>
-.circle, .circleCenter{
+
+ .circle, .circleCenter{
   min-height: 0;
   overflow: visible;
   height: 90%;
-  width:100%;
+  /* width:100%; */
   text-align: center;
-  margin-bottom: 10px;
 }
 .circleCenter{
-  height: 60%;
-  overflow: visivle;
-  transform: scale(1.3);
+  margin: 0 10px !important;
 }
 .circleCenter img {
-  position: absolute;
-  left: 0;
-  top: -15%;
-  left: 50%;
-  transform: translateX(-50%);
+  transform: scale(1.2);
+  position: relative;
+  bottom: 13%;
 }
 .score{
   display: flex;
@@ -121,7 +117,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   font-family: Roboto;
-  width: 110%;
 }
 .background {
   display: flex;
@@ -138,17 +133,14 @@ export default {
   display: flex;
   position: absolute;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   bottom: 20%;
   width: 100%;
-  height: 180%;
-  border-radius: 20px 20px 0 0;
+  height: 160%;
 }
 .circle img, .circleCenter img{
-  width:70%;
-  height: auto;
-  /* border: 1px solid green; */
+  height: 80%;
   border-radius: 50%;
   border: 8px solid white;
-}
+} 
 </style>
