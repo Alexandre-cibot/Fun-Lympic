@@ -3,13 +3,13 @@
       <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="btnYellow" image="facebook" @click="chooseFriends" />
       <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="btnYellow" image="place" />
       <h3 class="animated fadeInUp">Ils te défient</h3>
-        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="120" btnColor="btnGreen" logo="win" image="julien" :finish="true" />
+      <div v-for="chall in challengesNotDone" :key="chall.challName">
+        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" logo="win" :image="chall.picture" :finish="notFinish" />
+      </div>
       <h3 class="animated fadeInUp">Les défis terminés</h3>
-        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="120" currentName="Véronique" :currentPoints="150" btnColor="btnGreen" logo="win" image="enora" :finish="false" />
-        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="100" currentName="Véronique" :currentPoints="50" btnColor="btnRed" logo="lose" image="enora" :finish="false"/>
-        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="100" currentName="Alexandre" :currentPoints="50" btnColor="btnRed" logo="lose" image="enora" :finish="false"/>
-        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="100" currentName="Jeremy" :currentPoints="50" btnColor="btnRed" logo="lose" image="enora" :finish="false"/>
-        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="100" currentName="Alexandre" :currentPoints="50" btnColor="btnRed" logo="lose" image="enora" :finish="false"/>
+      <div v-for="chall in challengesDone" :key="chall.challName">
+        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" :currentName="curName" :currentPoints="chall.curPoints" :logo="chall.status" :image="chall.picture" :finish="finish" />
+      </div>
   </div>
 </template>
 
@@ -28,6 +28,58 @@ export default {
   data() {
     return {
       msg: 'test',
+      finish: false,
+      notFinish: true,
+      curName: "Véronique",
+       challengesNotDone: [
+        {
+          challName: "Enora",
+          challPoints: 120,
+          picture: "enora",
+        },
+        {
+          challName: "Enora",
+          challPoints: 150,
+          picture: "enora",
+        },
+      ],
+      challengesDone: [
+        {
+          challName: "Enora",
+          challPoints: 120,
+          curPoints: 150,
+          status: "lose",
+          picture: "enora",
+        },
+        {
+          challName: "Enora",
+          challPoints: 150,
+          curPoints: 120,
+          status: "win",
+          picture: "enora",
+        },
+        {
+          challName: "Enora",
+          challPoints: 120,
+          curPoints: 150,
+          status: "win",
+          picture: "enora",
+        },
+        {
+          challName: "Enora",
+          challPoints: 300,
+          curPoints: 150,
+          status: "win",
+          picture: "enora",
+        },
+        {
+          challName: "Enora",
+          challPoints: 120,
+          curPoints: 150,
+          status: "lose",
+          picture: "enora",
+        }
+      ]
     };
   },
   methods: {

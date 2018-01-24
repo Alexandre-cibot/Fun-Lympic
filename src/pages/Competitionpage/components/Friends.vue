@@ -1,8 +1,9 @@
 <template>
   <div class="">
   <h2>Lancer un défi à</h2>
-  <div v-for="friend in friends" class="friendBlock">
-    <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country"/>
+  <button @click="friend">CLICK</button>
+  <div v-for="friend in friends" :key="friend.name" class="friendBlock">
+    <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country" />
   </div>
   </div>
 </template>
@@ -66,6 +67,9 @@ export default {
     FriendsButton
   },
   methods: {
+    friend(){
+      this.$emit('friend');
+    }
   },
   mounted() {
     let buttons = this.$el.querySelectorAll('.hidden');
