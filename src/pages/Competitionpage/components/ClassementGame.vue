@@ -51,6 +51,8 @@ h2 {
 h2 {
   font-size: 1.2em;  
   text-transform: uppercase;
+  color: white;
+  margin-top: 3vh;
   padding-bottom: 1vh;
   margin-bottom: 3vh;
 }
@@ -58,7 +60,6 @@ h2 {
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   bottom: 0;
   width: 80%;
   height: 50vh;

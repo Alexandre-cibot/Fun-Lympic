@@ -2,10 +2,11 @@
   <div class="wrapper-page">
     <Navbar text="compétition" secondBtn="podium" @goBack="goBack"/>
     <div class="wrapper">
-      <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
+      <!-- <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
       <CompetitionDashboard v-if="currentState === 'competitionDashboard'" @chooseFriends="chooseFriends"/>
       <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/> 
-      <ChallengeFriend v-if="currentState === 'friend'" />
+      <ChallengeFriend v-if="currentState === 'friend'" /> -->
+      <ClassementGame />
     </div>
 
   </div>
