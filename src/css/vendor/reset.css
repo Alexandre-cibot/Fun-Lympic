@@ -47,3 +47,8 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+/* Remove outline of buttons clicked */
+button, button:hover, li:hover, a:hover , li , a , *:hover, * {
+	outline: none;
+}

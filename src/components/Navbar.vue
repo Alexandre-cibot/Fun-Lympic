@@ -67,7 +67,7 @@ header {
   justify-content: space-between;
   background-color: #FFD360;
   box-shadow: 0px 8px 0px 0px #F1B946;
-  margin-bottom: 5vh;
+  /* margin-bottom: 5vh; */
   padding: 5px;
 }
 img{
