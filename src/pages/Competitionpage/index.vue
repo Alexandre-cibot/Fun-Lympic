@@ -4,7 +4,8 @@
     <div class="wrapper">
       <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
       <CompetitionDashboard v-if="currentState === 'competitionDashboard'" @chooseFriends="chooseFriends"/>
-      <Friends v-if="currentState === 'chooseFriends'"/>
+      <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/> 
+      <ChallengeFriend v-if="currentState === 'friend'" />
     </div>
 
   </div>
@@ -17,6 +18,7 @@ import BasicButton from '@/components/BasicButton';
 import ConnexionFB from './components/ConnexionFB.vue';
 import CompetitionDashboard from './components/CompetitionDashboard';
 import Friends from './components/Friends.vue';
+import ChallengeFriend from './components/ChallengeFriend.vue';
 
 export default {
   name: 'Stade',
@@ -25,6 +27,7 @@ export default {
     Friends,
     BasicButton,
     ConnexionFB,
+    ChallengeFriend,
     CompetitionDashboard
   },
   data() {
@@ -42,6 +45,10 @@ export default {
     chooseFriends() {
       this.updateHistory(this.currentState);
       this.currentState = "chooseFriends"
+    },
+    friend() {
+      this.updateHistory(this.currentState);
+      this.currentState = "friend";
     },
     updateHistory(previousState) {
       this.history.push(previousState);
@@ -68,11 +75,9 @@ export default {
   overflow-y: hidden;
 }
 /* .wrapper {
-  
   min-height: calc(100% - 15vh);
   flex-direction: column;
   justify-content: space-around;
-<<<<<<< HEAD
 } */
 .wrapper {
   display:block;

@@ -1,5 +1,5 @@
 <template>
-  <button class="challengeButton" :class="btnColor" @click="handleClick">
+  <button class="challengeButton" :class="[logo == 'win' ? 'btnGreen' : 'btnRed']" @click="handleClick">
     <img :src="imagePath" class="btnLeft"/>
       <div v-if="!finish" class="name">
         <p>{{currentName}} : <span class="points">{{currentPoints}} points</span></p> 
@@ -17,10 +17,6 @@
 export default {
   name: 'ChallengeButton',
   props: {
-    btnColor: {
-      type: String,
-      required: true
-    },
     finish: {
       type: Boolean,
       required: true

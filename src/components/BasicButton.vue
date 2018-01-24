@@ -56,6 +56,12 @@ export default {
         case 'place':
           return require('@/assets/place.svg');
         break;
+        case 'lose': 
+          return require('@/assets/lose.svg');
+        break;
+        case 'win': 
+          return require('@/assets/win.svg');
+        break;
         default:
           console.log('no image default found.');
         break;
@@ -75,7 +81,6 @@ export default {
     flex-direction: row;
     align-items: center;
     padding: 15px 30px;
-    max-height: 65px;
   }
   .BasicButton p {
     font-family: 'myfrida', sans-serif;
@@ -87,11 +92,15 @@ export default {
     box-shadow: 0px 8px 0px 0px #2E00AB;
     background-color: #595BEE;
   }
-  .btnYellow {
+  .btnYellow, .btnYellowLeft {
     border: none;
     border-radius: 10px;
     box-shadow: 0px 8px 0px 0px #F1B946;
     background-color: #FFD360;
+  }
+  .btnYellowLeft{
+    margin-top: 5vh;
+    padding: 20px 10px;
   }
   .btn-fLeft {
     float:left;
@@ -107,7 +116,7 @@ export default {
   }
   .btn-icone {
     width: auto;
-    height: 30px;
+    height: 40px;
     padding-right:10px;
   }
 </style>
