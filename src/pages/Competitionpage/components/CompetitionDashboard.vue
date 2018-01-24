@@ -1,12 +1,15 @@
 <template>
-  <div class="wrapper">
-      <BasicButton class="challengeBtn" title="défier un ami" btnColor="btnYellow" image="facebook" />
-      <BasicButton class="challengeBtn" title="défi à proximité" btnColor="btnYellow" image="place" />
-      <h3>Ils te défient</h3>
-        <ChallengeButton challengerName="Enora" :challengerPoints="120" btnColor="btnGreen" logo="win" image="julien" :finish="true" />
-      <h3>Les défis terminés</h3>
-        <ChallengeButton challengerName="Enora" :challengerPoints="120" currentName="Véronique" :currentPoints="150" btnColor="btnGreen" logo="win" image="enora" :finish="false" />
-        <ChallengeButton challengerName="Enora" :challengerPoints="100" currentName="Véronique" :currentPoints="50" btnColor="btnRed" logo="lose" image="enora" :finish="false"/>
+  <div style="padding-bottom: 3vh;">
+      <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="btnYellow" image="facebook" />
+      <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="btnYellow" image="place" />
+      <h3 class="animated fadeInUp">Ils te défient</h3>
+        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="120" btnColor="btnGreen" logo="win" image="julien" :finish="true" />
+      <h3 class="animated fadeInUp">Les défis terminés</h3>
+        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="120" currentName="Véronique" :currentPoints="150" btnColor="btnGreen" logo="win" image="enora" :finish="false" />
+        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="100" currentName="Véronique" :currentPoints="50" btnColor="btnRed" logo="lose" image="enora" :finish="false"/>
+        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="100" currentName="Alexandre" :currentPoints="50" btnColor="btnRed" logo="lose" image="enora" :finish="false"/>
+        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="100" currentName="Jeremy" :currentPoints="50" btnColor="btnRed" logo="lose" image="enora" :finish="false"/>
+        <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="100" currentName="Alexandre" :currentPoints="50" btnColor="btnRed" logo="lose" image="enora" :finish="false"/>
   </div>
 </template>
 
@@ -32,6 +35,20 @@ export default {
       console.log('run game');
       this.$router.push({path: '/athletics'})
     }
+  },
+  mounted() {
+    console.log('Created')
+    let buttons = this.$el.querySelectorAll('.hidden');
+    buttons.forEach((btn, idx) => {
+      setTimeout(()=>{
+        if ([0,1].includes(idx)) {
+          btn.classList.add('slideInLeft', 'visible');
+        } else {
+          btn.classList.add('slideInRight', 'visible')
+        }
+      }, idx * 200)
+    })
+    
   }
 };
 </script>
@@ -42,12 +59,7 @@ export default {
   background: #F5F5F5;
   height: 100vh;
 }
-.wrapper {
-  background: #F5F5F5;
-  /* overflow: hidden;
-  height: calc(100% - 15vh); */
-  margin: 0 30px;
-}
+
 h3 {
   text-transform: uppercase;
   font-family: 'myfrida';
@@ -56,5 +68,13 @@ h3 {
 }
 .challengeBtn {
   margin-bottom: 5vh;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
 }
 </style>
