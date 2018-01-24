@@ -39,7 +39,7 @@ export default {
   height: 8vh;
   width: 90%;
   border-radius: 10px;
-  margin-left: 5%;
+  margin: 20px 0 0 5%;
 }
 .listClassement img {
   width: 30px;
