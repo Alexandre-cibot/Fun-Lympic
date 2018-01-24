@@ -2,11 +2,10 @@
   <div class="wrapper-page">
     <Navbar text="compétition" secondBtn="podium" @goBack="goBack"/>
     <div class="wrapper">
-      <!-- <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
+      <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
       <CompetitionDashboard v-if="currentState === 'competitionDashboard'" @chooseFriends="chooseFriends"/>
       <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/> 
-      <ChallengeFriend v-if="currentState === 'friend'" /> -->
-      <ClassementGame />
+      <ChallengeFriend v-if="currentState === 'friend'" />
     </div>
 
   </div>
@@ -20,7 +19,6 @@ import ConnexionFB from './components/ConnexionFB.vue';
 import CompetitionDashboard from './components/CompetitionDashboard';
 import Friends from './components/Friends.vue';
 import ChallengeFriend from './components/ChallengeFriend.vue';
-import ClassementGame from './components/ClassementGame.vue';
 
 export default {
   name: 'Stade',
@@ -29,7 +27,6 @@ export default {
     Friends,
     BasicButton,
     ConnexionFB,
-    ClassementGame,
     ChallengeFriend,
     CompetitionDashboard
   },
