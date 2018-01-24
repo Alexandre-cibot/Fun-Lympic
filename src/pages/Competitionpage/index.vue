@@ -2,9 +2,9 @@
   <div class="wrapper-page">
     <Navbar text="compétition" secondBtn="podium"/>
     <div class="wrapper">
-      <ConnexionFB v-if="true" @showChallenge="showChallenge"/>
-      <CompetitionDashboard v-if="false"/>
-      <Friends v-if="false"/>
+      <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
+      <CompetitionDashboard v-if="currentState === 'competitionDashboard'" @chooseFriends="chooseFriends"/>
+      <Friends v-if="currentState === 'chooseFriends'"/>
     </div>
 
   </div>
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      msg: 'test',
+      currentState: 'competitionDashboard',
       connexion : false,
       friends : true,
     };
@@ -37,6 +37,9 @@ export default {
   methods: {
     showChallenge() {
       this.connexion = !this.connexion;
+    },
+    chooseFriends() {
+      this.currentState = "chooseFriends"
     }
   }
 };
