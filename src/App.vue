@@ -19,6 +19,7 @@ export default {
 
 <style>
 @import './css/vendor/reset.css';
+@import './css/main.css';
 
 @font-face {
   font-family: 'myfrida';

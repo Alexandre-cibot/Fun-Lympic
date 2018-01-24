@@ -4,10 +4,15 @@ Exemple pour apeller ce composant :
 -->
 <template>
   <button class="BasicButton btnYellow">
-    <img v-if="image" :src="imagePath" alt="" class="btn-fLeft btn-icone">
-    <p class="btn-fRight btn-title">
-      {{name}}
-    </p>
+    <div>
+      <img v-if="image" :src="image" alt="" class="btn-fLeft btn-icone">
+      <p class="btn-fRight btn-title">
+        {{name}}
+      </p>
+    </div>
+    <div>
+      <img :src="flagPath" alt="country_flag">
+    </div>
   </button>
 </template>
 
@@ -24,6 +29,11 @@ export default {
       required: false,
       default: "",
     },
+    country: {
+      type: String,
+      required: true,
+      default: "fr"
+    }
   },
   data() {
     return {};
@@ -34,11 +44,17 @@ export default {
     }
   },
   computed: {
-    imagePath() {
-      switch(this.image) {
-        case 'enora': 
-          return require('@/assets/enora.jpg');
+    flagPath() {
+      switch(this.country) {
+        case 'fr': 
+          return require('@/assets/flags/flag_fr.png');
         break;
+        case 'italy': 
+          return require('@/assets/flags/flag_italy.png');
+          break;
+        case 'uk':
+          return require('@/assets/flags/flag_uk.png');
+          break;
         default:
           console.log('no image default found.');
         break;
@@ -51,6 +67,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>  
 
+  button div {
+    display: flex;
+    align-items: center;
+  }
   .BasicButton {
     display: flex;
     width: 100%;
@@ -62,6 +82,7 @@ export default {
   }
   .BasicButton p {
     font-family: 'myfrida', sans-serif;
+    display: inline-block;
     margin: 0;
   }
   .btnYellow {
@@ -77,16 +98,14 @@ export default {
     float:right;
   }
   .btn-title {
-    font-size: 20px;
+    font-size: 14px;
     text-transform: uppercase;
-    color: white;
     font-family: 'myfrida', sans-serif;
   }
   .btn-icone {
-    height: 30px;
-    width: auto;
-    padding-right:10px;
     border-radius: 50%;
-    border: 2px solid white; 
+    border: 2px solid white;
+    margin-right: 10px;
+    height: 40px;
   }
 </style>
