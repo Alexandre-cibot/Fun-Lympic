@@ -1,7 +1,9 @@
 <template>
-  <div class="wrapper">
+  <div class="">
   <h2>Lancer un défi à</h2>
-  <FriendsButton name="Enora" image="enora" />
+  <div v-for="friend in friends" class="friendBlock">
+    <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country"/>
+  </div>
   </div>
 </template>
 
@@ -9,18 +11,76 @@
 import FriendsButton from '@/components/FriendsButton.vue';
 export default {
   name: 'Friends',
+  data() {
+    return {
+      friends: [
+        {
+          name: "enora",
+          picture: require('@/assets/enora.jpg'),
+          country: "fr"
+        },
+        {
+          name: "alex",
+          picture: require('@/assets/alex.png'),
+          country: "italy"
+        },
+        {
+          name: "hugo",
+          picture: require('@/assets/hugo.jpg'),
+          country: "uk"
+        },
+        {
+          name: "enora",
+          picture: require('@/assets/enora.jpg'),
+          country: "fr"
+        },
+        {
+          name: "alex",
+          picture: require('@/assets/alex.png'),
+          country: "italy"
+        },
+        {
+          name: "hugo",
+          picture: require('@/assets/hugo.jpg'),
+          country: "uk"
+        },
+        {
+          name: "enora",
+          picture: require('@/assets/enora.jpg'),
+          country: "fr"
+        },
+        {
+          name: "alex",
+          picture: require('@/assets/alex.png'),
+          country: "italy"
+        },
+        {
+          name: "hugo",
+          picture: require('@/assets/hugo.jpg'),
+          country: "uk"
+        },
+      ]
+    }
+  },
   components: {
     FriendsButton
   },
   methods: {
+  },
+  mounted() {
+    let buttons = this.$el.querySelectorAll('.hidden');
+    buttons.forEach((btn, idx) => {
+      setTimeout(()=>{
+        btn.classList.add('slideInRight', 'visible')
+      }, idx * 200)
+    })
   }
 }
 </script>
 
 <style scoped>
 .wrapper{
-  display: flex;
-  justify-content: center;
+  
 }
 h2, p {
   font-family: 'myfrida', sans-serif;
@@ -31,6 +91,10 @@ h2 {
   font-size: 1.2em;  
   text-transform: uppercase;
   padding-bottom: 1vh;
+  margin-bottom: 3vh;
+}
+.friendBlock {
+  margin-bottom: 20px;
 }
 .score {
   font-size: 2.2em;

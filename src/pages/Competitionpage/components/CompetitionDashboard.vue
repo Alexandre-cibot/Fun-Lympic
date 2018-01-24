@@ -1,6 +1,6 @@
 <template>
   <div style="padding-bottom: 3vh;">
-      <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="btnYellow" image="facebook" />
+      <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="btnYellow" image="facebook" @click="chooseFriends" />
       <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="btnYellow" image="place" />
       <h3 class="animated fadeInUp">Ils te défient</h3>
         <ChallengeButton class="animated hidden" challengerName="Enora" :challengerPoints="120" btnColor="btnGreen" logo="win" image="julien" :finish="true" />
@@ -31,16 +31,11 @@ export default {
     };
   },
   methods: {
-    runAthletismeGame () {
-      console.log('run game');
-      this.$router.push({path: '/athletics'})
-    },
-    closeModal () {
-      this.$emit('closeModal')
+    chooseFriends() {
+      this.$emit('chooseFriends');
     }
   },
   mounted() {
-    console.log('Created')
     let buttons = this.$el.querySelectorAll('.hidden');
     buttons.forEach((btn, idx) => {
       setTimeout(()=>{
@@ -51,7 +46,6 @@ export default {
         }
       }, idx * 200)
     })
-    
   }
 };
 </script>
@@ -71,13 +65,5 @@ h3 {
 }
 .challengeBtn {
   margin-bottom: 5vh;
-}
-
-.hidden {
-  opacity: 0;
-}
-
-.visible {
-  opacity: 1;
 }
 </style>
