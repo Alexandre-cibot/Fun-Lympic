@@ -40,7 +40,7 @@ export default {
     buttons.forEach((btn, idx) => {
       setTimeout(()=>{
         if ([0,1].includes(idx)) {
-          btn.classList.add('slideInLeft', 'visible');
+          btn.classList.add('fadeInDown', 'visible');
         } else {
           btn.classList.add('slideInRight', 'visible')
         }

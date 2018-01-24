@@ -1,11 +1,9 @@
 <template>
   <header>
     <div class="button">
-    <router-link :to="{ path: '/' }">
-      <button>
+      <button @click="goBack">
         <img src="@/assets/arrow.png" />
       </button>
-    </router-link>
     </div>
     <div class="title">
       <h1>{{text}}</h1>
@@ -46,6 +44,11 @@ export default {
         case 'medal':
           return require('@/assets/medals.png');
       }
+    }
+  },
+  methods: {
+    goBack() {
+      this.$emit('goBack');
     }
   }
 };
