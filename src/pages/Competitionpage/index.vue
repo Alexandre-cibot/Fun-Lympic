@@ -2,8 +2,8 @@
   <div class="wrapper-page">
     <Navbar text="compétition" secondBtn="podium"/>
     <div class="wrapper">
-      <ConnexionFB v-if="false" @showChallenge="showChallenge"/>
-      <CompetitionDashboard v-if="true"/>
+      <ConnexionFB v-if="true" @showChallenge="showChallenge"/>
+      <CompetitionDashboard v-if="false"/>
       <Friends v-if="false"/>
     </div>
 
