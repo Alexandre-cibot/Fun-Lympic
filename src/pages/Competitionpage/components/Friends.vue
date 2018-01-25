@@ -1,9 +1,8 @@
 <template>
   <div class="">
   <h2>Lancer un défi à</h2>
-  <button @click="friend">CLICK</button>
   <div v-for="friend in friends" :key="friend.name" class="friendBlock">
-    <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country" />
+    <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country" @click.native="$emit('friend')" />
   </div>
   </div>
 </template>
@@ -83,9 +82,6 @@ export default {
 </script>
 
 <style scoped>
-.wrapper{
-  
-}
 h2, p {
   font-family: 'myfrida', sans-serif;
   font-weight: 100;
