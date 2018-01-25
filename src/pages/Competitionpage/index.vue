@@ -19,7 +19,6 @@ import ConnexionFB from './components/ConnexionFB.vue';
 import CompetitionDashboard from './components/CompetitionDashboard';
 import Friends from './components/Friends.vue';
 import ChallengeFriend from './components/ChallengeFriend.vue';
-import ClassementGame from './components/ClassementGame.vue';
 
 export default {
   name: 'Stade',
@@ -28,7 +27,6 @@ export default {
     Friends,
     BasicButton,
     ConnexionFB,
-    ClassementGame,
     ChallengeFriend,
     CompetitionDashboard
   },
@@ -71,7 +69,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>  
 .wrapper-page {
-
   background: #F5F5F5;
   height: 100%;
   overflow-y: hidden;
@@ -83,6 +80,7 @@ export default {
 } */
 .wrapper {
   display:block;
+  position: relative;
   background: #F5F5F5;
   overflow-y: scroll;
   height: calc(100% - 15vh);
