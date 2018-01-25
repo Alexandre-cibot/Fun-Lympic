@@ -4,7 +4,7 @@
       <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="btnYellow" image="place" />
       <h3 class="animated fadeInUp">Ils te défient</h3>
       <div v-for="chall in challengesNotDone" :key="chall.challName">
-        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" logo="win" :image="chall.picture" :finish="notFinish" />
+        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" logo="challenge" :image="chall.picture" :finish="notFinish" />
       </div>
       <h3 class="animated fadeInUp">Les défis terminés</h3>
       <div v-for="chall in challengesDone" :key="chall.challName">
