@@ -1,5 +1,5 @@
 <template>
-  <button class="challengeButton" :class="[logo == 'win' ? 'btnGreen' : 'btnRed']" @click="handleClick">
+  <button class="challengeButton" :class="[logo == 'win' || logo =='challenge' ? 'btnGreen' : 'btnRed']" @click="handleClick">
     <img :src="imagePath" class="btnLeft"/>
       <div v-if="!finish" class="name">
         <p>{{currentName}} : <span class="points">{{currentPoints}} points</span></p> 
@@ -57,7 +57,7 @@ export default {
           return require('@/assets/win.svg');
         break;
         case 'challenge':
-          return require('@/assets/win.svg');
+          return require('@/assets/challenge.svg');
         break;
         default: 
           console.log('No image found');
