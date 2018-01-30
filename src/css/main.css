@@ -5,3 +5,19 @@
 .visible {
   opacity: 1;
 }
+
+.bg_purple_light {
+  background-color: #573399;
+}
+.bg_purple_dark {
+  background-color: #2D1862;
+}
+.color_red {
+  color: #EE1B4A;
+}
+.bg_red {
+  background-color: #EE1B4A;
+}
+.bg_blue {
+  background-color: #2AD4E2;
+}

@@ -5,8 +5,8 @@
       <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country"/>
     </div>
     <h2 class="sport">Choisir un sport</h2>
-      <BasicButton class="animated hidden" title="Athletisme" image="win" btnColor="btnYellowLeft"  />
-      <BasicButton class="animated hidden" title="Natation Synchronisée" image="lose" btnColor="btnYellowLeft"  />
+      <BasicButton class="animated hidden" title="Athletisme" image="play" btnColor="red"  />
+      <BasicButton class="animated hidden" title="Natation Synchronisée" image="play" btnColor="blue"  />
   </div>
 </template>
 
@@ -37,7 +37,11 @@ export default {
     let buttons = this.$el.querySelectorAll('.hidden');
     buttons.forEach((btn, idx) => {
       setTimeout(()=>{
-        btn.classList.add('slideInRight', 'visible')
+        if (idx === 0) {
+          btn.classList.add('slideInRight', 'visible')
+        } else {
+          btn.classList.add('zoomIn', 'visible')
+        }
       }, idx * 200)
     })
   }
@@ -46,7 +50,8 @@ export default {
 
 <style scoped>
 h2, p {
-  font-family: 'myfrida', sans-serif;
+  color: #ffffff;
+  font-family: 'myfrida_bold', sans-serif;
   font-weight: 100;
   text-align: center;
 }
