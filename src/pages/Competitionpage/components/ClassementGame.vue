@@ -66,7 +66,7 @@ export default {
 
 <style scoped>
 h2 {
-  font-family: 'myfrida', sans-serif;
+  font-family: 'myfrida_bold', sans-serif;
   font-weight: 100;
   text-align: center;
 }

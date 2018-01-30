@@ -3,7 +3,7 @@ Exemple pour apeller ce composant :
 <B title="entrainement" image="" btnColor="btnBlue" @doAction="handleClick" />
 -->
 <template>
-  <button class="BasicButton btnYellow">
+  <button class="bg_purple_dark">
     <div>
       <img v-if="image" :src="image" alt="" class="btn-fLeft btn-icone">
       <p class="btn-fRight btn-title">
@@ -71,23 +71,28 @@ export default {
     display: flex;
     align-items: center;
   }
-  .BasicButton {
+  button {
     display: flex;
     width: 100%;
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    padding: 15px 30px;
+    height: 10vh;
     max-height: 65px;
+    border: none;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.75);
   }
-  .BasicButton p {
-    font-family: 'myfrida', sans-serif;
+  button p {
+    color: #ffffff;
+    font-family: 'myfrida_bold', sans-serif;
     display: inline-block;
     margin: 0;
   }
   .btnYellow {
     border: none;
-    border-radius: 10px;
     box-shadow: 0px 8px 0px 0px #f0e2c5;
     background-color: #fcf1db;
   }
@@ -98,9 +103,10 @@ export default {
     float:right;
   }
   .btn-title {
+    letter-spacing: 1.5px;
     font-size: 14px;
     text-transform: uppercase;
-    font-family: 'myfrida', sans-serif;
+    font-family: 'myfrida_bold', sans-serif;
   }
   .btn-icone {
     border-radius: 50%;
