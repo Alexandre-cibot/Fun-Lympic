@@ -80,7 +80,8 @@ export default {
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    padding: 15px 30px;
+    padding: 8px 30px;
+    margin-top: 3vh;
   }
   .BasicButton p {
     font-family: 'myfrida', sans-serif;
@@ -95,7 +96,7 @@ export default {
   .btnYellow, .btnYellowLeft {
     border: none;
     border-radius: 10px;
-    box-shadow: 0px 8px 0px 0px #F1B946;
+    box-shadow: 0px 6px 0px 0px #F1B946;
     background-color: #FFD360;
   }
   .btnYellowLeft{
