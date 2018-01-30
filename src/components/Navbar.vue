@@ -1,7 +1,7 @@
 <template>
-  <header>
+  <header class="bg_purple_dark animated slideInDown">
     <div class="button">
-      <button @click="goBack">
+      <button class="bg_red" @click="goBack">
         <img src="@/assets/arrow.png" />
       </button>
     </div>
@@ -9,7 +9,7 @@
       <h1>{{text}}</h1>
     </div>
     <div class="button">
-      <button>
+      <button class="bg_red">
         <img :src="secondBtnPath" />
       </button>
     </div>
@@ -57,7 +57,6 @@ export default {
 <style scoped>
 
 button{
-  background: #F1B946;
   height: 50px;
   border-radius: 10px;
   border: none;
@@ -68,8 +67,8 @@ header {
   flex-direction: row; 
   align-items: center;
   justify-content: space-between;
-  background-color: #FFD360;
-  box-shadow: 0px 8px 0px 0px #F1B946;
+  /* background-color: #FFD360; */
+  /* box-shadow: 0px 8px 0px 0px #F1B946; */
   /* margin-bottom: 5vh; */
   padding: 5px;
 }
@@ -82,9 +81,10 @@ img{
 h1{
   text-align:center;
   font-size: 1.2em;
-  font-family: 'myfrida', sans-serif;
+  font-family: 'myfrida_bold', sans-serif;
   font-weight: 100;
   color: white;
   text-transform: uppercase;
+  letter-spacing: 2.5px;
 }
 </style>
