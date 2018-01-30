@@ -1,7 +1,7 @@
 <template>
   <div style="padding-bottom: 3vh;">
-      <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="btnYellow" image="facebook" @click="chooseFriends" />
-      <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="btnYellow" image="place" />
+      <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="yellow" image="facebook" @click="chooseFriends" />
+      <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" />
       <h3 class="animated fadeInUp">Ils te défient</h3>
       <div v-for="chall in challengesNotDone" :key="chall.challName">
         <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" logo="challenge" :image="chall.picture" :finish="notFinish" />
@@ -92,11 +92,11 @@ export default {
     buttons.forEach((btn, idx) => {
       setTimeout(()=>{
         if ([0,1].includes(idx)) {
-          btn.classList.add('fadeInDown', 'visible');
+          btn.classList.add('slideInLeft', 'visible');
         } else {
-          btn.classList.add('slideInRight', 'visible')
+          btn.classList.add('zoomIn', 'visible')
         }
-      }, idx * 200)
+      }, idx * 100)
     })
   }
 };
@@ -111,8 +111,8 @@ export default {
 
 h3 {
   text-transform: uppercase;
-  font-family: 'myfrida';
-  color: #393939;
+  font-family: 'myfrida_bold';
+  color: #ffffff;
   margin-top: 5vh;
 }
 .challengeBtn {

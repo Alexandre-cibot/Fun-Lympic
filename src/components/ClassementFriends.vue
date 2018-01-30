@@ -47,7 +47,7 @@ export default {
   border-radius: 50%;
 }
 h2, h3 {
-  font-family: 'myfrida', sans-serif;
+  font-family: 'myfrida_bold', sans-serif;
   font-weight: 100;
   color: #1a6067;
 }
