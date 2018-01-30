@@ -1,5 +1,5 @@
 <template>
-  <button class="challengeButton" :class="[logo == 'win' || logo =='challenge' ? 'btnGreen' : 'btnRed']" @click="handleClick">
+  <button class="challengeButton bg_purple_dark" @click="handleClick">
     <img :src="imagePath" class="btnLeft"/>
       <div v-if="!finish" class="name">
         <p>{{currentName}} : <span class="points">{{currentPoints}} points</span></p> 
@@ -99,46 +99,38 @@ export default {
   align-items: center;
   padding: 15px 10px;
   margin-top: 3vh;
+  border: none;
+  border-radius: 10px;
 }
-.btnRed {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0px 8px 0px 0px #D76A6A;
-    background-color: #FB7C7C;
-}
-.btnGreen {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0px 8px 0px 0px #70B281;
-    background-color: #88D094;
-}
+
 .name {
   flex-grow: 2;
 }
 .name p{
-  font-family: 'myfrida';
+  letter-spacing: 1.5px;
+  font-family: 'myfrida_bold';
   font-size: 1.3em;
   line-height: 1.3em;
   color: white;
   text-align: left;
 }
 .points {
+  font-family: 'myfrida';
+  color: rgba(255,255,255,0.6);
   font-size: 0.8em;
-}
+  }
 .btnIcone {
-  float: right;
   height: 40px;
-  width: auto;
+  object-fit: cover;
+  width: 40px;
 }
 .btnLeft {
   border-radius: 50%;
   border: 2px solid white;
   margin-right: 10px;
   height: 40px;
-  float: left;
 }
 .btnRight {
-  float: right;
 }
 
 .taint {

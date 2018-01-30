@@ -3,7 +3,7 @@ Exemple pour apeller ce composant :
 <B title="entrainement" image="" btnColor="btnBlue" @doAction="handleClick" />
 -->
 <template>
-  <button class="BasicButton" :class="btnColor" @click="handleClick" v-bind:style="{ 'justify-content': image ? 'space-between' : 'center' }">
+  <button class="BasicButton" :class="btnClass" @click="handleClick" v-bind:style="{ 'justify-content': image ? 'space-between' : 'center' }">
     <img v-if="image" :src="imagePath" alt="" class="btn-fLeft btn-icone">
     <p class="btn-fRight btn-title">
       {{title}}
@@ -41,14 +41,16 @@ export default {
   computed: {
     imagePath() {
       switch(this.image) {
-        case 'megaphone':
-          return require('@/assets/loud.png');
+        case 'play':
+          return require('@/assets/play_logo.svg');
         break;
         case 'olympique':
-          return require('@/assets/olympique.png');
+          // return require('@/assets/olympique.png');
+          return require('@/assets/olympic_logo.svg');
         break;
         case 'facebook':
-          return require('@/assets/facebook.png');
+          // return require('@/assets/facebook.png');
+          return require('@/assets/fb_logo.svg');
         break;
         case 'run':
           return require('@/assets/run.png');
@@ -67,6 +69,19 @@ export default {
         break;
       }
     },
+    btnClass() {
+      switch(this.btnColor) {
+        case "yellow":
+          return "btnYellow";
+        break;
+        case "red": 
+          return "bg_red";
+        break;
+        case "blue": 
+          return "bg_blue";
+        break;
+      }
+    }
   },
 };
 </script>
@@ -81,10 +96,17 @@ export default {
     flex-direction: row;
     align-items: center;
     padding: 8px 30px;
-    margin-top: 3vh;
+    margin-top: 5vh;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    min-height: 11vh;
   }
   .BasicButton p {
-    font-family: 'myfrida', sans-serif;
+    font-family: 'myfrida_bold', sans-serif;
+    text-align: right;
+    font-size: 2.1em;
+    letter-spacing: 1.5px;
     margin: 0;
   }
   .btnBlue {
@@ -93,31 +115,20 @@ export default {
     box-shadow: 0px 8px 0px 0px #2E00AB;
     background-color: #595BEE;
   }
-  .btnYellow, .btnYellowLeft {
-    border: none;
-    border-radius: 10px;
+  .btnYellow {
     box-shadow: 0px 6px 0px 0px #F1B946;
     background-color: #FFD360;
   }
-  .btnYellowLeft{
-    margin-top: 5vh;
-    padding: 20px 10px;
-  }
-  .btn-fLeft {
-    float:left;
-  }
-  .btn-Right {
-    float:right;
-  }
+
   .btn-title {
     font-size: 20px;
     text-transform: uppercase;
     color: white;
-    font-family: 'myfrida', sans-serif;
+    font-family: 'myfrida_bold', sans-serif;
   }
   .btn-icone {
-    width: auto;
-    height: 40px;
-    padding-right:10px;
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper-page">
+  <div class="wrapper-page bg_purple_light">
     <Navbar text="compétition" secondBtn="podium" @goBack="goBack"/>
     <div class="wrapper">
       <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
@@ -69,7 +69,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>  
 .wrapper-page {
-  background: #F5F5F5;
   height: 100%;
   overflow-y: hidden;
 }
@@ -81,7 +80,7 @@ export default {
 .wrapper {
   display:block;
   position: relative;
-  background: #F5F5F5;
+  /* background: #F5F5F5; */
   overflow-y: scroll;
   height: calc(100% - 15vh);
   padding: 0 30px;

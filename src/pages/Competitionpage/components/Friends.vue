@@ -75,7 +75,7 @@ export default {
     buttons.forEach((btn, idx) => {
       setTimeout(()=>{
         btn.classList.add('slideInRight', 'visible')
-      }, idx * 200)
+      }, idx * 100)
     })
   }
 }
@@ -83,7 +83,8 @@ export default {
 
 <style scoped>
 h2, p {
-  font-family: 'myfrida', sans-serif;
+  color: #ffffff;
+  font-family: 'myfrida_bold', sans-serif;
   font-weight: 100;
   text-align: center;
 }
