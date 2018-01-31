@@ -5,7 +5,7 @@
       <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country"/>
     </div>
     <h2 class="sport">Choisir un sport</h2>
-      <BasicButton class="animated hidden" title="Athletisme" image="lose" btnColor="red"  />
+      <BasicButton class="animated hidden" title="Athletisme" image="lose" btnColor="red" @click="$emit('before')"/>
       <BasicButton class="animated hidden" title="Natation Synchronisée" image="win" btnColor="blue"  />
   </div>
 </template>
@@ -32,6 +32,9 @@ export default {
     BasicButton
   },
   methods: {
+    before(){
+      this.$emit('before');
+    }
   },
   mounted() {
     let buttons = this.$el.querySelectorAll('.hidden');

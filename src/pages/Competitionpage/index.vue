@@ -2,11 +2,11 @@
   <div class="wrapper-page bg_purple_light">
     <Navbar text="compétitions" secondBtn="podium" @goBack="goBack"/>
     <div class="wrapper">
-      <!-- <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
+      <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
       <CompetitionDashboard v-if="currentState === 'competitionDashboard'" @chooseFriends="chooseFriends"/>
       <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/> 
-      <ChallengeFriend v-if="currentState === 'friend'" /> -->
-      <BeforeGame /> 
+      <ChallengeFriend v-if="currentState === 'friend'" @before="before" />
+      <BeforeGame v-if="currentState === 'before'" /> 
     </div>
 
   </div>
@@ -53,6 +53,10 @@ export default {
       this.updateHistory(this.currentState);
       this.currentState = "friend";
     },
+    before() {
+      this.updateHistory(this.currentState);
+      this.currentState = "before";
+    },
     updateHistory(previousState) {
       this.history.push(previousState);
     },
@@ -81,7 +85,7 @@ export default {
   overflow-y: scroll;
   height: calc(100% - 15vh);
   padding: 0 30px;
-  margin-top: 8px; /* Because header has a box-shadow bottom of 8px */
+
   padding-top: 3vh;
 }
 /* Remove the scrollbar  */

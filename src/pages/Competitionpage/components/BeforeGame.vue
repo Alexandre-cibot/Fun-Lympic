@@ -1,18 +1,18 @@
 <template>
   <div class="before">
     <div class="background"></div>
-    <div class="circle_first">
+    <div class="circle_first animated hidden">
       <img src="@/assets/first_circle.svg" alt="" class="circle">
       <img src="@/assets/alex.png" alt="" class="first_character">
     </div>
     <div class="infos">
         <h3>Alexandre</h3><img src="@/assets/french.svg" alt="" class="flag">
       </div>
-    <button>
+    <button class="animated hidden">
       <img src="@/assets/win_white.svg" alt="" class="icon_button">
       <h2>Jouer</h2>
     </button>
-    <div class="circle_second">
+    <div class="circle_second animated hidden">
       <img src="@/assets/second_circle.svg" alt="" class="circle">
       <img src="@/assets/enora.jpg" alt="" class="second_character">
     </div>
@@ -32,13 +32,11 @@ export default {
   },
   components: {
   },
-  methods: {
-  },
   mounted() {
     let buttons = this.$el.querySelectorAll('.hidden');
     buttons.forEach((btn, idx) => {
       setTimeout(()=>{
-        if (idx === 0) {
+        if (idx === 1) {
           btn.classList.add('slideInRight', 'visible')
         } else {
           btn.classList.add('zoomIn', 'visible')
@@ -96,7 +94,7 @@ button h2, h3 {
 .background{
   position: absolute;
   top: 0;
-  height: 50vh;
+  height: 50%;
   width: 100%;
   border-radius: 0 0 30px 30px;
   background: #2d1862;
