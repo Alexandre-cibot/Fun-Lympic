@@ -59,10 +59,10 @@ export default {
           return require('@/assets/place.svg');
         break;
         case 'lose': 
-          return require('@/assets/lose.svg');
+          return require('@/assets/lose_white.svg');
         break;
         case 'win': 
-          return require('@/assets/win.svg');
+          return require('@/assets/win_white.svg');
         break;
         default:
           console.log('no image default found.');
@@ -96,8 +96,8 @@ export default {
     flex-direction: row;
     align-items: center;
     padding: 8px 30px;
-    margin-top: 5vh;
-    padding: 10px 20px;
+    margin-top: 3vh;
+    padding: 15px 20px;
     border: none;
     border-radius: 10px;
     min-height: 11vh;
