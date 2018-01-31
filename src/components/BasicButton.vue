@@ -59,10 +59,10 @@ export default {
           return require('@/assets/place.svg');
         break;
         case 'lose': 
-          return require('@/assets/lose.svg');
+          return require('@/assets/lose_white.svg');
         break;
         case 'win': 
-          return require('@/assets/win.svg');
+          return require('@/assets/win_white.svg');
         break;
         default:
           console.log('no image default found.');
@@ -96,7 +96,7 @@ export default {
     flex-direction: row;
     align-items: center;
     padding: 8px 30px;
-    margin-top: 5vh;
+    margin-top: 3vh;
     padding: 10px 20px;
     border: none;
     border-radius: 10px;
@@ -115,9 +115,15 @@ export default {
     box-shadow: 0px 8px 0px 0px #2E00AB;
     background-color: #595BEE;
   }
+  .btnYellow .btn-fLeft {
+    width: 30px;
+    height: 30px;
+  }
   .btnYellow {
     box-shadow: 0px 6px 0px 0px #F1B946;
     background-color: #FFD360;
+    width: 85%;
+    min-height: 9vh;
   }
 
   .btn-title {
