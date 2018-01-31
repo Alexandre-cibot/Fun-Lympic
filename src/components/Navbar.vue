@@ -80,7 +80,7 @@ img{
 }
 h1{
   text-align:center;
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-family: 'myfrida_bold', sans-serif;
   font-weight: 100;
   color: white;

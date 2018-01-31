@@ -89,10 +89,9 @@ h2, p {
   text-align: center;
 }
 h2 {
-  font-size: 1.2em;  
+  font-size: 1.2em;
   text-transform: uppercase;
-  padding-bottom: 1vh;
-  margin-bottom: 3vh;
+  padding: 3vh 0px 5vh 0;
 }
 .friendBlock {
   margin-bottom: 20px;
