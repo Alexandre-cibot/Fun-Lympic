@@ -75,12 +75,12 @@ export default {
   display: flex;
   height: 100%;
   flex-direction: column;
-  justify-content: flex-end;
+  align-items: center;
   margin: 0 30px;
 }
 
 .game-title {
-  flex-grow: 7;
+  flex-grow: 4;
   flex-shrink: 7;
   display: flex;
   align-items: top;
@@ -92,16 +92,17 @@ export default {
   color: #2AD4E2;
   text-shadow: -3px 1px 4px rgba(255, 255, 255, 1);
 }
-
 .select-category {
-  flex-grow: 1;
-  flex-shrink: 1;
+  display: flex;
+  flex-direction : column;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 4vh;
 }
-
 .other-buttons {
   display:flex;
   flex-direction: row;
-  flex-grow: 1;
+  margin-bottom: 4vh;
   flex-shrink: 1;
 }
 .other-buttons button {
