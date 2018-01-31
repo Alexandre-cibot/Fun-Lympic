@@ -97,7 +97,7 @@ export default {
     align-items: center;
     padding: 8px 30px;
     margin-top: 3vh;
-    padding: 15px 20px;
+    padding: 10px 20px;
     border: none;
     border-radius: 10px;
     min-height: 11vh;
@@ -115,9 +115,15 @@ export default {
     box-shadow: 0px 8px 0px 0px #2E00AB;
     background-color: #595BEE;
   }
+  .btnYellow .btn-fLeft {
+    width: 30px;
+    height: 30px;
+  }
   .btnYellow {
     box-shadow: 0px 6px 0px 0px #F1B946;
     background-color: #FFD360;
+    width: 85%;
+    min-height: 9vh;
   }
 
   .btn-title {
