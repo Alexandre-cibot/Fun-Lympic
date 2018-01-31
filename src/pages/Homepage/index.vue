@@ -97,7 +97,7 @@ export default {
   flex-direction : column;
   width: 100%;
   align-items: center;
-  margin-bottom: 4vh;
+  margin-bottom: 6vh;
 }
 .other-buttons {
   display:flex;
