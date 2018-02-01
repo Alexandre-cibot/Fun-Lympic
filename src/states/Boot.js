@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 import WebFont from 'webfontloader'
-const Swipe = require('phaser-swipe');
+const Swipe = require('../vendor/swipe');
 
 const pallier = [
   {height: 250},
