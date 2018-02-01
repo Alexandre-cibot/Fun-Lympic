@@ -100,9 +100,7 @@ var moveBackground = function (background) {
 function movePlayerRace (self, boolean) {
   if (boolean) {
     const plusOne = self.playerRace + 1
-    if (plusOne >= pallier.length) {
-      self.playerRace = self.playerRace
-    } else {
+    if (plusOne < pallier.length) {
       self.playerRace = plusOne
     }
   } else {
