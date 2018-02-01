@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="160px" height="160px" viewBox="0 0 160 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
-    <title>Group</title>
+    <title>Group 4</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="02_b_Stade_non_connecte-Copy-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-108.000000, -209.000000)">
-        <g id="Group" transform="translate(108.000000, 209.000000)">
-            <circle id="Oval-4" fill="#FFBD7A" cx="80" cy="80" r="80"></circle>
-            <path d="M85.2618155,122 L85.2618155,85.0519756 L97.6446111,85.0519756 L99.498759,70.6526749 L85.2618155,70.6526749 L85.2618155,61.4596312 C85.2618155,57.2907013 86.4177008,54.4497132 92.3867561,54.4497132 L100,54.4463813 L100,41.5675313 C98.6833184,41.3920519 94.1640175,41 88.9061625,41 C77.9295031,41 70.4145852,47.7104184 70.4145852,60.0335839 L70.4145852,70.6526749 L58,70.6526749 L58,85.0519756 L70.4145852,85.0519756 L70.4145852,122 L85.2618155,122 Z" id="f" fill="#FFFFFF" fill-rule="nonzero"></path>
+    <g id="01_a_Entrainement-Copy-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-108.000000, -209.000000)">
+        <g id="Group" transform="translate(55.000000, 209.000000)">
+            <g id="Group-4" transform="translate(53.000000, 0.000000)">
+                <circle id="Oval-4" fill="#2D1862" cx="80" cy="80" r="80"></circle>
+                <path d="M85.2618155,122 L85.2618155,85.0519756 L97.6446111,85.0519756 L99.498759,70.6526749 L85.2618155,70.6526749 L85.2618155,61.4596312 C85.2618155,57.2907013 86.4177008,54.4497132 92.3867561,54.4497132 L100,54.4463813 L100,41.5675313 C98.6833184,41.3920519 94.1640175,41 88.9061625,41 C77.9295031,41 70.4145852,47.7104184 70.4145852,60.0335839 L70.4145852,70.6526749 L58,70.6526749 L58,85.0519756 L70.4145852,85.0519756 L70.4145852,122 L85.2618155,122 Z" id="f" fill="#FFFFFF" fill-rule="nonzero"></path>
+            </g>
         </g>
     </g>
 </svg>
