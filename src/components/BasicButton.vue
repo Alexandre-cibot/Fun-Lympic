@@ -122,7 +122,7 @@ export default {
   .btnYellow {
     box-shadow: 0px 6px 0px 0px #F1B946;
     background-color: #FFD360;
-    width: 85%;
+    width: 100%;
     min-height: 9vh;
   }
 
