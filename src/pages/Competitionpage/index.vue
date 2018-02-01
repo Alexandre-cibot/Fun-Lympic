@@ -2,12 +2,13 @@
   <div class="wrapper-page bg_purple_light">
     <Navbar text="compétitions" secondBtn="podium" @goBack="goBack"/>
     <div class="wrapper">
-      <!-- <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
-      <CompetitionDashboard v-if="currentState === 'competitionDashboard'" @chooseFriends="chooseFriends"/>
+      <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
+      <CompetitionDashboard v-if="currentState === 'competitionDashboard' || currentState === 'chooseFlag'" @chooseFlag="chooseFlag"/>
+      <Nation v-if="currentState === 'chooseFlag'" @closeModal="closeModal" @chooseFriends="chooseFriends" />
       <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/> 
       <ChallengeFriend v-if="currentState === 'friend'" @before="before" />
-      <BeforeGame v-if="currentState === 'before'" />  -->
-      <ClassementGame />
+      <BeforeGame v-if="currentState === 'before'" />
+      <!-- <ClassementGame /> -->
     </div>
 
   </div>
@@ -16,6 +17,7 @@
 <script>
 import Navbar from '@/components/Navbar';
 import BasicButton from '@/components/BasicButton';
+import Nation from '@/components/Nation';
 // Composants propre a cette page
 import ConnexionFB from './components/ConnexionFB.vue';
 import CompetitionDashboard from './components/CompetitionDashboard';
@@ -34,7 +36,8 @@ export default {
     ChallengeFriend,
     CompetitionDashboard,
     BeforeGame,
-    ClassementGame
+    ClassementGame,
+    Nation
   },
   data() {
     return {
@@ -42,15 +45,26 @@ export default {
       history: [],
       connexion : false,
       friends : true,
+      show: false,
     };
   },
   methods: {
+    closeModal() {
+      console.log('Close');
+      this.updateHistory(this.currentState);
+      this.currentState = "competitionDashboard";
+    },
     showChallenge() {
       this.connexion = !this.connexion;
     },
     chooseFriends() {
+      console.log('Flag');
       this.updateHistory(this.currentState);
       this.currentState = "chooseFriends"
+    },
+    chooseFlag() {
+      this.updateHistory(this.currentState);
+      this.currentState = "chooseFlag"
     },
     friend() {
       this.updateHistory(this.currentState);
