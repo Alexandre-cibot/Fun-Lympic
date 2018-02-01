@@ -1,11 +1,12 @@
 <template>
   <div class="wrapper-page bg_purple_light">
-    <Navbar text="compétition" secondBtn="podium" @goBack="goBack"/>
+    <Navbar text="compétitions" secondBtn="podium" @goBack="goBack"/>
     <div class="wrapper">
       <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
       <CompetitionDashboard v-if="currentState === 'competitionDashboard'" @chooseFriends="chooseFriends"/>
       <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/> 
-      <ChallengeFriend v-if="currentState === 'friend'" />
+      <ChallengeFriend v-if="currentState === 'friend'" @before="before" />
+      <BeforeGame v-if="currentState === 'before'" /> 
     </div>
 
   </div>
@@ -19,6 +20,7 @@ import ConnexionFB from './components/ConnexionFB.vue';
 import CompetitionDashboard from './components/CompetitionDashboard';
 import Friends from './components/Friends.vue';
 import ChallengeFriend from './components/ChallengeFriend.vue';
+import BeforeGame from './components/BeforeGame.vue';
 
 export default {
   name: 'Stade',
@@ -28,7 +30,8 @@ export default {
     BasicButton,
     ConnexionFB,
     ChallengeFriend,
-    CompetitionDashboard
+    CompetitionDashboard,
+    BeforeGame
   },
   data() {
     return {
@@ -49,6 +52,10 @@ export default {
     friend() {
       this.updateHistory(this.currentState);
       this.currentState = "friend";
+    },
+    before() {
+      this.updateHistory(this.currentState);
+      this.currentState = "before";
     },
     updateHistory(previousState) {
       this.history.push(previousState);
@@ -72,19 +79,13 @@ export default {
   height: 100%;
   overflow-y: hidden;
 }
-/* .wrapper {
-  min-height: calc(100% - 15vh);
-  flex-direction: column;
-  justify-content: space-around;
-} */
 .wrapper {
   display:block;
   position: relative;
-  /* background: #F5F5F5; */
   overflow-y: scroll;
   height: calc(100% - 15vh);
   padding: 0 30px;
-  margin-top: 8px; /* Because header has a box-shadow bottom of 8px */
+
   padding-top: 3vh;
 }
 /* Remove the scrollbar  */
