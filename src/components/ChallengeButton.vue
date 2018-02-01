@@ -2,8 +2,8 @@
   <button class="challengeButton bg_purple_dark" @click="handleClick">
     <img :src="imagePath" class="btnLeft"/>
       <div v-if="!finish" class="name">
-        <p>{{currentName}} : <span class="points">{{currentPoints}} points</span></p> 
-        <p>{{challengerName}} : <span class="points">{{challengerPoints}} points</span></p> 
+        <p>{{currentName}} <span class="points">{{currentPoints}} points</span></p> 
+        <p>{{challengerName}} <span class="points">{{challengerPoints}} points</span></p> 
       </div>
       
       <div v-if="finish" class="name">
@@ -126,7 +126,6 @@ export default {
 }
 .btnLeft {
   border-radius: 50%;
-  border: 2px solid white;
   margin-right: 10px;
   height: 40px;
 }
