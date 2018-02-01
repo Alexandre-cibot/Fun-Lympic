@@ -1,6 +1,9 @@
 <template>
 <div class="background">
   <div class="wrapper">
+    <!-- Parameter button -->
+    <button id="parameterBtn" @click="goParameterPage">P</button>
+
     <div class="game-title">
       <p>Fun'lympics Games</p>
     </div>
@@ -57,6 +60,9 @@ export default {
     },
     goCompetition() {
       this.$router.push('/competition');
+    },
+    goParameterPage() {
+      this.$router.push('/parameter');
     }
   }
 };
@@ -64,6 +70,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#parameterBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid;
+  height: 40px;
+  width: 40px; 
+}
 .background {
   height: 100%;
   width: 100%;
