@@ -95,7 +95,7 @@ export default {
 .select-category {
   display: flex;
   flex-direction : column;
-  width: 100%;
+  width: 85%;
   align-items: center;
   margin-bottom: 6vh;
 }
