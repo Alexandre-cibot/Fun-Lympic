@@ -10,6 +10,7 @@ var pixi = path.join(phaserModule, 'build/custom/pixi.js')
 var p2 = path.join(phaserModule, 'build/custom/p2.js')
 const vueLoaderConfig = require('./vue-loader.conf')
 const utils = require('./utils')
+const WebpackPwaManifest = require('webpack-pwa-manifest')
 
 var definePlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'false'))
@@ -61,7 +62,22 @@ module.exports = {
         removeEmptyAttributes: true
       },
       hash: true
-    })
+    }),
+    new WebpackPwaManifest({
+      name: 'Finger Games',
+      display: 'standalone',
+      short_name: 'Finger Games',
+      description: 'Best game',
+      orientation: 'portrait',
+      background_color: '#EFDFBB',
+      theme_color: '#573399',
+      icons: [
+        {
+          src: path.resolve('assets/logo.png'),
+          sizes: [ 96, 128, 192, 256, 384, 512, 1024, ],
+        },
+      ],
+    }),
   ],
   module: {
     rules: [
