@@ -77,8 +77,7 @@ export default {
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    height: 10vh;
-    max-height: 65px;
+    height: 12vh;
     border: none;
     border-radius: 10px;
     -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.75);
@@ -98,6 +97,7 @@ export default {
   }
   .btn-fLeft {
     float:left;
+    padding: 10px;
   }
   .btn-Right {
     float:right;
@@ -110,8 +110,7 @@ export default {
   }
   .btn-icone {
     border-radius: 50%;
-    border: 2px solid white;
     margin-right: 10px;
-    height: 40px;
+    height: 45px;
   }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <div class="">
-  <h2>Lancer un défi à</h2>
+  <h2 class="challenge" >Lancer un défi à</h2>
     <div v-for="friend in friends" :key="friend.name" class="friendBlock">
       <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country"/>
     </div>
     <h2 class="sport">Choisir un sport</h2>
-      <BasicButton class="animated hidden" title="Athletisme" image="play" btnColor="red"  />
-      <BasicButton class="animated hidden" title="Natation Synchronisée" image="play" btnColor="blue"  />
+      <BasicButton class="animated hidden" title="Athletisme" image="lose" btnColor="red" @click="$emit('before')"/>
+      <BasicButton class="animated hidden" title="Natation Synchronisée" image="win" btnColor="blue"  />
   </div>
 </template>
 
@@ -32,6 +32,9 @@ export default {
     BasicButton
   },
   methods: {
+    before(){
+      this.$emit('before');
+    }
   },
   mounted() {
     let buttons = this.$el.querySelectorAll('.hidden');
@@ -55,11 +58,16 @@ h2, p {
   font-weight: 100;
   text-align: center;
 }
-h2 {
+.challenge {
   font-size: 1.2em;  
   text-transform: uppercase;
-  padding-bottom: 1vh;
-  margin-bottom: 3vh;
+  padding: 3vh 0px 5vh 0;
+}
+.sport {
+  font-size: 1.2em;  
+  margin-top: 9vh;
+  text-transform: uppercase;
+  padding: 3vh 0px 2vh 0;
 }
 .friendBlock {
   margin-bottom: 20px;
@@ -68,15 +76,11 @@ h2 {
   font-size: 2.2em;
   margin-bottom: 1vh;
 }
-.sport {
-  margin-top: 15vh;
-}
 .info-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 6
-  0vh;
+  height: 60vh;
   align-items: center;
 }
 .info-content p {
