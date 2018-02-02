@@ -1,9 +1,12 @@
 <template>
   <div class="container" v-show="show" @click="closeModal">
     <div class="know">
-      <h2>Le saviez-vous ?</h2>
-      <img :src="imagePath" />
+      <div class="title">
+        <img src="@/assets/title_know.png" alt="" class="title_img">
+      </div>
+      <img :src="imagePath" class="content_img" />
       <p>À quelques centaines de mètres de l’arrivée, il accepte un verre de champagne qui le fait vomir.</p>
+      <img src="@/assets/croix.svg" alt="" class="bottom_img">
     </div>
   </div>
 </template>
@@ -30,7 +33,7 @@ export default {
     imagePath() {
       switch (this.image) {
         case 'athletisme': 
-          return require('@/assets/escrime.png');
+          return require('@/assets/img_did.svg');
         break;
         default: 
           console.log('No default found');
@@ -63,11 +66,11 @@ export default {
   background: rgba(0, 0, 0, 0.6);
 }
 .know {
+  position: relative;
+  display: block;
   display: flex;
-  position: absolute;
   flex-direction: column;
   align-content: space-between;
-  position: relative;
   justify-content: center;
   width: 80%;
   height: 60vh;
@@ -75,52 +78,36 @@ export default {
   border-radius: 10px;
   z-index: 30;
 }
-.know:after {
-  content: "";
+.title{
   position: absolute;
-  background: white;
-  border-left: 25px solid #C09033;
-  border-right: 25px solid #C09033;
-  margin-left: -25px;
-  top: 30px;
-  height: 40px;
-  width: 100%;
-  z-index: -1;
-}
-img{
-  width: 50%;
+  display: block;
+  width: 122%;
+  left: -11%;
+  top: 1vh;
   margin: auto;
+}
+.title_img {
+  width: 100%;
+}
+.content_img{
+  width: 56%;
+  margin: 0 auto;
+  margin-top: 25%;
   height: auto;
 }
-h2, p {
-  font-family: 'Helvetica';
-  text-align: center;
-}
-h2{
-  position: relative;
-  padding: 10px 0;
-  width: 110%;
-  margin-left: -5% ;
-  font-size: 1.3em;
-  font-weight: 100;
-  color: white;
-  background: #F7BE51;
-  text-transform: uppercase;
-}
-/* h2:after {
-  content: "";
+.bottom_img {
   position: absolute;
-  left: 5px;
-  height: 9px;
-  width: 5%;
-  top: 100%;
-  bottom: 0; 
-  background: #C09033;
-  transform: rotate(30deg);
-  z-index: -1;
-} */
-p{
-  padding: 10px;
+  bottom: -6vw;
+  width:12vw;
+  left: calc(50% - 6vw);
+  margin: auto;
+}
+p {
+  font-family: 'myfrida_bold', sans-serif;
+  text-align: center;
+  padding: 27px;
+  line-height: 1.5em ;
   font-size: 0.9em;
+  color: #493B35;
 }
 </style>
