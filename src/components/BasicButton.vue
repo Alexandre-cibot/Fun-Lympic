@@ -1,11 +1,11 @@
 <!--
 Exemple pour apeller ce composant : 
-<B title="entrainement" image="" btnColor="btnBlue" @doAction="handleClick" />
+<BasicButton title="entrainement" image="" btnColor="blue" @doAction="handleClick" />
 -->
 <template>
   <button class="BasicButton" :class="btnClass" @click="handleClick" v-bind:style="{ 'justify-content': image ? 'space-between' : 'center' }">
     <img v-if="image" :src="imagePath" alt="" class="btn-fLeft btn-icone">
-    <p class="btn-fRight btn-title">
+    <p v-if="title" class="btn-fRight btn-title">
       {{title}}
     </p>
   </button>
@@ -22,7 +22,7 @@ export default {
     },
     title: {
       type: String,
-      required: true,
+      required: false,
     },
     image: {
       type: String,
@@ -64,6 +64,12 @@ export default {
         case 'win': 
           return require('@/assets/win_white.svg');
         break;
+        case 'sound': 
+          return require('@/assets/sound.svg');
+        break;
+        case 'music': 
+          return require('@/assets/music.svg');
+        break;
         default:
           console.log('no image default found.');
         break;
@@ -96,7 +102,7 @@ export default {
     flex-direction: row;
     align-items: center;
     padding: 8px 30px;
-    margin-top: 3vh;
+    /* margin-top: 3vh; */
     padding: 10px 20px;
     border: none;
     border-radius: 10px;

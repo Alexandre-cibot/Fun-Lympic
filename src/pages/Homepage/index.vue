@@ -7,11 +7,11 @@
     <DidYouKnow :show="show" image="athletisme" @closeModal="closeModal" />
       <div class="select-category">
           <BasicButton title="Jouer" btnColor="yellow" image="play" @click="goTrainingPage"/>
-          <BasicButton title="Compétitions" btnColor="yellow" image="olympique" @click="goCompetition"/>
+          <BasicButton style="margin-top:3vh;" title="Compétitions" btnColor="yellow" image="olympique" @click="goCompetition"/>
       </div>
 
       <div class="other-buttons">
-        <button>
+        <button @click="goParameterPage">
           <img src="@/assets/first.svg" alt="">
         </button>
         <button>
@@ -57,6 +57,9 @@ export default {
     },
     goCompetition() {
       this.$router.push('/competition');
+    },
+    goParameterPage() {
+      this.$router.push('/parameter');
     }
   }
 };
