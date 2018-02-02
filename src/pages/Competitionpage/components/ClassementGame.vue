@@ -2,7 +2,10 @@
   <div class="classement">
     <h2>Classement de tes amis</h2>
     <div class="list">
-      <div v-for="friend in friends" :key="friend.firstname">
+      <div v-for="(friend, i) in friends" :key="friend.firstname">
+        <div v-if="i == 0">
+          <ClassementFriends class="animated hidden" :firstname="friend.firstname" :picture="friend.picture" :medal="true" :points="friend.points"/>
+        </div>
         <ClassementFriends class="animated hidden" :firstname="friend.firstname" :picture="friend.picture" :points="friend.points"/>
       </div>
     </div>
@@ -19,22 +22,22 @@ export default {
       friends: [
         {
           firstname: "Enora",
-          points: 120,
+          points: 250,
           picture: require('@/assets/enora.jpg'),
         },
         {
           firstname: "Julien",
-          points: 100,
+          points: 200,
           picture: require('@/assets/julien.jpg'),
         },
         {
           firstname: "Enora",
-          points: 120,
+          points: 170,
           picture: require('@/assets/enora.jpg'),
         },
         {
           firstname: "Julien",
-          points: 100,
+          points: 150,
           picture: require('@/assets/julien.jpg'),
         },
                 {
@@ -69,17 +72,15 @@ h2 {
   font-family: 'myfrida_bold', sans-serif;
   font-weight: 100;
   text-align: center;
-}
-h2 {
-  font-size: 1.2em;  
+  font-size: 1em;
   text-transform: uppercase;
+  letter-spacing: 1.5px;
   color: white;
   margin-top: 3vh;
-  padding-bottom: 1vh;
-  margin-bottom: 3vh;
+  padding-bottom: 2vh;
 }
 .list {
-  max-height: 40vh;
+  max-height: 53vh;
   margin: 0;
   overflow: scroll;
 }
@@ -87,12 +88,12 @@ h2 {
   position: absolute;
   left: 0;
   right: 0;
-  width: 80%;
-  margin-left: 10%;
+  width: 90%;
+  margin-left: 5%;
   bottom: 0;
-  height: 50vh;
-  background: #1c879a;
-  border: 2px solid #1a6067;
+  height: 60vh;
+  background: #412880;
+  border: 2px solid #2D1862;
   border-radius: 15px 15px 0 0;
 }
 .friendBlock {
