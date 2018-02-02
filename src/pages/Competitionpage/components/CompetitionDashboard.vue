@@ -1,6 +1,6 @@
 <template>
   <div style="padding-bottom: 3vh;">
-      <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="yellow" image="facebook" @click="chooseFriends" />
+      <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
       <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" />
       <h3 class="animated fadeInUp">Ils te défient</h3>
       <div v-for="chall in challengesNotDone" :key="chall.challName">
@@ -83,8 +83,8 @@ export default {
     };
   },
   methods: {
-    chooseFriends() {
-      this.$emit('chooseFriends');
+    chooseFlag() {
+      this.$emit('chooseFlag');
     }
   },
   mounted() {

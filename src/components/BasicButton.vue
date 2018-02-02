@@ -111,7 +111,6 @@ export default {
   .BasicButton p {
     font-family: 'myfrida_bold', sans-serif;
     text-align: right;
-    font-size: 2.1em;
     letter-spacing: 1.5px;
     margin: 0;
   }
@@ -125,14 +124,20 @@ export default {
     width: 30px;
     height: 30px;
   }
+  .bg_red p, .bg_blue p {
+    font-size: 1.6em;
+  }
+  .btnYellow p {
+    font-size: 0.9em;
+  }
   .btnYellow {
     box-shadow: 0px 6px 0px 0px #F1B946;
     background-color: #FFD360;
+    font-size: 1.7em;
+    width: 100%;
     min-height: 9vh;
   }
-
   .btn-title {
-    font-size: 20px;
     text-transform: uppercase;
     color: white;
     font-family: 'myfrida_bold', sans-serif;
