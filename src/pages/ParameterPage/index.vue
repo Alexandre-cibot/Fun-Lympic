@@ -78,7 +78,7 @@ h2 {
   flex-direction: row;
   justify-content: space-evenly;
   text-align:center;
-  padding: 30px 0px;
+  padding: 10px 0px 30px 0px;
 }
 .sound, .music {
   display: flex;
