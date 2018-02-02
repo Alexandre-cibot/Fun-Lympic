@@ -9,9 +9,10 @@
       <h1>{{text}}</h1>
     </div>
     <div class="button">
-      <button class="bg_red">
+      <button v-if="secondBtn" class="bg_red">
         <img :src="secondBtnPath" />
       </button>
+      <span v-else style="opacity:0; width:57px;"></span>
     </div>
   </header>
 </template>
@@ -27,7 +28,7 @@ export default {
     },
     secondBtn: {
       type: String,
-      required: true
+      required: false
     }  
   },
   data() {
