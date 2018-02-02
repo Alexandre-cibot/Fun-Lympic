@@ -1,10 +1,8 @@
 <template>
 <div class="page-wrapper">
-  <Navbar text="Entrainement" secondBtn="medal" @goBack="()=>this.$router.push('/')" />
+  <Navbar text="jouer" secondBtn="medal" @goBack="()=>this.$router.push('/')" />
   <div class="wrapper">
-    <h2>Meilleur score</h2>
-    <p class="score">30</p>
-    <Card text="Athlétisme" image="athletisme" @click="runAthletismeGame" />
+    <Card text="Athlétisme" image="athletisme" :score="65" @click="runAthletismeGame" />
     <Classement firstScore="237" secondScore="183" thirdScore="93" image="@/assets/alex.png"/>
   </div>
 </div>
@@ -44,10 +42,9 @@ export default {
   height: 100vh;
 }
 .wrapper {
-  background: #F5F5F5;
+  background: #573399;
   overflow: hidden;
-  height: calc(100% - 15vh);
-  margin-top: 8px;
+  height: calc(100% - 13vh);
   padding-top: 3vh;
 }
 h2, p {
