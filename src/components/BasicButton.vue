@@ -80,11 +80,8 @@ export default {
         case "yellow":
           return "btnYellow";
         break;
-        case "red": 
-          return "bg_red";
-        break;
-        case "blue": 
-          return "bg_blue";
+        case "blue_border":
+          return "btnBlue";
         break;
       }
     }
@@ -117,14 +114,14 @@ export default {
   .btnBlue {
     border: none;
     border-radius: 10px;
-    box-shadow: 0px 8px 0px 0px #2E00AB;
-    background-color: #595BEE;
+    box-shadow: 0px 8px 0px 0px #10B2C0;
+    background-color: #2AD4E2;
   }
   .btnYellow .btn-fLeft {
     width: 30px;
     height: 30px;
   }
-  .bg_red p, .bg_blue p {
+  .bg_red p, .bg_blue p, .btnBlue p{
     font-size: 1.6em;
   }
   .btnYellow p {

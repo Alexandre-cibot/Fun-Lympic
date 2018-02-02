@@ -16,28 +16,28 @@
         <h2>LANGUE</h2>
         <div class="langages">
           <div>
-            <BasicButton title="ENGLISH" btnColor="blue" @doAction="()=>{console.log('click')}" />
+            <BasicButton title="ENGLISH" btnColor="bg_blue" @doAction="()=>{console.log('click')}" />
           </div>
           <div>
-            <BasicButton title="ESPAÑOL" btnColor="blue" @doAction="()=>{console.log('click')}" />
+            <BasicButton title="ESPAÑOL" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
           </div>
           <div>
-            <BasicButton title="FRANÇAIS" btnColor="blue" @doAction="()=>{console.log('click')}" />
+            <BasicButton title="FRANÇAIS" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
           </div>
           <div>
-            <BasicButton title="DEUTCH" btnColor="blue" @doAction="()=>{console.log('click')}" />
+            <BasicButton title="DEUTCH" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
           </div>
           <div>
-            <BasicButton title="ITALIANO" btnColor="blue" @doAction="()=>{console.log('click')}" />
+            <BasicButton title="ITALIANO" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
           </div>
           <div>
-            <BasicButton title="PORTUGUÊS" btnColor="blue" @doAction="()=>{console.log('click')}" />
+            <BasicButton title="PORTUGUÊS" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
           </div>
           <div>
-            <BasicButton title="中国" btnColor="blue" @doAction="()=>{console.log('click')}" />
+            <BasicButton title="中国" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
           </div>
           <div>
-            <BasicButton title="日本の" btnColor="blue" @doAction="()=>{console.log('click')}" />
+            <BasicButton title="日本の" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
           </div>
         </div>
       </div>
@@ -91,6 +91,7 @@ h2 {
   flex-direction: row;
   justify-content: space-evenly;
   text-align:center;
+  padding: 30px 0px;
 }
 .sound, .music {
   display: flex;
@@ -101,9 +102,11 @@ h2 {
   display: flex;
   flex-direction: row;
   flex-wrap:wrap;
+  justify-content: space-between;
 }
 .langages div {
-  width: 35vw;
+  width: 45%;
+  margin-bottom: 5%
 }
 .block2 {
   border: 1px solid white;
