@@ -1,20 +1,17 @@
 <template>
 <div class="background">
   <div class="wrapper">
-    <!-- Parameter button -->
-    <button id="parameterBtn" @click="goParameterPage">P</button>
-
     <div class="game-title">
       <p>Fun'lympics Games</p>
     </div>
     <!-- <DidYouKnow :show="show" image="athletisme" @closeModal="closeModal" /> -->
       <div class="select-category">
           <BasicButton title="Jouer" btnColor="yellow" image="play" @click="goTrainingPage"/>
-          <BasicButton title="Compétition" btnColor="yellow" image="olympique" @click="goCompetition"/>
+          <BasicButton style="margin-top:3vh;" title="Compétition" btnColor="yellow" image="olympique" @click="goCompetition"/>
       </div>
 
       <div class="other-buttons">
-        <button>
+        <button @click="goParameterPage">
           <img src="@/assets/first.svg" alt="">
         </button>
         <button>
@@ -70,14 +67,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#parameterBtn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: 1px solid;
-  height: 40px;
-  width: 40px; 
-}
 .background {
   height: 100%;
   width: 100%;
