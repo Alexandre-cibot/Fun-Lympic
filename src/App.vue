@@ -7,9 +7,11 @@
 </template>
 
 <script>
-if (location.protocol != 'https:') {
+
+if (location.protocol != 'https:' && !location.origin.includes('localhost')) {
   location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
 }
+console.log(location);
 export default {
   name: 'app',
   data () {
