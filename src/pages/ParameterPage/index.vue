@@ -16,7 +16,7 @@
         <h2>LANGUE</h2>
         <div class="langages">
           <div v-for="(lang, key) in languages" :key="key">
-            <BasicButton :title="lang" btnColor="blue" @click="selectLanguage(lang)" />
+            <BasicButton :title="lang.text" btnColor="blue" @click="selectLanguage(lang.name)" />
           </div>
         </div>
       </div>
@@ -37,12 +37,43 @@ export default {
   },
   data() {
     return {
-      languages: ['ENGLISH', 'ESPAÑOL', 'FRANÇAIS', 'DEUTCH', 'ITALIANO', 'PORTUGUÊS', '中国', '日本の']
+      languages: [
+          {
+            name: 'english',
+            text: 'ENGLISH',
+          },
+          {
+            name: 'spanish',
+            text: 'ESPAÑOL'
+          },
+          { 
+            name: 'french',
+            text: 'FRANÇAIS'},
+          {
+            name: 'german',
+            text: 'Deutsch'
+          },
+          {
+            name: 'italian',
+            text: 'ITALIANO'
+          },
+          {
+            name: 'portuguese',
+            text: 'PORTUGUÊS'},
+          {
+            name: 'chinese',
+            text: '中国'
+          },
+          {
+            name: 'japanese',
+            text: '日本の'
+          }
+        ]
     };
   },
   methods: {
-    selectLanguage() {
-      console.log(`select language`);
+    selectLanguage(lang) {
+      console.log(`select language ${lang}`);
     }
   }
 };
