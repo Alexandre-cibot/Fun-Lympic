@@ -50,7 +50,6 @@ export default {
   },
   methods: {
     closeModal() {
-      console.log('Close');
       this.updateHistory(this.currentState);
       this.currentState = "competitionDashboard";
     },
@@ -58,7 +57,6 @@ export default {
       this.connexion = !this.connexion;
     },
     chooseFriends() {
-      console.log('Flag');
       this.updateHistory(this.currentState);
       this.currentState = "chooseFriends"
     },
