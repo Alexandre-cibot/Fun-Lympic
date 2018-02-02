@@ -47,13 +47,13 @@ export default {
     flagPath() {
       switch(this.country) {
         case 'fr': 
-          return require('@/assets/flags/flag_fr.png');
+          return require('@/assets/flag/france.svg');
         break;
         case 'italy': 
-          return require('@/assets/flags/flag_italy.png');
+          return require('@/assets/flag/italy.svg');
           break;
         case 'uk':
-          return require('@/assets/flags/flag_uk.png');
+          return require('@/assets/flag/uk.svg');
           break;
         default:
           console.log('no image default found.');
