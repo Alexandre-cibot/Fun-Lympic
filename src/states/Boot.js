@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import WebFont from 'webfontloader'
-const Swipe = require('../vendor/swipe');
+// const Swipe = require('phaser-swipe');
+const Swipe = require('../vendor/swipe')
 
 const pallier = [
   {height: 250},
@@ -78,15 +79,19 @@ export default class extends Phaser.State {
           break
         case this.swipe.DIRECTION_UP_LEFT:
           console.log('DIRECTION_UP_LEFT')
+          movePlayerRace(this, false)
           break
         case this.swipe.DIRECTION_UP_RIGHT:
           console.log('DIRECTION_UP_RIGHT')
+          movePlayerRace(this, false)
           break
         case this.swipe.DIRECTION_DOWN_LEFT:
           console.log('DIRECTION_DOWN_LEFT')
+          movePlayerRace(this, true)
           break
         case this.swipe.DIRECTION_DOWN_RIGHT:
           console.log('DIRECTION_DOWN_RIGHT')
+          movePlayerRace(this, true)
           break
       }
     }
