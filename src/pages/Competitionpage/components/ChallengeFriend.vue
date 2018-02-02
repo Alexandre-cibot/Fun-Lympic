@@ -5,8 +5,8 @@
       <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country"/>
     </div>
     <h2 class="sport">Choisir un sport</h2>
-      <BasicButton class="animated hidden" title="Athletisme" image="lose" btnColor="red" @click="$emit('before')"/>
-      <BasicButton style="margin-top:3vh;" class="animated hidden" title="Natation Synchronisée" image="win" btnColor="blue"  />
+      <BasicButton class="animated hidden bg_red" title="Athletisme" image="lose" @click="$emit('before')"/>
+      <BasicButton style="margin-top:3vh;" class="animated hidden bg_blue" title="Natation Synchronisée" image="win"  />
   </div>
 </template>
 
