@@ -5,39 +5,18 @@
       <div class="block1">
         <div class="sound">
           <h2>SON</h2>
-          <BasicButton image="sound" btnColor="yellow" @doAction="()=>{console.log('click')}" />
+          <BasicButton image="sound" btnColor="yellow" @click="()=>{console.log('click')}" />
         </div>
         <div class="music">
           <h2>MUSIC</h2>
-          <BasicButton image="music" btnColor="yellow" @doAction="()=>{console.log('click')}" />
+          <BasicButton image="music" btnColor="yellow" @click="()=>{console.log('click')}" />
         </div>
       </div>
       <div class="block2">
         <h2>LANGUE</h2>
         <div class="langages">
-          <div>
-            <BasicButton title="ENGLISH" btnColor="bg_blue" @doAction="()=>{console.log('click')}" />
-          </div>
-          <div>
-            <BasicButton title="ESPAÑOL" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
-          </div>
-          <div>
-            <BasicButton title="FRANÇAIS" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
-          </div>
-          <div>
-            <BasicButton title="DEUTCH" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
-          </div>
-          <div>
-            <BasicButton title="ITALIANO" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
-          </div>
-          <div>
-            <BasicButton title="PORTUGUÊS" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
-          </div>
-          <div>
-            <BasicButton title="中国" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
-          </div>
-          <div>
-            <BasicButton title="日本の" btnColor="blue_with_border" @doAction="()=>{console.log('click')}" />
+          <div v-for="(lang, key) in languages" :key="key">
+            <BasicButton :title="lang" btnColor="blue" @click="selectLanguage(lang)" />
           </div>
         </div>
       </div>
@@ -58,9 +37,13 @@ export default {
   },
   data() {
     return {
+      languages: ['ENGLISH', 'ESPAÑOL', 'FRANÇAIS', 'DEUTCH', 'ITALIANO', 'PORTUGUÊS', '中国', '日本の']
     };
   },
   methods: {
+    selectLanguage() {
+      console.log(`select language`);
+    }
   }
 };
 </script>
@@ -72,21 +55,25 @@ export default {
   overflow-y: hidden;
 }
 .wrapper {
-  display:block;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
   position: relative;
   overflow-y: scroll;
   height: calc(100% - 15vh);
   padding: 0 30px;
   padding-top: 3vh;
-  border: 1px solid white;
 }
 h2 {
   text-transform: uppercase;
   font-family: 'myfrida_bold';
   color: #ffffff;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  letter-spacing: 1px;
 }
+
 .block1 {
-  border: 1px solid white;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -106,10 +93,9 @@ h2 {
 }
 .langages div {
   width: 45%;
-  margin-bottom: 5%
+  margin-bottom: 7%
 }
 .block2 {
-  border: 1px solid white;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

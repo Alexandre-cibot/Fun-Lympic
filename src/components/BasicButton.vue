@@ -80,7 +80,7 @@ export default {
         case "yellow":
           return "btnYellow";
         break;
-        case "blue_border":
+        case "blue":
           return "btnBlue";
         break;
       }
