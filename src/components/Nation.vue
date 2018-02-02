@@ -117,12 +117,13 @@ export default {
 }
 form {
   width: 80%;
-  margin-left: 15%;
+  margin: auto;
 }
 .flag {
   display: inline-block;
   position: relative; 
   width: 20%;
+  margin-left: 1vh;
   margin-top: 5vh;
 }
 .dis {
@@ -163,6 +164,7 @@ label{
   display: flex;
   flex-direction: column;
   align-content: space-between;
+  justify-content: center;
   width: 80%;
   height: 70vh;
   background: white;

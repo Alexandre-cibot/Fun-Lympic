@@ -4,7 +4,7 @@
     <div class="game-title">
       <p>Fun'lympics Games</p>
     </div>
-    <!-- <DidYouKnow :show="show" image="athletisme" @closeModal="closeModal" /> -->
+    <DidYouKnow :show="show" image="athletisme" @closeModal="closeModal" />
       <div class="select-category">
           <BasicButton title="Jouer" btnColor="yellow" image="play" @click="goTrainingPage"/>
           <BasicButton title="Compétitions" btnColor="yellow" image="olympique" @click="goCompetition"/>
