@@ -24,7 +24,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'BeforeGame',
   data() {
@@ -93,7 +92,7 @@ button h2, h3 {
 }
 .background{
   position: absolute;
-  top: 0;
+  top: 10vh;
   height: 50%;
   width: 100%;
   border-radius: 0 0 30px 30px;

@@ -5,7 +5,7 @@
           <p>Connectez-vous pour accéder au stade et défier vos amis</p>
       </div>
       <!-- <router-link :to="{ path: '/stade/challenge' }" style="width:100%;"> -->
-        <BasicButton class="connexionBtn" title="connexion" image="facebook" btnColor="btnYellow" @click="showChallenge" />
+        <BasicButton class=" bg_blue" title="connexion" image="facebook" btnColor="btnYellow" @click="showChallenge" />
       <!-- </router-link> -->
   </div>
 </template>
@@ -41,8 +41,10 @@ export default {
   justify-content: space-around;
   height: 100%;
 }
-h2, p {
+p {
+  color: #ffffff;
   font-family: 'Roboto';
+  line-height: 1.3;
   font-weight: 100;
   text-align: center;
 }
