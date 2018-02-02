@@ -5,7 +5,7 @@ import Homepage from '@/pages/Homepage/index.vue'
 import Trainingpage from '@/pages/Trainingpage/index.vue'
 import Competitionpage from '@/pages/Competitionpage/index.vue'
 import Athleticspage from '@/pages/Athleticspage.vue'
-import Parameter from '@/pages/Parameterpage/index.vue'
+import Parameter from '@/pages/ParameterPage/index.vue'
 Vue.use(Router)
 
 export default new Router({
