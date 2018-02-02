@@ -12,7 +12,7 @@
       <button v-if="secondBtn" class="bg_red">
         <img :src="secondBtnPath" />
       </button>
-      <span v-else style="opacity:0; width:57px;"></span>
+      <div v-else style="opacity:0; width:57px;"></div>
     </div>
   </header>
 </template>

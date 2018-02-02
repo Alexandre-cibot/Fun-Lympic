@@ -3,26 +3,26 @@
      <div class="container">
     <div class="second">
       <div class="circle">
-        <img src="@/assets/enora.jpg" />
+        <img src="@/assets/enora.jpg" class="profil_pic" />
       </div>
       <div class="score">
-        <img src="@/assets/stars_black.png" class="stars"/><p>{{ secondScore }}</p>
+        <img src="@/assets/two_stars.svg" class="stars"/><p>{{ secondScore }}</p>
       </div>
     </div>
     <div class="first">
       <div class="circle circleCenter">
-        <img :src="imagePath" />
+        <img :src="imagePath" class="profil_pic" />
         </div>
       <div class="score">
-        <img src="@/assets/stars_black.png" class="stars" /><p>{{ firstScore }}</p>
+        <img src="@/assets/three_stars.svg" class="stars" /><p>{{ firstScore }}</p>
       </div>
     </div>
     <div class="third">
       <div class="circle">
-        <img src="@/assets/hugo.jpg" />
+        <img src="@/assets/hugo.jpg" class="profil_pic" />
         </div>
       <div class="score">
-        <img src="@/assets/stars_black.png" class="stars"/><p>{{ thirdScore }}</p>
+        <img src="@/assets/star.svg" class="stars"/><p>{{ thirdScore }}</p>
       </div>      
     </div>
   </div>
@@ -61,24 +61,6 @@ export default {
       return require('@/assets/julien.jpg');
     }
   },
-  // computed: {
-  //   imagePath() {
-  //     switch (this.image) {
-  //       case 'hugo': 
-  //         return require('@/assets/hugo.png');
-  //       break;
-  //       case 'julien': 
-  //         return require('@/assets/julien.png');
-  //       break;
-  //       case 'enora': 
-  //         return require('@/assets/enora.png');
-  //       break;
-  //       default: 
-  //         console.log('No default found');
-  //       break;
-  //     }
-  //   }
-  // }
 };
 </script>
 
@@ -88,7 +70,6 @@ export default {
   min-height: 0;
   overflow: visible;
   height: 90%;
-  /* width:100%; */
   text-align: center;
 }
 .circleCenter{
@@ -103,12 +84,17 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
+  height: 3vh;
+  width: 3vh;
 }
 .stars {
   margin-bottom: 5px;
+  height: 100%;
 }
 .score p {
+  color: white;
+  font-family: "myfrida-bold", sans-serif;
   margin-left: 5px;
   margin-bottom: 0;
 }
@@ -116,6 +102,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   font-family: Roboto;
 }
 .background {
@@ -125,7 +112,7 @@ export default {
   width: 84vw;
   height: 10vh;
   border-radius: 20px 20px 0 0;
-  background: white;
+  background: #2D1862;
   transform: translateX(-50%);
   left: 50%;
 }
@@ -138,9 +125,9 @@ export default {
   width: 100%;
   height: 160%;
 }
-.circle img, .circleCenter img{
+.circle .profil_pic, .circleCenter .profil_pic{
   height: 80%;
   border-radius: 50%;
-  border: 8px solid white;
+  border: 8px solid #2D1862;
 } 
 </style>
