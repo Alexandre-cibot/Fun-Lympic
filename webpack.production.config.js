@@ -51,6 +51,7 @@ module.exports = {
       template: './src/index.html',
       chunks: ['vendor', 'app'],
       chunksSortMode: 'manual',
+      inject: true,
       minify: {
         removeAttributeQuotes: true,
         collapseWhitespace: true,
@@ -71,6 +72,8 @@ module.exports = {
       orientation: 'portrait',
       background_color: '#EFDFBB',
       theme_color: '#573399',
+      start_url: '../index.html',
+      publicPath: '/dist',
       icons: [
         {
           src: path.resolve('assets/logo.png'),
