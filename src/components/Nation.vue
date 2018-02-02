@@ -20,7 +20,7 @@
         </div>
         <div class="flag">
           <input type="radio" name="flag" value="usa" id="usa">
-          <label for="usa"><img src="@/assets/flag/usa.svg" alt=""></label>
+          <label for="usa"><img src="@/assets/flag/USA.svg" alt=""></label>
         </div>
         <div class="flag">
           <input type="radio" name="flag" value="italy" id="italy">
