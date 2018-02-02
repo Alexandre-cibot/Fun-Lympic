@@ -4,10 +4,10 @@
     <div class="game-title">
       <p>Fun'lympics Games</p>
     </div>
-    <!-- <DidYouKnow :show="show" image="athletisme" @closeModal="closeModal" /> -->
+    <DidYouKnow :show="show" image="athletisme" @closeModal="closeModal" />
       <div class="select-category">
           <BasicButton title="Jouer" btnColor="yellow" image="play" @click="goTrainingPage"/>
-          <BasicButton title="Compétition" btnColor="yellow" image="olympique" @click="goCompetition"/>
+          <BasicButton title="Compétitions" btnColor="yellow" image="olympique" @click="goCompetition"/>
       </div>
 
       <div class="other-buttons">
@@ -78,7 +78,6 @@ export default {
   align-items: center;
   margin: 0 30px;
 }
-
 .game-title {
   flex-grow: 4;
   flex-shrink: 7;
@@ -95,7 +94,7 @@ export default {
 .select-category {
   display: flex;
   flex-direction : column;
-  width: 100%;
+  width: 85%;
   align-items: center;
   margin-bottom: 6vh;
 }
