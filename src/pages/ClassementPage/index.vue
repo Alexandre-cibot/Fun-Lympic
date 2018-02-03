@@ -13,10 +13,20 @@
           <img src="@/assets/right_arr.svg" alt="">
         </button>
       </button>
-      <div class="classement">
+      <div class="classement_friends">
         <div v-for="(friend, key) in friendsArray" :key="key" class="classement">
-          <ClassementFriends :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" />
+          <div v-if="key == 2">
+            <ClassementFriends :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" :owner="true" />
+          </div>
+          <div v-else>
+            <ClassementFriends :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" />          
+          </div>
         </div>
+      </div>
+      <div class="button_bottom">
+        <ClassementButton image="facebook" btnColor="yellow" />
+        <ClassementButton image="flag" btnColor="blue" />
+        <ClassementButton image="planet" btnColor="blue" />
       </div>
     </div>
   </div>  
@@ -25,11 +35,13 @@
 <script>
 import Navbar from '@/components/Navbar';
 import ClassementFriends from '@/components/ClassementFriends';
+import ClassementButton from '@/components/ClassementButton';
 
 export default {
   name: 'Classement',
   components: {
     ClassementFriends,
+    ClassementButton,
     Navbar
   },
   computed: {
@@ -64,6 +76,24 @@ export default {
           firstname: "Enora",
           points: 170,
           picture: require('@/assets/enora.jpg'),
+          flag: require('@/assets/flag/france.svg'),
+        },
+        {
+          firstname: "Julien",
+          points: 150,
+          picture: require('@/assets/julien.jpg'),
+          flag: require('@/assets/flag/france.svg'),
+        },
+                {
+          firstname: "Enora",
+          points: 120,
+          picture: require('@/assets/enora.jpg'),
+          flag: require('@/assets/flag/france.svg'),
+        },
+        {
+          firstname: "Julien",
+          points: 100,
+          picture: require('@/assets/julien.jpg'),
           flag: require('@/assets/flag/france.svg'),
         },
         {
@@ -128,7 +158,7 @@ export default {
   background: #FFD360;
   border: none;
   border-radius: 10px;
-  margin-bottom: 5vh;
+  margin-bottom: 3vh;
 }
 .left_arr img, .right_arr img {
   height: 30%;
@@ -155,11 +185,23 @@ export default {
   letter-spacing: 1.5px;
   margin-left: 5px;
 }
-.classement {
+.classement_friends {
+  align-self: center;
+  max-height: 60vh;
+  overflow: scroll;
   width: 100%;
 }
 .win {
   height: 70%;
   width: 13vw;
+}
+.button_bottom{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around ;
+  align-items: center;
+  width: 70%;
+  margin: auto;
+  margin-top: 4vh;
 }
 </style>
