@@ -1,16 +1,16 @@
 <template>
-    <div :class="classement ? 'list_score' : 'list_classement'">
-      <h3 v-show="classement" class="classement">{{classement}}</h3>
-      <img :src="picture" alt="" class="profil_pic">
-      <h2 :class=" classement ? 'classement_name' : 'classement_home'" >{{firstname}}</h2>
-        <div v-if="medal" class="medal_div">
-          <img src="@/assets/medal.svg" alt="" class="medal">
-        </div>
-      <h3>{{points}}</h3>
-      <div v-show="flag">
-        <img :src="flag" alt="" class="flag">
+  <div :class="[classement ? 'list_score' : 'list_classement', {'bg_white' : owner}]" >
+    <h3 v-show="classement" class="classement">{{classement}}</h3>
+    <img :src="picture" alt="" class="profil_pic">
+    <h2 :class=" classement ? 'classement_name' : 'classement_home'" >{{firstname}}</h2>
+      <div v-if="medal" class="medal_div">
+        <img src="@/assets/medal.svg" alt="" class="medal">
       </div>
+    <h3>{{points}}</h3>
+    <div v-show="flag">
+      <img :src="flag" alt="" class="flag">
     </div>
+  </div>
 </template>
 
 <script>
@@ -42,6 +42,10 @@ export default {
       type: Number,
       required: true,
     },
+    owner: {
+      type: Boolean,
+      required: false
+    },
   },
   data() {
     return {};
@@ -63,7 +67,7 @@ export default {
 .list_score {
   width: 100%;
   margin:auto;
-  margin-top: 1vh;
+  margin-top: 2vh;
 }
 .list_classement img, .list_score img {
   width: 35px;
@@ -83,6 +87,13 @@ export default {
   color: #FFFEFA;
   opacity: .4;
   padding-left: 2vh;
+}
+.bg_white {
+  background: white;
+}
+.bg_white h3, .bg_white p, .bg_white h2 {
+  color: #2D1862;
+  opacity: 1;
 }
 .medal_div {
   position: absolute;
