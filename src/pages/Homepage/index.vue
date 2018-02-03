@@ -17,7 +17,7 @@
         <button>
           <img src="@/assets/second.svg" alt="">
         </button>
-        <button>
+        <button @click="goClassementPage">
           <img src="@/assets/third.svg" alt="">
         </button>
         <button>
@@ -60,6 +60,9 @@ export default {
     },
     goParameterPage() {
       this.$router.push('/parameter');
+    },
+    goClassementPage() {
+      this.$router.push('/classement');
     }
   }
 };
