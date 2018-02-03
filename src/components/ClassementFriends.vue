@@ -1,11 +1,15 @@
 <template>
-    <div class="listClassement">
-      <img :src="picture" alt="">
-      <h2>{{firstname}}</h2>
+    <div :class="classement ? 'list_score' : 'list_classement'">
+      <h3 v-show="classement" class="classement">{{classement}}</h3>
+      <img :src="picture" alt="" class="profil_pic">
+      <h2 :class=" classement ? 'classement_name' : 'classement_home'" >{{firstname}}</h2>
         <div v-if="medal" class="medal_div">
           <img src="@/assets/medal.svg" alt="" class="medal">
         </div>
       <h3>{{points}}</h3>
+      <div v-show="flag">
+        <img :src="flag" alt="" class="flag">
+      </div>
     </div>
 </template>
 
@@ -26,6 +30,14 @@ export default {
       type: Boolean,
       required: false,
     },
+    classement: {
+      type: Number,
+      required: false
+    },
+    flag: {
+      type: String,
+      required: false
+    },
     points: {
       type: Number,
       required: true,
@@ -37,7 +49,7 @@ export default {
 };
 </script>
 <style scoped>
-.listClassement {
+.list_classement, .list_score {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -45,24 +57,46 @@ export default {
   background: #2D1862;
   height: 10vh;
   width: 90%;
-  border-radius: 10px;
+  border-radius: 15px;
   margin: 10px 0 0 5%;
 }
-.listClassement img {
+.list_score {
+  width: 100%;
+  margin:auto;
+  margin-top: 1vh;
+}
+.list_classement img, .list_score img {
   width: 35px;
   height: 35px;
   border-radius: 50%;
 }
-.listClassement div .medal {
+.list_classement .flag, .list_score .flag {
+  border-radius: 0%;
+}
+.list_classement div .medal, .list_score div .medal {
   height: 40%;
   width: 70%;
   border-radius: 0;
   padding-right: 10px;
 }
+.classement {
+  color: #FFFEFA;
+  opacity: .4;
+  padding-left: 2vh;
+}
 .medal_div {
   position: absolute;
   right: 20%;
   margin-right: 10px;
+}
+.flag {
+  padding-right: 6vw;
+}
+.classement_name {
+  font-size: 0.8em;
+}
+.profil_pic {
+  margin-right: 3vw;
 }
 h2, h3 {
   font-family: 'myfrida_bold', sans-serif;
