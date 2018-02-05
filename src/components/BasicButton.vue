@@ -112,10 +112,11 @@ export default {
     margin: 0;
   }
   .btnBlue {
-    border: none;
-    border-radius: 10px;
     box-shadow: 0px 8px 0px 0px #10B2C0;
     background-color: #2AD4E2;
+    font-size: 0.8em;
+    border-radius: 10px;
+    min-height: 9vh;
   }
   .btnYellow .btn-fLeft {
     width: 30px;
