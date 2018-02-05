@@ -1,5 +1,5 @@
 <template>
-  <button :class="btnColor === 'yellow' ? 'btnYellow' : 'btnBlue' ">
+  <button>
       <img :src="imagePath" alt="">
   </button>
 </template>
@@ -8,10 +8,6 @@
 export default {
   name: 'ClassementButton',
   props: {
-    btnColor: {
-      type: String,
-      required: true,
-    },
     image: {
       type: String,
       required: true,
@@ -46,14 +42,4 @@ export default {
     width: 4.7em;
     border: none
   }
-  .btnYellow {
-    background: #F9C947;
-    box-shadow: 0px 4px 0px 0px #D8AD41;
-  }
-  .btnBlue{
-    background: #57C9D7;
-    box-shadow: 0px 4px 0px 0px #10B2C0;
-  }
 </style>
-
-
