@@ -14,14 +14,21 @@
         </button>
       </button>
       <div class="classement_friends">
-        <div v-for="(friend, key) in friendsArray" :key="key" class="classement">
-          <div v-if="key == 2">
-            <ClassementFriends :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" :owner="true" />
-          </div>
-          <div v-else>
-            <ClassementFriends :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" />          
+        <div v-if="flagClassement || planetClassement || facebookClassement" style="width: 100%">
+          <div v-for="(friend, key) in friendsArray" :key="key" class="classement">
+            <div v-if="key == 2">
+              <ClassementFriends :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" :owner="true" />
+            </div>
+            <div v-else>
+              <ClassementFriends :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" />          
+            </div>
           </div>
         </div>
+        <div v-else>
+          <p class="text_friends">Aucun ami ne joue encore à Finger Games :(</p>
+          <BasicButton btnColor="blue" title="Invitez des amis !" image="facebook" @click="facebook"/>
+        </div>
+
       </div>
       <div class="button_bottom">
         <ClassementButton image="facebook"  @click.native="facebook" :class="currentState == 'facebook' ? 'btnYellow' : 'btnBlue'"/>
@@ -36,17 +43,19 @@
 import Navbar from '@/components/Navbar';
 import ClassementFriends from '@/components/ClassementFriends';
 import ClassementButton from '@/components/ClassementButton';
+import BasicButton from '@/components/BasicButton';
 export default {
   name: 'Classement',
   components: {
     ClassementFriends,
     ClassementButton,
+    BasicButton,
     Navbar
   },
   data(){
     return{
-      currentState: 'facebook',
-      facebookClassement : true,
+      currentState: '',
+      facebookClassement : false,
       flagClassement : false,
       planetClassement : false,
       sport : "Athlétisme",
@@ -342,9 +351,21 @@ export default {
 }
 .classement_friends {
   align-self: center;
-  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
   overflow: scroll;
   width: 100%;
+}
+.text_friends{
+  font-family: 'myfrida-bold', sans-serif;
+  color: white;
+  text-align: center;
+  margin-bottom: 5vh;
+  letter-spacing:1px;
+  line-height: 1.5em;
 }
 .win {
   height: 70%;
