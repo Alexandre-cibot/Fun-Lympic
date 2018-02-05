@@ -8,67 +8,67 @@
       <form action="">
         <div class="flag">          
           <input type="radio" name="flag" value="france" id="france">
-          <label for="france"><img src="@/assets/flag/france.svg" alt=""></label>
+          <label for="france"><img src="@/assets/flag/France.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="uk" id="uk"> 
-          <label for="uk"><img src="@/assets/flag/uk.svg" alt=""></label>
+          <input type="radio" name="flag" value="uk" id="royaume-uni"> 
+          <label for="royaume-uni"><img src="@/assets/flag/Royaume-Uni.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="netherland" id="netherland"> 
-          <label for="netherland"><img src="@/assets/flag/netherland.svg" alt=""></label>
+          <input type="radio" name="flag" value="netherland" id="pays-bas"> 
+          <label for="pays-bas"><img src="@/assets/flag/Pays-Bas.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="usa" id="usa">
-          <label for="usa"><img src="@/assets/flag/USA.svg" alt=""></label>
+          <input type="radio" name="flag" value="usa" id="etats-unis">
+          <label for="etats-unis"><img src="@/assets/flag/Etats-Unis.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="italy" id="italy">
-          <label for="italy"><img src="@/assets/flag/italy.svg" alt=""></label>
+          <input type="radio" name="flag" value="italy" id="italie">
+          <label for="italie"><img src="@/assets/flag/Italie.png" alt=""></label>
         </div>
         <div class="flag">          
-          <input type="radio" name="flag" value="greece" id="greece"> 
-          <label for="greece"><img src="@/assets/flag/greece.svg" alt=""></label>
+          <input type="radio" name="flag" value="greece" id="grece"> 
+          <label for="grece"><img src="@/assets/flag/Grece.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="france" id="france2"> 
-          <label for="france2"><img src="@/assets/flag/france.svg" alt=""></label>
+          <input type="radio" name="flag" value="france" id="espagne"> 
+          <label for="espagne"><img src="@/assets/flag/Espagne.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="japan">  
-          <label for="japan"><img src="@/assets/flag/japan.svg" alt=""></label>
+          <input type="radio" name="flag" value="japan" id="japon">  
+          <label for="japon"><img src="@/assets/flag/Japon.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="japan2">  
-          <label for="japan2"><img src="@/assets/flag/japan.svg" alt=""></label>
+          <input type="radio" name="flag" value="japan" id="portugal">  
+          <label for="portugal"><img src="@/assets/flag/Portugal.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="japan3">  
-          <label for="japan3"><img src="@/assets/flag/japan.svg" alt=""></label>
+          <input type="radio" name="flag" value="japan" id="allemagne">  
+          <label for="allemagne"><img src="@/assets/flag/Allemagne.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="japan4">
-          <label for="japan4"><img src="@/assets/flag/japan.svg" alt=""></label>
+          <input type="radio" name="flag" value="japan" id="belgique">
+          <label for="belgique"><img src="@/assets/flag/Belgique.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="japan5">  
-          <label for="japan5"><img src="@/assets/flag/japan.svg" alt=""></label>
+          <input type="radio" name="flag" value="japan" id="canada">  
+          <label for="canada"><img src="@/assets/flag/Canada.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="japan6">  
-          <label for="japan6"><img src="@/assets/flag/japan.svg" alt=""></label>
+          <input type="radio" name="flag" value="japan" id="chine">  
+          <label for="chine"><img src="@/assets/flag/Chine.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="japan7">
-          <label for="japan7"><img src="@/assets/flag/japan.svg" alt=""></label>
+          <input type="radio" name="flag" value="japan" id="russie">
+          <label for="russie"><img src="@/assets/flag/Russie.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="japan8">
-          <label for="japan8"><img src="@/assets/flag/japan.svg" alt=""></label>
+          <input type="radio" name="flag" value="japan" id="suede">
+          <label for="suede"><img src="@/assets/flag/Suede.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="japan9">
-          <label for="japan9"><img src="@/assets/flag/japan.svg" alt=""></label>
+          <input type="radio" name="flag" value="japan" id="suisse">
+          <label for="suisse"><img src="@/assets/flag/Suisse.png" alt=""></label>
         </div>
       </form>
       <button class="BasicButton" @click="chooseFriends">
@@ -133,16 +133,19 @@ input[type="radio"]{
   position: relative;
 }
 input[type="radio"]:checked+label {
+  transform-origin: center;
+  transform: scale(0.99) translateY(4px);
   border: 3px solid #F7BE51;
 }
 label img {
   box-sizing: border-box;
+  height: 24px;
 }
 label{
   position: absolute;
   z-index: 1;
   bottom: 0;
-  height: 28px;
+  height: 24px;
   border-radius: 3px;
   left: 0;
 }

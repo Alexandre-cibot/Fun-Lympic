@@ -27,7 +27,6 @@ export default {
   },
   methods: {
     runAthletismeGame () {
-      console.log('run game');
       this.$router.push({path: '/athletics'})
     }
   }

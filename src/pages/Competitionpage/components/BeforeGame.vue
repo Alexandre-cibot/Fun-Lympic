@@ -10,7 +10,7 @@
       </div>
     <button class="animated hidden">
       <img src="@/assets/win_white.svg" alt="" class="icon_button">
-      <h2>Jouer</h2>
+      <h2 @click="runAthletismeGame">Jouer</h2>
     </button>
     <div class="circle_second animated hidden">
       <img src="@/assets/second_circle.svg" alt="" class="circle">
@@ -30,6 +30,11 @@ export default {
     return {}
   },
   components: {
+  },
+  methods:{
+    runAthletismeGame(){
+      this.$router.push({path: '/athletics'})
+    }
   },
   mounted() {
     let buttons = this.$el.querySelectorAll('.hidden');
