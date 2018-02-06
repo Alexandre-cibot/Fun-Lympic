@@ -1,8 +1,9 @@
 <template>
   <div class="wrapper-page">
-    <Navbar text="Classement" secondBtn="podium" @goBack="goBack"/>
+    <div v-for="user in users" :key="user.index">
+      <Navbar :text="user.text" :flag="user.image" @goBack="goBack"/>
+    </div>
     <div class="wrapper">
-      
       <button class="button_main">
         <button class="left_arr" @click="changeSport">
           <img src="@/assets/left_arr.svg" alt="">
@@ -14,21 +15,16 @@
         </button>
       </button>
       <div class="classement_friends">
-        <div v-if="flagClassement || planetClassement || facebookClassement" style="width: 100%">
+        <div v-if="flagClassement || planetClassement || facebookClassement"  class="scrollDiv">
           <div v-for="(friend, key) in friendsArray" :key="key" class="classement">
-            <div v-if="key == 2">
-              <ClassementFriends :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" :owner="true" />
-            </div>
-            <div v-else>
-              <ClassementFriends :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" />          
-            </div>
+            <ClassementFriends v-if="key == 2" :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" :owner="true" />
+            <ClassementFriends v-else :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" />          
           </div>
         </div>
         <div v-else>
           <p class="text_friends">Aucun ami ne joue encore à Finger Games :(</p>
           <BasicButton btnColor="blue" title="Invitez des amis !" image="facebook" @click="facebook"/>
         </div>
-
       </div>
       <div class="button_bottom">
         <ClassementButton image="facebook"  @click.native="facebook" :class="currentState == 'facebook' ? 'btnYellow' : 'btnBlue'"/>
@@ -59,6 +55,12 @@ export default {
       flagClassement : false,
       planetClassement : false,
       sport : "Athlétisme",
+      users : [
+        {
+          text: "Classement",
+          image : require('@/assets/flag/France.png')
+        }
+      ],
       friends: [
         {
           firstname: "Enora",
@@ -267,20 +269,21 @@ export default {
     }
   },
   computed: {
-    friendsArray (array) {
+    friendsArray () {
+      if(this.currentState == 'facebook'){
+        this.array = this.friends;
+      }else if (this.currentState == 'flag') {
+        this.array = this.friendsFlag;
+      }else {
+        this.array = this.friendsPlanet;
+      }
+      
       function compare(a, b) {
         if (a.points > b.points)
           return -1;
         if (a.points < b.points)
           return 1;
         return 0;
-      }
-      if (this.currentState == 'facebook'){
-        this.array = this.friends;
-      }else if (this.currentState == 'flag') {
-        this.array = this.friendsFlag;
-      }else {
-        this.array = this.friendsPlanet;
       }
       return this.array.sort(compare);
     }
@@ -300,6 +303,11 @@ export default {
 .btnBlue{
   background: #57C9D7;
   box-shadow: 0px 4px 0px 0px #10B2C0;
+}
+.scrollDiv {
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 .wrapper {
   display: flex;
@@ -350,11 +358,12 @@ export default {
   margin-left: 5px;
 }
 .classement_friends {
-  align-self: center;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  align-self: center;
   height: 60vh;
   overflow: scroll;
   width: 100%;
