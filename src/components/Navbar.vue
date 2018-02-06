@@ -8,11 +8,11 @@
     <div class="title">
       <h1>{{text}}</h1>
     </div>
-    <div class="button">
-      <button v-if="secondBtn" class="bg_red">
+    <img v-if="flag" :src="flag" class="flag" />
+    <div class="button" v-if="secondBtn">
+      <button class="bg_red">
         <img :src="secondBtnPath" />
       </button>
-      <div v-else style="opacity:0; width:57px;"></div>
     </div>
   </header>
 </template>
@@ -27,6 +27,10 @@ export default {
       required: true,
     },
     secondBtn: {
+      type: String,
+      required: false
+    },
+    flag: {
       type: String,
       required: false
     }  
@@ -76,8 +80,11 @@ header {
 img{
   display: block;
   position: relative;
-  margin: auto;
   padding: 5px 5px;
+}
+.flag {
+  padding-right:5vw;
+  transform: scale(1.4);
 }
 h1{
   text-align:center;
