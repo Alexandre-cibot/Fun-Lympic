@@ -134,18 +134,18 @@ input[type="radio"]{
 }
 input[type="radio"]:checked+label {
   transform-origin: center;
-  transform: scale(0.99) translateY(4px);
+  transform: scale(0.92) translateY(4px) translateX(-3px);
   border: 3px solid #F7BE51;
 }
 label img {
   box-sizing: border-box;
-  height: 24px;
+  height: 4vh;
 }
 label{
   position: absolute;
   z-index: 1;
   bottom: 0;
-  height: 24px;
+  height: 4vh;
   border-radius: 3px;
   left: 0;
 }
@@ -202,7 +202,8 @@ p {
   font-family: 'myfrida_bold', sans-serif;
   text-align: center;
   line-height: 1.5em ;
-  font-size: 0.9em;
+  font-size: 1.1em;
+  padding: 0 1vh;
   color: #493B35;
   margin-top: 14vh;
 }

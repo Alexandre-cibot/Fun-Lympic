@@ -22,8 +22,8 @@
           </div>
         </div>
         <div v-else>
-          <p class="text_friends">Aucun ami ne joue encore à Finger Games :(</p>
-          <BasicButton btnColor="blue" title="Invitez des amis !" image="facebook" @click="facebook"/>
+          <p class="text_friends">Aucun ami ne joue encore à <br/> Finger Games :(</p>
+          <BasicButton btnColor="blue" title="Inviter des amis !" image="facebook" @click="facebook"/>
         </div>
       </div>
       <div class="button_bottom">
@@ -259,13 +259,6 @@ export default {
     },
     goBack(){
       this.$router.push('/');
-      // let previousState = this.history[this.history.length-1];
-      // if (!previousState) {
-        
-      // } else {
-      //   this.currentState = previousState; // Go to the previous state
-      //   this.history.pop(); // Remove the last one
-      // }
     }
   },
   computed: {
@@ -387,6 +380,6 @@ export default {
   align-items: center;
   width: 70%;
   margin: auto;
-  margin-top: 4vh;
+  margin-top: 3vh;
 }
 </style>
