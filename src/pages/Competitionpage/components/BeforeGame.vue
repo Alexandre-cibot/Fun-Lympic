@@ -69,8 +69,6 @@ button {
 }
 button h2, h3 {
   float: right;
-  font-family: 'myfrida_bold';
-  font-weight: bold;
   text-transform: uppercase;
   padding-right: 1em;
 }
@@ -92,7 +90,6 @@ button h2, h3 {
 }
 .infos h3 {
   float: left;
-  color: white;
   padding-right: 10px;
 }
 .background{

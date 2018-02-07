@@ -91,8 +91,6 @@ export default {
   letter-spacing: 1.5px;
   height: 4vh;
   width: 20vw;
-  color: white;
-  font-family: 'myfrida-bold', sans-serif;
   font-size: 1.8em ;
   background:#B42649 ;
   border-radius: 15px;
@@ -124,12 +122,10 @@ export default {
 h3{
   padding: 15px;
   font-size: 1.5em;
-  font-family: 'myfrida-bold';
   letter-spacing: 1.5px;
   font-weight: 100;
   text-align: center;
   background: #D32C55;
-  color: white;
   text-transform: uppercase;
   margin-top: 3vh;
 }

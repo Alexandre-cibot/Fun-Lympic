@@ -70,6 +70,7 @@ button{
 .titleAlone {
   position: absolute;
   width: 100%;
+  left: 0;
   z-index: -1;
 }
 header {
@@ -90,7 +91,7 @@ img{
 }
 .flag {
   padding-right:5vw;
-  transform: scale(1.4);
+  height: 4vh;
 }
 h1{
   text-align:center;
