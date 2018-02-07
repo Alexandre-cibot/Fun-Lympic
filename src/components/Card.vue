@@ -1,5 +1,5 @@
 <template>
-  <div class="card" @click="click">
+  <div class="card" :class="blue ? 'blueBg' : ''" @click="click">
     <h3>{{text}}</h3>
     <img :src="imagePath" class="car_img" />
     <div class="score">
@@ -26,6 +26,10 @@ export default {
       type: String,
       required: true,
     },
+    blue: {
+      type: Boolean,
+      required: false
+    }
   },
   data() {
     return {
@@ -62,9 +66,21 @@ export default {
   height: 55vh;
   z-index: 20;
   width: 70%;
-  margin: auto;
   margin-top: 5vh;
   box-shadow: 0px 8px 0px 0px #B42649
+}
+.card:first-child{
+  margin: 5vh 0 0 15vw;
+}
+.card:nth-child(2){
+  margin: 5vh 0 0 10vw;
+}
+.blueBg{
+  background: #57C9D7;
+  box-shadow: 0px 8px 0px 0px #6CA5B5;
+}
+.blueBg h3, .blueBg .score {
+  background: #3B8A9F;
 }
 .score {
   display: flex;
@@ -101,8 +117,8 @@ export default {
 .car_img {
   display: block;
   position: relative;
-  width: 70%;
-  margin: auto;
+  width: 50vw;
+  margin: 3vh 10vw;
   margin-top: 4vh;
 }
 h3{

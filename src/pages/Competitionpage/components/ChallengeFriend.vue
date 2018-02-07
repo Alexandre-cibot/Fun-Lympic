@@ -6,7 +6,7 @@
     </div>
     <h2 class="sport">Choisir un sport</h2>
       <BasicButton class="animated hidden bg_red" title="Athletisme" image="lose" @click="$emit('before')"/>
-      <BasicButton style="margin-top:3vh;" class="animated hidden bg_blue" title="Natation Synchronisée" image="win"  />
+      <BasicButton class="animated hidden bg_blue" title="Natation Synchronisée" image="win" style="margin-top:3vh;"/>
   </div>
 </template>
 
