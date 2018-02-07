@@ -69,13 +69,11 @@ export default {
 
 <style scoped>
 h2 {
-  font-family: 'myfrida_bold', sans-serif;
   font-weight: 100;
   text-align: center;
   font-size: 1em;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: white;
   margin-top: 3vh;
   padding-bottom: 2vh;
 }

@@ -123,7 +123,7 @@ export default {
     height: 30px;
   }
   .bg_red p, .bg_blue p, .btnBlue p{
-    font-size: 1.7em;
+    font-size: 1.8em;
   }
   .btnYellow p {
     font-size: 0.9em;
@@ -137,8 +137,6 @@ export default {
   }
   .btn-title {
     text-transform: uppercase;
-    color: white;
-    font-family: 'myfrida_bold', sans-serif;
   }
   .btn-icone {
     width: 45px;

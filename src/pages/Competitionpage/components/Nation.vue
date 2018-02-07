@@ -104,7 +104,6 @@ export default {
 .BasicButton {
   border: none;
   text-transform: uppercase;
-  font-family: 'myfrida-bold', sans-serif;
   width: 70%;
   box-shadow: 0px 6px 0px 0px #F1B946;
   background-color: #FFD360;
@@ -112,7 +111,6 @@ export default {
   letter-spacing: 1.5px;
   min-height: 8vh;
   border-radius: 10px;
-  color: white;
   margin: auto;
 }
 form {
@@ -199,11 +197,10 @@ label{
   margin: auto;
 }
 p {
-  font-family: 'myfrida_bold', sans-serif;
   text-align: center;
   line-height: 1.5em ;
   font-size: 1.1em;
-  padding: 0 1vh;
+  padding: 0 1.5vh;
   color: #493B35;
   margin-top: 14vh;
 }

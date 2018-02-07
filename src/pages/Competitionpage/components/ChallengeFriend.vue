@@ -54,7 +54,6 @@ export default {
 <style scoped>
 h2, p {
   color: #ffffff;
-  font-family: 'myfrida_bold', sans-serif;
   font-weight: 100;
   text-align: center;
 }
@@ -67,7 +66,7 @@ h2, p {
   font-size: 1.2em;  
   margin-top: 9vh;
   text-transform: uppercase;
-  padding: 3vh 0px 2vh 0;
+  padding: 3vh 0px 5vh 0;
 }
 .friendBlock {
   margin-bottom: 20px;

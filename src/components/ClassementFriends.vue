@@ -76,6 +76,8 @@ export default {
 }
 .list_classement .flag, .list_score .flag {
   border-radius: 0%;
+  padding-right: 6vw;
+  height: 3.5vh;
 }
 .list_classement div .medal, .list_score div .medal {
   height: 40%;
@@ -100,9 +102,6 @@ export default {
   right: 20%;
   margin-right: 10px;
 }
-.flag {
-  padding-right: 6vw;
-}
 .classement_name {
   font-size: 0.8em;
 }
@@ -110,9 +109,7 @@ export default {
   margin-right: 3vw;
 }
 h2, h3 {
-  font-family: 'myfrida_bold', sans-serif;
   font-weight: 100;
-  color: white;
 }
 h3 {
   font-size: 1.4em;

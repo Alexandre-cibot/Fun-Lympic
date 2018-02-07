@@ -343,9 +343,7 @@ export default {
   right: 5px;
 }
 .button_main p {
-  font-family: 'myfrida-bold', sans-serif;
-  font-size: 2em;
-  color: white;
+  font-size: 2em;;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   margin-left: 5px;
@@ -362,8 +360,6 @@ export default {
   width: 100%;
 }
 .text_friends{
-  font-family: 'myfrida-bold', sans-serif;
-  color: white;
   text-align: center;
   margin-bottom: 5vh;
   letter-spacing:1px;

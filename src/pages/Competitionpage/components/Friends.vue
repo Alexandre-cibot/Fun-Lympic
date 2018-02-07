@@ -84,7 +84,6 @@ export default {
 <style scoped>
 h2, p {
   color: #ffffff;
-  font-family: 'myfrida_bold', sans-serif;
   font-weight: 100;
   text-align: center;
 }
