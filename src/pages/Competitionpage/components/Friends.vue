@@ -104,8 +104,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 6
-  0vh;
+  height: 60vh;
   align-items: center;
 }
 .info-content p {

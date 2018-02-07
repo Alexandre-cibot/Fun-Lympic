@@ -62,7 +62,7 @@ export default {
           return require('@/assets/lose_white.svg');
         break;
         case 'win': 
-          return require('@/assets/win_white.svg');
+          return require('@/assets/natation.svg');
         break;
         case 'sound': 
           return require('@/assets/sound.svg');
@@ -123,7 +123,7 @@ export default {
     height: 30px;
   }
   .bg_red p, .bg_blue p, .btnBlue p{
-    font-size: 1.6em;
+    font-size: 1.7em;
   }
   .btnYellow p {
     font-size: 0.9em;
