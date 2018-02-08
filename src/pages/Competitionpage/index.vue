@@ -76,7 +76,6 @@ export default {
       this.history.push(previousState);
     },
     goBack(){
-      console.log('cocou')
       let previousState = this.history[this.history.length-1];
       if (!previousState || this.currentState === 'competitionDashboard') {
         this.$router.push('/')
