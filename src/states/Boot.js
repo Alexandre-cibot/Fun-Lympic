@@ -104,7 +104,7 @@ export default class extends Phaser.State {
     home.events.onInputDown.add(redirect, this);
     
     function redirect(){
-      location.replace("/");
+      location.replace("/#/");
     }
 
     function listener() {
