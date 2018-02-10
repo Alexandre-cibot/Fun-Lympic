@@ -68,7 +68,7 @@ export default class extends Phaser.State {
     // this.dude = this.game.add.sprite(window.innerWidth / 6, window.innerHeight - 81 - 185, 'dude')
     this.dude = this.game.add.sprite(responsive.getWidthFromPercentage(16.66), responsive.getHeightFromPercentage(100) - 81 - 185, 'dude')
     this.mario = this.game.add.sprite(responsive.getWidthFromPercentage(60), responsive.getHeightFromPercentage(50), 'mario')
-    this.mario.scale.setTo(responsive.getRatioFromHeight(880), responsive.getRatioFromHeight(720))
+    this.mario.scale.setTo(responsive.getRatioFromHeight(1760), responsive.getRatioFromHeight(1440))
     // this.physics.enable(this.dude, Phaser.Physics.ARCADE);
     this.dude.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 16, true)
     this.mario.animations.add('run', [0, 1, 2], 8, true)
