@@ -1,12 +1,14 @@
 import Phaser from 'phaser'
 import WebFont from 'webfontloader'
+import responsive from './responsive_helper'
+console.log(responsive);
 // const Swipe = require('phaser-swipe');
 const Swipe = require('../vendor/swipe')
 
 const pallier = [
-  {height: 250},
-  {height: 320},
-  {height: 390},
+  {height: responsive.getHeightFromPercentage(34)},
+  {height: responsive.getHeightFromPercentage(47)},
+  {height: responsive.getHeightFromPercentage(59)},
 ]
 
 export default class extends Phaser.State {
@@ -29,7 +31,8 @@ export default class extends Phaser.State {
 
     this.load.image('loaderBg', './assets/images/loader-bg.png')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
-    this.load.image('background', './assets/images/pistegrande.jpg')
+    this.load.image('background', './assets/images/background.jpg')
+    // this.load.image('background', './assets/images/pistegrande.jpg')
     this.load.spritesheet('dude', './assets/images/hex_run.png', 69, 81)
   }
 
@@ -44,9 +47,21 @@ export default class extends Phaser.State {
   }
 
   create() {
-    this.background = this.add.tileSprite(0, 0, 14000, window.innerHeight, 'background')
+    const scaleRatio = window.devicePixelRatio / 3
+    // this.background = this.add.tileSprite(0, 0, 14000, window.innerHeight, 'background')
+    this.background = this.add.tileSprite(0, 0, 14000, responsive.getHeightFromPercentage(100), 'background')
+    // this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
+
+    // this.scale.pageAlignVertically = true;
+    // this.scale.pageAlignHorizontally = true;
+    // this.scale.setShowAll();
+    // this.scale.refresh();
+
+    this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+
     this.swipe = new Swipe(this.game)
-    this.dude = this.game.add.sprite(window.innerWidth / 6, window.innerHeight - 81 - 185, 'dude')
+    // this.dude = this.game.add.sprite(window.innerWidth / 6, window.innerHeight - 81 - 185, 'dude')
+    this.dude = this.game.add.sprite(responsive.getWidthFromPercentage(16.66), responsive.getHeightFromPercentage(100) - 81 - 185, 'dude')
     // this.physics.enable(this.dude, Phaser.Physics.ARCADE);
     this.dude.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 16, true)
     this.dude.play('run')
