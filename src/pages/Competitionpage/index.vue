@@ -17,14 +17,14 @@
 <script>
 import Navbar from '@/components/Navbar';
 import BasicButton from '@/components/BasicButton';
-import Nation from '@/components/Nation';
 // Composants propre a cette page
-import ConnexionFB from './components/ConnexionFB.vue';
-import CompetitionDashboard from './components/CompetitionDashboard';
-import Friends from './components/Friends.vue';
-import ChallengeFriend from './components/ChallengeFriend.vue';
 import BeforeGame from './components/BeforeGame.vue';
 import ClassementGame from './components/ClassementGame.vue';
+import CompetitionDashboard from './components/CompetitionDashboard';
+import ConnexionFB from './components/ConnexionFB.vue';
+import ChallengeFriend from './components/ChallengeFriend.vue';
+import Friends from './components/Friends.vue';
+import Nation from './components/Nation';
 
 export default {
   name: 'Stade',

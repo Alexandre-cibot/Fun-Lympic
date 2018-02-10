@@ -11,7 +11,7 @@ Exemple pour apeller ce composant :
       </p>
     </div>
     <div>
-      <img :src="flagPath" alt="country_flag">
+      <img :src="flagPath" class="country_flag">
     </div>
   </button>
 </template>
@@ -47,13 +47,13 @@ export default {
     flagPath() {
       switch(this.country) {
         case 'fr': 
-          return require('@/assets/flag/france.svg');
+          return require('@/assets/flag/France.png');
         break;
         case 'italy': 
-          return require('@/assets/flag/italy.svg');
+          return require('@/assets/flag/Italie.png');
           break;
         case 'uk':
-          return require('@/assets/flag/uk.svg');
+          return require('@/assets/flag/Royaume-Uni.png');
           break;
         default:
           console.log('no image default found.');
@@ -66,7 +66,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>  
-
+  .country_flag {
+    margin-right: 3vw;
+  }
   button div {
     display: flex;
     align-items: center;
@@ -80,9 +82,6 @@ export default {
     height: 12vh;
     border: none;
     border-radius: 10px;
-    -webkit-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 3px 5px 0px rgba(0,0,0,0.75);
   }
   button p {
     color: #ffffff;
@@ -90,27 +89,16 @@ export default {
     display: inline-block;
     margin: 0;
   }
-  .btnYellow {
-    border: none;
-    box-shadow: 0px 8px 0px 0px #f0e2c5;
-    background-color: #fcf1db;
-  }
-  .btn-fLeft {
-    float:left;
-    padding: 10px;
-  }
-  .btn-Right {
-    float:right;
-  }
   .btn-title {
     letter-spacing: 1.5px;
-    font-size: 14px;
+    margin-left: 4vw;
+    font-size: 1.5em;
     text-transform: uppercase;
     font-family: 'myfrida_bold', sans-serif;
   }
   .btn-icone {
     border-radius: 50%;
-    margin-right: 10px;
+    margin-left: 3vw;
     height: 45px;
   }
 </style>

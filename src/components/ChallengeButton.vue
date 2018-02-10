@@ -108,14 +108,12 @@ export default {
 }
 .name p{
   letter-spacing: 1.5px;
-  font-family: 'myfrida_bold';
-  font-size: 1.3em;
-  line-height: 1.3em;
-  color: white;
+  font-size: 1.5em;
+  line-height: 1.4em;
+  text-transform: uppercase;
   text-align: left;
 }
 .points {
-  font-family: 'myfrida';
   color: rgba(255,255,255,0.6);
   font-size: 0.8em;
   }
@@ -126,12 +124,9 @@ export default {
 }
 .btnLeft {
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 3vw;
   height: 40px;
 }
-.btnRight {
-}
-
 .taint {
   display: block;
   position: absolute;

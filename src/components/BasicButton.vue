@@ -62,7 +62,7 @@ export default {
           return require('@/assets/lose_white.svg');
         break;
         case 'win': 
-          return require('@/assets/win_white.svg');
+          return require('@/assets/natation.svg');
         break;
         case 'sound': 
           return require('@/assets/sound.svg');
@@ -112,17 +112,18 @@ export default {
     margin: 0;
   }
   .btnBlue {
-    border: none;
-    border-radius: 10px;
     box-shadow: 0px 8px 0px 0px #10B2C0;
     background-color: #2AD4E2;
+    font-size: 0.8em;
+    border-radius: 10px;
+    min-height: 9vh;
   }
   .btnYellow .btn-fLeft {
     width: 30px;
     height: 30px;
   }
   .bg_red p, .bg_blue p, .btnBlue p{
-    font-size: 1.6em;
+    font-size: 1.8em;
   }
   .btnYellow p {
     font-size: 0.9em;
@@ -136,8 +137,6 @@ export default {
   }
   .btn-title {
     text-transform: uppercase;
-    color: white;
-    font-family: 'myfrida_bold', sans-serif;
   }
   .btn-icone {
     width: 45px;

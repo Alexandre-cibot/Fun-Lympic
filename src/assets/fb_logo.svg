@@ -1,14 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="16px" height="31px" viewBox="0 0 16 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
-    <title>f</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="01_a_Entrainement-Copy-4" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-53.000000, -125.000000)">
-        <g id="Group-11" transform="translate(28.000000, 109.000000)" fill="#FFFFFF" fill-rule="nonzero">
-            <g id="Group-10">
-                <path d="M35.3854535,47 L35.3854535,32.8593981 L40.102709,32.8593981 L40.8090511,27.3485546 L35.3854535,27.3485546 L35.3854535,23.8302292 C35.3854535,22.2347129 35.8257908,21.1474211 38.0997166,21.1474211 L41,21.1461459 L41,16.2172033 C40.498407,16.1500446 38.7767686,16 36.7737762,16 C32.5921917,16 29.7293658,18.5681848 29.7293658,23.2844581 L29.7293658,27.3485546 L25,27.3485546 L25,32.8593981 L29.7293658,32.8593981 L29.7293658,47 L35.3854535,47 Z" id="f"></path>
-            </g>
-        </g>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 15.9 30.9" style="enable-background:new 0 0 15.9 30.9;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;}
+</style>
+<title>f</title>
+<desc>Created with Sketch.</desc>
+<g id="_x30_1_x5F_a_x5F_Entrainement-Copy-4" transform="translate(-53.000000, -125.000000)">
+	<g id="Group-11" transform="translate(28.000000, 109.000000)">
+		<g id="Group-10">
+			<path id="f" class="st0" d="M35.3,46.9V32.8H40l0.7-5.5h-5.4v-3.5c0-1.6,0.4-2.7,2.7-2.7h2.9v-4.9c-0.5-0.1-2.2-0.2-4.2-0.2
+				c-4.2,0-7,2.6-7,7.3v4.1H25v5.5h4.7v14H35.3z"/>
+		</g>
+	</g>
+</g>
 </svg>

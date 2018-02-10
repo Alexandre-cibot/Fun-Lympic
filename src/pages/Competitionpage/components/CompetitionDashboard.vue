@@ -33,7 +33,7 @@ export default {
       curName: "Véronique",
        challengesNotDone: [
         {
-          challName: "Enora",
+          challName: "Julien",
           challPoints: 120,
           picture: "enora",
         },
@@ -108,12 +108,10 @@ export default {
   background: #F5F5F5;
   height: 100vh;
 }
-
 h3 {
   text-transform: uppercase;
-  font-family: 'myfrida_bold';
   color: #ffffff;
-  margin-top: 5vh;
+  margin-top: 8vh;
 }
 .challengeBtn {
   margin-bottom: 5vh;

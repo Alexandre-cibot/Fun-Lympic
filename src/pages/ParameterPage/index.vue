@@ -97,7 +97,6 @@ export default {
 }
 h2 {
   text-transform: uppercase;
-  font-family: 'myfrida_bold';
   color: #ffffff;
   margin-bottom: 15px;
   font-size: 1.2em;
