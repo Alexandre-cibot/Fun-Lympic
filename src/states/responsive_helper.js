@@ -10,14 +10,9 @@ function getWidthFromPercentage (percentage) {
 }
 
 function getRatioFromHeight (heightParam) {
-  console.log('ici');
-  console.log(heightParam);
-  console.log(height / heightParam);
-  console.log('la');
   return height / heightParam
 }
-console.log({width});
-console.log({height});
+
 module.exports = {
   width,
   height,
