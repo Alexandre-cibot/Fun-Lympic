@@ -5,15 +5,16 @@
         <img src="@/assets/arrow.png" />
       </button>
     </div>
-    <div class="title">
-      <h1>{{text}}</h1>
-    </div>
-    <div class="button">
-      <button v-if="secondBtn" class="bg_red">
-        <img :src="secondBtnPath" />
-      </button>
-      <div v-else style="opacity:0; width:57px;"></div>
-    </div>
+    <h1 class="titleAlone">{{text}}</h1>
+    <img v-if="flag" :src="flag" class="flag" />
+    <router-link v-if="secondBtn" :to="{ path: '/classement'}">
+      <div class="button">
+        <button class="bg_red">
+          <img :src="secondBtnPath" />
+        </button>
+      </div>
+    </router-link>
+
   </header>
 </template>
 
@@ -27,6 +28,10 @@ export default {
       required: true,
     },
     secondBtn: {
+      type: String,
+      required: false
+    },
+    flag: {
       type: String,
       required: false
     }  
@@ -62,6 +67,12 @@ button{
   border-radius: 10px;
   border: none;
 }
+.titleAlone {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  z-index: -1;
+}
 header {
   height: 9vh;
   display: flex;
@@ -76,8 +87,11 @@ header {
 img{
   display: block;
   position: relative;
-  margin: auto;
   padding: 5px 5px;
+}
+.flag {
+  padding-right:5vw;
+  height: 4vh;
 }
 h1{
   text-align:center;

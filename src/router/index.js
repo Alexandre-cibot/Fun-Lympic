@@ -6,6 +6,8 @@ import Trainingpage from '@/pages/Trainingpage/index.vue'
 import Competitionpage from '@/pages/Competitionpage/index.vue'
 import Athleticspage from '@/pages/Athleticspage.vue'
 import Parameter from '@/pages/ParameterPage/index.vue'
+import Classement from '@/pages/ClassementPage/index.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -34,6 +36,11 @@ export default new Router({
       path: '/parameter',
       name: 'Parameter',
       component: Parameter
+    },
+    {
+      path:'/classement',
+      name: 'Classement',
+      component: Classement
     }
   ]
 })

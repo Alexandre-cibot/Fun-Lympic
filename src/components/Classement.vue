@@ -93,8 +93,6 @@ export default {
   height: 100%;
 }
 .score p {
-  color: white;
-  font-family: "myfrida-bold", sans-serif;
   margin-left: 5px;
   margin-bottom: 0;
 }

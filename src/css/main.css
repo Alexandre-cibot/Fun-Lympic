@@ -1,11 +1,16 @@
+*{
+  font-family: 'myfrida-bold', sans-serif;
+}
+h2,h3,h4,p, button{
+  font-family: 'myfrida-bold', sans-serif;
+  color: white;
+}
 .hidden {
   opacity: 0;
 }
-
 .visible {
   opacity: 1;
 }
-
 .bg_purple_light {
   background-color: #573399;
 }
@@ -21,6 +26,6 @@
 .bg_blue {
   background-color: #2AD4E2;
 }
-.slideInLeft, .slideInRight, .zoomIn {
+.slideInLeft, .slideInDown, .slideInRight, .zoomIn {
   animation-duration: .5s;
 }
