@@ -11,6 +11,7 @@ import Phaser from 'phaser'
 import BootState from '@/states/Boot'
 import SplashState from '@/states/Splash'
 import GameState from '@/states/Game'
+import responsive from '../states/responsive_helper'
 
 import config from '@/config'
 
@@ -29,11 +30,12 @@ export default {
       class Game extends Phaser.Game {
         constructor () {
           const docElement = document.documentElement
-          const width = docElement.clientWidth > config.gameWidth ? config.gameWidth : docElement.clientWidth
-          const height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
-          var h_window = window.innerHeight,
-              w_window = window.innerWidth;
-          super(w_window, h_window, Phaser.AUTO, 'content', null)
+          // const width = docElement.clientWidth > config.gameWidth ? config.gameWidth : docElement.clientWidth
+          // const height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
+          // var h_window = window.innerHeight,
+          //     w_window = window.innerWidth;
+          // super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.AUTO, 'content', null)
+          super(responsive.width, responsive.height, Phaser.AUTO, 'content', null)
 
           this.state.add('Boot', BootState, false)
           this.state.add('Splash', SplashState, false)
@@ -78,4 +80,7 @@ export default {
 
 </script>
 
+<style>
+
+</style>
 
