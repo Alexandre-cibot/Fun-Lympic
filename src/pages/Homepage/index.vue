@@ -17,7 +17,7 @@
         <button>
           <img src="@/assets/second.svg" alt="">
         </button>
-        <button>
+        <button @click="goClassementPage">
           <img src="@/assets/third.svg" alt="">
         </button>
         <button>
@@ -60,6 +60,9 @@ export default {
     },
     goParameterPage() {
       this.$router.push('/parameter');
+    },
+    goClassementPage() {
+      this.$router.push('/classement');
     }
   }
 };
@@ -89,10 +92,11 @@ export default {
   padding-top: 20px;
   justify-content: center;
   text-align: center;
-  font-family: 'myfrida_bold', sans-serif;
   font-size: 54px;
-  color: #2AD4E2;
   text-shadow: -3px 1px 4px rgba(255, 255, 255, 1);
+}
+.game-title p {
+  color: #2AD4E2;
 }
 .select-category {
   display: flex;

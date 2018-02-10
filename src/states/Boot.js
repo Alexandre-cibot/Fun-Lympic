@@ -30,9 +30,11 @@ export default class extends Phaser.State {
     // text.anchor.setTo(0.5, 0.5)
 
     this.load.image('loaderBg', './assets/images/loader-bg.png')
+    this.load.image('pause', './assets/images/pause.svg')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
     this.load.image('background', './assets/images/background.jpg')
-    // this.load.image('background', './assets/images/pistegrande.jpg')
+    this.load.image('home', './assets/images/home.svg')
+    this.load.image('play', './assets/images/play.svg')
     this.load.spritesheet('dude', './assets/images/hex_run.png', 69, 81)
   }
 
@@ -45,7 +47,7 @@ export default class extends Phaser.State {
   fontsLoaded() {
     this.fontsReady = true
   }
-
+  
   create() {
     const scaleRatio = window.devicePixelRatio / 3
     // this.background = this.add.tileSprite(0, 0, 14000, window.innerHeight, 'background')
@@ -57,7 +59,9 @@ export default class extends Phaser.State {
     // this.scale.setShowAll();
     // this.scale.refresh();
 
-    this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
+    // this.background = this.add.tileSprite(0, 0, 14000, window.innerHeight, 'background')
+    // this.background.scale.maxHeight = game.height;
 
     this.swipe = new Swipe(this.game)
     // this.dude = this.game.add.sprite(window.innerWidth / 6, window.innerHeight - 81 - 185, 'dude')
@@ -68,8 +72,55 @@ export default class extends Phaser.State {
     this.playerRace = 1
     // this.dude.y = 250
     this.dude.y = pallier[this.playerRace].height
-  }
+    
+    // Create menu
+    var image = game.add.sprite(20, 20, 'pause');
+    image.inputEnabled = true;
+    image.events.onInputDown.add(listener, this);
 
+    let graphics = this.game.add.graphics();
+    graphics.beginFill(0x000000, 0.5);
+    graphics.drawRect(0, 0, game.width, game.height);
+    graphics.visible = false;
+
+    var style = { font: "5em myfrida-bold", fill: "#ffffff", align: "center" };
+
+    var home = game.add.sprite(game.world.centerX - 60, game.world.centerY, 'home');
+    var play = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'play');
+    var text = game.add.text(game.world.centerX, game.world.centerY - 150, 'Pause', style);
+    text.anchor.setTo(0.5, 0);
+    home.anchor.setTo(0.5)
+    play.anchor.setTo(0.5)
+    play.visible = false;
+    home.visible = false;
+    text.visible = false;
+    play.inputEnabled = true;
+    home.inputEnabled = true;
+    play.events.onInputDown.add(unpaused, this);
+    home.events.onInputDown.add(redirect, this);
+    
+    function redirect(){
+      location.replace("/");
+    }
+
+    function listener() {
+      game.paused = true;
+      text.visible = true;
+      graphics.visible = true;
+      play.visible = true;
+      home.visible = true;
+      image.visible = false;
+    }  
+
+    function unpaused(){
+      game.paused = false;
+      play.visible = false;
+      home.visible = false;
+      graphics.visible = false;
+      text.visible = false;
+      image.visible = true;
+    }
+  }
   update () {
     moveBackground(this.background)
 

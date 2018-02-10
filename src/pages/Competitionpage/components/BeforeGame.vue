@@ -10,7 +10,7 @@
       </div>
     <button class="animated hidden">
       <img src="@/assets/win_white.svg" alt="" class="icon_button">
-      <h2>Jouer</h2>
+      <h2 @click="runAthletismeGame">Jouer</h2>
     </button>
     <div class="circle_second animated hidden">
       <img src="@/assets/second_circle.svg" alt="" class="circle">
@@ -30,6 +30,11 @@ export default {
     return {}
   },
   components: {
+  },
+  methods:{
+    runAthletismeGame(){
+      this.$router.push({path: '/athletics'})
+    }
   },
   mounted() {
     let buttons = this.$el.querySelectorAll('.hidden');
@@ -64,8 +69,6 @@ button {
 }
 button h2, h3 {
   float: right;
-  font-family: 'myfrida_bold';
-  font-weight: bold;
   text-transform: uppercase;
   padding-right: 1em;
 }
@@ -87,7 +90,6 @@ button h2, h3 {
 }
 .infos h3 {
   float: left;
-  color: white;
   padding-right: 10px;
 }
 .background{
