@@ -1,14 +1,15 @@
 import Phaser from 'phaser'
 import WebFont from 'webfontloader'
 import responsive from './responsive_helper'
+import constant from './constant'
 console.log(responsive);
 // const Swipe = require('phaser-swipe');
 const Swipe = require('../vendor/swipe')
 
 const pallier = [
-  {height: responsive.getHeightFromPercentage(34)},
-  {height: responsive.getHeightFromPercentage(47)},
-  {height: responsive.getHeightFromPercentage(59)},
+  {height: responsive.getHeightFromPercentage(39)},
+  {height: responsive.getHeightFromPercentage(53)},
+  {height: responsive.getHeightFromPercentage(66)}
 ]
 
 export default class extends Phaser.State {
@@ -51,8 +52,11 @@ export default class extends Phaser.State {
   create() {
     const scaleRatio = window.devicePixelRatio / 3
     // this.background = this.add.tileSprite(0, 0, 14000, window.innerHeight, 'background')
-    this.background = this.add.tileSprite(0, 0, 14000, responsive.getHeightFromPercentage(100), 'background')
-    // this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
+    console.log('sprite height', responsive.getHeightFromPercentage(100));
+    // this.background = this.add.tileSprite(0, 0, 14000, responsive.getHeightFromPercentage(100), 'background')
+    this.background = this.add.tileSprite(0, 0, 14000, constant.background.height, 'background')
+    this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
+    // this.background.scale.setTo(0.2, 0.2)
 
     // this.scale.pageAlignVertically = true;
     // this.scale.pageAlignHorizontally = true;
