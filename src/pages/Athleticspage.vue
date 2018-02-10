@@ -9,7 +9,6 @@
 import Phaser from 'phaser'
 
 import BootState from '@/states/Boot'
-import SplashState from '@/states/Splash'
 import GameState from '@/states/Game'
 import responsive from '../states/responsive_helper'
 
@@ -29,17 +28,10 @@ export default {
     runGame () {
       class Game extends Phaser.Game {
         constructor () {
-          const docElement = document.documentElement
-          // const width = docElement.clientWidth > config.gameWidth ? config.gameWidth : docElement.clientWidth
-          // const height = docElement.clientHeight > config.gameHeight ? config.gameHeight : docElement.clientHeight
-          // var h_window = window.innerHeight,
-          //     w_window = window.innerWidth;
           // super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.AUTO, 'content', null)
           super(responsive.width, responsive.height, Phaser.AUTO, 'content', null)
 
           this.state.add('Boot', BootState, false)
-          this.state.add('Splash', SplashState, false)
-          // this.state.add('Game', GameState, false)
 
           // with Cordova with need to wait that the device is ready so we will call the Boot state in another file
           if (!window.cordova) {
