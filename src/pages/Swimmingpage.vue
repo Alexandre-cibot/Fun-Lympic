@@ -9,18 +9,16 @@
 
 import Phaser from 'phaser'
 
-import BootState from '@/states/Athletics/Boot'
-import GameState from '@/states/Athletics/Game'
+import BootState from '@/states/Swimming/Boot'
+// import GameState from '@/states/Game'
 import responsive from '../states/responsive_helper'
 
 import config from '@/config'
 
 export default {
-  name: 'AthleticsGame',
+  name: 'SwimmingGame',
   data() {
-    return {
-      
-    };
+    return {};
   },
   mounted () {
     this.runGame()
@@ -52,7 +50,6 @@ export default {
           },
 
           // deviceready Event Handler
-          //
           onDeviceReady: function () {
             this.receivedEvent('deviceready')
 
@@ -64,7 +61,6 @@ export default {
             console.log('Received Event: ' + id)
           }
         }
-
         app.initialize()
       }
     },

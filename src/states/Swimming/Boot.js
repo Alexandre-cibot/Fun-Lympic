@@ -1,8 +1,8 @@
 import Phaser from 'phaser'
 import WebFont from 'webfontloader'
-import responsive from './responsive_helper'
 import constant from './constant'
-const Swipe = require('../vendor/swipe')
+import responsive from '../responsive_helper'
+const Swipe = require('../../vendor/swipe')
 
 const pallier = [
   {height: responsive.getHeightFromPercentage(39)},
@@ -18,24 +18,15 @@ export default class extends Phaser.State {
   }
 
   preload() {
-    // WebFont.load({
-    //   google: {
-    //     families: ['Bangers']
-    //   },
-    //   active: this.fontsLoaded
-    // })
-
-    // let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
-    // text.anchor.setTo(0.5, 0.5)
 
     this.load.image('loaderBg', './assets/images/loader-bg.png')
-    this.load.image('pause', './assets/images/pause.svg')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
-    this.load.image('background', './assets/images/background.jpg')
+    this.load.image('background', './assets/images/BG_piscine.jpg')
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
-    this.load.spritesheet('dude', './assets/images/hex_run.png', 69, 81)
-    this.load.spritesheet('mario', './assets/images/mario.png', 147, 180)
+    this.load.image('pause', './assets/images/pause.svg')
+    // this.load.spritesheet('dude', './assets/images/hex_run.png', 69, 81)
+    // this.load.spritesheet('mario', './assets/images/mario.png', 147, 180)
   }
 
   render() {
@@ -49,20 +40,11 @@ export default class extends Phaser.State {
   
   create() {
     const scaleRatio = window.devicePixelRatio / 3
-    // this.background = this.add.tileSprite(0, 0, 14000, window.innerHeight, 'background')
-    // this.background = this.add.tileSprite(0, 0, 14000, responsive.getHeightFromPercentage(100), 'background')
-    this.background = this.add.tileSprite(0, 0, 14000, constant.background.height, 'background')
+    this.background = game.add.sprite(0, 0, 'background');
+    // this.background = this.add.tileSprite(0, 0, 14000, constant.background.height, 'background')
     this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
-    // this.background.scale.setTo(0.2, 0.2)
-
-    // this.scale.pageAlignVertically = true;
-    // this.scale.pageAlignHorizontally = true;
-    // this.scale.setShowAll();
-    // this.scale.refresh();
 
     this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
-    // this.background = this.add.tileSprite(0, 0, 14000, window.innerHeight, 'background')
-    // this.background.scale.maxHeight = game.height;
 
     this.swipe = new Swipe(this.game)
     // this.dude = this.game.add.sprite(window.innerWidth / 6, window.innerHeight - 81 - 185, 'dude')
