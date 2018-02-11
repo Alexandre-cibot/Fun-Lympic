@@ -5,6 +5,7 @@ import Homepage from '@/pages/Homepage/index.vue'
 import Trainingpage from '@/pages/Trainingpage/index.vue'
 import Competitionpage from '@/pages/Competitionpage/index.vue'
 import Athleticspage from '@/pages/Athleticspage.vue'
+import Swimmingpage from '@/pages/Swimmingpage.vue'
 import Parameter from '@/pages/ParameterPage/index.vue'
 import Classement from '@/pages/ClassementPage/index.vue'
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/competition',
       name: 'Competitionpage',
       component: Competitionpage
+    },
+    {
+      path: '/swimming',
+      name: 'Swimming',
+      component: Swimmingpage
     },
     {
       path: '/athletics',

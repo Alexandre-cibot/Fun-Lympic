@@ -4,7 +4,7 @@
   <div class="wrapper">
     <div class="scroll_card">
       <Card text="Athlétisme" image="athletisme" :score="65" @click="runAthletismeGame" />
-      <Card text="Natation" image="athletisme" :score="123" :blue="true" @click="runAthletismeGame" />
+      <Card text="Natation" image="athletisme" :score="123" :blue="true" @click="runSwimmingGame" />
       <div class="gutter"><h1>Coucou</h1></div>
     </div>
     <Classement firstScore="237" secondScore="183" thirdScore="93" image="@/assets/alex.png"/>
@@ -32,6 +32,9 @@ export default {
   methods: {
     runAthletismeGame () {
       this.$router.push({path: '/athletics'})
+    },
+    runSwimmingGame(){
+      this.$router.push({path: '/swimming'})
     }
   }
 };
