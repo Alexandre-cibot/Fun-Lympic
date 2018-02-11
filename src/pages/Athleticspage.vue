@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id="wrapper">
     <div id="content" v-show="true"></div>
-    <div class="bg"></div>
+    <div id="bg"></div>
   </div>
 </template>
 
@@ -74,10 +74,23 @@ export default {
 </script>
 
 <style scoped>
-.bg{
+#wrapper {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+#bg{
   background: #66DF91;
   width: 100%;
-  height: 100%;
+  height: 200px;
+}
+#menu {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
 }
 </style>
 

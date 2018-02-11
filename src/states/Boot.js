@@ -88,9 +88,19 @@ export default class extends Phaser.State {
     image.inputEnabled = true;
     image.events.onInputDown.add(listener, this);
 
+    var div = document.createElement('div');
+    let divSty = div.style;
+    document.getElementById('bg').appendChild(div);
+    divSty.position = "relative";
+    divSty.display = "none";
+    divSty.height = "100%";
+    divSty.width = "100%";
+    divSty.background = "#000000";
+    divSty.opacity = "0.5";
+
     let graphics = this.game.add.graphics();
     graphics.beginFill(0x000000, 0.5);
-    graphics.drawRect(0, 0, game.width, game.height);
+    graphics.drawRect(0, 0, game.width, 2000);
     graphics.visible = false;
 
     var style = { font: "5em myfrida-bold", fill: "#ffffff", align: "center" };
@@ -114,6 +124,7 @@ export default class extends Phaser.State {
     }
 
     function listener() {
+      divSty.display = "block";
       game.paused = true;
       text.visible = true;
       graphics.visible = true;
@@ -123,6 +134,7 @@ export default class extends Phaser.State {
     }  
 
     function unpaused(){
+      divSty.display = "none";
       game.paused = false;
       play.visible = false;
       home.visible = false;
