@@ -1,6 +1,7 @@
 <template>
   <div>
     <div id="content" v-show="true"></div>
+    <div class="bg"></div>
   </div>
 </template>
 
@@ -72,7 +73,11 @@ export default {
 
 </script>
 
-<style>
-
+<style scoped>
+.bg{
+  background: #66DF91;
+  width: 100%;
+  height: 100%;
+}
 </style>
 
