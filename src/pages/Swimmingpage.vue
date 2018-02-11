@@ -1,7 +1,6 @@
 <template>
   <div id="wrapper">
     <div id="content" v-show="true"></div>
-    <div id="bg"></div>
   </div>
 </template>
 
@@ -74,11 +73,6 @@ export default {
   height: 100vh;
   width: 100%;
   overflow: hidden;
-}
-#bg{
-  background: #66DF91;
-  width: 100%;
-  height: 200px;
 }
 #menu {
   position: absolute;

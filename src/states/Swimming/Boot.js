@@ -18,15 +18,20 @@ export default class extends Phaser.State {
   }
 
   preload() {
-
     this.load.image('loaderBg', './assets/images/loader-bg.png')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
-    this.load.image('background', './assets/images/BG_piscine.jpg')
+    this.load.image('background', './assets/images/swimming_background.jpg')
+    this.load.image('coeur', './assets/images/coeur.png')
+    this.load.image('jury', './assets/images/swimming_jury.png')
+    this.load.image('nageuse', './assets/images/swimming_nageuse.png')
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
     this.load.image('pause', './assets/images/pause.svg')
-    // this.load.spritesheet('dude', './assets/images/hex_run.png', 69, 81)
-    // this.load.spritesheet('mario', './assets/images/mario.png', 147, 180)
+    this.load.image('btn1', './assets/images/swimming_BTN_1.png')
+    this.load.image('btn2', './assets/images/swimming_BTN_2.png')
+    this.load.image('btn3', './assets/images/swimming_BTN_3.png')
+    this.load.image('btn4', './assets/images/swimming_BTN_4.png')
+    this.load.image('oval', './assets/images/swimming_oval.png')
   }
 
   render() {
@@ -41,34 +46,68 @@ export default class extends Phaser.State {
   create() {
     const scaleRatio = window.devicePixelRatio / 3
     this.background = game.add.sprite(0, 0, 'background');
-    // this.background = this.add.tileSprite(0, 0, 14000, constant.background.height, 'background')
     this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
-
     this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
 
     this.swipe = new Swipe(this.game)
-    // this.dude = this.game.add.sprite(window.innerWidth / 6, window.innerHeight - 81 - 185, 'dude')
-    this.dude = this.game.add.sprite(responsive.getWidthFromPercentage(16.66), responsive.getHeightFromPercentage(100) - 81 - 185, 'dude')
-    this.mario = this.game.add.sprite(responsive.getWidthFromPercentage(60), responsive.getHeightFromPercentage(50), 'mario')
-    this.mario.scale.setTo(responsive.getRatioFromHeight(1760), responsive.getRatioFromHeight(1440))
-    // this.physics.enable(this.dude, Phaser.Physics.ARCADE);
-    this.dude.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 16, true)
-    this.mario.animations.add('run', [0, 1, 2], 8, true)
-    this.dude.play('run')
-    this.mario.play('run')
-    this.playerRace = 1
-    // this.dude.y = 250
-    this.dude.y = pallier[this.playerRace].height
 
-    this.physics.arcade.enable(this.mario)
-    this.mario.enableBody = true
-    this.physics.arcade.enable(this.dude)
-    this.dude.enableBody = true
-    
+    let nageuse = game.add.sprite(game.world.centerX - 50, game.height - 350, 'nageuse');
+    nageuse.scale.setTo(0.5,0.5);
+    game.add.sprite(game.width - 300, 80, 'jury');
+
+    //Circle
+    var circle1 = game.add.sprite(game.width - 350, game.height - 80, 'oval')
+    var circle2 = game.add.sprite(game.width - 260, game.height - 80, 'oval')
+    var circle3 = game.add.sprite(game.width - 170, game.height - 80, 'oval')
+    var circle4 = game.add.sprite(game.width - 80, game.height - 80, 'oval')
+
+    // circle1.scale.setTo(0.5, 0.5)
+    // circle2.scale.setTo(0.5, 0.5)
+    // circle3.scale.setTo(0.5, 0.5)
+    // circle4.scale.setTo(0.5, 0.5)
+
+    circle1.inputEnabled = true;
+    circle2.inputEnabled = true;
+    circle3.inputEnabled = true;
+    circle4.inputEnabled = true;
+
+    //Button
+    let btn1 = game.add.sprite(game.width - 340, game.height - 70, 'btn1');
+    let btn2 = game.add.sprite(game.width - 250, game.height - 70, 'btn2');
+    let btn3 = game.add.sprite(game.width - 160, game.height - 70, 'btn3');
+    let btn4 = game.add.sprite(game.width - 70, game.height - 70, 'btn4');
+    btn1.scale.setTo(0.5, 0.5)
+    btn2.scale.setTo(0.5, 0.5)
+    btn3.scale.setTo(0.5, 0.5)
+    btn4.scale.setTo(0.5, 0.5)
+
+    circle1.events.onInputDown.add(changeHeight, this);
+
+    function changeHeight(){
+      circle2.body.setCircle(60)
+    }
+
+    //Heart
+    let heart1 = game.add.sprite(game.width - 60, 30, 'coeur');
+    let heart2 = game.add.sprite(game.width - 90, 30, 'coeur');
+    let heart3 = game.add.sprite(game.width - 120, 30, 'coeur');
+    heart1.scale.setTo(1.5, 1.5);
+    heart2.scale.setTo(1.5, 1.5);
+    heart3.scale.setTo(1.5, 1.5);
+  
     // Create menu
     var image = game.add.sprite(20, 20, 'pause');
     image.inputEnabled = true;
     image.events.onInputDown.add(listener, this);
+
+    var bg = document.createElement('div');
+    let bgSty = bg.style;
+    bg.id = "bg";
+    document.getElementById('wrapper').appendChild(bg);
+    bgSty.position = "relative";
+    bgSty.height = "200px";
+    bgSty.width = "100%";
+    bgSty.background = "#93DFF6";
 
     var div = document.createElement('div');
     let divSty = div.style;
@@ -126,9 +165,6 @@ export default class extends Phaser.State {
     }
   }
   update () {
-    this.mario.x = this.mario.x - 0.4
-    this.physics.arcade.overlap(this.dude, this.mario, collisionHandler, null, this)
-    moveBackground(this.background)
 
     var direction = this.swipe.check()
     if (direction !== null) {

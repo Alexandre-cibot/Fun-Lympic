@@ -88,6 +88,16 @@ export default class extends Phaser.State {
     image.inputEnabled = true;
     image.events.onInputDown.add(listener, this);
 
+    var bg = document.createElement('div');
+    let bgSty = bg.style;
+    bg.id = "bg";
+
+    document.getElementById('wrapper').appendChild(bg);
+    bgSty.position = "relative";
+    bgSty.height = "200px";
+    bgSty.width = "100%";
+    bgSty.background = "#66DF91";
+
     var div = document.createElement('div');
     let divSty = div.style;
     document.getElementById('bg').appendChild(div);
