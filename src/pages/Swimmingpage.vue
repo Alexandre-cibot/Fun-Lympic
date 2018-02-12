@@ -27,7 +27,7 @@ export default {
       class Game extends Phaser.Game {
         constructor () {
           // super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.AUTO, 'content', null)
-          super(responsive.width, responsive.height, Phaser.AUTO, 'content', null)
+          super(responsive.width, responsive.height, Phaser.AUTO, 'content', null, false)
 
           this.state.add('Boot', BootState, false)
 
