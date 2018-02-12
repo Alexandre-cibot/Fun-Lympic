@@ -15,6 +15,8 @@ export default class extends Phaser.State {
     this.stage.backgroundColor = '#EDEEC9'
     this.fontsReady = false
     this.fontsLoaded = this.fontsLoaded.bind(this)
+    this.life = 3;
+    this.score = 0;
   }
 
   preload() {
@@ -23,7 +25,6 @@ export default class extends Phaser.State {
     this.load.image('background', './assets/images/swimming_background.jpg')
     this.load.image('coeur', './assets/images/coeur.png')
     this.load.image('jury', './assets/images/swimming_jury.png')
-    this.load.image('nageuse', './assets/images/swimming_nageuse.png')
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
     this.load.image('pause', './assets/images/pause.svg')
@@ -32,6 +33,12 @@ export default class extends Phaser.State {
     this.load.image('btn3', './assets/images/swimming_BTN_3.png')
     this.load.image('btn4', './assets/images/swimming_BTN_4.png')
     this.load.image('oval', './assets/images/swimming_oval.png')
+    this.load.image('record', './assets/images/swimming_record.png')
+    this.load.image('perfect', './assets/images/swimming_perfect.png')
+    this.load.image('fail', './assets/images/swimming_fail.png')
+    this.load.spritesheet('star', './assets/images/swimming_stars.png', 280, 500)
+    // this.load.spritesheet('nageuse', './assets/images/swimming_nageuse3.png', 255, 820)
+    this.load.spritesheet('nageuse', './assets/images/swimming_little_nageuse2.png', 88, 225)
   }
 
   render() {
@@ -50,10 +57,56 @@ export default class extends Phaser.State {
     this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
 
     this.swipe = new Swipe(this.game)
-
-    let nageuse = game.add.sprite(game.world.centerX - 50, game.height - 350, 'nageuse');
-    nageuse.scale.setTo(0.5,0.5);
     game.add.sprite(game.width - 300, 80, 'jury');
+    // Nageuse
+    this.nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(40), responsive.getHeightFromPercentage(50), 'nageuse')
+    this.nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(15), responsive.getHeightFromPercentage(40), 'nageuse')
+    this.nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(65), responsive.getHeightFromPercentage(40), 'nageuse')
+    let nageuseArray = [this.nageuse, this.nageuse3, this.nageuse2];
+    this.nageuse.animations.add('run')
+    this.nageuse2.animations.add('run')
+    this.nageuse3.animations.add('run')
+    this.nageuse.play('run', 8, true)
+    this.nageuse2.play('run', 8, true)
+    this.nageuse3.play('run', 8, true)
+
+    //Stars
+    this.star3 = this.game.add.sprite(responsive.getWidthFromPercentage(20), responsive.getHeightFromPercentage(40), 'star')
+    this.star2 = this.game.add.sprite(responsive.getWidthFromPercentage(65), responsive.getHeightFromPercentage(40), 'star')
+    this.star = this.game.add.sprite(responsive.getWidthFromPercentage(40), responsive.getHeightFromPercentage(50), 'star')
+    this.star.scale.setTo(responsive.getRatioFromHeight(1760), responsive.getRatioFromHeight(1440))
+    this.star2.scale.setTo(responsive.getRatioFromHeight(1760), responsive.getRatioFromHeight(1440))
+    this.star3.scale.setTo(responsive.getRatioFromHeight(1760), responsive.getRatioFromHeight(1440))
+    
+    this.star.animations.add('run')
+    this.star2.animations.add('run')
+    this.star3.animations.add('run')
+    this.star.visible = false;
+    this.star2.visible = false;
+    this.star3.visible = false;
+
+    let starArray = [this.star, this.star2, this.star3];
+
+    //Informations
+    this.record = game.add.sprite(game.world.centerX, 32, 'record');
+    this.fail = game.add.sprite(game.world.centerX, game.world.centerY + 200, 'fail');
+    this.perfect = game.add.sprite(game.world.centerX, game.world.centerY + 200, 'perfect');
+    this.record.anchor.setTo(0.5);
+    this.fail.anchor.setTo(0.5);
+    this.perfect.anchor.setTo(0.5);
+
+    let styleRecord = {font: "1.6em myfrida-bold", fill: "#ffffff"};
+    let styleScore = {font: "4.5em myfrida-bold", fill: "#ffffff"};
+    let textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
+    let textRecord = game.add.text(game.world.centerX - 45,  22, 'RECORD :', styleRecord);
+    let textFail = game.add.text(game.world.centerX,  game.world.centerY + 200, 'RATE', styleRecord);
+    let textPerfect = game.add.text(game.world.centerX,  game.world.centerY + 200, 'PARFAIT', styleRecord);
+    textFail.anchor.setTo(0.5);
+    textPerfect.anchor.setTo(0.5);
+    textFail.visible = false;
+    textPerfect.visible = false;
+    this.perfect.visible = false;
+    this.fail.visible = false;
 
     //Circle
     var circle1 = game.add.sprite(game.width - 350, game.height - 80, 'oval')
@@ -81,19 +134,17 @@ export default class extends Phaser.State {
     btn3.scale.setTo(0.5, 0.5)
     btn4.scale.setTo(0.5, 0.5)
 
-    circle1.events.onInputDown.add(changeHeight, this);
-
-    function changeHeight(){
-      circle2.body.setCircle(60)
-    }
+    circle1.events.onInputDown.add(fail, this);
+    circle2.events.onInputDown.add(perfect, this);
 
     //Heart
-    let heart1 = game.add.sprite(game.width - 60, 30, 'coeur');
-    let heart2 = game.add.sprite(game.width - 90, 30, 'coeur');
-    let heart3 = game.add.sprite(game.width - 120, 30, 'coeur');
+    let heart1 = game.add.sprite(game.width - 50, 20, 'coeur');
+    let heart2 = game.add.sprite(game.width - 80, 20, 'coeur');
+    let heart3 = game.add.sprite(game.width - 110, 20, 'coeur');
     heart1.scale.setTo(1.5, 1.5);
     heart2.scale.setTo(1.5, 1.5);
     heart3.scale.setTo(1.5, 1.5);
+    let heart = [heart1, heart2, heart3];
   
     // Create menu
     var image = game.add.sprite(20, 20, 'pause');
@@ -163,9 +214,51 @@ export default class extends Phaser.State {
       text.visible = false;
       image.visible = true;
     }
+
+    function fail(){
+      this.fail.visible = true;
+      textFail.visible = true;
+      setTimeout(()=>{
+        this.fail.visible = false;
+        textFail.visible = false;
+      }, 1000)
+      heart[this.life-1].visible = false;
+      nageuseArray[this.life-1].kill();
+      this.life--;
+      if(this.life == 0){
+        this.nageuse.kill()
+      }
+    }
+
+    function perfect(){
+      this.perfect.visible = true;
+      textPerfect.visible = true;
+      setTimeout(()=>{
+        this.perfect.visible = false;
+        textPerfect.visible = false;
+      }, 1000)
+      this.score += 20;
+      textScore.text = this.score;
+
+      for(var i = 0; i < this.life; i++ ){
+        console.log(i)
+        starArray[i].visible = true;
+        starArray[i].play('run', 8)
+      }
+      setTimeout(()=>{
+        for(var i = 0; i < this.life; i++ ){
+          starArray[i].visible = false;
+        }
+      }, 1000)
+      
+      
+      // this.star.animations.add('run')
+      // this.star2.animations.add('run')
+      // this.star3.animations.add('run')
+      // textScore.anchor.setTo(1, 1);
+    }
   }
   update () {
-
     var direction = this.swipe.check()
     if (direction !== null) {
       // direction= { x: x, y: y, direction: direction }
