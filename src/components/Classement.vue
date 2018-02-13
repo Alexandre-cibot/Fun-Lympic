@@ -123,9 +123,11 @@ export default {
   width: 100%;
   height: 160%;
 }
-.circle .profil_pic, .circleCenter .profil_pic{
+.circle .profil_pic{
   height: 80%;
+  max-width:100%;
   border-radius: 50%;
   border: 8px solid #2D1862;
 } 
+
 </style>
