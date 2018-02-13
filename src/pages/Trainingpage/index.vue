@@ -53,6 +53,10 @@ export default {
   overflow-y: scroll;
   padding-bottom: 1vh;
 }
+
+/* Remove the scrollbar  */
+.scroll_card::-webkit-scrollbar { width: 0 !important }
+
 .wrapper {
   background: #573399;
   overflow: hidden;
