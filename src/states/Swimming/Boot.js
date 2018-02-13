@@ -25,6 +25,8 @@ export default class extends Phaser.State {
     this.load.image('background', './assets/images/swimming_background.jpg')
     this.load.image('coeur', './assets/images/coeur.png')
     this.load.image('jury', './assets/images/swimming_jury.png')
+    this.load.image('juryHappy', './assets/images/swimming_jury_happy.png')
+    this.load.image('juryUnhappy', './assets/images/swimming_jury_unhappy.png')
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
     this.load.image('pause', './assets/images/pause.svg')
@@ -38,7 +40,9 @@ export default class extends Phaser.State {
     this.load.image('fail', './assets/images/swimming_fail.png')
     this.load.spritesheet('star', './assets/images/swimming_stars.png', 280, 500)
     // this.load.spritesheet('nageuse', './assets/images/swimming_nageuse3.png', 255, 820)
-    this.load.spritesheet('nageuse', './assets/images/swimming_little_nageuse2.png', 88, 225)
+    this.load.spritesheet('nageuse1', './assets/images/swimming_little_nageuse1.png', 60, 213)
+    this.load.spritesheet('nageuse2', './assets/images/swimming_little_nageuse2.png', 84, 214)
+    this.load.spritesheet('nageuse3', './assets/images/swimming_little_nageuse3.png', 67, 215)
   }
 
   render() {
@@ -56,12 +60,18 @@ export default class extends Phaser.State {
     this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
     this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
 
+    // Jury
     this.swipe = new Swipe(this.game)
-    game.add.sprite(game.width - 300, 80, 'jury');
+    this.jury = game.add.sprite(game.width - 300, 70, 'jury');
+    this.juryHappy = game.add.sprite(game.width - 301, 67, 'juryHappy');
+    this.juryUnhappy = game.add.sprite(game.width - 301, 67, 'juryUnhappy');
+    this.juryHappy.visible = false;
+    this.juryUnhappy.visible = false;
+
     // Nageuse
-    this.nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(40), responsive.getHeightFromPercentage(50), 'nageuse')
-    this.nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(15), responsive.getHeightFromPercentage(40), 'nageuse')
-    this.nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(65), responsive.getHeightFromPercentage(40), 'nageuse')
+    this.nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(45), responsive.getHeightFromPercentage(55), 'nageuse1')
+    this.nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(10), responsive.getHeightFromPercentage(40), 'nageuse2')
+    this.nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(70), responsive.getHeightFromPercentage(40), 'nageuse3')
     let nageuseArray = [this.nageuse, this.nageuse3, this.nageuse2];
     this.nageuse.animations.add('run')
     this.nageuse2.animations.add('run')
@@ -71,9 +81,9 @@ export default class extends Phaser.State {
     this.nageuse3.play('run', 8, true)
 
     //Stars
-    this.star3 = this.game.add.sprite(responsive.getWidthFromPercentage(20), responsive.getHeightFromPercentage(40), 'star')
-    this.star2 = this.game.add.sprite(responsive.getWidthFromPercentage(65), responsive.getHeightFromPercentage(40), 'star')
-    this.star = this.game.add.sprite(responsive.getWidthFromPercentage(40), responsive.getHeightFromPercentage(50), 'star')
+    this.star = this.game.add.sprite(responsive.getWidthFromPercentage(45), responsive.getHeightFromPercentage(55), 'star')
+    this.star2 = this.game.add.sprite(responsive.getWidthFromPercentage(70), responsive.getHeightFromPercentage(40), 'star')    
+    this.star3 = this.game.add.sprite(responsive.getWidthFromPercentage(15), responsive.getHeightFromPercentage(40), 'star')
     this.star.scale.setTo(responsive.getRatioFromHeight(1760), responsive.getRatioFromHeight(1440))
     this.star2.scale.setTo(responsive.getRatioFromHeight(1760), responsive.getRatioFromHeight(1440))
     this.star3.scale.setTo(responsive.getRatioFromHeight(1760), responsive.getRatioFromHeight(1440))
@@ -96,11 +106,13 @@ export default class extends Phaser.State {
     this.perfect.anchor.setTo(0.5);
 
     let styleRecord = {font: "1.6em myfrida-bold", fill: "#ffffff"};
-    let styleScore = {font: "4.5em myfrida-bold", fill: "#ffffff"};
+    let styleScore = {font: "4.5em myfrida-bold", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
     let textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     let textRecord = game.add.text(game.world.centerX - 45,  22, 'RECORD :', styleRecord);
     let textFail = game.add.text(game.world.centerX,  game.world.centerY + 200, 'RATE', styleRecord);
     let textPerfect = game.add.text(game.world.centerX,  game.world.centerY + 200, 'PARFAIT', styleRecord);
+    
+    textScore.anchor.setTo(0.5, 0);
     textFail.anchor.setTo(0.5);
     textPerfect.anchor.setTo(0.5);
     textFail.visible = false;
@@ -217,9 +229,13 @@ export default class extends Phaser.State {
 
     function fail(){
       this.fail.visible = true;
+      this.juryUnhappy.visible = true;
+      this.jury.visible = false;
       textFail.visible = true;
       setTimeout(()=>{
         this.fail.visible = false;
+        this.jury.visible = true;
+        this.juryUnhappy.visible = false;
         textFail.visible = false;
       }, 1000)
       heart[this.life-1].visible = false;
@@ -232,16 +248,19 @@ export default class extends Phaser.State {
 
     function perfect(){
       this.perfect.visible = true;
+      this.juryHappy.visible = true;
+      this.jury.visible = false;
       textPerfect.visible = true;
       setTimeout(()=>{
         this.perfect.visible = false;
+        this.jury.visible = true;
+        this.juryHappy.visible = false;
         textPerfect.visible = false;
       }, 1000)
       this.score += 20;
       textScore.text = this.score;
 
       for(var i = 0; i < this.life; i++ ){
-        console.log(i)
         starArray[i].visible = true;
         starArray[i].play('run', 8)
       }
