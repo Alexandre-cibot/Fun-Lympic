@@ -275,60 +275,160 @@ export default class extends Phaser.State {
     }
 
     //Test random circle
-    this.timeRandom = 10;
+    var numCircle; 
+    this.timeRandom = 9;
     let cirLength = this.circleArr.length -1;
     var sec = Math.round(Math.random() * this.timeRandom) +2;
-    game.time.events.loop(Phaser.Timer.SECOND * sec, displayCircle, this);
-
-    function displayCircle(){
-      this.spawnArr.push(1);
-      let showCircle = Math.round(Math.random() * cirLength);
-      console.log(this.spawnArr);
-      
-      this.circleArr[showCircle].visible = true;
-      setTimeout(()=>{
-        this.circleArr[showCircle].visible = false;
-        if(this.clickArr.length != this.spawnArr.length){
-  
-          //Fail to refactor (call function in function ?)
-          this.fail.visible = true;
-          this.juryUnhappy.visible = true;
-          this.jury.visible = false;
-          textFail.visible = true;
-          setTimeout(()=>{
-            this.fail.visible = false;
-            this.jury.visible = true;
-            this.juryUnhappy.visible = false;
-            textFail.visible = false;
-          }, 1000)
-          heart[this.life-1].visible = false;
-          nageuseArr[this.life-1].kill();
-          this.life--;
+    setNumCircle
+    game.time.events.loop(Phaser.Timer.SECOND * sec, setNumCircle, this);
     
-          if(this.life == 0){
-            if(parseFloat(textScore.text) >= rec) {
-              newRecord.visible = true;
+    function setNumCircle(){
+      numCircle = Math.round(Math.random() * 2);
+      console.log(numCircle);
+    }
+    game.time.events.loop(Phaser.Timer.SECOND * sec, displayCircle, this);
+    
+    function displayCircle(){
+      if(numCircle == 2){
+        this.spawnArr.push(1);
+        this.spawnArr.push(1);
+        console.log(this.spawnArr);
+        var showCircle = Math.round(Math.random() * cirLength);
+        
+        var otherCircle = showCircle +1;
+        if((otherCircle) > (this.circleArr.length - 1)){
+          otherCircle -=2;
+        }
+
+        this.circleArr[showCircle].visible = true;
+        this.circleArr[otherCircle].visible = true;
+      }else{
+        this.spawnArr.push(1);
+        var showCircle = Math.round(Math.random() * cirLength);
+        console.log(this.spawnArr);
+        
+        this.circleArr[showCircle].visible = true;
+      }
+        setTimeout(()=>{
+          this.circleArr[showCircle].visible = false;
+          (otherCircle != undefined) ? this.circleArr[otherCircle].visible = false : '';
+          if(this.clickArr.length != this.spawnArr.length){
+    
+            //Fail to refactor (call function in function ?)
+            this.fail.visible = true;
+            this.juryUnhappy.visible = true;
+            this.jury.visible = false;
+            textFail.visible = true;
+            setTimeout(()=>{
+              this.fail.visible = false;
+              this.jury.visible = true;
+              this.juryUnhappy.visible = false;
+              textFail.visible = false;
+            }, 1000)
+            heart[this.life-1].visible = false;
+            nageuseArr[this.life-1].kill();
+            this.arrPos[this.life-1].kill();
+            starArray[this.life-1].kill();
+            this.life--;
+      
+            if(this.life == 0){
+              if(parseFloat(textScore.text) >= rec) {
+                newRecord.visible = true;
+              }
+              textScoreFinal.text = textScore.text;
+              image.visible = false;
+              textScore.visible = false;
+              textRecord.visible = false;
+              this.record.visible = false;
+              share.visible = true;
+              textScoreFinal.visible = true;
+              for(var i = 0; i<btnArray.length; i++){
+                btnArray[i].visible = false;
+              }
+              for(var i = 0; i<this.circleArr.length; i++){
+                this.circleArr[i].visible = false;
+              }
             }
-            textScoreFinal.text = textScore.text;
-            image.visible = false;
-            textScore.visible = false;
-            textRecord.visible = false;
-            this.record.visible = false;
-            share.visible = true;
-            textScoreFinal.visible = true;
-            for(var i = 0; i<btnArray.length; i++){
-              btnArray[i].visible = false;
-            }
-            for(var i = 0; i<this.circleArr.length; i++){
-              this.circleArr[i].visible = false;
+            
+            //Re-balancing of length
+            if(this.spawnArr.length > this.clickArr.length){
+              let diff = this.spawnArr.length - this.clickArr.length;
+              (diff == 1) ? this.clickArr.push(1) : this.clickArr.push.apply(this.clickArr,[1, 1]);
+            }else if(this.spawnArr.length < this.clickArr.length){
+              let diff = this.clickArr.length - this.spawnArr.length;
+              (diff == 1) ? this.spawnArr.push(1) : this.spawnArr.push.apply(this.spawnArr,[1, 1]);
             }
           }
-
-          (this.clickArr.length > this.spawnArr.length) ? this.spawnArr.push(1) : this.clickArr.push(1);
-        }
-      }, 1000);
-
+        }, 1000);
+      
     }
+
+    // function displayCircle(){
+    //     this.spawnArr.push(1);
+    //     this.spawnArr.push(1);
+    //     console.log(this.spawnArr);
+    //     var showCircle = Math.round(Math.random() * cirLength);
+        
+    //     var otherCircle = showCircle +1;
+    //     if((otherCircle) > (this.circleArr.length - 1)){
+    //       otherCircle -=2;
+    //     }
+
+    //     this.circleArr[showCircle].visible = true;
+    //     this.circleArr[otherCircle].visible = true;
+
+    //     setTimeout(()=>{
+    //       this.circleArr[showCircle].visible = false;
+    //       (otherCircle != undefined) ? this.circleArr[otherCircle].visible = false : '';
+    //       if(this.clickArr.length != this.spawnArr.length){
+    
+    //         //Fail to refactor (call function in function ?)
+    //         this.fail.visible = true;
+    //         this.juryUnhappy.visible = true;
+    //         this.jury.visible = false;
+    //         textFail.visible = true;
+    //         setTimeout(()=>{
+    //           this.fail.visible = false;
+    //           this.jury.visible = true;
+    //           this.juryUnhappy.visible = false;
+    //           textFail.visible = false;
+    //         }, 1000)
+    //         heart[this.life-1].visible = false;
+    //         nageuseArr[this.life-1].kill();
+    //         this.arrPos[this.life-1].kill();
+    //         starArray[this.life-1].kill();
+    //         this.life--;
+      
+    //         if(this.life == 0){
+    //           if(parseFloat(textScore.text) >= rec) {
+    //             newRecord.visible = true;
+    //           }
+    //           textScoreFinal.text = textScore.text;
+    //           image.visible = false;
+    //           textScore.visible = false;
+    //           textRecord.visible = false;
+    //           this.record.visible = false;
+    //           share.visible = true;
+    //           textScoreFinal.visible = true;
+    //           for(var i = 0; i<btnArray.length; i++){
+    //             btnArray[i].visible = false;
+    //           }
+    //           for(var i = 0; i<this.circleArr.length; i++){
+    //             this.circleArr[i].visible = false;
+    //           }
+    //         }
+            
+    //         //Re-balancing of length
+    //         if(this.spawnArr.length > this.clickArr.length){
+    //           let diff = this.spawnArr.length - this.clickArr.length;
+    //           (diff == 1) ? this.clickArr.push(1) : this.clickArr.push.apply(this.clickArr,[1, 1]);
+    //         }else if(this.spawnArr.length < this.clickArr.length){
+    //           let diff = this.clickArr.length - this.spawnArr.length;
+    //           (diff == 1) ? this.spawnArr.push(1) : this.spawnArr.push.apply(this.spawnArr,[1, 1]);
+    //         }
+    //       }
+    //     }, 1000);
+    // }
 
     function perfect(){
       this.perfect.visible = true;
