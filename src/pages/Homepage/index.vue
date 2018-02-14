@@ -70,7 +70,6 @@ export default {
     let otherButtons = this.$el.querySelector('.other-buttons');
     mainButtons.forEach((button, idx) => {
       setTimeout(()=>{
-        console.log(idx)
           button.classList.add('bounceInDown', 'visible');
           if (idx === 1) {
             // Launch animation of the nav buttons
