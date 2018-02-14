@@ -6,11 +6,11 @@
     </div>
     <!-- <DidYouKnow :show="show" image="athletisme" @closeModal="closeModal" /> -->
       <div class="select-category">
-          <BasicButton title="Jouer" btnColor="yellow" image="play" @click="goTrainingPage"/>
-          <BasicButton style="margin-top:3vh;" title="Compétitions" btnColor="yellow" image="olympique" @click="goCompetition"/>
+          <BasicButton class="animated mainButton hidden" title="Jouer" btnColor="yellow" image="play" @click="goTrainingPage"/>
+          <BasicButton class="animated mainButton hidden" style="margin-top:3vh;" title="Compétitions" btnColor="yellow" image="olympique" @click="goCompetition"/>
       </div>
 
-      <div class="other-buttons">
+      <div class="other-buttons animated hidden">
         <button @click="goParameterPage">
           <img src="@/assets/first.svg" alt="">
         </button>
@@ -64,6 +64,21 @@ export default {
     goClassementPage() {
       this.$router.push('/classement');
     }
+  },
+  mounted() {
+    let mainButtons = this.$el.querySelectorAll('.mainButton');
+    let otherButtons = this.$el.querySelector('.other-buttons');
+    mainButtons.forEach((button, idx) => {
+      setTimeout(()=>{
+          button.classList.add('bounceInDown', 'visible');
+          if (idx === 1) {
+            // Launch animation of the nav buttons
+            setInterval(()=>{
+              otherButtons.classList.add('fadeInUp', 'visible');
+            },400)
+          }
+      }, idx * 200)
+    })
   }
 };
 </script>
