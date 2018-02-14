@@ -1,6 +1,7 @@
 <template>
   <div id="wrapper">
     <div id="content" v-show="true"></div>
+  <ClassementGame v-if="show"/>
   </div>
 </template>
 
@@ -11,13 +12,19 @@ import Phaser from 'phaser'
 import BootState from '@/states/Swimming/Boot'
 // import GameState from '@/states/Game'
 import responsive from '../states/responsive_helper'
+import ClassementGame from './Competitionpage/components/ClassementGame.vue'
 
 import config from '@/config'
 
 export default {
   name: 'SwimmingGame',
   data() {
-    return {};
+    return {
+      show: false
+    };
+  },
+  components:{
+    ClassementGame
   },
   mounted () {
     this.runGame()
