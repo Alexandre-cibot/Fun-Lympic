@@ -106,13 +106,14 @@ export default {
 .background {
   display: flex;
   position: absolute;
+  width: 80%;
   bottom: 0;
-  width: 84vw;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   height: 10vh;
   border-radius: 20px 20px 0 0;
   background: #2D1862;
-  transform: translateX(-50%);
-  left: 50%;
 }
 .container{
   display: flex;
