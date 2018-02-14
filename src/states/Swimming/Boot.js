@@ -176,8 +176,10 @@ export default class extends Phaser.State {
     this.circle3.visible = false;
     this.circle4.visible = false;
     
-    this.circle1.events.onInputDown.add(fail, this);
+    this.circle1.events.onInputDown.add(perfect, this);
     this.circle2.events.onInputDown.add(perfect, this);
+    this.circle3.events.onInputDown.add(perfect, this);
+    this.circle4.events.onInputDown.add(perfect, this);
 
     //Button
     let btn1 = game.add.sprite(game.width - 340, game.height - 70, 'btn1');
@@ -273,55 +275,59 @@ export default class extends Phaser.State {
     }
 
     //Test random circle
-    this.timeRandom = 8;
+    this.timeRandom = 10;
     let cirLength = this.circleArr.length -1;
-    var sec = Math.round(Math.random() * this.timeRandom);
-    game.time.events.loop(Phaser.Timer.SECOND * sec, displayConsole, this);
+    var sec = Math.round(Math.random() * this.timeRandom) +2;
+    game.time.events.loop(Phaser.Timer.SECOND * sec, displayCircle, this);
 
-    function displayConsole(){
+    function displayCircle(){
       this.spawnArr.push(1);
       let showCircle = Math.round(Math.random() * cirLength);
+      console.log(this.spawnArr);
       
       this.circleArr[showCircle].visible = true;
       setTimeout(()=>{
         this.circleArr[showCircle].visible = false;
+        if(this.clickArr.length != this.spawnArr.length){
+  
+          //Fail to refactor (call function in function ?)
+          this.fail.visible = true;
+          this.juryUnhappy.visible = true;
+          this.jury.visible = false;
+          textFail.visible = true;
+          setTimeout(()=>{
+            this.fail.visible = false;
+            this.jury.visible = true;
+            this.juryUnhappy.visible = false;
+            textFail.visible = false;
+          }, 1000)
+          heart[this.life-1].visible = false;
+          nageuseArr[this.life-1].kill();
+          this.life--;
+    
+          if(this.life == 0){
+            if(parseFloat(textScore.text) >= rec) {
+              newRecord.visible = true;
+            }
+            textScoreFinal.text = textScore.text;
+            image.visible = false;
+            textScore.visible = false;
+            textRecord.visible = false;
+            this.record.visible = false;
+            share.visible = true;
+            textScoreFinal.visible = true;
+            for(var i = 0; i<btnArray.length; i++){
+              btnArray[i].visible = false;
+            }
+            for(var i = 0; i<this.circleArr.length; i++){
+              this.circleArr[i].visible = false;
+            }
+          }
+
+          (this.clickArr.length > this.spawnArr.length) ? this.spawnArr.push(1) : this.clickArr.push(1);
+        }
       }, 1000);
-    }
 
-    function fail(){
-      this.fail.visible = true;
-      this.juryUnhappy.visible = true;
-      this.jury.visible = false;
-      textFail.visible = true;
-      setTimeout(()=>{
-        this.fail.visible = false;
-        this.jury.visible = true;
-        this.juryUnhappy.visible = false;
-        textFail.visible = false;
-      }, 1000)
-      heart[this.life-1].visible = false;
-      nageuseArr[this.life-1].kill();
-      this.life--;
-      this.clickArr.push(1);
-
-      if(this.life == 0){
-        if(parseFloat(textScore.text) >= rec) {
-          newRecord.visible = true;
-        }
-        textScoreFinal.text = textScore.text;
-        image.visible = false;
-        textScore.visible = false;
-        textRecord.visible = false;
-        this.record.visible = false;
-        share.visible = true;
-        textScoreFinal.visible = true;
-        for(var i = 0; i<btnArray.length; i++){
-          btnArray[i].visible = false;
-        }
-        for(var i = 0; i<this.circleArr.length; i++){
-          this.circleArr[i].visible = false;
-        }
-      }
     }
 
     function perfect(){
@@ -329,6 +335,9 @@ export default class extends Phaser.State {
       this.juryHappy.visible = true;
       this.jury.visible = false;
       textPerfect.visible = true;
+      this.clickArr.push(1);
+      console.log(this.clickArr);
+      
       setTimeout(()=>{
         this.perfect.visible = false;
         this.jury.visible = true;
@@ -355,15 +364,24 @@ export default class extends Phaser.State {
     
   }
   update () {
-    // switch(score){
-    //   case Upper 200
-    //   case Upper 600
-    //   case Upper 1000
-    //   case Upper 1500
-    //   case Upper 3000
-    //   case Upper 6000
-    //   case Upper 12000
-    // }
+    // Condition to review
+    //Use if/else for performance and not switch
+    if(this.score > 200){
+      this.timeRandom--
+    }
+    if(this.score > 400){
+      this.timeRandom--
+    }
+    if(this.score > 800){
+      this.timeRandom--
+    }
+    if(this.score > 1200){
+      this.timeRandom--
+    }
+    if(this.score > 30000){
+      this.timeRandom--
+    }
+    
   }
 }
 
