@@ -37,7 +37,7 @@ export default {
       this.$router.push({path: '/swimming'})
     }
   },
-    mounted() {
+  mounted() {
     let cards = this.$el.querySelectorAll('.card');
     let classement = this.$el.querySelector('.classement');    
      cards.forEach((card, idx) => {
