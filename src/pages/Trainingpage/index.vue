@@ -1,5 +1,5 @@
 <template>
-<div class="page-wrapper">
+<div class="page-wrapper bg_purple_light">
   <Navbar text="jouer" @goBack="()=>this.$router.push('/')" />
   <div class="wrapper">
     <div class="scroll_card">
@@ -44,7 +44,6 @@ export default {
 <style scoped>  
 
 .page-wrapper {
-  background: #F5F5F5;
   height: 100vh;
 }
 .scroll_card {
@@ -58,7 +57,6 @@ export default {
 .scroll_card::-webkit-scrollbar { width: 0 !important }
 
 .wrapper {
-  background: #573399;
   overflow: hidden;
   height: calc(100% - 13vh);
   padding-top: 3vh;
