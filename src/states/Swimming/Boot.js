@@ -66,9 +66,9 @@ export default class extends Phaser.State {
     this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
 
     // Count the click of the user on the circle
-    this.clickArr = [];
+    this.clickArr = [0];
     // Count the number of times the circles appeared
-    this.spawnArr = [];
+    this.spawnArr = [0];
 
     // Jury
     // this.swipe = new Swipe(this.game)
@@ -134,15 +134,15 @@ export default class extends Phaser.State {
     let styleRecord = {font: "1.6em myfrida-bold", fill: "#ffffff"};
     let styleScoreFinal = {font: "14em myfrida-bold", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
     let styleScore = {font: "4.5em myfrida-bold", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
-    let rec = 200;
+    this.rec = 40;
 
     let textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     let textScoreFinal = game.add.text(game.world.centerX, 80, '0', styleScoreFinal);
-    let textRecord = game.add.text(game.world.centerX - 45,  22, 'RECORD :', styleRecord);
+    this.textRecord = game.add.text(game.world.centerX - 45,  22, 'RECORD :', styleRecord);
     let textFail = game.add.text(game.world.centerX,  game.world.centerY + 200, 'RATE', styleRecord);
     let textPerfect = game.add.text(game.world.centerX,  game.world.centerY + 200, 'PARFAIT', styleRecord);
     
-    textRecord.text = 'Record : ' + rec;
+    this.textRecord.text = 'Record : ' + this.rec;
     textScore.anchor.setTo(0.5, 0);
     textScoreFinal.anchor.setTo(0.5, 0);
     textScore.stroke = '#69629A';
@@ -278,20 +278,20 @@ export default class extends Phaser.State {
     var numCircle; 
     this.timeRandom = 9;
     let cirLength = this.circleArr.length -1;
-    var sec = Math.round(Math.random() * this.timeRandom) +2;
-    setNumCircle
-    game.time.events.loop(Phaser.Timer.SECOND * sec, setNumCircle, this);
+    
+    var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * this.timeRandom) +2, setNumCircle, this);
     
     function setNumCircle(){
       numCircle = Math.round(Math.random() * 2);
       console.log(numCircle);
     }
-    game.time.events.loop(Phaser.Timer.SECOND * sec, displayCircle, this);
+    var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * this.timeRandom) +2, displayCircle, this);
     
-    function displayCircle(){
+    function displayCircle(e){
+      let last = this.spawnArr[this.spawnArr.length-1]
       if(numCircle == 2){
-        this.spawnArr.push(1);
-        this.spawnArr.push(1);
+        this.spawnArr.push(last+1);
+        this.spawnArr.push(last+2);
         console.log(this.spawnArr);
         var showCircle = Math.round(Math.random() * cirLength);
         
@@ -303,7 +303,7 @@ export default class extends Phaser.State {
         this.circleArr[showCircle].visible = true;
         this.circleArr[otherCircle].visible = true;
       }else{
-        this.spawnArr.push(1);
+        this.spawnArr.push(last+1);
         var showCircle = Math.round(Math.random() * cirLength);
         console.log(this.spawnArr);
         
@@ -315,6 +315,10 @@ export default class extends Phaser.State {
           if(this.clickArr.length != this.spawnArr.length){
     
             //Fail to refactor (call function in function ?)
+            if(this.perfect.visible == true){
+              this.perfect.visible = false;
+              textPerfect.visible = false;
+            }
             this.fail.visible = true;
             this.juryUnhappy.visible = true;
             this.jury.visible = false;
@@ -332,13 +336,15 @@ export default class extends Phaser.State {
             this.life--;
       
             if(this.life == 0){
-              if(parseFloat(textScore.text) >= rec) {
+              if(parseFloat(textScore.text) >= this.rec) {
                 newRecord.visible = true;
               }
+              game.time.events.remove(myLoop1);
+              game.time.events.remove(myLoop2);
               textScoreFinal.text = textScore.text;
               image.visible = false;
               textScore.visible = false;
-              textRecord.visible = false;
+              this.textRecord.visible = false;
               this.record.visible = false;
               share.visible = true;
               textScoreFinal.visible = true;
@@ -430,7 +436,8 @@ export default class extends Phaser.State {
     //     }, 1000);
     // }
 
-    function perfect(){
+    function perfect(e){
+      e.visible = false;
       this.perfect.visible = true;
       this.juryHappy.visible = true;
       this.jury.visible = false;
@@ -446,6 +453,10 @@ export default class extends Phaser.State {
       }, 1000)
       this.score += 20;
       textScore.text = this.score;
+      
+      if(this.score > this.rec){
+        this.textRecord.text = 'Record : ' + this.score;
+      }
 
       for(var i = 0; i < this.life; i++ ){
         starArray[i].visible = true;
