@@ -89,6 +89,7 @@ h2 {
   width: 90%;
   margin-left: 5%;
   bottom: 0;
+  z-index: 9999;
   height: 60vh;
   background: #412880;
   border: 2px solid #2D1862;
