@@ -8,6 +8,8 @@ import Athleticspage from '@/pages/Athleticspage.vue'
 import Swimmingpage from '@/pages/Swimmingpage.vue'
 import Parameter from '@/pages/ParameterPage/index.vue'
 import Classement from '@/pages/ClassementPage/index.vue'
+import Shopping from '@/pages/ShoppingPage/index.vue'
+import Character from '@/pages/CharacterPage/index.vue'
 
 Vue.use(Router)
 
@@ -47,6 +49,16 @@ export default new Router({
       path:'/classement',
       name: 'Classement',
       component: Classement
+    },
+    {
+      path: '/shopping',
+      name: 'Shopping',
+      component: Shopping
+    },
+    {
+      path:'/character',
+      name: 'Character',
+      component: Character
     }
   ]
 })

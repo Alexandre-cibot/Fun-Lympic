@@ -66,12 +66,11 @@ export default class extends Phaser.State {
     this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
 
     // Count the click of the user on the circle
-    this.clickArr = [0];
+    this.clickArr = [];
     // Count the number of times the circles appeared
-    this.spawnArr = [0];
+    this.spawnArr = [];
 
     // Jury
-    // this.swipe = new Swipe(this.game)
     this.jury = game.add.sprite(game.width - 300, 70, 'jury');
     this.juryHappy = game.add.sprite(game.width - 301, 67, 'juryHappy');
     this.juryUnhappy = game.add.sprite(game.width - 301, 67, 'juryUnhappy');
@@ -278,21 +277,19 @@ export default class extends Phaser.State {
     var numCircle; 
     this.timeRandom = 9;
     let cirLength = this.circleArr.length -1;
-    
-    var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * this.timeRandom) +2, setNumCircle, this);
+    this.sec = 2;
+    var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * this.sec, setNumCircle, this);
     
     function setNumCircle(){
       numCircle = Math.round(Math.random() * 2);
-      console.log(numCircle);
     }
     var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * this.timeRandom) +2, displayCircle, this);
     
     function displayCircle(e){
       let last = this.spawnArr[this.spawnArr.length-1]
       if(numCircle == 2){
-        this.spawnArr.push(last+1);
-        this.spawnArr.push(last+2);
-        console.log(this.spawnArr);
+        this.spawnArr.push(1);
+        this.spawnArr.push(1);
         var showCircle = Math.round(Math.random() * cirLength);
         
         var otherCircle = showCircle +1;
@@ -303,7 +300,7 @@ export default class extends Phaser.State {
         this.circleArr[showCircle].visible = true;
         this.circleArr[otherCircle].visible = true;
       }else{
-        this.spawnArr.push(last+1);
+        this.spawnArr.push(1);
         var showCircle = Math.round(Math.random() * cirLength);
         console.log(this.spawnArr);
         
@@ -443,7 +440,6 @@ export default class extends Phaser.State {
       this.jury.visible = false;
       textPerfect.visible = true;
       this.clickArr.push(1);
-      console.log(this.clickArr);
       
       setTimeout(()=>{
         this.perfect.visible = false;
@@ -494,32 +490,4 @@ export default class extends Phaser.State {
     }
     
   }
-}
-
-var moveBackground = function (background) {
-  background.x = background.x - 1
-}
-
-function movePlayerRace (self, boolean) {
-  if (boolean) {
-    const plusOne = self.playerRace + 1
-    if (plusOne < pallier.length) {
-      self.playerRace = plusOne
-    }
-  } else {
-    const lessOne = self.playerRace - 1
-    if (lessOne > 0) {
-      self.playerRace = lessOne
-    } else {
-      self.playerRace = 0
-    }
-  }
-  self.dude.y = pallier[self.playerRace].height
-}
-
-function collisionHandler (obj1, obj2) {
-  //  The two sprites are colliding
-  // shot.kill();
-  this.mario.destroy();
-  console.log("collision");
 }

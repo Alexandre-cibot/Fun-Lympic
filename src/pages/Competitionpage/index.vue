@@ -6,7 +6,7 @@
       <CompetitionDashboard v-if="currentState === 'competitionDashboard' || currentState === 'chooseFlag'" @chooseFlag="chooseFlag"/>
       <Nation v-if="currentState === 'chooseFlag'"  @closeModal="closeModal" @chooseFriends="chooseFriends" />
       <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/> 
-      <ChallengeFriend v-if="currentState === 'friend'" @before="before" />
+      <ChallengeFriend v-if="currentState === 'friend'" @before="before" /> 
       <BeforeGame v-if="currentState === 'before'" />
       <!-- <ClassementGame /> -->
     </div>

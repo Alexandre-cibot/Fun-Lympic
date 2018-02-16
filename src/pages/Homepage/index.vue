@@ -20,7 +20,7 @@
         <button @click="goClassementPage">
           <img src="@/assets/third.svg" alt="">
         </button>
-        <button>
+        <button @click="goCharacterPage">
           <img src="@/assets/fourth.svg" alt="">
         </button>
         <button>
@@ -51,6 +51,9 @@ export default {
   methods: {
     closeModal () {
       this.show = false;
+    },
+    goCharacterPage(){
+      this.$router.push('/character');
     },
     goTrainingPage() {
       this.$router.push('/training');
