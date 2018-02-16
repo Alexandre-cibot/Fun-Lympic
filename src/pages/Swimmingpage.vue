@@ -1,7 +1,7 @@
 <template>
   <div id="wrapper">
     <div id="content" v-show="true"></div>
-    <div id="bg"></div>
+  <ClassementGame v-if="show"/>
   </div>
 </template>
 
@@ -12,13 +12,19 @@ import Phaser from 'phaser'
 import BootState from '@/states/Swimming/Boot'
 // import GameState from '@/states/Game'
 import responsive from '../states/responsive_helper'
+import ClassementGame from './Competitionpage/components/ClassementGame.vue'
 
 import config from '@/config'
 
 export default {
   name: 'SwimmingGame',
   data() {
-    return {};
+    return {
+      show: false
+    };
+  },
+  components:{
+    ClassementGame
   },
   mounted () {
     this.runGame()
@@ -28,7 +34,7 @@ export default {
       class Game extends Phaser.Game {
         constructor () {
           // super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.AUTO, 'content', null)
-          super(responsive.width, responsive.height, Phaser.AUTO, 'content', null)
+          super(responsive.width, responsive.height, Phaser.AUTO, 'content', null, false)
 
           this.state.add('Boot', BootState, false)
 
@@ -74,11 +80,6 @@ export default {
   height: 100vh;
   width: 100%;
   overflow: hidden;
-}
-#bg{
-  background: #66DF91;
-  width: 100%;
-  height: 200px;
 }
 #menu {
   position: absolute;

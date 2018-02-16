@@ -1,13 +1,13 @@
 <template>
-<div class="page-wrapper">
+<div class="page-wrapper bg_purple_light">
   <Navbar text="jouer" @goBack="()=>this.$router.push('/')" />
   <div class="wrapper">
     <div class="scroll_card">
-      <Card text="Athlétisme" image="athletisme" :score="65" @click="runAthletismeGame" />
-      <Card text="Natation" image="athletisme" :score="123" :blue="true" @click="runSwimmingGame" />
+      <Card class="animated card hidden" text="Athlétisme" image="athletisme" :score="65" @click="runAthletismeGame" />
+      <Card class="animated card hidden" text="Natation" image="athletisme" :score="123" :blue="true" @click="runSwimmingGame" />
       <div class="gutter"><h1>Coucou</h1></div>
     </div>
-    <Classement firstScore="237" secondScore="183" thirdScore="93" image="@/assets/alex.png"/>
+    <Classement class="animated classement hidden" firstScore="237" secondScore="183" thirdScore="93" image="@/assets/alex.png"/>
   </div>
 </div>
 </template>
@@ -36,6 +36,18 @@ export default {
     runSwimmingGame(){
       this.$router.push({path: '/swimming'})
     }
+  },
+  mounted() {
+    let cards = this.$el.querySelectorAll('.card');
+    let classement = this.$el.querySelector('.classement');    
+     cards.forEach((card, idx) => {
+      setTimeout(()=>{
+          card.classList.add('zoomIn', 'visible');
+      }, idx * 200)
+    })
+    setTimeout(()=>{
+      classement.classList.add('fadeInUp', 'visible')
+    }, 400)
   }
 };
 </script>
@@ -44,7 +56,6 @@ export default {
 <style scoped>  
 
 .page-wrapper {
-  background: #F5F5F5;
   height: 100vh;
 }
 .scroll_card {
@@ -53,8 +64,11 @@ export default {
   overflow-y: scroll;
   padding-bottom: 1vh;
 }
+
+/* Remove the scrollbar  */
+.scroll_card::-webkit-scrollbar { width: 0 !important }
+
 .wrapper {
-  background: #573399;
   overflow: hidden;
   height: calc(100% - 13vh);
   padding-top: 3vh;
