@@ -7,11 +7,15 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   strict: true,
   state: {
-    sprintLoaded: false
+    sprintLoaded: false,
+    swimmingLoaded: false
   },
   mutations: {
     isSprintLoaded (state, boolean) {
       state.sprintLoaded = boolean
+    },
+    isSwimmingLoaded (state, boolean) {
+      state.swimmingLoaded = boolean
     }
   }
 })

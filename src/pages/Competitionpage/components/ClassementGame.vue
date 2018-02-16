@@ -2,7 +2,7 @@
   <div class="classement">
     <h2>Classement de tes amis</h2>
     <div class="list">
-      <div v-for="(friend, i) in friends" :key="friend.firstname">
+      <div v-for="(friend, i) in friends" :key="i">
         <div v-if="i == 0">
           <ClassementFriends class="animated hidden" :firstname="friend.firstname" :picture="friend.picture" :medal="true" :points="friend.points"/>
         </div>
