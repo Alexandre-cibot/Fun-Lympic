@@ -1,35 +1,44 @@
 <template>
   <div class="before">
     <div class="background"></div>
-    <div class="circle_first animated hidden">
-      <img src="@/assets/first_circle.svg" alt="" class="circle">
-      <img src="@/assets/alex.png" alt="" class="first_character">
-    </div>
-    <div class="infos">
-        <h3>Alexandre</h3><img src="@/assets/french.svg" alt="" class="flag">
+      <div v-for="user in currentUser" :key="user.index" class="circle_first">
+        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="false"/>
       </div>
     <button class="animated hidden">
       <img src="@/assets/win_white.svg" alt="" class="icon_button">
       <h2 @click="runAthletismeGame">Jouer</h2>
     </button>
-    <div class="circle_second animated hidden">
-      <img src="@/assets/second_circle.svg" alt="" class="circle">
-      <img src="@/assets/enora.jpg" alt="" class="second_character">
+    <div v-for="user in otherUser" :key="user.index" class="circle_first">
+        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="true"/>
     </div>
-    <div class="infos">
-        <h3>Enora</h3><img src="@/assets/french.svg" alt="" class="flag">
-      </div>
-
   </div>
 </template>
 
 <script>
+import Profile from '@/components/Profile.vue';
+
 export default {
   name: 'BeforeGame',
   data() {
-    return {}
+    return {
+      currentUser: [
+        {
+          firstname: "Alexandre",
+          flag: require('@/assets/flag/France.png'),
+          picture: require('@/assets/alex.png'),
+        },
+      ],
+      otherUser: [
+        {
+          firstname: "Enora",
+          flag: require('@/assets/flag/France.png'),
+          picture: require('@/assets/enora.jpg'),
+        },
+      ]
+    }
   },
   components: {
+    Profile
   },
   methods:{
     runAthletismeGame(){
@@ -95,7 +104,7 @@ button h2, h3 {
 .background{
   position: absolute;
   top: 10vh;
-  height: 50%;
+  height: 44vh;
   width: 100%;
   border-radius: 0 0 30px 30px;
   background: #2d1862;

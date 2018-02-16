@@ -5,9 +5,20 @@
         <img src="@/assets/arrow.png" />
       </button>
     </div>
-    <h1 class="titleAlone">{{text}}</h1>
+    <div class="money" v-if="money">
+      <img src="@/assets/jo_coin.png" alt="jo_coin">
+      {{money}}
+    </div>
+    <h1 v-if="!shopping" class="titleAlone">{{text}}</h1>
     <img v-if="flag" :src="flag" class="flag" />
-    <router-link v-if="secondBtn" :to="{ path: '/classement'}">
+    <router-link v-if="secondBtn && secondBtn == 'shopping'" :to="{ path: '/shopping'}">
+      <div class="button">
+        <button class="bg_red">
+          <img :src="secondBtnPath" />
+        </button>
+      </div>
+    </router-link>
+    <router-link v-else-if="secondBtn && secondBtn == 'podium'" :to="{ path: '/classement'}">
       <div class="button">
         <button class="bg_red">
           <img :src="secondBtnPath" />
@@ -25,16 +36,20 @@ export default {
   props: {
     text: {
       type: String,
-      required: true,
+      required: false,
     },
     secondBtn: {
-      type: String,
-      required: false
+      type: String
     },
     flag: {
-      type: String,
-      required: false
-    }  
+      type: String
+    }  ,
+    shopping: {
+      type: Boolean
+    },
+    money: {
+      type: Number
+    }
   },
   data() {
     return {
@@ -46,9 +61,13 @@ export default {
       switch(this.secondBtn) {
         case 'podium':
           return require('@/assets/podium.png');
-          break;
+        break;
+        case 'shopping':
+          return require('@/assets/big_money.png');
+        break;
         case 'medal':
           return require('@/assets/medals.png');
+        break;
       }
     }
   },
@@ -61,7 +80,6 @@ export default {
 </script>
 
 <style scoped>
-
 button{
   height: 50px;
   border-radius: 10px;
@@ -101,5 +119,19 @@ h1{
   color: white;
   text-transform: uppercase;
   letter-spacing: 2.5px;
+}
+.money{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 30vw;
+  font-size: 1.4em;
+  background: #422881;
+  border-radius: 10px;
+  padding-right: 1vh;
+  color: white;
+  font-family:"myfrida-bold";
+  letter-spacing: 1.5px;
 }
 </style>
