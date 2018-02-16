@@ -1,7 +1,8 @@
 <template>
   <div id="wrapper">
-    <div id="content" v-show="true"></div>
-    <div id="bg"></div>
+    <p style="color: black" v-show="!gameLoaded">chargement</p>
+    <div id="content" v-show="gameLoaded"></div>
+    <div v-show="gameLoaded" id="bg"></div>
   </div>
 </template>
 
@@ -12,12 +13,18 @@ import Phaser from 'phaser'
 import BootState from '@/states/Athletics/Boot'
 import GameState from '@/states/Athletics/Game'
 import responsive from '../states/responsive_helper'
+import store from '../store'
 
 import config from '@/config'
 
 export default {
   name: 'AthleticsGame',
-  data() {
+  computed: {
+    gameLoaded () {
+      return store.state.sprintLoaded
+    }
+  },
+  data () {
     return {
       
     };

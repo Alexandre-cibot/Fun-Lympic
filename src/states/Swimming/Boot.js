@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import WebFont from 'webfontloader'
 import constant from './constant'
 import responsive from '../responsive_helper'
+import store from '../../store'
 const Swipe = require('../../vendor/swipe')
 
 const pallier = [
@@ -15,8 +16,8 @@ export default class extends Phaser.State {
     this.stage.backgroundColor = '#EDEEC9'
     this.fontsReady = false
     this.fontsLoaded = this.fontsLoaded.bind(this)
-    this.life = 3;
-    this.score = 0;
+    this.life = 3
+    this.score = 0
   }
 
   preload() {
@@ -48,6 +49,9 @@ export default class extends Phaser.State {
     this.load.spritesheet('nageuse1', './assets/images/swimming_little_nageuse1.png', 60, 213)
     this.load.spritesheet('nageuse2', './assets/images/swimming_little_nageuse2.png', 84, 214)
     this.load.spritesheet('nageuse3', './assets/images/swimming_little_nageuse3.png', 67, 215)
+    this.load.onLoadStart.add(function () {
+      store.commit('isSwimmingLoaded', true)
+    }, this)
   }
 
   render() {
