@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import WebFont from 'webfontloader'
 import responsive from '../responsive_helper'
 import constant from './constant'
+import store from '../../store'
 const Swipe = require('../../vendor/swipe')
 
 const pallier = [
@@ -27,7 +28,9 @@ export default class extends Phaser.State {
 
     // let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
     // text.anchor.setTo(0.5, 0.5)
-
+    this.load.onLoadStart.add(function () {
+      store.commit('isSprintLoaded', true)
+    }, this)
     this.load.image('loaderBg', './assets/images/loader-bg.png')
     this.load.image('pause', './assets/images/pause.svg')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
