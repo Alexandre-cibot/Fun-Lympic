@@ -1,7 +1,8 @@
 <template>
   <div id="wrapper">
-    <div id="content" v-show="true"></div>
-  <ClassementGame v-if="show"/>
+    <p style="color: black" v-show="!gameLoaded">ça charge</p>
+    <div id="content" v-show="gameLoaded"></div>
+  <!-- <ClassementGame v-if="gameLoaded"/> -->
   </div>
 </template>
 
@@ -10,9 +11,11 @@
 import Phaser from 'phaser'
 
 import BootState from '@/states/Swimming/Boot'
+// const BootState = () => import(/* webpackChunkName: "BootState" */ '@/states/Swimming/Boot')
 // import GameState from '@/states/Game'
 import responsive from '../states/responsive_helper'
 import ClassementGame from './Competitionpage/components/ClassementGame.vue'
+import store from '../store'
 
 import config from '@/config'
 
@@ -22,6 +25,11 @@ export default {
     return {
       show: false
     };
+  },
+  computed: {
+    gameLoaded () {
+      return store.state.swimmingLoaded
+    }
   },
   components:{
     ClassementGame
