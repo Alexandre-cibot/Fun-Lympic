@@ -28,9 +28,6 @@ export default class extends Phaser.State {
 
     // let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
     // text.anchor.setTo(0.5, 0.5)
-    this.load.onLoadStart.add(function () {
-      store.commit('isSprintLoaded', true)
-    }, this)
     this.load.image('loaderBg', './assets/images/loader-bg.png')
     this.load.image('pause', './assets/images/pause.svg')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
@@ -155,6 +152,7 @@ export default class extends Phaser.State {
       text.visible = false;
       image.visible = true;
     }
+    store.commit('isSprintLoaded', true)
   }
   update () {
     this.mario.x = this.mario.x - 0.4
