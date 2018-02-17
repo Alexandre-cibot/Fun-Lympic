@@ -11,6 +11,25 @@ const pallier = [
   {height: responsive.getHeightFromPercentage(66)}
 ]
 
+const gameWidth = 140000
+const obstacleWidthFrequency = 300
+
+function getRandom (min, max) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+const mamieInfo = {
+  name: 'mamie',
+  speed: 1,
+  y: [ ...pallier ]
+}
+
+const obstacle = [
+  ...mamieInfo,
+]
+
 export default class extends Phaser.State {
   init() {
     this.stage.backgroundColor = '#EDEEC9'
@@ -19,23 +38,23 @@ export default class extends Phaser.State {
   }
 
   preload() {
-    WebFont.load({
-      custom: {
-        families: ['myfrida-bold'],
-        urls: ["../../css/main.css"]
-      }
-    })
+    // WebFont.load({
+    //   custom: {
+    //     families: ['myfrida-bold'],
+    //     urls: ["../../css/main.css"]
+    //   }
+    // })
 
     // let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
     // text.anchor.setTo(0.5, 0.5)
-    this.load.image('loaderBg', './assets/images/loader-bg.png')
     this.load.image('pause', './assets/images/pause.svg')
-    this.load.image('loaderBar', './assets/images/loader-bar.png')
     this.load.image('background', './assets/images/background.jpg')
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
-    this.load.spritesheet('dude', './assets/images/hex_run.png', 69, 81)
+    // this.load.spritesheet('dude', './assets/images/hex_run.png', 69, 81)
+    this.load.spritesheet('dude', './assets/images/spint_dude_run.png', 254.6, 300)
     this.load.spritesheet('mario', './assets/images/mario.png', 147, 180)
+    this.load.spritesheet('mamie', './assets/images/mamie.png', 211, 309)
   }
 
   render() {
@@ -48,41 +67,42 @@ export default class extends Phaser.State {
   }
   
   create() {
-    const scaleRatio = window.devicePixelRatio / 3
-    // this.background = this.add.tileSprite(0, 0, 14000, window.innerHeight, 'background')
-    // this.background = this.add.tileSprite(0, 0, 14000, responsive.getHeightFromPercentage(100), 'background')
-    this.background = this.add.tileSprite(0, 0, 14000, constant.background.height, 'background')
-    this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
-    // this.background.scale.setTo(0.2, 0.2)
-
-    // this.scale.pageAlignVertically = true;
-    // this.scale.pageAlignHorizontally = true;
-    // this.scale.setShowAll();
-    // this.scale.refresh();
-
-    this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
-    // this.background = this.add.tileSprite(0, 0, 14000, window.innerHeight, 'background')
-    // this.background.scale.maxHeight = game.height;
-
     this.swipe = new Swipe(this.game)
-    // this.dude = this.game.add.sprite(window.innerWidth / 6, window.innerHeight - 81 - 185, 'dude')
-    this.dude = this.game.add.sprite(responsive.getWidthFromPercentage(16.66), responsive.getHeightFromPercentage(100) - 81 - 185, 'dude')
+    this.playerRace = 1
+
+    this.background = this.add.tileSprite(0, 0, gameWidth, constant.background.height, 'background')
+    this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
+    this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
+
+    this.mamieNames = []
+    for (let i = 0; i < gameWidth / obstacleWidthFrequency; i++) {
+      const name = 'mamie' + i
+      this[name] = this.game.add.sprite(constant.mamieSprite.height, constant.mamieSprite.width / constant.mamieSprite.nbSprites, 'mamie')
+      this[name].scale.setTo(responsive.getRatioFromHeight(constant.mamieSprite.height * constant.mamieSprite.heightRatio), responsive.getRatioFromHeight(constant.mamieSprite.height * constant.mamieSprite.heightRatio))
+      this[name].animations.add('run', getArraySpriteFromArrayLength(constant.mamieSprite.nbSprites), constant.mamieSprite.spriteSpeed, true)
+      this[name].play('run')
+      this[name].y = mamieInfo.y[getRandom(0, mamieInfo.y.length - 1)].height
+      this[name].x = i * obstacleWidthFrequency
+      this[name].enableBody = true
+      this.physics.arcade.enable(this[name])
+      this.mamieNames.push(name)
+    }
+
     this.mario = this.game.add.sprite(responsive.getWidthFromPercentage(60), responsive.getHeightFromPercentage(50), 'mario')
     this.mario.scale.setTo(responsive.getRatioFromHeight(1760), responsive.getRatioFromHeight(1440))
-    // this.physics.enable(this.dude, Phaser.Physics.ARCADE);
-    this.dude.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 16, true)
     this.mario.animations.add('run', [0, 1, 2], 8, true)
-    this.dude.play('run')
     this.mario.play('run')
-    this.playerRace = 1
-    // this.dude.y = 250
-    this.dude.y = pallier[this.playerRace].height
-
-    this.physics.arcade.enable(this.mario)
     this.mario.enableBody = true
-    this.physics.arcade.enable(this.dude)
+    this.physics.arcade.enable(this.mario)
+
+    this.dude = this.game.add.sprite(responsive.getWidthFromPercentage(5), responsive.getHeightFromPercentage(100), 'dude')
+    this.dude.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 22, true)
+    this.dude.scale.setTo(responsive.getRatioFromHeight(254.6 * 4.3), responsive.getRatioFromHeight(300 * 4.3))
+    this.dude.play('run')
+    this.dude.y = pallier[this.playerRace].height - 70
     this.dude.enableBody = true
-    
+    this.physics.arcade.enable(this.dude)
+
     // Create menu
     var image = game.add.sprite(20, 20, 'pause');
     image.inputEnabled = true;
@@ -155,8 +175,12 @@ export default class extends Phaser.State {
     store.commit('isSprintLoaded', true)
   }
   update () {
+    this.mamieNames.forEach((mamieName) => {
+      this[mamieName].x = this[mamieName].x - 1.3
+      this.physics.arcade.overlap(this.dude, this[mamieName], mamieCollisionHandler, null, this)
+    })
     this.mario.x = this.mario.x - 0.4
-    this.physics.arcade.overlap(this.dude, this.mario, collisionHandler, null, this)
+    this.physics.arcade.overlap(this.dude, this.mario, marioCollisionHandler, null, this)
     moveBackground(this.background)
 
     var direction = this.swipe.check()
@@ -208,12 +232,25 @@ function movePlayerRace (self, boolean) {
       self.playerRace = 0
     }
   }
-  self.dude.y = pallier[self.playerRace].height
+  self.dude.y = pallier[self.playerRace].height - 70
 }
 
-function collisionHandler (obj1, obj2) {
-  //  The two sprites are colliding
-  // shot.kill();
+function marioCollisionHandler (obj1, obj2) {
   this.mario.destroy();
-  console.log("collision");
+  console.log("collision mario");
+}
+
+function mamieCollisionHandler (dude, mamie) {
+  if ((mamie.y - 70) === dude.y) {
+    mamie.destroy()
+    console.log("collision mamie");
+  }
+}
+
+function getArraySpriteFromArrayLength(arrayLength) {
+  const array = []
+  for (let index = 0; index < arrayLength; index++) {
+    array.push(index)
+  }
+  return array
 }
