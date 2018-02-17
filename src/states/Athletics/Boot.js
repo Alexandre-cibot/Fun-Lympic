@@ -51,7 +51,7 @@ export default class extends Phaser.State {
     this.load.image('background', './assets/images/background.jpg')
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
-    this.load.spritesheet('dude', './assets/images/spint_dude_run.png', 254.6, 300)
+    this.load.spritesheet('sprinter', './assets/images/spint_sprinter_run.png', 254.6, 300)
     this.load.spritesheet('mamie', './assets/images/mamie.png', 211, 309)
   }
 
@@ -86,13 +86,13 @@ export default class extends Phaser.State {
       this.mamieNames.push(name)
     }
 
-    this.dude = this.game.add.sprite(responsive.getWidthFromPercentage(5), responsive.getHeightFromPercentage(100), 'dude')
-    this.dude.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 22, true)
-    this.dude.scale.setTo(responsive.getRatioFromHeight(254.6 * 4.3), responsive.getRatioFromHeight(300 * 4.3))
-    this.dude.play('run')
-    this.dude.y = pallier[this.playerRace].height - 70
-    this.dude.enableBody = true
-    this.physics.arcade.enable(this.dude)
+    this.sprinter = this.game.add.sprite(responsive.getWidthFromPercentage(5), responsive.getHeightFromPercentage(100), 'sprinter')
+    this.sprinter.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 22, true)
+    this.sprinter.scale.setTo(responsive.getRatioFromHeight(254.6 * 4.3), responsive.getRatioFromHeight(300 * 4.3))
+    this.sprinter.play('run')
+    this.sprinter.y = pallier[this.playerRace].height - 70
+    this.sprinter.enableBody = true
+    this.physics.arcade.enable(this.sprinter)
 
     // Create menu
     var image = game.add.sprite(20, 20, 'pause');
@@ -168,7 +168,7 @@ export default class extends Phaser.State {
   update () {
     this.mamieNames.forEach((mamieName) => {
       this[mamieName].x = this[mamieName].x - 1.3
-      this.physics.arcade.overlap(this.dude, this[mamieName], mamieCollisionHandler, null, this)
+      this.physics.arcade.overlap(this.sprinter, this[mamieName], mamieCollisionHandler, null, this)
     })
     moveBackground(this.background)
 
@@ -221,11 +221,11 @@ function movePlayerRace (self, boolean) {
       self.playerRace = 0
     }
   }
-  self.dude.y = pallier[self.playerRace].height - 70
+  self.sprinter.y = pallier[self.playerRace].height - 70
 }
 
-function mamieCollisionHandler (dude, mamie) {
-  if ((mamie.y - 70) === dude.y) {
+function mamieCollisionHandler (sprinter, mamie) {
+  if ((mamie.y - 70) === sprinter.y) {
     mamie.destroy()
     console.log("collision mamie");
   }
