@@ -133,7 +133,7 @@ export default {
     background-color: #FFD360;
     font-size: 1.7em;
     width: 100%;
-    min-height: 9vh;
+    min-height: 8vh;
   }
   .btn-title {
     text-transform: uppercase;

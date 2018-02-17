@@ -79,7 +79,7 @@ export default {
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    height: 12vh;
+    height: 10vh;
     border: none;
     border-radius: 10px;
   }

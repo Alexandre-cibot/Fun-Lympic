@@ -93,7 +93,7 @@ h2 {
   padding: 3vh 0px 5vh 0;
 }
 .friendBlock {
-  margin-bottom: 20px;
+  margin-bottom: 1vh;
 }
 .score {
   font-size: 2.2em;
