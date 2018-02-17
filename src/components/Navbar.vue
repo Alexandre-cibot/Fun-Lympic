@@ -6,7 +6,7 @@
       </button>
     </div>
     <div class="money" v-if="money">
-      <img src="@/assets/jo_coin.png" alt="jo_coin">
+      <img src="@/assets/coin.png" alt="jo_coin">
       {{money}}
     </div>
     <h1 v-if="!shopping" class="titleAlone">{{text}}</h1>
@@ -20,6 +20,13 @@
     </router-link>
     <router-link v-else-if="secondBtn && secondBtn == 'podium'" :to="{ path: '/classement'}">
       <div class="button">
+        <button class="bg_red">
+          <img :src="secondBtnPath" />
+        </button>
+      </div>
+    </router-link>
+    <router-link v-else-if="secondBtn && secondBtn == 'none'">
+      <div class="button_none">
         <button class="bg_red">
           <img :src="secondBtnPath" />
         </button>
@@ -62,6 +69,9 @@ export default {
         case 'podium':
           return require('@/assets/podium.png');
         break;
+        case 'none':
+          return;
+        break;
         case 'shopping':
           return require('@/assets/big_money.png');
         break;
@@ -84,6 +94,10 @@ button{
   height: 50px;
   border-radius: 10px;
   border: none;
+}
+button_none{
+  height: 50px;
+  width: 50px;
 }
 .titleAlone {
   position: absolute;
@@ -126,12 +140,13 @@ h1{
   justify-content: space-between;
   align-items: center;
   width: 30vw;
+  font-family:"myfrida-bold";
   font-size: 1.4em;
+  color: white;
   background: #422881;
   border-radius: 10px;
+  margin: auto;
   padding-right: 1vh;
-  color: white;
-  font-family:"myfrida-bold";
   letter-spacing: 1.5px;
 }
 </style>
