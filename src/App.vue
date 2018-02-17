@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <!-- <p>{{text}}</p>
-    <div id="content" v-show="true"></div> -->
     <router-view/>
   </div>
 </template>
@@ -15,7 +13,7 @@ export default {
   name: 'app',
   data () {
     return {
-      text: "I'm from Vue JS"
+
     }
   }
 };
@@ -26,7 +24,7 @@ export default {
 @import './css/main.css';
 
 
-#app{
+#app {
   height: 100vh;
 }
 </style>
