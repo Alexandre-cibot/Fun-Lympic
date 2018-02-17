@@ -43,10 +43,6 @@ h3{
   margin-left: 10vh;
   text-transform: uppercase;
 }
-.money img {
-  transform: scale(1.3);
-  padding: 1vh;
-}
 .money{
   display: flex;
   flex-direction: row;
