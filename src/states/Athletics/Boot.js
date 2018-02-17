@@ -60,11 +60,11 @@ export default class extends Phaser.State {
     // }
   }
 
-  fontsLoaded() {
+  fontsLoaded () {
     this.fontsReady = true
   }
-  
-  create() {
+
+  create () {
     this.swipe = new Swipe(this.game)
     this.playerRace = 1
 
@@ -74,16 +74,7 @@ export default class extends Phaser.State {
 
     this.mamieNames = []
     for (let i = 0; i < gameWidth / obstacleWidthFrequency; i++) {
-      const name = 'mamie' + i
-      this[name] = this.game.add.sprite(constant.mamieSprite.height, constant.mamieSprite.width / constant.mamieSprite.nbSprites, 'mamie')
-      this[name].scale.setTo(responsive.getRatioFromHeight(constant.mamieSprite.height * constant.mamieSprite.heightRatio), responsive.getRatioFromHeight(constant.mamieSprite.height * constant.mamieSprite.heightRatio))
-      this[name].animations.add('run', getArraySpriteFromArrayLength(constant.mamieSprite.nbSprites), constant.mamieSprite.spriteSpeed, true)
-      this[name].play('run')
-      this[name].y = mamieInfo.y[getRandom(0, mamieInfo.y.length - 1)].height
-      this[name].x = i * obstacleWidthFrequency
-      this[name].enableBody = true
-      this.physics.arcade.enable(this[name])
-      this.mamieNames.push(name)
+      generateMamie(this, i)
     }
 
     this.sprinter = this.game.add.sprite(responsive.getWidthFromPercentage(5), responsive.getHeightFromPercentage(100), 'sprinter')
@@ -237,4 +228,17 @@ function getArraySpriteFromArrayLength(arrayLength) {
     array.push(index)
   }
   return array
+}
+
+function generateMamie (self, index) {
+  const name = 'mamie' + index
+  self[name] = self.game.add.sprite(constant.mamieSprite.height, constant.mamieSprite.width / constant.mamieSprite.nbSprites, 'mamie')
+  self[name].scale.setTo(responsive.getRatioFromHeight(constant.mamieSprite.height * constant.mamieSprite.heightRatio), responsive.getRatioFromHeight(constant.mamieSprite.height * constant.mamieSprite.heightRatio))
+  self[name].animations.add('run', getArraySpriteFromArrayLength(constant.mamieSprite.nbSprites), constant.mamieSprite.spriteSpeed, true)
+  self[name].play('run')
+  self[name].y = mamieInfo.y[getRandom(0, mamieInfo.y.length - 1)].height
+  self[name].x = index * obstacleWidthFrequency
+  self[name].enableBody = true
+  self.physics.arcade.enable(self[name])
+  self.mamieNames.push(name)
 }
