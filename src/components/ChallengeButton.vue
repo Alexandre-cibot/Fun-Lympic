@@ -98,11 +98,10 @@ export default {
   flex-direction: row;
   align-items: center;
   padding: 15px 10px;
-  margin-top: 3vh;
+  margin-top: 1.5vh;
   border: none;
   border-radius: 10px;
 }
-
 .name {
   flex-grow: 2;
 }
