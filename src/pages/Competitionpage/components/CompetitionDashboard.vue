@@ -1,5 +1,8 @@
 <template>
   <div style="padding-bottom: 3vh;">
+      <div v-for="user in currentUser" :key="user.index">
+        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="true" :competition="true" :defeat="user.defeat" :victory="user.victory"/>
+      </div>
       <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
       <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" />
       <h3 class="animated fadeInUp">Ils te défient</h3>
@@ -15,6 +18,7 @@
 
 <script>
 import Navbar from '@/components/Navbar';
+import Profile from '@/components/Profile.vue';
 import BasicButton from '@/components/BasicButton';
 import ChallengeButton from '@/components/ChallengeButton';
 
@@ -23,7 +27,8 @@ export default {
   components: {
     Navbar,
     BasicButton,
-    ChallengeButton
+    ChallengeButton,
+    Profile
   },
   data() {
     return {
@@ -31,6 +36,15 @@ export default {
       finish: false,
       notFinish: true,
       curName: "Véronique",
+      currentUser: [
+        {
+          firstname: "Alexandre",
+          flag: require('@/assets/flag/France.png'),
+          picture: require('@/assets/alex.png'),
+          victory : 90,
+          defeat: 23
+        },
+      ],
        challengesNotDone: [
         {
           challName: "Julien",
@@ -111,9 +125,9 @@ export default {
 h3 {
   text-transform: uppercase;
   color: #ffffff;
-  margin-top: 8vh;
+  margin: 8vh 0 2vh 0;
 }
 .challengeBtn {
-  margin-bottom: 5vh;
+  margin-bottom: 3vh;
 }
 </style>
