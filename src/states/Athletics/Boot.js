@@ -51,9 +51,7 @@ export default class extends Phaser.State {
     this.load.image('background', './assets/images/background.jpg')
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
-    // this.load.spritesheet('dude', './assets/images/hex_run.png', 69, 81)
     this.load.spritesheet('dude', './assets/images/spint_dude_run.png', 254.6, 300)
-    this.load.spritesheet('mario', './assets/images/mario.png', 147, 180)
     this.load.spritesheet('mamie', './assets/images/mamie.png', 211, 309)
   }
 
@@ -87,13 +85,6 @@ export default class extends Phaser.State {
       this.physics.arcade.enable(this[name])
       this.mamieNames.push(name)
     }
-
-    this.mario = this.game.add.sprite(responsive.getWidthFromPercentage(60), responsive.getHeightFromPercentage(50), 'mario')
-    this.mario.scale.setTo(responsive.getRatioFromHeight(1760), responsive.getRatioFromHeight(1440))
-    this.mario.animations.add('run', [0, 1, 2], 8, true)
-    this.mario.play('run')
-    this.mario.enableBody = true
-    this.physics.arcade.enable(this.mario)
 
     this.dude = this.game.add.sprite(responsive.getWidthFromPercentage(5), responsive.getHeightFromPercentage(100), 'dude')
     this.dude.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 22, true)
@@ -179,8 +170,6 @@ export default class extends Phaser.State {
       this[mamieName].x = this[mamieName].x - 1.3
       this.physics.arcade.overlap(this.dude, this[mamieName], mamieCollisionHandler, null, this)
     })
-    this.mario.x = this.mario.x - 0.4
-    this.physics.arcade.overlap(this.dude, this.mario, marioCollisionHandler, null, this)
     moveBackground(this.background)
 
     var direction = this.swipe.check()
@@ -233,11 +222,6 @@ function movePlayerRace (self, boolean) {
     }
   }
   self.dude.y = pallier[self.playerRace].height - 70
-}
-
-function marioCollisionHandler (obj1, obj2) {
-  this.mario.destroy();
-  console.log("collision mario");
 }
 
 function mamieCollisionHandler (dude, mamie) {
