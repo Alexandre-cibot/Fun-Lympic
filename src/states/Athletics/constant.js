@@ -45,5 +45,14 @@ module.exports = {
     speed: -1,
     heightRatio: 6,
     heightFix: -15
+  },
+  plotSprite: {
+    width: 121,
+    height: 150,
+    nbSprites: 1,
+    spriteSpeed: 1,
+    speed: -1,
+    heightRatio: 12,
+    heightFix: 24
   }
 }
