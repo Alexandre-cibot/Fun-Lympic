@@ -29,8 +29,8 @@ module.exports = {
     heightRatio: 6
   },
   dancerSprite: {
-    width: 2075,
-    height: 300,
+    width: 1742,
+    height: 270,
     nbSprites: 6,
     spriteSpeed: 17,
     speed: -1,
