@@ -4,7 +4,10 @@
     <div class="wrapper">
     <div class="scroll_card">
       <div v-for="char in characters" :key="char.index" class="character_show">
-        <Character :name="char.name" :picture="char.picture" :price="char.price" />
+        <Character :name="char.name" :picture="char.picture" :price="char.price" :bought="char.bought" :selection="char.select" @select="select"/>
+      </div>
+      <div class="add">
+        <h3>TTTTTTT</h3>
       </div>
     </div>
     </div>
@@ -22,12 +25,16 @@ export default {
         {
           name: "Teddy",
           picture: require('@/assets/teddy.png'),
-          price: 200
+          price: 200,
+          bought: true,
+          select: true
         },
         {
           name: "Le coach",
           picture: require('@/assets/le_coach.png'),
-          price: 200
+          price: 200,
+          bought: false,
+          select: false
         }
       ]
     }
@@ -45,6 +52,8 @@ export default {
         this.currentState = previousState; // Go to the previous state
         this.history.pop(); // Remove the last one
       }
+    },
+    select(){
     }
   }
 }
@@ -54,6 +63,13 @@ export default {
 .wrapper-page {
   height: 100%;
   overflow-y: hidden;
+}
+.add{
+  width: 200px;
+  height: 200px;
+}
+.add h3{
+  color: transparent;
 }
 .wrapper {
   display:flex;

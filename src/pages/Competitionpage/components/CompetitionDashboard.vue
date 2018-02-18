@@ -6,11 +6,11 @@
       <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
       <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" />
       <h3 class="animated fadeInUp">Ils te défient</h3>
-      <div v-for="chall in challengesNotDone" :key="chall.challName">
+      <div v-for="chall in challengesNotDone" :key="chall.index">
         <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" logo="challenge" :image="chall.picture" :finish="notFinish" />
       </div>
       <h3 class="animated fadeInUp">Les défis terminés</h3>
-      <div v-for="chall in challengesDone" :key="chall.challName">
+      <div v-for="chall in challengesDone" :key="chall.index">
         <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" :currentName="curName" :currentPoints="chall.curPoints" :logo="chall.status" :image="chall.picture" :finish="finish" />
       </div>
   </div>
