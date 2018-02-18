@@ -45,12 +45,18 @@ export default {
   data() {
     return {
       msg: 'test',
-      show: true,
+      show: false,
     };
   },
   methods: {
     closeModal () {
+      sessionStorage.setItem('modalDYK', true);
       this.show = false;
+    },
+    openModal () {
+      if(!sessionStorage.getItem('modalDYK')) {
+        this.show = true;
+      }
     },
     goCharacterPage(){
       this.$router.push('/character');
@@ -71,6 +77,9 @@ export default {
   mounted() {
     let mainButtons = this.$el.querySelectorAll('.mainButton');
     let otherButtons = this.$el.querySelector('.other-buttons');
+
+    this.openModal();
+
     mainButtons.forEach((button, idx) => {
       setTimeout(()=>{
           button.classList.add('bounceInDown', 'visible');
