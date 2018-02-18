@@ -2,7 +2,13 @@
   <div class="wrapper-page bg_purple_light">
     <Navbar text="Marcelin" :shopping="true" :money="400" secondBtn="none" @goBack="goBack"/>
     <div class="wrapper">
-      <button class="btnYellow"></button>
+      <button class="btnYellow">
+        <div class="price_free">
+          <img src="@/assets/one_jo_coin.png" alt="">
+          <p>100</p>
+        </div>
+        <img src="@/assets/free.png" alt="" class="free">
+      </button>
       <div class="wrap_price">
         <div v-for="info in infos" :key="info.index" class="price">
           <ShoppingButton :price="info.price" :picture="info.picture" :promo="info.promo" :coin="info.coin" :percentage="info.percentage"/>
@@ -70,11 +76,31 @@ export default {
   overflow-y: hidden;
 }
 .btnYellow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  border-radius: 10px;
   box-shadow: 0px 6px 0px 0px #F1B946;
   background-color: #FFD360;
   font-size: 1.7em;
+  padding:2vh;
   width: 100%;
   min-height: 8vh;
+}
+.price_free{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.price_free p {
+  font-size: 1.2em;
+  padding-left: 2vw;
+  letter-spacing: 1.5px;
+}
+.free{
+  margin-right: 2vw;
 }
 .wrap_price{
   display: flex;
@@ -90,11 +116,10 @@ export default {
 .wrapper {
   display:flex;
   flex-direction: column;
-  justify-content: center;
   overflow-y: scroll;
   padding: 0 20px;
   height: calc(100% - 13vh);
-  padding-top: 3vh;
+  padding-top: 7vh;
 }
 .scroll_card::-webkit-scrollbar { width: 0 !important }
 .scroll_card{
