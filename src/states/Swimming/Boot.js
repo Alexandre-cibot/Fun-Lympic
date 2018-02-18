@@ -54,6 +54,11 @@ export default class extends Phaser.State {
     this.load.spritesheet('nageuse1', './assets/images/swimming_little_nageuse1.png', 60, 213)
     this.load.spritesheet('nageuse2', './assets/images/swimming_little_nageuse2.png', 84, 214)
     this.load.spritesheet('nageuse3', './assets/images/swimming_little_nageuse3.png', 67, 215)
+    
+    game.load.audio('water', ['./assets/musique/eau.mp3']);
+    game.load.audio('sifflet', ['./assets/musique/sifflet.mp3']);
+    game.load.audio('bling', ['./assets/musique/bling.mp3']);
+    game.load.audio('bouh', ['./assets/musique/bouh.mp3']);
   }
 
   render() {
@@ -75,6 +80,16 @@ export default class extends Phaser.State {
     this.clickArr = [];
     // Count the number of times the circles appeared
     this.spawnArr = [];
+
+    //Song
+    let bouh = game.add.audio('bouh');
+    this.sifflet = game.add.audio('sifflet');
+    let water = game.add.audio('water');
+    let bling = game.add.audio('bling');
+    // let music = new Phaser.Sound(game,'water',1,true);
+    water.loop = true;
+    water.play();
+    water.volume -= 0.7;
 
     // Jury
     this.jury = game.add.sprite(game.width - 300, 70, 'jury');
@@ -235,6 +250,9 @@ export default class extends Phaser.State {
     this.countDown = setInterval(()=>{
       this.time--
       this.textCountDown.text = this.time;
+      if(this.time == 0){
+        this.sifflet.play();
+      }
     },1000);
     
     let styleCountDown = {font: "14em myfrida-bold", fill: "#F4426D", align: "center", boundsAlignV: "middle"};
@@ -371,6 +389,7 @@ export default class extends Phaser.State {
               this.perfect.visible = false;
               textPerfect.visible = false;
             }
+            bouh.play();
             this.fail.visible = true;
             this.juryUnhappy.visible = true;
             this.jury.visible = false;
@@ -448,6 +467,7 @@ export default class extends Phaser.State {
 
     function perfect(e){
       e.visible = false;
+      bling.play();
       this.perfect.visible = true;
       this.juryHappy.visible = true;
       this.jury.visible = false;
