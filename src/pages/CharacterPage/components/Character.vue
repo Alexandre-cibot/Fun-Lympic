@@ -8,7 +8,7 @@
     <button v-else-if="bought" class="animated" @click="select">
       <h2>Sélectionner</h2>
     </button>
-    <div v-else class="money">
+    <div v-else class="money" @click="buyThis">
       <img src="@/assets/jo_coin.png" alt="jo_coin">
       {{price}}
     </div>
@@ -40,6 +40,9 @@ export default {
   methods:{
     select(){
       this.$emit('select')
+    },
+    buyThis(){
+      this.$emit('buyThis')
     }
   }
 }
