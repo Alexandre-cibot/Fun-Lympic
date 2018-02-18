@@ -159,10 +159,10 @@ export default class extends Phaser.State {
     this.fail.visible = false;
 
     //Circle
-    this.circle1 = game.add.sprite(game.width - 350, game.height - 80, 'oval')
-    this.circle2 = game.add.sprite(game.width - 260, game.height - 80, 'oval')
-    this.circle3 = game.add.sprite(game.width - 170, game.height - 80, 'oval')
-    this.circle4 = game.add.sprite(game.width - 80, game.height - 80, 'oval')
+    this.circle1 = game.add.sprite(responsive.getWidthFromPercentage(4), responsive.getHeightFromPercentage(83.5), 'oval')
+    this.circle2 = game.add.sprite(responsive.getWidthFromPercentage(29), responsive.getHeightFromPercentage(83.5), 'oval')
+    this.circle3 = game.add.sprite(responsive.getWidthFromPercentage(54), responsive.getHeightFromPercentage(83.5), 'oval')
+    this.circle4 = game.add.sprite(responsive.getWidthFromPercentage(79), responsive.getHeightFromPercentage(83.5), 'oval')
 
     this.circleArr = [this.circle1, this.circle2, this.circle3, this.circle4];
 
@@ -175,17 +175,17 @@ export default class extends Phaser.State {
     this.circle2.visible = false;
     this.circle3.visible = false;
     this.circle4.visible = false;
-    
+  
     this.circle1.events.onInputDown.add(perfect, this);
     this.circle2.events.onInputDown.add(perfect, this);
     this.circle3.events.onInputDown.add(perfect, this);
     this.circle4.events.onInputDown.add(perfect, this);
 
     //Button
-    let btn1 = game.add.sprite(game.width - 340, game.height - 70, 'btn1');
-    let btn2 = game.add.sprite(game.width - 250, game.height - 70, 'btn2');
-    let btn3 = game.add.sprite(game.width - 160, game.height - 70, 'btn3');
-    let btn4 = game.add.sprite(game.width - 70, game.height - 70, 'btn4');
+    let btn1 = game.add.sprite(responsive.getWidthFromPercentage(6.2), responsive.getHeightFromPercentage(85), 'btn1');
+    let btn2 = game.add.sprite(responsive.getWidthFromPercentage(31.2), responsive.getHeightFromPercentage(85), 'btn2');
+    let btn3 = game.add.sprite(responsive.getWidthFromPercentage(56.2), responsive.getHeightFromPercentage(85), 'btn3');
+    let btn4 = game.add.sprite(responsive.getWidthFromPercentage(81.2), responsive.getHeightFromPercentage(85), 'btn4');
     btn1.scale.setTo(0.5, 0.5)
     btn2.scale.setTo(0.5, 0.5)
     btn3.scale.setTo(0.5, 0.5)
@@ -245,6 +245,7 @@ export default class extends Phaser.State {
     document.getElementById('bg').appendChild(div);
     divSty.position = "relative";
     divSty.display = "none";
+    divSty.marginTop = "-10px";
     divSty.height = "100%";
     divSty.width = "100%";
     divSty.background = "#000000";
