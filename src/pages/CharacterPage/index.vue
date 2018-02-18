@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper-page bg_purple_light">
-    <Navbar text="Marcelin" :shopping="true" :money="400" secondBtn="shopping" @goBack="goBack"/>
+    <Navbar text="Marcelin" :shopping="true" :money="money" secondBtn="shopping" @goBack="goBack"/>
     <div class="wrapper">
     <div class="scroll_card">
-      <div v-for="char in characters" :key="char.index" class="character_show">
-        <Character :name="char.name" :picture="char.picture" :price="char.price" :bought="char.bought" :selection="char.select" @select="select"/>
+      <div v-for="(char, index) in characters" :key="char.index" class="character_show">
+        <Character :name="char.name" :picture="char.picture" :price="char.price" :bought="char.bought" :selection="char.select" @select="select(index)" @buyThis="buyThis(index)"/>
       </div>
       <div class="add">
         <h3>TTTTTTT</h3>
@@ -21,6 +21,7 @@ export default {
   name:"character",
   data(){
     return{
+      money:400,
       characters: [
         {
           name: "Teddy",
@@ -53,7 +54,19 @@ export default {
         this.history.pop(); // Remove the last one
       }
     },
-    select(){
+    select(i){
+      for(let v=0; v<this.characters.length; v++){
+        this.characters[v].select=false;  
+      }
+      this.characters[i].select=true;
+    },
+    buyThis(i){
+      if(this.characters[i].price<this.money){
+        this.characters[i].bought = true;
+        this.money -= this.characters[i].price;
+      }else{
+        console.log('c pas possible dsl');
+      }
     }
   }
 }
