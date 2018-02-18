@@ -92,13 +92,13 @@ export default class extends Phaser.State {
     this.mamieNames = []
     this.catNames = []
     this.dancerNames = []
-    let previousObstacle = mamieInfo.name
+    let previousObstacle = mamieInfo
     for (let i = 0; i < gameWidth / obstacleWidthFrequency; i++) {
       let randomNumber = getRandom(0, obstacles.length - 1)
-      if (obstacles[randomNumber].name === previousObstacle) {
-        randomNumber = (randomNumber + 1) > (obstacles.length - 1) ? 0 : randomNumber + 1
-        previousObstacle = obstacles[randomNumber].name
+      while (obstacles[randomNumber].name === previousObstacle.name) {
+        randomNumber = getRandom(0, obstacles.length - 1)
       }
+      previousObstacle = obstacles[randomNumber]
       obstacles[randomNumber].execute(this, i)
     }
 
