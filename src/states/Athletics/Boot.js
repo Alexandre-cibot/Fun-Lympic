@@ -11,7 +11,7 @@ const pallier = [
   {height: responsive.getHeightFromPercentage(66)}
 ]
 
-const gameWidth = 140000
+const gameWidth = 140000 // performance problem, we should create progressively obstacles
 const obstacleWidthFrequency = 300
 
 function getRandom (min, max) {
@@ -251,20 +251,19 @@ function movePlayerRace (self, boolean) {
 
 function mamieCollisionHandler (sprinter, mamie) {
   if ((mamie.y - 70) === sprinter.y) {
-    mamie.destroy()
-    console.log("collision mamie");
+    mamie.kill()
   }
 }
 
 function catCollisionHandler (sprinter, cat) {
   if ((cat.y - 70) === sprinter.y) {
-    cat.destroy()
+    cat.kill()
   }
 }
 
-function dancerCollisionHandler (sprinter, cat) {
-  if ((cat.y - 70) === sprinter.y) {
-    cat.destroy()
+function dancerCollisionHandler (sprinter, dancer) {
+  if ((dancer.y - 70) === sprinter.y) {
+    dancer.kill()
   }
 }
 
