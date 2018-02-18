@@ -21,6 +21,12 @@ export default class extends Phaser.State {
   }
 
   preload() {
+    WebFont.load({
+      custom: {
+        families: ['myfrida_bold'],
+        urls: ["../../css/font.css"]
+      }
+    })
     this.load.image('loaderBg', './assets/images/loader-bg.png')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
     this.load.image('background', './assets/images/swimming_background.jpg')
@@ -41,9 +47,15 @@ export default class extends Phaser.State {
     this.load.image('newRecord', './assets/images/swimming_new_record.png')
     this.load.image('perfect', './assets/images/swimming_perfect.png')
     this.load.image('fail', './assets/images/swimming_fail.png')
-    this.load.image('poseNag1', './assets/images/swimming_Pose1_nag1.png')
-    this.load.image('poseNag2', './assets/images/swimming_Pose1_nag2.png')
-    this.load.image('poseNag3', './assets/images/swimming_Pose1_nag3.png')
+    this.load.image('pose1Nag1', './assets/images/swimming_Pose1_nag1.png')
+    this.load.image('pose1Nag2', './assets/images/swimming_Pose1_nag2.png')
+    this.load.image('pose1Nag3', './assets/images/swimming_Pose1_nag3.png')
+    this.load.image('pose2Nag1', './assets/images/swimming_Pose2_nag1.png')
+    this.load.image('pose2Nag2', './assets/images/swimming_Pose2_nag2.png')
+    this.load.image('pose2Nag3', './assets/images/swimming_Pose2_nag3.png')
+    this.load.image('pose3Nag1', './assets/images/swimming_Pose3_nag1.png')
+    this.load.image('pose3Nag2', './assets/images/swimming_Pose3_nag2.png')
+    this.load.image('pose3Nag3', './assets/images/swimming_Pose3_nag3.png')
     this.load.spritesheet('star', './assets/images/swimming_stars.png', 280, 500)
     // this.load.spritesheet('nageuse', './assets/images/swimming_nageuse3.png', 255, 820)
     this.load.spritesheet('nageuse1', './assets/images/swimming_little_nageuse1.png', 60, 213)
@@ -79,17 +91,27 @@ export default class extends Phaser.State {
     this.juryUnhappy.visible = false;
 
     // Stance Nageuse
-    this.posNageuse = this.game.add.sprite(responsive.getWidthFromPercentage(40), responsive.getHeightFromPercentage(54), 'poseNag1')
-    this.posNageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(10), responsive.getHeightFromPercentage(39), 'poseNag2')
-    this.posNageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(65), responsive.getHeightFromPercentage(39), 'poseNag3')
-    this.posNageuse.scale.setTo(0.4)
-    this.posNageuse2.scale.setTo(0.4)
-    this.posNageuse3.scale.setTo(0.4)
+    this.pos1Nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(40), responsive.getHeightFromPercentage(54), 'pose1Nag1')
+    this.pos1Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(10), responsive.getHeightFromPercentage(39), 'pose1Nag2')
+    this.pos1Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(65), responsive.getHeightFromPercentage(39), 'pose1Nag3')
+    this.pos2Nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(30), responsive.getHeightFromPercentage(54), 'pose2Nag1')
+    this.pos2Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(0), responsive.getHeightFromPercentage(39), 'pose2Nag2')
+    this.pos2Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(55), responsive.getHeightFromPercentage(39), 'pose2Nag3')
+    this.pos3Nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(30), responsive.getHeightFromPercentage(54), 'pose3Nag1')
+    this.pos3Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(0), responsive.getHeightFromPercentage(39), 'pose3Nag2')
+    this.pos3Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(55), responsive.getHeightFromPercentage(39), 'pose3Nag3')
 
-    this.posNageuse.visible = false;
-    this.posNageuse2.visible = false;
-    this.posNageuse3.visible = false;
-    this.arrPos = [this.posNageuse, this.posNageuse3, this.posNageuse2];
+    this.arrPos = [
+      [this.pos1Nageuse, this.pos1Nageuse3, this.pos1Nageuse2], 
+      [this.pos2Nageuse, this.pos2Nageuse3, this.pos2Nageuse2],
+      [this.pos3Nageuse, this.pos3Nageuse3, this.pos3Nageuse2],
+    ];
+    for(let i = 0; i<this.arrPos.length; i++){
+      for(let u = 0; u<this.arrPos[i].length; u++){
+        this.arrPos[i][u].visible = false;
+        this.arrPos[i][u].scale.setTo(0.4);
+      }
+    }
 
     // Nageuse
     this.nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(45), responsive.getHeightFromPercentage(55), 'nageuse1')
@@ -134,7 +156,7 @@ export default class extends Phaser.State {
     let styleRecord = {font: "1.6em myfrida-bold", fill: "#ffffff"};
     let styleScoreFinal = {font: "14em myfrida-bold", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
     let styleScore = {font: "4.5em myfrida-bold", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
-    this.rec = 40;
+    this.rec = 5;
 
     let textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     let textScoreFinal = game.add.text(game.world.centerX, 80, '0', styleScoreFinal);
@@ -159,10 +181,10 @@ export default class extends Phaser.State {
     this.fail.visible = false;
 
     //Circle
-    this.circle1 = game.add.sprite(game.width - 350, game.height - 80, 'oval')
-    this.circle2 = game.add.sprite(game.width - 260, game.height - 80, 'oval')
-    this.circle3 = game.add.sprite(game.width - 170, game.height - 80, 'oval')
-    this.circle4 = game.add.sprite(game.width - 80, game.height - 80, 'oval')
+    this.circle1 = game.add.sprite(responsive.getWidthFromPercentage(4), responsive.getHeightFromPercentage(83.5), 'oval')
+    this.circle2 = game.add.sprite(responsive.getWidthFromPercentage(29), responsive.getHeightFromPercentage(83.5), 'oval')
+    this.circle3 = game.add.sprite(responsive.getWidthFromPercentage(54), responsive.getHeightFromPercentage(83.5), 'oval')
+    this.circle4 = game.add.sprite(responsive.getWidthFromPercentage(79), responsive.getHeightFromPercentage(83.5), 'oval')
 
     this.circleArr = [this.circle1, this.circle2, this.circle3, this.circle4];
 
@@ -175,17 +197,17 @@ export default class extends Phaser.State {
     this.circle2.visible = false;
     this.circle3.visible = false;
     this.circle4.visible = false;
-    
+  
     this.circle1.events.onInputDown.add(perfect, this);
     this.circle2.events.onInputDown.add(perfect, this);
     this.circle3.events.onInputDown.add(perfect, this);
     this.circle4.events.onInputDown.add(perfect, this);
 
     //Button
-    let btn1 = game.add.sprite(game.width - 340, game.height - 70, 'btn1');
-    let btn2 = game.add.sprite(game.width - 250, game.height - 70, 'btn2');
-    let btn3 = game.add.sprite(game.width - 160, game.height - 70, 'btn3');
-    let btn4 = game.add.sprite(game.width - 70, game.height - 70, 'btn4');
+    let btn1 = game.add.sprite(responsive.getWidthFromPercentage(6.2), responsive.getHeightFromPercentage(85), 'btn1');
+    let btn2 = game.add.sprite(responsive.getWidthFromPercentage(31.2), responsive.getHeightFromPercentage(85), 'btn2');
+    let btn3 = game.add.sprite(responsive.getWidthFromPercentage(56.2), responsive.getHeightFromPercentage(85), 'btn3');
+    let btn4 = game.add.sprite(responsive.getWidthFromPercentage(81.2), responsive.getHeightFromPercentage(85), 'btn4');
     btn1.scale.setTo(0.5, 0.5)
     btn2.scale.setTo(0.5, 0.5)
     btn3.scale.setTo(0.5, 0.5)
@@ -245,6 +267,7 @@ export default class extends Phaser.State {
     document.getElementById('bg').appendChild(div);
     divSty.position = "relative";
     divSty.display = "none";
+    divSty.marginTop = "-10px";
     divSty.height = "100%";
     divSty.width = "100%";
     divSty.background = "#000000";
@@ -303,7 +326,6 @@ export default class extends Phaser.State {
       }else{
         this.spawnArr.push(1);
         var showCircle = Math.round(Math.random() * cirLength);
-        console.log(this.spawnArr);
         
         this.circleArr[showCircle].visible = true;
       }
@@ -329,7 +351,10 @@ export default class extends Phaser.State {
             }, 1000)
             heart[this.life-1].visible = false;
             nageuseArr[this.life-1].kill();
-            this.arrPos[this.life-1].kill();
+            for(let i = 0; i<this.arrPos[this.life-1].length; i++){
+              this.arrPos[i][this.life-1].kill();
+            }
+            
             starArray[this.life-1].kill();
             this.life--;
       
@@ -357,10 +382,10 @@ export default class extends Phaser.State {
             //Re-balancing of length
             if(this.spawnArr.length > this.clickArr.length){
               let diff = this.spawnArr.length - this.clickArr.length;
-              (diff == 1) ? this.clickArr.push(1) : this.clickArr.push.apply(this.clickArr,[1, 1]);
+              (diff == 1) ? this.clickArr.push(2) : this.clickArr.push.apply(this.clickArr,[2, 2]);
             }else if(this.spawnArr.length < this.clickArr.length){
               let diff = this.clickArr.length - this.spawnArr.length;
-              (diff == 1) ? this.spawnArr.push(1) : this.spawnArr.push.apply(this.spawnArr,[1, 1]);
+              (diff == 2) ? this.spawnArr.push(2) : this.spawnArr.push.apply(this.spawnArr,[2, 2]);
             }
           }
         }, 1000);
@@ -434,6 +459,28 @@ export default class extends Phaser.State {
     //     }, 1000);
     // }
 
+    //Check if two arrays are equals
+    Array.prototype.equals = function (array) {
+      if (!array)
+          return false;
+      if (this.length != array.length)
+          return false;
+      for (var i = 0, l=this.length; i < l; i++) {
+          if (this[i] instanceof Array && array[i] instanceof Array) {
+              if (!this[i].equals(array[i]))
+                  return false;       
+          }           
+          else if (this[i] != array[i]) { 
+              return false;   
+          }           
+      }       
+    return true;
+    }
+
+    Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+    let ten = [1,1,1,1,1,1,1,1,1,1];
+    let twenty = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+
     function perfect(e){
       e.visible = false;
       this.perfect.visible = true;
@@ -448,23 +495,35 @@ export default class extends Phaser.State {
         this.juryHappy.visible = false;
         textPerfect.visible = false;
       }, 1000)
-      this.score += 20;
+      if(this.spawnArr.slice(this.spawnArr.length-11, this.spawnArr.length-1).equals(ten)){
+        this.score += 10;
+      }else if((this.spawnArr.slice(this.spawnArr.length-21, this.spawnArr.length-1).equals(twenty))){
+        this.score += 20;
+        this.spawnArr.push(2);
+        this.clickArr.push(2);
+      }else{
+        this.score += 1;
+      }
+            
       textScore.text = this.score;
       
       if(this.score > this.rec){
         this.textRecord.text = 'Record : ' + this.score;
       }
+      let v = Math.round(Math.random() * 2);
+      for(let u = 0; u< this.life; u++){
+        this.arrPos[v][u].visible = true;
+      }
 
       for(var i = 0; i < this.life; i++ ){
         starArray[i].visible = true;
-        this.arrPos[i].visible = true;
         nageuseArr[i].visible = false;
         starArray[i].play('run', 8)
       }
       setTimeout(()=>{
         for(var i = 0; i < this.life; i++ ){
+          this.arrPos[v][i].visible = false;
           starArray[i].visible = false;
-          this.arrPos[i].visible = false;
           nageuseArr[i].visible = true;
         }
       }, 1000)

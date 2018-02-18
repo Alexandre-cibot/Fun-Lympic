@@ -71,7 +71,6 @@ export default {
             console.log('Received Event: ' + id)
           }
         }
-
         app.initialize()
       }
     },

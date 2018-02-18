@@ -1,6 +1,6 @@
 <template>
   <div class="classement">
-    <h2>Classement de tes amis</h2>
+    <h2>Tes derniers scores</h2>
     <div class="list">
       <div v-for="(friend, i) in friends" :key="i">
         <div v-if="i == 0">
