@@ -40,7 +40,10 @@ export default {
     imagePath() {
       switch (this.image) {
         case 'athletisme': 
-          return require('@/assets/athle.svg');
+          return require('@/assets/athle.png');
+        break;
+        case 'swimming':
+          return require('@/assets/accueil_swim.png');
         break;
         default: 
           console.log('No default found');

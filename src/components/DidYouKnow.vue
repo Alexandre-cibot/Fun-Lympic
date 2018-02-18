@@ -5,7 +5,8 @@
         <img src="@/assets/title_know.png" alt="" class="title_img">
       </div>
       <img :src="imagePath" class="content_img" />
-      <p>À quelques centaines de mètres de l’arrivée, il accepte un verre de champagne qui le fait vomir.</p>
+      <h3 class="titleDYK">Attention aux canards !</h3>
+      <p>En 1928, Henry Pearce s'est arrêté de ramer lors du quart des finales de la compétition d'aviron pour tranquillement laisser passer une famille de canards devant son bateau.</p>
       <img src="@/assets/croix.svg" alt="" class="bottom_img">
     </div>
   </div>
@@ -32,10 +33,12 @@ export default {
   computed: {
     imagePath() {
       switch (this.image) {
-        case 'athletisme': 
+        case 'athletisme':
           return require('@/assets/img_did.svg');
         break;
-        default: 
+        case 'ducks':
+          return require('@/assets/ducks.png');
+        default:
           console.log('No default found');
         break;
       }
@@ -90,9 +93,9 @@ export default {
   width: 100%;
 }
 .content_img{
-  width: 56%;
+  width: 45%;
   margin: 0 auto;
-  margin-top: 25%;
+  margin-top: 20%;
   height: auto;
 }
 .bottom_img {
@@ -102,10 +105,17 @@ export default {
   left: calc(50% - 6vw);
   margin: auto;
 }
+.titleDYK {
+  font-size: 1.6em;
+  color: #493B35;
+  font-family: 'myfrida_bold', sans-serif;
+  text-align: center;
+  padding: 20px;
+}
 p {
   font-family: 'myfrida_bold', sans-serif;
   text-align: center;
-  padding: 27px;
+  padding: 0 20px;
   line-height: 1.5em ;
   font-size: 0.9em;
   color: #493B35;
