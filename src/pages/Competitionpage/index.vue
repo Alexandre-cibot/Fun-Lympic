@@ -4,7 +4,7 @@
     <div class="wrapper">
       <ConnexionFB v-if="!authenticated" :authenticated="authenticated" :auth="auth" />
       <div v-else>
-        <CompetitionDashboard v-if="currentState === 'competitionDashboard' || currentState === 'chooseFlag'" @chooseFlag="chooseFlag"/>
+        <CompetitionDashboard v-if="currentState === 'competitionDashboard' || currentState === 'chooseFlag'" :profile="profile" @chooseFlag="chooseFlag"/>
         <Nation v-if="currentState === 'chooseFlag'"  @closeModal="closeModal" @chooseFriends="chooseFriends" />
         <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/> 
         <ChallengeFriend v-if="currentState === 'friend'" @before="before" /> 
@@ -50,6 +50,13 @@ export default {
       friends : true,
       show: false,
     };
+  },
+  computed: {
+    profile() {
+      if (this.authenticated) {
+        return this.auth.getUserProfile();
+      }
+    }
   },
   methods: {
     closeModal() {

@@ -24,6 +24,7 @@ import ChallengeButton from '@/components/ChallengeButton';
 
 export default {
   name: 'Challengepage',
+  props:['profile'],
   components: {
     Navbar,
     BasicButton,
@@ -31,6 +32,7 @@ export default {
     Profile
   },
   data() {
+    console.log("profile", this.profile);
     return {
       msg: 'test',
       finish: false,
@@ -38,9 +40,9 @@ export default {
       curName: "Véronique",
       currentUser: [
         {
-          firstname: "Alexandre",
+          firstname: this.profile.name,
           flag: require('@/assets/flag/France.png'),
-          picture: require('@/assets/alex.png'),
+          picture: this.profile.picture,
           victory : 90,
           defeat: 23
         },
