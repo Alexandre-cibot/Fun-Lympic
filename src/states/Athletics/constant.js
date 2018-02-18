@@ -9,30 +9,50 @@ module.exports = {
     nbSprites: 12,
     spriteSpeed: 22,
     speed: 0,
-    heightRatio: 4.3
+    heightRatio: 4.3,
+    heightFix: -70
   },
   mamieSprite: {
-    width: 423,
-    height: 309,
+    width: 316,
+    height: 250,
     nbSprites: 2,
-    spriteSpeed: 4,
+    spriteSpeed: 8,
     speed: -0.8,
     heightRatio: 8
   },
   catSprite: {
-    width: 493,
-    height: 135,
+    width: 479,
+    height: 130,
     nbSprites: 4,
     spriteSpeed: 17,
     speed: -1,
     heightRatio: 6
   },
   dancerSprite: {
-    width: 1208,
-    height: 250,
-    nbSprites: 4,
+    width: 1742,
+    height: 270,
+    nbSprites: 6,
     spriteSpeed: 17,
     speed: -1,
-    heightRatio: 6
+    heightRatio: 6,
+    heightFix: -15
+  },
+  duckSprite: {
+    width: 265,
+    height: 127,
+    nbSprites: 2,
+    spriteSpeed: 17,
+    speed: -1,
+    heightRatio: 6,
+    heightFix: -15
+  },
+  plotSprite: {
+    width: 121,
+    height: 150,
+    nbSprites: 1,
+    spriteSpeed: 1,
+    speed: -1,
+    heightRatio: 12,
+    heightFix: 24
   }
 }
