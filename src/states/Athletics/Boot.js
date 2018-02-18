@@ -45,11 +45,18 @@ const duckInfo = {
   execute: generateDuck
 }
 
+const plotInfo = {
+  name: 'plot',
+  y: pallier,
+  execute: generatePlot
+}
+
 const obstacles = [
   mamieInfo,
   catInfo,
   dancerInfo,
-  duckInfo
+  duckInfo,
+  plotInfo
 ]
 
 export default class extends Phaser.State {
@@ -79,6 +86,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('cat', './assets/images/sprint_cat.png', constant.catSprite.width / constant.catSprite.nbSprites, constant.catSprite.height)
     this.load.spritesheet('dancer', './assets/images/sprint_dancer.png', constant.dancerSprite.width / constant.dancerSprite.nbSprites, constant.dancerSprite.height)
     this.load.spritesheet('duck', './assets/images/sprint_duck.png', constant.duckSprite.width / constant.duckSprite.nbSprites, constant.duckSprite.height)
+    this.load.spritesheet('plot', './assets/images/sprint_plot.png', constant.plotSprite.width / constant.plotSprite.nbSprites, constant.plotSprite.height)
   }
 
   render() {
@@ -103,6 +111,7 @@ export default class extends Phaser.State {
     this.catNames = []
     this.dancerNames = []
     this.duckNames = []
+    this.plotNames = []
     let previousObstacle = mamieInfo
     let previousPreviousObstacle = dancerInfo
     this.obstacleOrder = []
@@ -240,6 +249,14 @@ export default class extends Phaser.State {
       this.physics.arcade.overlap(this.sprinter, this.duck, duckCollisionHandler, null, this)
     }
 
+    if (this.plot.x < xValueWhenSpriteKilled) {
+      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+      this.plot.x = getXFromSpriteName(this, 'plot')
+    } else {
+      this.plot.x = this.plot.x + (this.plot.x > responsive.width ? constant.background.speed : constant.plotSprite.speed)
+      this.physics.arcade.overlap(this.sprinter, this.plot, plotCollisionHandler, null, this)
+    }
+
     var direction = this.swipe.check()
     if (direction !== null) {
       // direction= { x: x, y: y, direction: direction }
@@ -322,6 +339,14 @@ function duckCollisionHandler (sprinter, duck) {
   }
 }
 
+function plotCollisionHandler (sprinter, plot) {
+  const hotfix = -48
+  if ((plot.y + constant.sprinterSprite.heightFix + constant.plotSprite.heightFix + hotfix) === sprinter.y) {
+    this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+    plot.x = xValueWhenSpriteKilled
+  }
+}
+
 function getArraySpriteFromArrayLength (arrayLength) {
   const array = []
   for (let index = 0; index < arrayLength; index++) {
@@ -388,6 +413,21 @@ function generateDuck (self, index) {
   self[name].enableBody = true
   self.physics.arcade.enable(self[name])
   self.duckNames.push(name)
+}
+
+function generatePlot (self, index) {
+  const {height, width, nbSprites, heightRatio, spriteSpeed, heightFix} = constant.plotSprite
+  const name = 'plot'
+  self[name] = self.game.add.sprite(height, width / nbSprites, 'plot')
+  self[name].scale.setTo(responsive.getRatioFromHeight((width / nbSprites) * heightRatio), responsive.getRatioFromHeight(height * heightRatio))
+  self[name].animations.add('run', getArraySpriteFromArrayLength(nbSprites), spriteSpeed, true)
+  self[name].play('run')
+  self[name].y = plotInfo.y[getRandom(0, plotInfo.y.length - 1)].height + heightFix
+  // self[name].x = index * obstacleWidthFrequency
+  self[name].x = getXFromSpriteName(self, name)
+  self[name].enableBody = true
+  self.physics.arcade.enable(self[name])
+  self.plotNames.push(name)
 }
 
 function getXFromSpriteName (self, spriteName) {
