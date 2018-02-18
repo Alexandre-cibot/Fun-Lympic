@@ -23,7 +23,8 @@ export default {
   name: 'SwimmingGame',
   data() {
     return {
-      show: false
+      show: false,
+      first: true
     };
   },
   computed: {
@@ -38,6 +39,9 @@ export default {
     this.runGame()
   },
   methods: {
+    disappear(){
+      this.first =false;
+    },
     runGame () {
       class Game extends Phaser.Game {
         constructor () {
@@ -78,6 +82,11 @@ export default {
         app.initialize()
       }
     },
+  },
+  watch:{
+    first(){
+      console.log('coucou')
+    }
   }
 };
 
@@ -96,6 +105,20 @@ export default {
   bottom: 0;
   right: 0;
   background: rgba(0,0,0,0.5);
+}
+#content{
+  display: flex;
+  flex-direction: row;
+}
+#content p {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 5em;
+  width: 40px;
+  margin: auto;
 }
 </style>
 

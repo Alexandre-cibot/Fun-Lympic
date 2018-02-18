@@ -4,7 +4,7 @@
   <div class="wrapper">
     <div class="scroll_card">
       <Card class="animated card hidden" text="Athlétisme" image="athletisme" :score="65" @click="runAthletismeGame" />
-      <Card class="animated card hidden" text="Natation" image="athletisme" :score="123" :blue="true" @click="runSwimmingGame" />
+      <Card class="animated card hidden" text="Natation" image="swimming" :score="123" :blue="true" @click="runSwimmingGame" />
       <div class="gutter"><h1>Coucou</h1></div>
     </div>
     <Classement class="animated classement hidden" firstScore="237" secondScore="183" thirdScore="93" image="@/assets/alex.png"/>
@@ -27,6 +27,7 @@ export default {
   },
   data() {
     return {
+      firstSwimming : true,
     };
   },
   methods: {
@@ -34,7 +35,11 @@ export default {
       this.$router.push({path: '/athletics'})
     },
     runSwimmingGame(){
-      this.$router.push({path: '/swimming'})
+      if(this.firstSwimming){
+        this.$router.push({path: '/swimming/tuto'})
+      }else{
+        this.$router.push({path: '/swimming'})
+      }
     }
   },
   mounted() {
