@@ -25,9 +25,9 @@
         </button>
       </div>
     </router-link>
-    <router-link v-else-if="secondBtn && secondBtn == 'none'">
+    <router-link v-else-if="secondBtn && secondBtn == 'none'" :to="{ path: '/classement'}" >
       <div class="button_none">
-        <button class="bg_red">
+        <button class="bg_red" style="background: transparent">
           <img :src="secondBtnPath" />
         </button>
       </div>
