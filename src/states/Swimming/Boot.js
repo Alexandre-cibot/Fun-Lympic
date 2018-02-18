@@ -8,18 +8,11 @@ export default class extends Phaser.State {
   init() {
     this.stage.backgroundColor = '#EDEEC9'
     this.fontsReady = false
-    this.fontsLoaded = this.fontsLoaded.bind(this)
     this.life = 3
     this.score = 0
   }
 
   preload() {
-    WebFont.load({
-      custom: {
-        families: ['myfrida_bold'],
-        urls: ["../../css/font.css"]
-      }
-    })
     this.load.image('loaderBg', './assets/images/loader-bg.png')
     this.load.image('loaderBar', './assets/images/loader-bar.png')
     this.load.image('background', './assets/images/swimming_background.jpg')
@@ -49,8 +42,8 @@ export default class extends Phaser.State {
     this.load.image('pose3Nag1', './assets/images/swimming_Pose3_nag1.png')
     this.load.image('pose3Nag2', './assets/images/swimming_Pose3_nag2.png')
     this.load.image('pose3Nag3', './assets/images/swimming_Pose3_nag3.png')
+
     this.load.spritesheet('star', './assets/images/swimming_stars.png', 280, 500)
-    // this.load.spritesheet('nageuse', './assets/images/swimming_nageuse3.png', 255, 820)
     this.load.spritesheet('nageuse1', './assets/images/swimming_little_nageuse1.png', 60, 213)
     this.load.spritesheet('nageuse2', './assets/images/swimming_little_nageuse2.png', 84, 214)
     this.load.spritesheet('nageuse3', './assets/images/swimming_little_nageuse3.png', 67, 215)
@@ -60,17 +53,38 @@ export default class extends Phaser.State {
     game.load.audio('bling', ['./assets/musique/bling.mp3']);
     game.load.audio('bouh', ['./assets/musique/bouh.mp3']);
   }
-
-  render() {
-    // if (this.fontsReady) {
-    // }
-  }
-
-  fontsLoaded() {
-    this.fontsReady = true
-  }
   
   create() {
+
+    var fontReadys = false;
+    var windowReadys = false;
+    function fontReady(){
+      fontReadys = true;
+      checkIfBothReady();
+    }
+  
+    function windowLoaded(){
+      windowReadys = true;
+      checkIfBothReady();
+    }
+    function checkIfBothReady(){
+      if(windowReadys == true && fontReadys == true){
+        game = new Phaser.Game(window.innerWidth , window.innerHeight , Phaser.AUTO, 'game',{  create: create, render: render });
+      }      
+    }
+
+    WebFont.load({
+      custom: {
+        families: [ 'myfrida_bold' ],
+        urls:['../../assets/font.css'],   
+      },
+        active: function(){
+            fontReady();
+            alert('loaded')
+          },
+      inactive: function() {alert('failed')}
+    });
+
     const scaleRatio = window.devicePixelRatio / 3
     this.background = game.add.sprite(0, 0, 'background');
     this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
@@ -84,12 +98,10 @@ export default class extends Phaser.State {
     //Song
     let bouh = game.add.audio('bouh');
     this.sifflet = game.add.audio('sifflet');
-    let water = game.add.audio('water');
+    this.water = game.add.audio('water');
     let bling = game.add.audio('bling');
     // let music = new Phaser.Sound(game,'water',1,true);
-    water.loop = true;
-    water.play();
-    water.volume -= 0.7;
+    this.water.volume -= 0.7;
 
     // Jury
     this.jury = game.add.sprite(game.width - 300, 70, 'jury');
@@ -463,7 +475,7 @@ export default class extends Phaser.State {
 
     Object.defineProperty(Array.prototype, "equals", {enumerable: false});
     let ten = [1,1,1,1,1,1,1,1,1,1];
-    let twenty = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+    let twenty = [1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1]
 
     function perfect(e){
       e.visible = false;
@@ -482,6 +494,8 @@ export default class extends Phaser.State {
       }, 1000)
       if(this.clickArr.slice(this.clickArr.length-11, this.clickArr.length-1).equals(ten)){
         this.score += 10;
+        this.clickArr.push(3);
+        this.spawnArr.push(3);
       }else if((this.clickArr.slice(this.clickArr.length-21, this.clickArr.length-1).equals(twenty))){
         this.score += 20;
         this.spawnArr.push(2);
@@ -541,5 +555,6 @@ export default class extends Phaser.State {
     if(this.textScore.text > 2 && this.textScore.text < 4){
       this.superCircle = true;
     }
+    this.water.play();
   }
 }
