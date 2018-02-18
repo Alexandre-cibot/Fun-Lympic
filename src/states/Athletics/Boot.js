@@ -268,10 +268,10 @@ function generateMamie (self, index) {
 }
 
 function generateCat (self, index) {
-  const {height, width, nbSprites, heightRatio, spriteSpeed} = constant.mamieSprite
+  const {height, width, nbSprites, heightRatio, spriteSpeed} = constant.catSprite
   const name = 'cat' + index
-  self[name] = self.game.add.sprite(height, constant.catSpritewidth / nbSprites, 'cat')
-  self[name].scale.setTo(responsive.getRatioFromHeight((width / constant.catSprite.nbSprites) * heightRatio), responsive.getRatioFromHeight(height * heightRatio))
+  self[name] = self.game.add.sprite(height, width / nbSprites, 'cat')
+  self[name].scale.setTo(responsive.getRatioFromHeight((width / nbSprites) * heightRatio), responsive.getRatioFromHeight(height * heightRatio))
   self[name].animations.add('run', getArraySpriteFromArrayLength(nbSprites), spriteSpeed, true)
   self[name].play('run')
   self[name].y = catInfo.y[getRandom(0, catInfo.y.length - 1)].height
