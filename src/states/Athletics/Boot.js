@@ -39,10 +39,17 @@ const dancerInfo = {
   execute: generateDancer
 }
 
+const duckInfo = {
+  name: 'duck',
+  y: pallier,
+  execute: generateDuck
+}
+
 const obstacles = [
   mamieInfo,
   catInfo,
-  dancerInfo
+  dancerInfo,
+  duckInfo
 ]
 
 export default class extends Phaser.State {
@@ -68,9 +75,10 @@ export default class extends Phaser.State {
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
     this.load.spritesheet('sprinter', './assets/images/sprint_sprinter_run.png', constant.sprinterSprite.width / constant.sprinterSprite.nbSprites, constant.sprinterSprite.height)
-    this.load.spritesheet('mamie', './assets/images/spint_mamie.png', constant.mamieSprite.width / constant.mamieSprite.nbSprites, constant.mamieSprite.height)
+    this.load.spritesheet('mamie', './assets/images/sprint_mamie.png', constant.mamieSprite.width / constant.mamieSprite.nbSprites, constant.mamieSprite.height)
     this.load.spritesheet('cat', './assets/images/sprint_cat.png', constant.catSprite.width / constant.catSprite.nbSprites, constant.catSprite.height)
     this.load.spritesheet('dancer', './assets/images/sprint_dancer.png', constant.dancerSprite.width / constant.dancerSprite.nbSprites, constant.dancerSprite.height)
+    this.load.spritesheet('duck', './assets/images/sprint_duck.png', constant.duckSprite.width / constant.duckSprite.nbSprites, constant.duckSprite.height)
   }
 
   render() {
@@ -94,6 +102,7 @@ export default class extends Phaser.State {
     this.mamieNames = []
     this.catNames = []
     this.dancerNames = []
+    this.duckNames = []
     let previousObstacle = mamieInfo
     let previousPreviousObstacle = dancerInfo
     this.obstacleOrder = []
@@ -223,6 +232,14 @@ export default class extends Phaser.State {
       this.physics.arcade.overlap(this.sprinter, this.dancer, dancerCollisionHandler, null, this)
     }
 
+    if (this.duck.x < xValueWhenSpriteKilled) {
+      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+      this.duck.x = getXFromSpriteName(this, 'duck')
+    } else {
+      this.duck.x = this.duck.x + (this.duck.x > responsive.width ? constant.background.speed : constant.duckSprite.speed)
+      this.physics.arcade.overlap(this.sprinter, this.duck, duckCollisionHandler, null, this)
+    }
+
     var direction = this.swipe.check()
     if (direction !== null) {
       // direction= { x: x, y: y, direction: direction }
@@ -297,6 +314,14 @@ function dancerCollisionHandler (sprinter, dancer) {
   }
 }
 
+function duckCollisionHandler (sprinter, duck) {
+  const hotfix = +30
+  if ((duck.y + constant.sprinterSprite.heightFix + constant.duckSprite.heightFix + hotfix) === sprinter.y) {
+    this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+    duck.x = xValueWhenSpriteKilled
+  }
+}
+
 function getArraySpriteFromArrayLength (arrayLength) {
   const array = []
   for (let index = 0; index < arrayLength; index++) {
@@ -348,6 +373,21 @@ function generateDancer (self, index) {
   self[name].enableBody = true
   self.physics.arcade.enable(self[name])
   self.dancerNames.push(name)
+}
+
+function generateDuck (self, index) {
+  const {height, width, nbSprites, heightRatio, spriteSpeed, heightFix} = constant.duckSprite
+  const name = 'duck'
+  self[name] = self.game.add.sprite(height, width / nbSprites, 'duck')
+  self[name].scale.setTo(responsive.getRatioFromHeight((width / nbSprites) * heightRatio), responsive.getRatioFromHeight(height * heightRatio))
+  self[name].animations.add('run', getArraySpriteFromArrayLength(nbSprites), spriteSpeed, true)
+  self[name].play('run')
+  self[name].y = duckInfo.y[getRandom(0, duckInfo.y.length - 1)].height + heightFix
+  // self[name].x = index * obstacleWidthFrequency
+  self[name].x = getXFromSpriteName(self, name)
+  self[name].enableBody = true
+  self.physics.arcade.enable(self[name])
+  self.duckNames.push(name)
 }
 
 function getXFromSpriteName (self, spriteName) {
