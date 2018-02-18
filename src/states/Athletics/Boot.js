@@ -11,8 +11,8 @@ const pallier = [
   {height: responsive.getHeightFromPercentage(66)}
 ]
 
-const gameWidth = 140000 // performance problem, we should create progressively obstacles
-const obstacleWidthFrequency = 300
+const gameWidth = 140000
+const obstacleWidthFrequency = 600
 const xValueWhenSpriteKilled = -200
 
 function getRandom (min, max) {
@@ -199,6 +199,7 @@ export default class extends Phaser.State {
     moveBackground(this.background)
 
     if (this.mamie.x < xValueWhenSpriteKilled) {
+      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
       this.mamie.x = getXFromSpriteName(this, 'mamie')
     } else {
       this.mamie.x = this.mamie.x + (this.mamie.x > responsive.width ? constant.background.speed : constant.mamieSprite.speed)
@@ -207,6 +208,7 @@ export default class extends Phaser.State {
 
     if (this.cat.x < xValueWhenSpriteKilled) {
       // this.cat.x = responsive.width
+      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
       this.cat.x = getXFromSpriteName(this, 'cat')
     } else {
       this.cat.x = this.cat.x + (this.cat.x > responsive.width ? constant.background.speed : constant.catSprite.speed)
@@ -214,6 +216,7 @@ export default class extends Phaser.State {
     }
 
     if (this.dancer.x < xValueWhenSpriteKilled) {
+      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
       this.dancer.x = getXFromSpriteName(this, 'dancer')
     } else {
       this.dancer.x = this.dancer.x + (this.dancer.x > responsive.width ? constant.background.speed : constant.dancerSprite.speed)
@@ -274,21 +277,21 @@ function movePlayerRace (self, boolean) {
 
 function mamieCollisionHandler (sprinter, mamie) {
   if ((mamie.y - 70) === sprinter.y) {
-    // mamie.kill()
+    this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     mamie.x = xValueWhenSpriteKilled
   }
 }
 
 function catCollisionHandler (sprinter, cat) {
   if ((cat.y - 70) === sprinter.y) {
-    // cat.kill()
+    this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     cat.x = xValueWhenSpriteKilled
   }
 }
 
 function dancerCollisionHandler (sprinter, dancer) {
   if ((dancer.y - 70) === sprinter.y) {
-    // dancer.kill()
+    this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     dancer.x = xValueWhenSpriteKilled
   }
 }
@@ -347,8 +350,5 @@ function generateDancer (self, index) {
 }
 
 function getXFromSpriteName (self, spriteName) {
-  // const index = self.obstacleOrder.indexOf(spriteName)
-  self.obstacleOrder.splice(self.obstacleOrderIndex, 1)
-  self.obstacleOrderIndex = self.obstacleOrderIndex + 1
   return self.obstacleOrderIndex * obstacleWidthFrequency
 }
