@@ -80,9 +80,9 @@ export default class extends Phaser.State {
       },
         active: function(){
             fontReady();
-            alert('loaded')
+            console.log('loaded')
           },
-      inactive: function() {alert('failed')}
+      inactive: function() {console.log('failed')}
     });
 
     const scaleRatio = window.devicePixelRatio / 3
@@ -510,6 +510,12 @@ export default class extends Phaser.State {
         this.textRecord.text = 'Record : ' + this.score;
       }
       let v = Math.round(Math.random() * 2);
+      for(let u = 0; u< this.life; u++){
+        for(let w = 0; w<this.life; w++){
+          this.arrPos[u][w].visible = false;
+        }        
+      }
+
       for(let u = 0; u< this.life; u++){
         this.arrPos[v][u].visible = true;
       }
