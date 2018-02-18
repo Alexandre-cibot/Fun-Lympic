@@ -4,7 +4,7 @@ module.exports = {
     speed: -1
   },
   sprinterSprite: {
-    width: 3056,
+    width: 2982,
     height: 300,
     nbSprites: 12,
     spriteSpeed: 22,
