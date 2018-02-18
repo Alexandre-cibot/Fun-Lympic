@@ -5,7 +5,7 @@
           <p>Connectez-vous pour accéder au stade et défier vos amis</p>
       </div>
       <!-- <router-link :to="{ path: '/stade/challenge' }" style="width:100%;"> -->
-        <BasicButton title="connexion" image="facebook" btnColor="blue_border" @click="showChallenge" />
+        <BasicButton title="connexion" image="facebook" btnColor="blue" @click="auth.login()" />
       <!-- </router-link> -->
   </div>
 </template>
@@ -15,6 +15,7 @@ import BasicButton from '@/components/BasicButton.vue';
 
 export default {
   name: 'ConnexionFB',
+  props: ['authenticated', 'auth'],
   components: {
     BasicButton
   },
@@ -30,6 +31,9 @@ export default {
     showChallenge () {
       this.$emit('showChallenge')
     }
+  },
+  mounted() {
+    console.log(this.authenticated);
   }
 }
 </script>
