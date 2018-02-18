@@ -557,10 +557,10 @@ export default class extends Phaser.State {
       clearInterval(this.countDown)
       this.textCountDown.visible = false;
       this.image.visible = true;
+      this.water.play();
     }
     if(this.textScore.text > 2 && this.textScore.text < 4){
       this.superCircle = true;
     }
-    this.water.play();
   }
 }
