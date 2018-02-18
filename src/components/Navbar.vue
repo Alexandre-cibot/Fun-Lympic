@@ -91,7 +91,9 @@ export default {
 
 <style scoped>
 button{
-  height: 50px;
+  height: 52px;
+  width: 63px;
+  text-align: center;
   border-radius: 10px;
   border: none;
 }
@@ -106,18 +108,18 @@ button_none{
   z-index: -1;
 }
 header {
-  height: 9vh;
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   /* background-color: #FFD360; */
   /* box-shadow: 0px 8px 0px 0px #F1B946; */
   /* margin-bottom: 5vh; */
-  padding: 5px;
+  padding: 9px 9px 8px;
 }
 img{
-  display: block;
+  display: inline-block;
+  vertical-align: middle;
   position: relative;
   padding: 5px 5px;
 }
