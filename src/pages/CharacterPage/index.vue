@@ -46,13 +46,7 @@ export default {
   },
   methods:{
     goBack(){
-      let previousState = this.history[this.history.length-1];
-      if (!previousState || this.currentState === 'competitionDashboard') {
-        this.$router.push('/')
-      } else {
-        this.currentState = previousState; // Go to the previous state
-        this.history.pop(); // Remove the last one
-      }
+      this.$router.push('/');
     },
     select(i){
       for(let v=0; v<this.characters.length; v++){
