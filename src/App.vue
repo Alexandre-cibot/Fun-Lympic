@@ -1,21 +1,19 @@
 <template>
   <div id="app">
-    <!-- <p>{{text}}</p>
-    <div id="content" v-show="true"></div> -->
     <router-view/>
   </div>
 </template>
 
 <script>
 
-if (location.protocol != 'https:' && !location.origin.includes('localhost')) {
+if (location.protocol != 'https:' && !location.origin.includes('localhost') && !location.origin.includes('192.168')) {
   location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
 }
 export default {
   name: 'app',
   data () {
     return {
-      text: "I'm from Vue JS"
+
     }
   }
 };
@@ -26,7 +24,7 @@ export default {
 @import './css/main.css';
 
 
-#app{
+#app {
   height: 100vh;
 }
 </style>

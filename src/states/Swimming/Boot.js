@@ -49,9 +49,6 @@ export default class extends Phaser.State {
     this.load.spritesheet('nageuse1', './assets/images/swimming_little_nageuse1.png', 60, 213)
     this.load.spritesheet('nageuse2', './assets/images/swimming_little_nageuse2.png', 84, 214)
     this.load.spritesheet('nageuse3', './assets/images/swimming_little_nageuse3.png', 67, 215)
-    this.load.onLoadStart.add(function () {
-      store.commit('isSwimmingLoaded', true)
-    }, this)
   }
 
   render() {
@@ -472,7 +469,7 @@ export default class extends Phaser.State {
         }
       }, 1000)
     }
-    
+    store.commit('isSwimmingLoaded', true)
   }
   update () {
     // Condition to review
