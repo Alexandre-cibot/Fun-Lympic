@@ -76,7 +76,7 @@ export default {
   align-content: space-between;
   justify-content: center;
   width: 80%;
-  height: 60vh;
+  height: 75vh;
   background: white;
   border-radius: 10px;
   z-index: 30;
