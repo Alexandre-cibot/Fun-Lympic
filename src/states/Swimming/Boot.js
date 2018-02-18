@@ -476,7 +476,7 @@ export default class extends Phaser.State {
     Object.defineProperty(Array.prototype, "equals", {enumerable: false});
     let ten = [1,1,1,1,1,1,1,1,1,1];
     let twenty = [1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1]
-    var pos1 = false;
+    var canChange;
     function perfect(e){
       e.visible = false;
       bling.play();
@@ -517,11 +517,11 @@ export default class extends Phaser.State {
       
 
       for(let u = 0; u< this.life; u++){
-        if(!pos1){
+        if(!canChange){
           this.arrPos[v][u].visible = true;
         }
       }
-      pos1 = true;
+      canChange = true;
 
       for(var i = 0; i < this.life; i++ ){
         starArray[i].visible = true;
@@ -533,7 +533,7 @@ export default class extends Phaser.State {
           this.arrPos[v][i].visible = false;
           starArray[i].visible = false;
           nageuseArr[i].visible = true;
-          pos1 = false
+          canChange = false
           console.log('ca a change')
         }
       }, 1000)
