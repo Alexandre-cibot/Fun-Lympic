@@ -68,7 +68,7 @@ export default class extends Phaser.State {
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
     this.load.spritesheet('sprinter', './assets/images/sprint_sprinter_run.png', constant.sprinterSprite.width / constant.sprinterSprite.nbSprites, constant.sprinterSprite.height)
-    this.load.spritesheet('mamie', './assets/images/mamie.png', constant.mamieSprite.width / constant.mamieSprite.nbSprites, constant.mamieSprite.height)
+    this.load.spritesheet('mamie', './assets/images/spint_mamie.png', constant.mamieSprite.width / constant.mamieSprite.nbSprites, constant.mamieSprite.height)
     this.load.spritesheet('cat', './assets/images/sprint_cat.png', constant.catSprite.width / constant.catSprite.nbSprites, constant.catSprite.height)
     this.load.spritesheet('dancer', './assets/images/sprint_dancer.png', constant.dancerSprite.width / constant.dancerSprite.nbSprites, constant.dancerSprite.height)
   }
@@ -119,7 +119,7 @@ export default class extends Phaser.State {
     this.sprinter.animations.add('run', getArraySpriteFromArrayLength(constant.sprinterSprite.nbSprites), constant.sprinterSprite.spriteSpeed, true)
     this.sprinter.scale.setTo(responsive.getRatioFromHeight((constant.sprinterSprite.width / constant.sprinterSprite.nbSprites) * constant.sprinterSprite.heightRatio), responsive.getRatioFromHeight(constant.sprinterSprite.height * constant.sprinterSprite.heightRatio))
     this.sprinter.play('run')
-    this.sprinter.y = pallier[this.playerRace].height - 70
+    this.sprinter.y = pallier[this.playerRace].height + constant.sprinterSprite.heightFix
     this.sprinter.enableBody = true
     this.physics.arcade.enable(this.sprinter)
 
@@ -272,25 +272,26 @@ function movePlayerRace (self, boolean) {
       self.playerRace = 0
     }
   }
-  self.sprinter.y = pallier[self.playerRace].height - 70
+  self.sprinter.y = pallier[self.playerRace].height + constant.sprinterSprite.heightFix
 }
 
 function mamieCollisionHandler (sprinter, mamie) {
-  if ((mamie.y - 70) === sprinter.y) {
+  if ((mamie.y + constant.sprinterSprite.heightFix) === sprinter.y) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     mamie.x = xValueWhenSpriteKilled
   }
 }
 
 function catCollisionHandler (sprinter, cat) {
-  if ((cat.y - 70) === sprinter.y) {
+  if ((cat.y + constant.sprinterSprite.heightFix) === sprinter.y) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     cat.x = xValueWhenSpriteKilled
   }
 }
 
 function dancerCollisionHandler (sprinter, dancer) {
-  if ((dancer.y - 70) === sprinter.y) {
+  const hotfix = +30
+  if ((dancer.y + constant.sprinterSprite.heightFix + constant.dancerSprite.heightFix + hotfix) === sprinter.y) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     dancer.x = xValueWhenSpriteKilled
   }
@@ -335,13 +336,13 @@ function generateCat (self, index) {
 }
 
 function generateDancer (self, index) {
-  const {height, width, nbSprites, heightRatio, spriteSpeed} = constant.dancerSprite
+  const {height, width, nbSprites, heightRatio, spriteSpeed, heightFix} = constant.dancerSprite
   const name = 'dancer'
   self[name] = self.game.add.sprite(height, width / nbSprites, 'dancer')
   self[name].scale.setTo(responsive.getRatioFromHeight((width / nbSprites) * heightRatio), responsive.getRatioFromHeight(height * heightRatio))
   self[name].animations.add('run', getArraySpriteFromArrayLength(nbSprites), spriteSpeed, true)
   self[name].play('run')
-  self[name].y = dancerInfo.y[getRandom(0, dancerInfo.y.length - 1)].height
+  self[name].y = dancerInfo.y[getRandom(0, dancerInfo.y.length - 1)].height + heightFix
   // self[name].x = index * obstacleWidthFrequency
   self[name].x = getXFromSpriteName(self, name)
   self[name].enableBody = true
