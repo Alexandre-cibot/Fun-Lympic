@@ -22,21 +22,29 @@ function getRandom (min, max) {
 
 const mamieInfo = {
   name: 'mamie',
-  speed: 1,
+  speed: constant.mamieSprite.speed,
   y: pallier,
   execute: generateMamie
 }
 
 const catInfo = {
   name: 'cat',
-  speed: 1,
+  speed: constant.catSprite.speed,
   y: pallier,
   execute: generateCat
 }
 
+const dancerInfo = {
+  name: 'dancer',
+  speed: constant.catSprite.speed,
+  y: pallier,
+  execute: generateDancer
+}
+
 const obstacles = [
   mamieInfo,
-  catInfo
+  catInfo,
+  dancerInfo
 ]
 console.log(obstacles);
 
@@ -64,6 +72,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('sprinter', './assets/images/spint_sprinter_run.png', constant.sprinterSprite.width / constant.sprinterSprite.nbSprites, constant.sprinterSprite.height)
     this.load.spritesheet('mamie', './assets/images/mamie.png', constant.mamieSprite.width / constant.mamieSprite.nbSprites, constant.mamieSprite.height)
     this.load.spritesheet('cat', './assets/images/sprint_cat.png', constant.catSprite.width / constant.catSprite.nbSprites, constant.catSprite.height)
+    this.load.spritesheet('dancer', './assets/images/sprint_dancer.png', constant.dancerSprite.width / constant.dancerSprite.nbSprites, constant.dancerSprite.height)
   }
 
   render() {
@@ -85,6 +94,7 @@ export default class extends Phaser.State {
 
     this.mamieNames = []
     this.catNames = []
+    this.dancerNames = []
     for (let i = 0; i < gameWidth / obstacleWidthFrequency; i++) {
       const obstacle = getRandom(0, obstacles.length - 1)
       obstacles[obstacle].execute(this, i)
@@ -171,12 +181,16 @@ export default class extends Phaser.State {
   }
   update () {
     this.mamieNames.forEach((mamieName) => {
-      this[mamieName].x = this[mamieName].x - 1.3
+      this[mamieName].x = this[mamieName].x + constant.mamieSprite.speed
       this.physics.arcade.overlap(this.sprinter, this[mamieName], mamieCollisionHandler, null, this)
     })
     this.catNames.forEach((catName) => {
-      this[catName].x = this[catName].x - 1.3
+      this[catName].x = this[catName].x + constant.catSprite.speed
       this.physics.arcade.overlap(this.sprinter, this[catName], catCollisionHandler, null, this)
+    })
+    this.dancerNames.forEach((dancerName) => {
+      this[dancerName].x = this[dancerName].x + constant.catSprite.speed
+      this.physics.arcade.overlap(this.sprinter, this[dancerName], catCollisionHandler, null, this)
     })
     moveBackground(this.background)
 
@@ -212,7 +226,7 @@ export default class extends Phaser.State {
 }
 
 var moveBackground = function (background) {
-  background.x = background.x - 1
+  background.x = background.x + constant.background.speed
 }
 
 function movePlayerRace (self, boolean) {
@@ -279,4 +293,18 @@ function generateCat (self, index) {
   self[name].enableBody = true
   self.physics.arcade.enable(self[name])
   self.catNames.push(name)
+}
+
+function generateDancer (self, index) {
+  const {height, width, nbSprites, heightRatio, spriteSpeed} = constant.dancerSprite
+  const name = 'dancer' + index
+  self[name] = self.game.add.sprite(height, width / nbSprites, 'dancer')
+  self[name].scale.setTo(responsive.getRatioFromHeight((width / nbSprites) * heightRatio), responsive.getRatioFromHeight(height * heightRatio))
+  self[name].animations.add('run', getArraySpriteFromArrayLength(nbSprites), spriteSpeed, true)
+  self[name].play('run')
+  self[name].y = dancerInfo.y[getRandom(0, dancerInfo.y.length - 1)].height
+  self[name].x = index * obstacleWidthFrequency
+  self[name].enableBody = true
+  self.physics.arcade.enable(self[name])
+  self.dancerNames.push(name)
 }
