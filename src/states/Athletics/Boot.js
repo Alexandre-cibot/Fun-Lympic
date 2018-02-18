@@ -23,12 +23,22 @@ function getRandom (min, max) {
 const mamieInfo = {
   name: 'mamie',
   speed: 1,
-  y: [ ...pallier ]
+  y: pallier,
+  execute: generateMamie
 }
 
-const obstacle = [
-  ...mamieInfo,
+const catInfo = {
+  name: 'cat',
+  speed: 1,
+  y: pallier,
+  execute: generateCat
+}
+
+const obstacles = [
+  mamieInfo,
+  catInfo
 ]
+console.log(obstacles);
 
 export default class extends Phaser.State {
   init() {
@@ -51,8 +61,9 @@ export default class extends Phaser.State {
     this.load.image('background', './assets/images/background.jpg')
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
-    this.load.spritesheet('sprinter', './assets/images/spint_sprinter_run.png', 254.6, 300)
-    this.load.spritesheet('mamie', './assets/images/mamie.png', 211, 309)
+    this.load.spritesheet('sprinter', './assets/images/spint_sprinter_run.png', constant.sprinterSprite.width / constant.sprinterSprite.nbSprites, constant.sprinterSprite.height)
+    this.load.spritesheet('mamie', './assets/images/mamie.png', constant.mamieSprite.width / constant.mamieSprite.nbSprites, constant.mamieSprite.height)
+    this.load.spritesheet('cat', './assets/images/sprint_cat.png', constant.catSprite.width / constant.catSprite.nbSprites, constant.catSprite.height)
   }
 
   render() {
@@ -73,13 +84,15 @@ export default class extends Phaser.State {
     this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
 
     this.mamieNames = []
+    this.catNames = []
     for (let i = 0; i < gameWidth / obstacleWidthFrequency; i++) {
-      generateMamie(this, i)
+      const obstacle = getRandom(0, obstacles.length - 1)
+      obstacles[obstacle].execute(this, i)
     }
 
     this.sprinter = this.game.add.sprite(responsive.getWidthFromPercentage(5), responsive.getHeightFromPercentage(100), 'sprinter')
-    this.sprinter.animations.add('run', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 22, true)
-    this.sprinter.scale.setTo(responsive.getRatioFromHeight(254.6 * 4.3), responsive.getRatioFromHeight(300 * 4.3))
+    this.sprinter.animations.add('run', getArraySpriteFromArrayLength(constant.sprinterSprite.nbSprites), constant.sprinterSprite.spriteSpeed, true)
+    this.sprinter.scale.setTo(responsive.getRatioFromHeight((constant.sprinterSprite.width / constant.sprinterSprite.nbSprites) * constant.sprinterSprite.heightRatio), responsive.getRatioFromHeight(constant.sprinterSprite.height * constant.sprinterSprite.heightRatio))
     this.sprinter.play('run')
     this.sprinter.y = pallier[this.playerRace].height - 70
     this.sprinter.enableBody = true
@@ -161,6 +174,10 @@ export default class extends Phaser.State {
       this[mamieName].x = this[mamieName].x - 1.3
       this.physics.arcade.overlap(this.sprinter, this[mamieName], mamieCollisionHandler, null, this)
     })
+    this.catNames.forEach((catName) => {
+      this[catName].x = this[catName].x - 1.3
+      this.physics.arcade.overlap(this.sprinter, this[catName], catCollisionHandler, null, this)
+    })
     moveBackground(this.background)
 
     var direction = this.swipe.check()
@@ -222,7 +239,13 @@ function mamieCollisionHandler (sprinter, mamie) {
   }
 }
 
-function getArraySpriteFromArrayLength(arrayLength) {
+function catCollisionHandler (sprinter, cat) {
+  if ((cat.y - 70) === sprinter.y) {
+    cat.destroy()
+  }
+}
+
+function getArraySpriteFromArrayLength (arrayLength) {
   const array = []
   for (let index = 0; index < arrayLength; index++) {
     array.push(index)
@@ -231,14 +254,29 @@ function getArraySpriteFromArrayLength(arrayLength) {
 }
 
 function generateMamie (self, index) {
+  const {height, width, nbSprites, heightRatio, spriteSpeed} = constant.mamieSprite
   const name = 'mamie' + index
-  self[name] = self.game.add.sprite(constant.mamieSprite.height, constant.mamieSprite.width / constant.mamieSprite.nbSprites, 'mamie')
-  self[name].scale.setTo(responsive.getRatioFromHeight(constant.mamieSprite.height * constant.mamieSprite.heightRatio), responsive.getRatioFromHeight(constant.mamieSprite.height * constant.mamieSprite.heightRatio))
-  self[name].animations.add('run', getArraySpriteFromArrayLength(constant.mamieSprite.nbSprites), constant.mamieSprite.spriteSpeed, true)
+  self[name] = self.game.add.sprite(height, width / nbSprites, 'mamie')
+  self[name].scale.setTo(responsive.getRatioFromHeight((width / nbSprites) * heightRatio), responsive.getRatioFromHeight(height * heightRatio))
+  self[name].animations.add('run', getArraySpriteFromArrayLength(nbSprites), spriteSpeed, true)
   self[name].play('run')
   self[name].y = mamieInfo.y[getRandom(0, mamieInfo.y.length - 1)].height
   self[name].x = index * obstacleWidthFrequency
   self[name].enableBody = true
   self.physics.arcade.enable(self[name])
   self.mamieNames.push(name)
+}
+
+function generateCat (self, index) {
+  const {height, width, nbSprites, heightRatio, spriteSpeed} = constant.mamieSprite
+  const name = 'cat' + index
+  self[name] = self.game.add.sprite(height, constant.catSpritewidth / nbSprites, 'cat')
+  self[name].scale.setTo(responsive.getRatioFromHeight((width / constant.catSprite.nbSprites) * heightRatio), responsive.getRatioFromHeight(height * heightRatio))
+  self[name].animations.add('run', getArraySpriteFromArrayLength(nbSprites), spriteSpeed, true)
+  self[name].play('run')
+  self[name].y = catInfo.y[getRandom(0, catInfo.y.length - 1)].height
+  self[name].x = index * obstacleWidthFrequency
+  self[name].enableBody = true
+  self.physics.arcade.enable(self[name])
+  self.catNames.push(name)
 }
