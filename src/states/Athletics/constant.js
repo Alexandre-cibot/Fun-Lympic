@@ -13,8 +13,8 @@ module.exports = {
     heightFix: -70
   },
   mamieSprite: {
-    width: 384,
-    height: 305,
+    width: 316,
+    height: 250,
     nbSprites: 2,
     spriteSpeed: 8,
     speed: -0.8,
