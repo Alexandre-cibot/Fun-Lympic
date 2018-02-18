@@ -13,6 +13,7 @@ const pallier = [
 
 const gameWidth = 140000 // performance problem, we should create progressively obstacles
 const obstacleWidthFrequency = 300
+const xValueWhenSpriteKilled = -200
 
 function getRandom (min, max) {
   min = Math.ceil(min)
@@ -43,7 +44,6 @@ const obstacles = [
   catInfo,
   dancerInfo
 ]
-console.log(obstacles);
 
 export default class extends Phaser.State {
   init() {
@@ -53,6 +53,7 @@ export default class extends Phaser.State {
   }
 
   preload() {
+    game.time.advancedTiming = true
     // WebFont.load({
     //   custom: {
     //     families: ['myfrida-bold'],
@@ -73,6 +74,7 @@ export default class extends Phaser.State {
   }
 
   render() {
+    game.debug.text(game.time.fps || 25, 2, 14, "black");
     // if (this.fontsReady) {
     // }
   }
@@ -93,14 +95,25 @@ export default class extends Phaser.State {
     this.catNames = []
     this.dancerNames = []
     let previousObstacle = mamieInfo
+    let previousPreviousObstacle = dancerInfo
+    this.obstacleOrder = []
+    this.obstacleOrderIndex = 1
+    // for (let i = 0; i < gameWidth / obstacleWidthFrequency; i++) {
+    // for (let i = 0; i < obstacles.length; i++) {
     for (let i = 0; i < gameWidth / obstacleWidthFrequency; i++) {
       let randomNumber = getRandom(0, obstacles.length - 1)
-      while (obstacles[randomNumber].name === previousObstacle.name) {
+      while (obstacles[randomNumber].name === previousObstacle.name || obstacles[randomNumber].name === previousPreviousObstacle.name) {
         randomNumber = getRandom(0, obstacles.length - 1)
       }
+      previousPreviousObstacle = previousObstacle
       previousObstacle = obstacles[randomNumber]
-      obstacles[randomNumber].execute(this, i)
+      if (!this.obstacleOrder.includes(obstacles[randomNumber].name)) {
+        obstacles[randomNumber].execute(this, this.obstacleOrderIndex)
+        this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+      }
+      this.obstacleOrder.push(obstacles[randomNumber].name)
     }
+    console.log(1, this.obstacleOrder);
 
     this.sprinter = this.game.add.sprite(responsive.getWidthFromPercentage(5), responsive.getHeightFromPercentage(100), 'sprinter')
     this.sprinter.animations.add('run', getArraySpriteFromArrayLength(constant.sprinterSprite.nbSprites), constant.sprinterSprite.spriteSpeed, true)
@@ -182,20 +195,30 @@ export default class extends Phaser.State {
     store.commit('isSprintLoaded', true)
   }
   update () {
-    this.mamieNames.forEach((mamieName) => {
-      // console.log(this[mamieName].x);
-      this[mamieName].x = this[mamieName].x + (this[mamieName].x > responsive.width ? constant.background.speed : constant.mamieSprite.speed)
-      this.physics.arcade.overlap(this.sprinter, this[mamieName], mamieCollisionHandler, null, this)
-    })
-    this.catNames.forEach((catName) => {
-      this[catName].x = this[catName].x + (this[catName].x > responsive.width ? constant.background.speed : constant.catSprite.speed)
-      this.physics.arcade.overlap(this.sprinter, this[catName], catCollisionHandler, null, this)
-    })
-    this.dancerNames.forEach((dancerName) => {
-      this[dancerName].x = this[dancerName].x + (this[dancerName].x > responsive.width ? constant.background.speed : constant.dancerSprite.speed)
-      this.physics.arcade.overlap(this.sprinter, this[dancerName], dancerCollisionHandler, null, this)
-    })
+    // console.log(game.time.fps);
     moveBackground(this.background)
+
+    if (this.mamie.x < xValueWhenSpriteKilled) {
+      this.mamie.x = getXFromSpriteName(this, 'mamie')
+    } else {
+      this.mamie.x = this.mamie.x + (this.mamie.x > responsive.width ? constant.background.speed : constant.mamieSprite.speed)
+      this.physics.arcade.overlap(this.sprinter, this.mamie, mamieCollisionHandler, null, this)
+    }
+
+    if (this.cat.x < xValueWhenSpriteKilled) {
+      // this.cat.x = responsive.width
+      this.cat.x = getXFromSpriteName(this, 'cat')
+    } else {
+      this.cat.x = this.cat.x + (this.cat.x > responsive.width ? constant.background.speed : constant.catSprite.speed)
+      this.physics.arcade.overlap(this.sprinter, this.cat, catCollisionHandler, null, this)
+    }
+
+    if (this.dancer.x < xValueWhenSpriteKilled) {
+      this.dancer.x = getXFromSpriteName(this, 'dancer')
+    } else {
+      this.dancer.x = this.dancer.x + (this.dancer.x > responsive.width ? constant.background.speed : constant.dancerSprite.speed)
+      this.physics.arcade.overlap(this.sprinter, this.dancer, dancerCollisionHandler, null, this)
+    }
 
     var direction = this.swipe.check()
     if (direction !== null) {
@@ -251,19 +274,22 @@ function movePlayerRace (self, boolean) {
 
 function mamieCollisionHandler (sprinter, mamie) {
   if ((mamie.y - 70) === sprinter.y) {
-    mamie.kill()
+    // mamie.kill()
+    mamie.x = xValueWhenSpriteKilled
   }
 }
 
 function catCollisionHandler (sprinter, cat) {
   if ((cat.y - 70) === sprinter.y) {
-    cat.kill()
+    // cat.kill()
+    cat.x = xValueWhenSpriteKilled
   }
 }
 
 function dancerCollisionHandler (sprinter, dancer) {
   if ((dancer.y - 70) === sprinter.y) {
-    dancer.kill()
+    // dancer.kill()
+    dancer.x = xValueWhenSpriteKilled
   }
 }
 
@@ -277,13 +303,14 @@ function getArraySpriteFromArrayLength (arrayLength) {
 
 function generateMamie (self, index) {
   const {height, width, nbSprites, heightRatio, spriteSpeed} = constant.mamieSprite
-  const name = 'mamie' + index
+  const name = 'mamie'
   self[name] = self.game.add.sprite(height, width / nbSprites, 'mamie')
   self[name].scale.setTo(responsive.getRatioFromHeight((width / nbSprites) * heightRatio), responsive.getRatioFromHeight(height * heightRatio))
   self[name].animations.add('run', getArraySpriteFromArrayLength(nbSprites), spriteSpeed, true)
   self[name].play('run')
   self[name].y = mamieInfo.y[getRandom(0, mamieInfo.y.length - 1)].height
-  self[name].x = index * obstacleWidthFrequency
+  // self[name].x = index * obstacleWidthFrequency
+  self[name].x = getXFromSpriteName(self, name)
   self[name].enableBody = true
   self.physics.arcade.enable(self[name])
   self.mamieNames.push(name)
@@ -291,13 +318,14 @@ function generateMamie (self, index) {
 
 function generateCat (self, index) {
   const {height, width, nbSprites, heightRatio, spriteSpeed} = constant.catSprite
-  const name = 'cat' + index
+  const name = 'cat'
   self[name] = self.game.add.sprite(height, width / nbSprites, 'cat')
   self[name].scale.setTo(responsive.getRatioFromHeight((width / nbSprites) * heightRatio), responsive.getRatioFromHeight(height * heightRatio))
   self[name].animations.add('run', getArraySpriteFromArrayLength(nbSprites), spriteSpeed, true)
   self[name].play('run')
   self[name].y = catInfo.y[getRandom(0, catInfo.y.length - 1)].height
-  self[name].x = index * obstacleWidthFrequency
+  // self[name].x = index * obstacleWidthFrequency
+  self[name].x = getXFromSpriteName(self, name)
   self[name].enableBody = true
   self.physics.arcade.enable(self[name])
   self.catNames.push(name)
@@ -305,14 +333,22 @@ function generateCat (self, index) {
 
 function generateDancer (self, index) {
   const {height, width, nbSprites, heightRatio, spriteSpeed} = constant.dancerSprite
-  const name = 'dancer' + index
+  const name = 'dancer'
   self[name] = self.game.add.sprite(height, width / nbSprites, 'dancer')
   self[name].scale.setTo(responsive.getRatioFromHeight((width / nbSprites) * heightRatio), responsive.getRatioFromHeight(height * heightRatio))
   self[name].animations.add('run', getArraySpriteFromArrayLength(nbSprites), spriteSpeed, true)
   self[name].play('run')
   self[name].y = dancerInfo.y[getRandom(0, dancerInfo.y.length - 1)].height
-  self[name].x = index * obstacleWidthFrequency
+  // self[name].x = index * obstacleWidthFrequency
+  self[name].x = getXFromSpriteName(self, name)
   self[name].enableBody = true
   self.physics.arcade.enable(self[name])
   self.dancerNames.push(name)
+}
+
+function getXFromSpriteName (self, spriteName) {
+  // const index = self.obstacleOrder.indexOf(spriteName)
+  self.obstacleOrder.splice(self.obstacleOrderIndex, 1)
+  self.obstacleOrderIndex = self.obstacleOrderIndex + 1
+  return self.obstacleOrderIndex * obstacleWidthFrequency
 }
