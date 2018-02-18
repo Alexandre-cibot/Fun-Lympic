@@ -183,16 +183,17 @@ export default class extends Phaser.State {
   }
   update () {
     this.mamieNames.forEach((mamieName) => {
-      this[mamieName].x = this[mamieName].x + constant.mamieSprite.speed
+      // console.log(this[mamieName].x);
+      this[mamieName].x = this[mamieName].x + (this[mamieName].x > responsive.width ? constant.background.speed : constant.mamieSprite.speed)
       this.physics.arcade.overlap(this.sprinter, this[mamieName], mamieCollisionHandler, null, this)
     })
     this.catNames.forEach((catName) => {
-      this[catName].x = this[catName].x + constant.catSprite.speed
+      this[catName].x = this[catName].x + (this[catName].x > responsive.width ? constant.background.speed : constant.catSprite.speed)
       this.physics.arcade.overlap(this.sprinter, this[catName], catCollisionHandler, null, this)
     })
     this.dancerNames.forEach((dancerName) => {
-      this[dancerName].x = this[dancerName].x + constant.catSprite.speed
-      this.physics.arcade.overlap(this.sprinter, this[dancerName], catCollisionHandler, null, this)
+      this[dancerName].x = this[dancerName].x + (this[dancerName].x > responsive.width ? constant.background.speed : constant.dancerSprite.speed)
+      this.physics.arcade.overlap(this.sprinter, this[dancerName], dancerCollisionHandler, null, this)
     })
     moveBackground(this.background)
 
@@ -256,6 +257,12 @@ function mamieCollisionHandler (sprinter, mamie) {
 }
 
 function catCollisionHandler (sprinter, cat) {
+  if ((cat.y - 70) === sprinter.y) {
+    cat.destroy()
+  }
+}
+
+function dancerCollisionHandler (sprinter, cat) {
   if ((cat.y - 70) === sprinter.y) {
     cat.destroy()
   }
