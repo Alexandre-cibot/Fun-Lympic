@@ -21,8 +21,8 @@ module.exports = {
     heightRatio: 8
   },
   catSprite: {
-    width: 493,
-    height: 135,
+    width: 479,
+    height: 130,
     nbSprites: 4,
     spriteSpeed: 17,
     speed: -1,
@@ -39,7 +39,7 @@ module.exports = {
   },
   duckSprite: {
     width: 265,
-    height: 125,
+    height: 127,
     nbSprites: 2,
     spriteSpeed: 17,
     speed: -1,
