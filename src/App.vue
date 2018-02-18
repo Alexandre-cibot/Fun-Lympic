@@ -1,22 +1,42 @@
 <template>
   <div id="app">
-    <!-- <p>{{text}}</p>
-    <div id="content" v-show="true"></div> -->
-    <router-view/>
+    <router-view
+    :auth="auth" 
+    :authenticated="authenticated">
+    </router-view>
   </div>
 </template>
 
 <script>
-
-if (location.protocol != 'https:' && !location.origin.includes('localhost')) {
+// Redirection to Https.
+if (location.protocol != 'https:' && !location.origin.includes('localhost') && !location.origin.includes('127.0.0.1')) {
   location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
 }
+
+import AuthService from './auth/AuthService'
+const auth = new AuthService()
+const { login, logout, authenticated, authNotifier } = auth
+
 export default {
   name: 'app',
   data () {
+    authNotifier.on('authChange', authState => {
+      this.authenticated = authState.authenticated
+    })
     return {
-      text: "I'm from Vue JS"
+      auth,
+      authenticated
     }
+  },
+  mounted() {
+    // Handle redirection after connexion.
+    if (window.location.href.startsWith('http://localhost:3000/#/access_token')) {
+      this.auth.handleAuthentication();
+    }
+  },
+  methods: {
+    login,
+    logout
   }
 };
 </script>
