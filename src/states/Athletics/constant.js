@@ -36,5 +36,14 @@ module.exports = {
     speed: -1,
     heightRatio: 6,
     heightFix: -15
+  },
+  duckSprite: {
+    width: 265,
+    height: 125,
+    nbSprites: 2,
+    spriteSpeed: 17,
+    speed: -1,
+    heightRatio: 6,
+    heightFix: -15
   }
 }
