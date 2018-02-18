@@ -9,13 +9,14 @@ module.exports = {
     nbSprites: 12,
     spriteSpeed: 22,
     speed: 0,
-    heightRatio: 4.3
+    heightRatio: 4.3,
+    heightFix: -70
   },
   mamieSprite: {
-    width: 423,
-    height: 309,
+    width: 384,
+    height: 305,
     nbSprites: 2,
-    spriteSpeed: 4,
+    spriteSpeed: 8,
     speed: -0.8,
     heightRatio: 8
   },
@@ -28,11 +29,12 @@ module.exports = {
     heightRatio: 6
   },
   dancerSprite: {
-    width: 1208,
-    height: 250,
-    nbSprites: 4,
+    width: 2075,
+    height: 300,
+    nbSprites: 6,
     spriteSpeed: 17,
     speed: -1,
-    heightRatio: 6
+    heightRatio: 6,
+    heightFix: -15
   }
 }
