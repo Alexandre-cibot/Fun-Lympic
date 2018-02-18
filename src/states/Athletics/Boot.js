@@ -22,21 +22,18 @@ function getRandom (min, max) {
 
 const mamieInfo = {
   name: 'mamie',
-  speed: constant.mamieSprite.speed,
   y: pallier,
   execute: generateMamie
 }
 
 const catInfo = {
   name: 'cat',
-  speed: constant.catSprite.speed,
   y: pallier,
   execute: generateCat
 }
 
 const dancerInfo = {
   name: 'dancer',
-  speed: constant.catSprite.speed,
   y: pallier,
   execute: generateDancer
 }
@@ -95,9 +92,14 @@ export default class extends Phaser.State {
     this.mamieNames = []
     this.catNames = []
     this.dancerNames = []
+    let previousObstacle = mamieInfo.name
     for (let i = 0; i < gameWidth / obstacleWidthFrequency; i++) {
-      const obstacle = getRandom(0, obstacles.length - 1)
-      obstacles[obstacle].execute(this, i)
+      let randomNumber = getRandom(0, obstacles.length - 1)
+      if (obstacles[randomNumber].name === previousObstacle) {
+        randomNumber = (randomNumber + 1) > (obstacles.length - 1) ? 0 : randomNumber + 1
+        previousObstacle = obstacles[randomNumber].name
+      }
+      obstacles[randomNumber].execute(this, i)
     }
 
     this.sprinter = this.game.add.sprite(responsive.getWidthFromPercentage(5), responsive.getHeightFromPercentage(100), 'sprinter')
