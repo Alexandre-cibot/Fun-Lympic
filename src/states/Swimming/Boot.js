@@ -474,7 +474,7 @@ export default class extends Phaser.State {
     Object.defineProperty(Array.prototype, "equals", {enumerable: false});
     let ten = [1,1,1,1,1,1,1,1,1,1];
     let twenty = [1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1]
-
+    var pos1 = false;
     function perfect(e){
       e.visible = false;
       bling.play();
@@ -503,20 +503,23 @@ export default class extends Phaser.State {
       }
             
       this.textScore.text = this.score;
-      
       if(this.score > this.rec){
         this.textRecord.text = 'Record : ' + this.score;
       }
       let v = Math.round(Math.random() * 2);
-      for(let u = 0; u< this.life; u++){
-        for(let w = 0; w<this.life; w++){
-          this.arrPos[u][w].visible = false;
-        }        
-      }
+      // for(let u = 0; u< this.life; u++){
+      //     for(let w = 0; w<this.life; w++){
+      //       this.arrPos[u][w].visible = false;
+      //     }
+      //   }
+      
 
       for(let u = 0; u< this.life; u++){
-        this.arrPos[v][u].visible = true;
+        if(!pos1){
+          this.arrPos[v][u].visible = true;
+        }
       }
+      pos1 = true;
 
       for(var i = 0; i < this.life; i++ ){
         starArray[i].visible = true;
@@ -528,6 +531,8 @@ export default class extends Phaser.State {
           this.arrPos[v][i].visible = false;
           starArray[i].visible = false;
           nageuseArr[i].visible = true;
+          pos1 = false
+          console.log('ca a change')
         }
       }, 1000)
     }
