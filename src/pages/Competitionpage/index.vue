@@ -2,13 +2,15 @@
   <div class="wrapper-page bg_purple_light">
     <Navbar text="compétitions" secondBtn="podium" @goBack="goBack"/>
     <div class="wrapper">
-      <ConnexionFB v-if="currentState === 'notConnected'" @showChallenge="showChallenge"/>
-      <CompetitionDashboard v-if="currentState === 'competitionDashboard' || currentState === 'chooseFlag'" @chooseFlag="chooseFlag"/>
-      <Nation v-if="currentState === 'chooseFlag'"  @closeModal="closeModal" @chooseFriends="chooseFriends" />
-      <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/> 
-      <ChallengeFriend v-if="currentState === 'friend'" @before="before" /> 
-      <BeforeGame v-if="currentState === 'before'" />
-      <!-- <ClassementGame /> -->
+      <ConnexionFB v-if="!authenticated" :authenticated="authenticated" :auth="auth" />
+      <div v-else>
+        <CompetitionDashboard v-if="currentState === 'competitionDashboard' || currentState === 'chooseFlag'" @chooseFlag="chooseFlag"/>
+        <Nation v-if="currentState === 'chooseFlag'"  @closeModal="closeModal" @chooseFriends="chooseFriends" />
+        <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/> 
+        <ChallengeFriend v-if="currentState === 'friend'" @before="before" /> 
+        <BeforeGame v-if="currentState === 'before'" />
+        <!-- <ClassementGame /> -->
+      </div>
     </div>
 
   </div>
@@ -28,6 +30,7 @@ import Nation from './components/Nation';
 
 export default {
   name: 'Stade',
+  props: ['auth', 'authenticated'],
   components: {
     Navbar,
     Friends,
@@ -41,7 +44,7 @@ export default {
   },
   data() {
     return {
-      currentState: 'competitionDashboard', //notConnected, competitionDashboard, chooseFriends
+      currentState: 'competitionDashboard', // competitionDashboard, chooseFriends
       history: [],
       connexion : false,
       friends : true,
@@ -53,9 +56,9 @@ export default {
       this.updateHistory(this.currentState);
       this.currentState = "competitionDashboard";
     },
-    showChallenge() {
-      this.connexion = !this.connexion;
-    },
+    // connection() {
+    //   this.connexion = !this.connexion;
+    // },
     chooseFriends() {
       this.updateHistory(this.currentState);
       this.currentState = "chooseFriends"

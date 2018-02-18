@@ -46,7 +46,7 @@ export default new Router({
       component: Parameter
     },
     {
-      path:'/classement',
+      path: '/classement',
       name: 'Classement',
       component: Classement
     },
@@ -56,7 +56,7 @@ export default new Router({
       component: Shopping
     },
     {
-      path:'/character',
+      path: '/character',
       name: 'Character',
       component: Character
     }
