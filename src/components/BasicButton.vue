@@ -1,5 +1,5 @@
 <!--
-Exemple pour apeller ce composant : 
+Exemple pour apeller ce composant :
 <BasicButton title="entrainement" image="" btnColor="blue" @doAction="handleClick" />
 -->
 <template>
@@ -16,6 +16,11 @@ export default {
   name: 'BasicButton',
   props: {
     btnColor: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    btnSize: {
       type: String,
       required: false,
       default: '',
@@ -58,16 +63,16 @@ export default {
         case 'place':
           return require('@/assets/place.svg');
         break;
-        case 'lose': 
+        case 'lose':
           return require('@/assets/lose_white.svg');
         break;
-        case 'win': 
+        case 'win':
           return require('@/assets/natation.svg');
         break;
-        case 'sound': 
+        case 'sound':
           return require('@/assets/sound.svg');
         break;
-        case 'music': 
+        case 'music':
           return require('@/assets/music.svg');
         break;
         default:
@@ -76,21 +81,35 @@ export default {
       }
     },
     btnClass() {
+      let color = '';
+      let size = '';
+
       switch(this.btnColor) {
         case "yellow":
-          return "btnYellow";
+          color = "btnYellow";
         break;
         case "blue":
-          return "btnBlue";
+          color = "btnBlue";
         break;
       }
+
+      switch(this.btnSize) {
+        case "mid":
+          size = "midSize";
+        break;
+        case "big":
+          size = "bigSize";
+        break;
+      }
+
+      return `${color}${size ? ' ' + size : ''}`;
     }
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>  
+<style scoped>
 
   .BasicButton {
     display: flex;
@@ -129,11 +148,17 @@ export default {
     font-size: 0.9em;
   }
   .btnYellow {
-    box-shadow: 0px 6px 0px 0px #F1B946;
-    background-color: #FFD360;
+    box-shadow: 0px 6px 0px 0px #E9AF15;
+    background-color: #FCCB49;
     font-size: 1.7em;
     width: 100%;
+    min-height: 9.5vh;
+  }
+  .midSize {
     min-height: 8vh;
+  }
+  .bigSize {
+    min-height: 9.5vh;
   }
   .btn-title {
     text-transform: uppercase;

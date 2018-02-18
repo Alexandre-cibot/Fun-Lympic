@@ -5,18 +5,18 @@
       <div class="block1">
         <div class="sound">
           <h2>SON</h2>
-          <BasicButton image="sound" btnColor="yellow" @click="()=>{console.log('click')}" />
+          <BasicButton image="sound" btnColor="yellow" btnSize="mid" @click="()=>{console.log('click')}" />
         </div>
         <div class="music">
           <h2>MUSIC</h2>
-          <BasicButton image="music" btnColor="yellow" @click="()=>{console.log('click')}" />
+          <BasicButton image="music" btnColor="yellow" btnSize="mid" @click="()=>{console.log('click')}" />
         </div>
       </div>
       <div class="block2">
         <h2>LANGUE</h2>
         <div class="langages">
           <div v-for="(lang, key) in languages" :key="key">
-            <BasicButton :title="lang.text" btnColor="blue" @click="selectLanguage(lang.name)" />
+            <BasicButton :title="lang.text" btnColor="blue" btnSize="mid" @click="selectLanguage(lang.name)" />
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@ export default {
             name: 'spanish',
             text: 'ESPAÑOL'
           },
-          { 
+          {
             name: 'french',
             text: 'FRANÇAIS'},
           {
@@ -80,7 +80,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>  
+<style scoped>
 .wrapper-page {
   height: 100%;
   overflow-y: hidden;
@@ -133,4 +133,3 @@ h2 {
 }
 
 </style>
-
