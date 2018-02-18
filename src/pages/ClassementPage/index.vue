@@ -18,12 +18,12 @@
         <div v-if="flagClassement || planetClassement || facebookClassement"  class="scrollDiv">
           <div v-for="(friend, key) in friendsArray" :key="key" class="classement">
             <ClassementFriends v-if="key == 2" :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" :owner="true" />
-            <ClassementFriends v-else :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" />          
+            <ClassementFriends v-else :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" />
           </div>
         </div>
         <div v-else>
           <p class="text_friends">Aucun ami ne joue encore à <br/> Finger Games :(</p>
-          <BasicButton btnColor="blue" title="Inviter des amis !" image="facebook" @click="facebook"/>
+          <BasicButton btnColor="blue" btnSize="big" title="Inviter des amis !" image="facebook" @click="facebook"/>
         </div>
       </div>
       <div class="button_bottom">
@@ -32,7 +32,7 @@
         <ClassementButton image="planet" @click.native="planet" :class="currentState == 'planet' ? 'btnYellow' : 'btnBlue'"/>
       </div>
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -270,7 +270,7 @@ export default {
       }else {
         this.array = this.friendsPlanet;
       }
-      
+
       function compare(a, b) {
         if (a.points > b.points)
           return -1;
