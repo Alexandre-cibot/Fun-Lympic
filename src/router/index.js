@@ -10,6 +10,7 @@ import Parameter from '@/pages/ParameterPage/index.vue'
 import Classement from '@/pages/ClassementPage/index.vue'
 import Shopping from '@/pages/ShoppingPage/index.vue'
 import Character from '@/pages/CharacterPage/index.vue'
+import SwimmingTuto from '@/pages/TutoPage/Swimming.vue'
 
 Vue.use(Router)
 
@@ -59,6 +60,11 @@ export default new Router({
       path:'/character',
       name: 'Character',
       component: Character
+    },
+    {
+      path:'/swimming/tuto',
+      name: 'SwimmingTuto',
+      component: SwimmingTuto
     }
   ]
 })
