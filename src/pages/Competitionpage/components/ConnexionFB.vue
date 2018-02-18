@@ -5,7 +5,7 @@
           <p>Connectez-vous pour accéder au stade et défier vos amis</p>
       </div>
       <!-- <router-link :to="{ path: '/stade/challenge' }" style="width:100%;"> -->
-        <BasicButton title="connexion" image="facebook" btnColor="blue_border" @click="auth.login()" />
+        <BasicButton title="connexion" image="facebook" btnColor="blue" @click="auth.login()" />
       <!-- </router-link> -->
   </div>
 </template>
