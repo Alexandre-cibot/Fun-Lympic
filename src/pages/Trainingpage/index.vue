@@ -4,7 +4,7 @@
   <div class="wrapper">
     <div class="scroll_card">
       <Card class="animated card hidden" text="Athlétisme" image="athletisme" :score="65" @click="runAthletismeGame" />
-      <Card class="animated card hidden" text="Natation" image="swimming" :score="123" :blue="true" @click="runSwimmingGame" />
+      <Card class="animated card hidden" text="Natation synchronisée" image="swimming" :score="123" :blue="true" @click="runSwimmingGame" />
       <div class="gutter"><h1>Coucou</h1></div>
     </div>
     <Classement class="animated classement hidden" firstScore="237" secondScore="183" thirdScore="93" image="@/assets/alex.png"/>
