@@ -2,7 +2,7 @@
   <div class="connexionFB">
     <div class="info-content">
           <img src="@/assets/facebook.svg" alt="">
-          <p>Connectez-vous pour accéder au stade et défier vos amis</p>
+          <p>Connecte-toi pour accéder au stade et défier tes amis</p>
       </div>
       <!-- <router-link :to="{ path: '/stade/challenge' }" style="width:100%;"> -->
         <BasicButton title="connexion" image="facebook" btnColor="blue" @click="auth.login()" />
@@ -42,7 +42,7 @@ p {
   text-align: center;
 }
 h2 {
-  font-size: 1.2em;  
+  font-size: 1.2em;
   text-transform: uppercase;
   padding-bottom: 1vh;
 }
@@ -67,4 +67,3 @@ h2 {
   margin-bottom: 35px;
 }
 </style>
-
