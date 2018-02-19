@@ -6,7 +6,7 @@
         <img src="@/assets/enora.jpg" class="profil_pic" />
       </div>
       <div class="score">
-        <img src="@/assets/two_stars.svg" class="stars"/><p>{{ secondScore }}</p>
+        <img src="@/assets/silver.png" class="stars"/><p>{{ secondScore }}</p>
       </div>
     </div>
     <div class="first">
@@ -14,7 +14,7 @@
         <img :src="imagePath" class="profil_pic" />
         </div>
       <div class="score">
-        <img src="@/assets/three_stars.svg" class="stars" /><p>{{ firstScore }}</p>
+        <img src="@/assets/gold.png" class="stars" /><p>{{ firstScore }}</p>
       </div>
     </div>
     <div class="third">
@@ -22,7 +22,7 @@
         <img src="@/assets/hugo.jpg" class="profil_pic" />
         </div>
       <div class="score">
-        <img src="@/assets/star.svg" class="stars"/><p>{{ thirdScore }}</p>
+        <img src="@/assets/bronze.png" class="stars"/><p>{{ thirdScore }}</p>
       </div>      
     </div>
   </div>
@@ -69,7 +69,7 @@ export default {
  .circle, .circleCenter{
   min-height: 0;
   overflow: visible;
-  height: 90%;
+  height: 84%;
   text-align: center;
 }
 .circleCenter{
@@ -86,7 +86,6 @@ export default {
   justify-content: center;
   align-items: center;
   height: 3vh;
-  width: 3vh;
 }
 .stars {
   margin-bottom: 5px;
@@ -106,13 +105,13 @@ export default {
 .background {
   display: flex;
   position: absolute;
-  width: 80%;
+  width: 90%;
   bottom: 0;
   left: 0;
   right: 0;
   margin: 0 auto;
-  height: 10vh;
-  border-radius: 20px 20px 0 0;
+  height: 11vh;
+  border-radius: 10px 10px 0 0;
   background: #2D1862;
 }
 .container{
