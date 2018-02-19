@@ -10,11 +10,14 @@ const pallier = [
   {height: responsive.getHeightFromPercentage(53)},
   {height: responsive.getHeightFromPercentage(66)}
 ]
-
 const gameWidth = 140000
 const obstacleWidthFrequency = 600
 const xValueWhenSpriteKilled = -200
 let speedCoef = 1.3
+const sprinterFallFrameFlag = {
+  counter: 0,
+  max: constant.sprinterFallSprite.nbSprites - 1
+}
 
 const mamieInfo = {
   name: 'mamie',
@@ -77,6 +80,7 @@ export default class extends Phaser.State {
     this.load.image('play', './assets/images/play.svg')
     this.load.spritesheet('sprinter', './assets/images/sprint_sprinter_run.png', constant.sprinterSprite.width / constant.sprinterSprite.nbSprites, constant.sprinterSprite.height)
     this.load.spritesheet('sprinter_stop', './assets/images/sprint_sprinter_stop.png', constant.sprinterStopSprite.width / constant.sprinterStopSprite.nbSprites, constant.sprinterStopSprite.height)
+    this.load.spritesheet('sprinter_fall', './assets/images/sprint_sprinter_fall.png', constant.sprinterFallSprite.width / constant.sprinterFallSprite.nbSprites, constant.sprinterFallSprite.height)
     this.load.spritesheet('mamie', './assets/images/sprint_mamie.png', constant.mamieSprite.width / constant.mamieSprite.nbSprites, constant.mamieSprite.height)
     this.load.spritesheet('cat', './assets/images/sprint_cat.png', constant.catSprite.width / constant.catSprite.nbSprites, constant.catSprite.height)
     this.load.spritesheet('dancer', './assets/images/sprint_dancer.png', constant.dancerSprite.width / constant.dancerSprite.nbSprites, constant.dancerSprite.height)
@@ -96,6 +100,7 @@ export default class extends Phaser.State {
 
   create () {
     this.go = false
+    this.fall = false
 
     this.time = 3
     this.countDown = setInterval(() => {
@@ -128,8 +133,6 @@ export default class extends Phaser.State {
     let previousPreviousObstacle = dancerInfo
     this.obstacleOrder = []
     this.obstacleOrderIndex = 1
-    // for (let i = 0; i < gameWidth / obstacleWidthFrequency; i++) {
-    // for (let i = 0; i < obstacles.length; i++) {
     for (let i = 0; i < gameWidth / obstacleWidthFrequency; i++) {
       let randomNumber = getRandom(0, obstacles.length - 1)
       while (obstacles[randomNumber].name === previousObstacle.name || obstacles[randomNumber].name === previousPreviousObstacle.name) {
@@ -161,6 +164,28 @@ export default class extends Phaser.State {
     this.sprinterStop.y = pallier[this.playerRace].height + constant.sprinterStopSprite.heightFix
     this.sprinterStop.enableBody = true
     this.physics.arcade.enable(this.sprinterStop)
+
+    this.sprinterFall = this.game.add.sprite(responsive.getWidthFromPercentage(16), responsive.getHeightFromPercentage(100), 'sprinter_fall')
+    this.sprinterFall.animations.add('run', getArraySpriteFromArrayLength(constant.sprinterFallSprite.nbSprites), constant.sprinterFallSprite.spriteSpeed, false)
+    this.sprinterFall.scale.setTo(responsive.getRatioFromHeight((constant.sprinterSprite.width / constant.sprinterSprite.nbSprites) * constant.sprinterFallSprite.heightRatio), responsive.getRatioFromHeight(constant.sprinterFallSprite.height * constant.sprinterFallSprite.heightRatio))
+    this.sprinterFall.play('run')
+    this.sprinterFall.y = pallier[this.playerRace].height + constant.sprinterFallSprite.heightFix
+    this.sprinterFall.enableBody = true
+    this.physics.arcade.enable(this.sprinterFall)
+
+    // life system
+    this.lifeRemaining = 3
+    this.sprinter.nbFlashing = 0
+    this.sprinter.flashBoolean = true
+    console.log('life', this.lifeRemaining);
+    this.substractLife = function () {
+      this.sprinter.nbFlashing = 80
+      this.lifeRemaining = this.lifeRemaining - 1
+      if (this.lifeRemaining <= 0) {
+        this.fall = true
+      }
+    }
+    // END life system
 
     // Create menu
     var image = game.add.sprite(20, 20, 'pause');
@@ -234,85 +259,117 @@ export default class extends Phaser.State {
     store.commit('isSprintLoaded', true)
   }
   update () {
-    console.log('speedCoef', speedCoef);
+    // console.log('speedCoef', speedCoef);
     // console.log('FPS', game.time.fps);
-    if (this.go) {
-      this.sprinter.visible = true
-      this.sprinterStop.visible = false
-      moveBackground(this.background)
-
-      if (this.mamie.x < xValueWhenSpriteKilled) {
-        this.obstacleOrderIndex = this.obstacleOrderIndex + 1
-        this.mamie.x = getXFromSpriteName(this, 'mamie')
-      } else {
-        this.mamie.x = this.mamie.x + (this.mamie.x > responsive.width ? constant.background.speed * speedCoef : constant.mamieSprite.speed * speedCoef)
-        this.physics.arcade.overlap(this.sprinter, this.mamie, mamieCollisionHandler, null, this)
-      }
-
-      if (this.cat.x < xValueWhenSpriteKilled) {
-        // this.cat.x = responsive.width
-        this.obstacleOrderIndex = this.obstacleOrderIndex + 1
-        this.cat.x = getXFromSpriteName(this, 'cat')
-      } else {
-        this.cat.x = this.cat.x + (this.cat.x > responsive.width ? constant.background.speed * speedCoef : constant.catSprite.speed * speedCoef)
-        this.physics.arcade.overlap(this.sprinter, this.cat, catCollisionHandler, null, this)
-      }
-
-      if (this.dancer.x < xValueWhenSpriteKilled) {
-        this.obstacleOrderIndex = this.obstacleOrderIndex + 1
-        this.dancer.x = getXFromSpriteName(this, 'dancer')
-      } else {
-        this.dancer.x = this.dancer.x + (this.dancer.x > responsive.width ? constant.background.speed * speedCoef : constant.dancerSprite.speed * speedCoef)
-        this.physics.arcade.overlap(this.sprinter, this.dancer, dancerCollisionHandler, null, this)
-      }
-
-      if (this.duck.x < xValueWhenSpriteKilled) {
-        this.obstacleOrderIndex = this.obstacleOrderIndex + 1
-        this.duck.x = getXFromSpriteName(this, 'duck')
-      } else {
-        this.duck.x = this.duck.x + (this.duck.x > responsive.width ? constant.background.speed * speedCoef : constant.duckSprite.speed * speedCoef)
-        this.physics.arcade.overlap(this.sprinter, this.duck, duckCollisionHandler, null, this)
-      }
-
-      if (this.plot.x < xValueWhenSpriteKilled) {
-        this.obstacleOrderIndex = this.obstacleOrderIndex + 1
-        this.plot.x = getXFromSpriteName(this, 'plot')
-      } else {
-        this.plot.x = this.plot.x + (this.plot.x > responsive.width ? constant.background.speed * speedCoef : constant.plotSprite.speed * speedCoef)
-        this.physics.arcade.overlap(this.sprinter, this.plot, plotCollisionHandler, null, this)
-      }
-
-      var direction = this.swipe.check()
-      if (direction !== null) {
-        // direction= { x: x, y: y, direction: direction }
-        switch (direction.direction) {
-          case this.swipe.DIRECTION_LEFT:
-            break
-          case this.swipe.DIRECTION_RIGHT:
-            break
-          case this.swipe.DIRECTION_UP:
-            movePlayerRace(this, false)
-            break
-          case this.swipe.DIRECTION_DOWN:
-            movePlayerRace(this, true)
-            break
-          case this.swipe.DIRECTION_UP_LEFT:
-            movePlayerRace(this, false)
-            break
-          case this.swipe.DIRECTION_UP_RIGHT:
-            movePlayerRace(this, false)
-            break
-          case this.swipe.DIRECTION_DOWN_LEFT:
-            movePlayerRace(this, true)
-            break
-          case this.swipe.DIRECTION_DOWN_RIGHT:
-            movePlayerRace(this, true)
-            break
+    if (!this.go) {
+      if (this.fall) {
+        if (sprinterFallFrameFlag.counter <= sprinterFallFrameFlag.max) {
+          this.sprinterFall.frame = sprinterFallFrameFlag.counter
+          sprinterFallFrameFlag.counter = sprinterFallFrameFlag.counter + 1
         }
+        this.sprinterFall.revive()
+
+        this.sprinter.visible = false
+        this.sprinterStop.visible = false
+        this.sprinterFall.visible = true
+      } else {
+        this.sprinter.visible = false
+        this.sprinterStop.visible = true
+        this.sprinterFall.visible = false
       }
+      return
+    }
+    this.sprinter.visible = true
+    this.sprinterStop.kill()
+    this.sprinterFall.kill()
+    if (this.lifeRemaining <= 0 && this.fall) {
+      this.sprinter.kill()
+      this.sprinterFall.revive()
+      this.go = false
+    }
+    // console.log('flash', this.sprinter.nbFlashing);
+    if (this.sprinter.nbFlashing > 0) {
+      if (this.sprinter.flashBoolean) {
+        this.sprinter.alpha = 0.4
+      } else {
+        this.sprinter.alpha = 1
+      }
+      this.sprinter.flashBoolean = !this.sprinter.flashBoolean
+      this.sprinter.nbFlashing = this.sprinter.nbFlashing - 1
     } else {
-      this.sprinter.visible = false
-      this.sprinterStop.visible = true
+      this.sprinter.alpha = 1
+    }
+
+    moveBackground(this.background)
+
+    if (this.mamie.x < xValueWhenSpriteKilled) {
+      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+      this.mamie.x = getXFromSpriteName(this, 'mamie')
+    } else {
+      this.mamie.x = this.mamie.x + (this.mamie.x > responsive.width ? constant.background.speed * speedCoef : constant.mamieSprite.speed * speedCoef)
+      this.physics.arcade.overlap(this.sprinter, this.mamie, mamieCollisionHandler, null, this)
+    }
+
+    if (this.cat.x < xValueWhenSpriteKilled) {
+      // this.cat.x = responsive.width
+      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+      this.cat.x = getXFromSpriteName(this, 'cat')
+    } else {
+      this.cat.x = this.cat.x + (this.cat.x > responsive.width ? constant.background.speed * speedCoef : constant.catSprite.speed * speedCoef)
+      this.physics.arcade.overlap(this.sprinter, this.cat, catCollisionHandler, null, this)
+    }
+
+    if (this.dancer.x < xValueWhenSpriteKilled) {
+      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+      this.dancer.x = getXFromSpriteName(this, 'dancer')
+    } else {
+      this.dancer.x = this.dancer.x + (this.dancer.x > responsive.width ? constant.background.speed * speedCoef : constant.dancerSprite.speed * speedCoef)
+      this.physics.arcade.overlap(this.sprinter, this.dancer, dancerCollisionHandler, null, this)
+    }
+
+    if (this.duck.x < xValueWhenSpriteKilled) {
+      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+      this.duck.x = getXFromSpriteName(this, 'duck')
+    } else {
+      this.duck.x = this.duck.x + (this.duck.x > responsive.width ? constant.background.speed * speedCoef : constant.duckSprite.speed * speedCoef)
+      this.physics.arcade.overlap(this.sprinter, this.duck, duckCollisionHandler, null, this)
+    }
+
+    if (this.plot.x < xValueWhenSpriteKilled) {
+      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+      this.plot.x = getXFromSpriteName(this, 'plot')
+    } else {
+      this.plot.x = this.plot.x + (this.plot.x > responsive.width ? constant.background.speed * speedCoef : constant.plotSprite.speed * speedCoef)
+      this.physics.arcade.overlap(this.sprinter, this.plot, plotCollisionHandler, null, this)
+    }
+
+    var direction = this.swipe.check()
+    if (direction !== null) {
+      // direction= { x: x, y: y, direction: direction }
+      switch (direction.direction) {
+        case this.swipe.DIRECTION_LEFT:
+          break
+        case this.swipe.DIRECTION_RIGHT:
+          break
+        case this.swipe.DIRECTION_UP:
+          movePlayerRace(this, false)
+          break
+        case this.swipe.DIRECTION_DOWN:
+          movePlayerRace(this, true)
+          break
+        case this.swipe.DIRECTION_UP_LEFT:
+          movePlayerRace(this, false)
+          break
+        case this.swipe.DIRECTION_UP_RIGHT:
+          movePlayerRace(this, false)
+          break
+        case this.swipe.DIRECTION_DOWN_LEFT:
+          movePlayerRace(this, true)
+          break
+        case this.swipe.DIRECTION_DOWN_RIGHT:
+          movePlayerRace(this, true)
+          break
+      }
     }
   }
 }
@@ -342,6 +399,7 @@ function mamieCollisionHandler (sprinter, mamie) {
   if ((mamie.y + constant.sprinterSprite.heightFix) === sprinter.y) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     mamie.x = xValueWhenSpriteKilled
+    this.substractLife()
   }
 }
 
@@ -349,6 +407,7 @@ function catCollisionHandler (sprinter, cat) {
   if ((cat.y + constant.sprinterSprite.heightFix) === sprinter.y) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     cat.x = xValueWhenSpriteKilled
+    this.substractLife()
   }
 }
 
@@ -357,6 +416,7 @@ function dancerCollisionHandler (sprinter, dancer) {
   if ((dancer.y + constant.sprinterSprite.heightFix + constant.dancerSprite.heightFix + hotfix) === sprinter.y) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     dancer.x = xValueWhenSpriteKilled
+    this.substractLife()
   }
 }
 
@@ -365,6 +425,7 @@ function duckCollisionHandler (sprinter, duck) {
   if ((duck.y + constant.sprinterSprite.heightFix + constant.duckSprite.heightFix + hotfix) === sprinter.y) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     duck.x = xValueWhenSpriteKilled
+    this.substractLife()
   }
 }
 
@@ -373,6 +434,7 @@ function plotCollisionHandler (sprinter, plot) {
   if ((plot.y + constant.sprinterSprite.heightFix + constant.plotSprite.heightFix + hotfix) === sprinter.y) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     plot.x = xValueWhenSpriteKilled
+    this.substractLife()
   }
 }
 
