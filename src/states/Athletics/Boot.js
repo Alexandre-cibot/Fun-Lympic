@@ -14,12 +14,7 @@ const pallier = [
 const gameWidth = 140000
 const obstacleWidthFrequency = 600
 const xValueWhenSpriteKilled = -200
-
-function getRandom (min, max) {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
+let speedCoef = 1.3
 
 const mamieInfo = {
   name: 'mamie',
@@ -58,7 +53,6 @@ const obstacles = [
   duckInfo,
   plotInfo
 ]
-
 export default class extends Phaser.State {
   init() {
     this.stage.backgroundColor = '#EDEEC9'
@@ -82,6 +76,7 @@ export default class extends Phaser.State {
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
     this.load.spritesheet('sprinter', './assets/images/sprint_sprinter_run.png', constant.sprinterSprite.width / constant.sprinterSprite.nbSprites, constant.sprinterSprite.height)
+    this.load.spritesheet('sprinter_stop', './assets/images/sprint_sprinter_stop.png', constant.sprinterStopSprite.width / constant.sprinterStopSprite.nbSprites, constant.sprinterStopSprite.height)
     this.load.spritesheet('mamie', './assets/images/sprint_mamie.png', constant.mamieSprite.width / constant.mamieSprite.nbSprites, constant.mamieSprite.height)
     this.load.spritesheet('cat', './assets/images/sprint_cat.png', constant.catSprite.width / constant.catSprite.nbSprites, constant.catSprite.height)
     this.load.spritesheet('dancer', './assets/images/sprint_dancer.png', constant.dancerSprite.width / constant.dancerSprite.nbSprites, constant.dancerSprite.height)
@@ -100,6 +95,23 @@ export default class extends Phaser.State {
   }
 
   create () {
+    this.go = false
+
+    this.time = 3
+    this.countDown = setInterval(() => {
+      this.time--
+      console.log('Compte à rebours', this.time)
+      // this.textCountDown.text = this.time
+      if (this.time === 0) {
+        this.go = true
+        clearInterval(this.countDown)
+      }
+    }, 1000)
+
+    const speedCoefInterval = setInterval(() => {
+      speedCoef = speedCoef * constant.speed.multiplicator
+    }, constant.speed.every)
+
     this.swipe = new Swipe(this.game)
     this.playerRace = 1
 
@@ -131,7 +143,7 @@ export default class extends Phaser.State {
       }
       this.obstacleOrder.push(obstacles[randomNumber].name)
     }
-    console.log(1, this.obstacleOrder);
+    console.log('Ordre des obstacles', this.obstacleOrder)
 
     this.sprinter = this.game.add.sprite(responsive.getWidthFromPercentage(5), responsive.getHeightFromPercentage(100), 'sprinter')
     this.sprinter.animations.add('run', getArraySpriteFromArrayLength(constant.sprinterSprite.nbSprites), constant.sprinterSprite.spriteSpeed, true)
@@ -140,6 +152,15 @@ export default class extends Phaser.State {
     this.sprinter.y = pallier[this.playerRace].height + constant.sprinterSprite.heightFix
     this.sprinter.enableBody = true
     this.physics.arcade.enable(this.sprinter)
+    this.sprinter.visible = false
+
+    this.sprinterStop = this.game.add.sprite(responsive.getWidthFromPercentage(16), responsive.getHeightFromPercentage(100), 'sprinter_stop')
+    this.sprinterStop.animations.add('run', getArraySpriteFromArrayLength(constant.sprinterStopSprite.nbSprites), constant.sprinterStopSprite.spriteSpeed, true)
+    this.sprinterStop.scale.setTo(responsive.getRatioFromHeight((constant.sprinterSprite.width / constant.sprinterSprite.nbSprites) * constant.sprinterStopSprite.heightRatio), responsive.getRatioFromHeight(constant.sprinterStopSprite.height * constant.sprinterStopSprite.heightRatio))
+    this.sprinterStop.play('run')
+    this.sprinterStop.y = pallier[this.playerRace].height + constant.sprinterStopSprite.heightFix
+    this.sprinterStop.enableBody = true
+    this.physics.arcade.enable(this.sprinterStop)
 
     // Create menu
     var image = game.add.sprite(20, 20, 'pause');
@@ -213,83 +234,91 @@ export default class extends Phaser.State {
     store.commit('isSprintLoaded', true)
   }
   update () {
-    // console.log(game.time.fps);
-    moveBackground(this.background)
+    console.log('speedCoef', speedCoef);
+    // console.log('FPS', game.time.fps);
+    if (this.go) {
+      this.sprinter.visible = true
+      this.sprinterStop.visible = false
+      moveBackground(this.background)
 
-    if (this.mamie.x < xValueWhenSpriteKilled) {
-      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
-      this.mamie.x = getXFromSpriteName(this, 'mamie')
-    } else {
-      this.mamie.x = this.mamie.x + (this.mamie.x > responsive.width ? constant.background.speed : constant.mamieSprite.speed)
-      this.physics.arcade.overlap(this.sprinter, this.mamie, mamieCollisionHandler, null, this)
-    }
-
-    if (this.cat.x < xValueWhenSpriteKilled) {
-      // this.cat.x = responsive.width
-      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
-      this.cat.x = getXFromSpriteName(this, 'cat')
-    } else {
-      this.cat.x = this.cat.x + (this.cat.x > responsive.width ? constant.background.speed : constant.catSprite.speed)
-      this.physics.arcade.overlap(this.sprinter, this.cat, catCollisionHandler, null, this)
-    }
-
-    if (this.dancer.x < xValueWhenSpriteKilled) {
-      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
-      this.dancer.x = getXFromSpriteName(this, 'dancer')
-    } else {
-      this.dancer.x = this.dancer.x + (this.dancer.x > responsive.width ? constant.background.speed : constant.dancerSprite.speed)
-      this.physics.arcade.overlap(this.sprinter, this.dancer, dancerCollisionHandler, null, this)
-    }
-
-    if (this.duck.x < xValueWhenSpriteKilled) {
-      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
-      this.duck.x = getXFromSpriteName(this, 'duck')
-    } else {
-      this.duck.x = this.duck.x + (this.duck.x > responsive.width ? constant.background.speed : constant.duckSprite.speed)
-      this.physics.arcade.overlap(this.sprinter, this.duck, duckCollisionHandler, null, this)
-    }
-
-    if (this.plot.x < xValueWhenSpriteKilled) {
-      this.obstacleOrderIndex = this.obstacleOrderIndex + 1
-      this.plot.x = getXFromSpriteName(this, 'plot')
-    } else {
-      this.plot.x = this.plot.x + (this.plot.x > responsive.width ? constant.background.speed : constant.plotSprite.speed)
-      this.physics.arcade.overlap(this.sprinter, this.plot, plotCollisionHandler, null, this)
-    }
-
-    var direction = this.swipe.check()
-    if (direction !== null) {
-      // direction= { x: x, y: y, direction: direction }
-      switch (direction.direction) {
-        case this.swipe.DIRECTION_LEFT:
-          break
-        case this.swipe.DIRECTION_RIGHT:
-          break
-        case this.swipe.DIRECTION_UP:
-          movePlayerRace(this, false)
-          break
-        case this.swipe.DIRECTION_DOWN:
-          movePlayerRace(this, true)
-          break
-        case this.swipe.DIRECTION_UP_LEFT:
-          movePlayerRace(this, false)
-          break
-        case this.swipe.DIRECTION_UP_RIGHT:
-          movePlayerRace(this, false)
-          break
-        case this.swipe.DIRECTION_DOWN_LEFT:
-          movePlayerRace(this, true)
-          break
-        case this.swipe.DIRECTION_DOWN_RIGHT:
-          movePlayerRace(this, true)
-          break
+      if (this.mamie.x < xValueWhenSpriteKilled) {
+        this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+        this.mamie.x = getXFromSpriteName(this, 'mamie')
+      } else {
+        this.mamie.x = this.mamie.x + (this.mamie.x > responsive.width ? constant.background.speed * speedCoef : constant.mamieSprite.speed * speedCoef)
+        this.physics.arcade.overlap(this.sprinter, this.mamie, mamieCollisionHandler, null, this)
       }
+
+      if (this.cat.x < xValueWhenSpriteKilled) {
+        // this.cat.x = responsive.width
+        this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+        this.cat.x = getXFromSpriteName(this, 'cat')
+      } else {
+        this.cat.x = this.cat.x + (this.cat.x > responsive.width ? constant.background.speed * speedCoef : constant.catSprite.speed * speedCoef)
+        this.physics.arcade.overlap(this.sprinter, this.cat, catCollisionHandler, null, this)
+      }
+
+      if (this.dancer.x < xValueWhenSpriteKilled) {
+        this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+        this.dancer.x = getXFromSpriteName(this, 'dancer')
+      } else {
+        this.dancer.x = this.dancer.x + (this.dancer.x > responsive.width ? constant.background.speed * speedCoef : constant.dancerSprite.speed * speedCoef)
+        this.physics.arcade.overlap(this.sprinter, this.dancer, dancerCollisionHandler, null, this)
+      }
+
+      if (this.duck.x < xValueWhenSpriteKilled) {
+        this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+        this.duck.x = getXFromSpriteName(this, 'duck')
+      } else {
+        this.duck.x = this.duck.x + (this.duck.x > responsive.width ? constant.background.speed * speedCoef : constant.duckSprite.speed * speedCoef)
+        this.physics.arcade.overlap(this.sprinter, this.duck, duckCollisionHandler, null, this)
+      }
+
+      if (this.plot.x < xValueWhenSpriteKilled) {
+        this.obstacleOrderIndex = this.obstacleOrderIndex + 1
+        this.plot.x = getXFromSpriteName(this, 'plot')
+      } else {
+        this.plot.x = this.plot.x + (this.plot.x > responsive.width ? constant.background.speed * speedCoef : constant.plotSprite.speed * speedCoef)
+        this.physics.arcade.overlap(this.sprinter, this.plot, plotCollisionHandler, null, this)
+      }
+
+      var direction = this.swipe.check()
+      if (direction !== null) {
+        // direction= { x: x, y: y, direction: direction }
+        switch (direction.direction) {
+          case this.swipe.DIRECTION_LEFT:
+            break
+          case this.swipe.DIRECTION_RIGHT:
+            break
+          case this.swipe.DIRECTION_UP:
+            movePlayerRace(this, false)
+            break
+          case this.swipe.DIRECTION_DOWN:
+            movePlayerRace(this, true)
+            break
+          case this.swipe.DIRECTION_UP_LEFT:
+            movePlayerRace(this, false)
+            break
+          case this.swipe.DIRECTION_UP_RIGHT:
+            movePlayerRace(this, false)
+            break
+          case this.swipe.DIRECTION_DOWN_LEFT:
+            movePlayerRace(this, true)
+            break
+          case this.swipe.DIRECTION_DOWN_RIGHT:
+            movePlayerRace(this, true)
+            break
+        }
+      }
+    } else {
+      this.sprinter.visible = false
+      this.sprinterStop.visible = true
     }
   }
 }
 
 var moveBackground = function (background) {
-  background.x = background.x + constant.background.speed
+  background.x = background.x + (constant.background.speed * speedCoef)
 }
 
 function movePlayerRace (self, boolean) {
@@ -432,4 +461,10 @@ function generatePlot (self, index) {
 
 function getXFromSpriteName (self, spriteName) {
   return self.obstacleOrderIndex * obstacleWidthFrequency
+}
+
+function getRandom (min, max) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min + 1)) + min
 }
