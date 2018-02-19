@@ -6,9 +6,9 @@ export default {
   name:"AthleticsTuto",
   methods:{
     disappear(){
-      this.$router.push('/swimming');
+      this.$emit('hideMe')
     }
-  }
+  },
 }
 </script>
 <style>
