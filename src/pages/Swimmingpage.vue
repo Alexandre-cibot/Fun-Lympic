@@ -1,6 +1,7 @@
 <template>
   <div id="wrapper">
     <p style="color: black" v-show="!gameLoaded">ça charge</p>
+    <SwimmingTuto v-if="showTuto && !gameLoaded" @hideMe="hideTuto"/>
     <div id="content" v-show="gameLoaded"></div>
   <!-- <ClassementGame v-if="gameLoaded"/> -->
   </div>
@@ -15,6 +16,7 @@ import BootState from '@/states/Swimming/Boot'
 // import GameState from '@/states/Game'
 import responsive from '../states/responsive_helper'
 import ClassementGame from './Competitionpage/components/ClassementGame.vue'
+import SwimmingTuto from '@/pages/TutoPage/Swimming.vue'
 import store from '../store'
 
 import config from '@/config'
@@ -24,7 +26,8 @@ export default {
   data() {
     return {
       show: false,
-      first: true
+      first: true,
+      showTuto: false,
     };
   },
   computed: {
@@ -33,14 +36,19 @@ export default {
     }
   },
   components:{
-    ClassementGame
+    ClassementGame,
+    SwimmingTuto
   },
   mounted () {
+    if (!window.localStorage.getItem('swimmingTutoShown')) {
+      window.localStorage.setItem('swimmingTutoShown', 'true')
+      this.showTuto = true
+    }
     this.runGame()
   },
   methods: {
-    disappear(){
-      this.first =false;
+    hideTuto(){
+      this.showTuto = false
     },
     runGame () {
       class Game extends Phaser.Game {
