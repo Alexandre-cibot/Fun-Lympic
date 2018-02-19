@@ -1,13 +1,13 @@
 <template>
   <div class="wrapper-page bg_purple_light">
-    <Navbar text="compétitions" secondBtn="podium" @goBack="goBack"/>
+    <Navbar text="Défie tes amis" secondBtn="podium" @goBack="goBack"/>
     <div class="wrapper">
       <ConnexionFB v-if="!authenticated" :authenticated="authenticated" :auth="auth" />
       <div v-else>
         <CompetitionDashboard v-if="currentState === 'competitionDashboard' || currentState === 'chooseFlag'" :profile="profile" @chooseFlag="chooseFlag"/>
         <Nation v-if="currentState === 'chooseFlag'"  @closeModal="closeModal" @chooseFriends="chooseFriends" />
-        <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/> 
-        <ChallengeFriend v-if="currentState === 'friend'" @before="before" /> 
+        <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/>
+        <ChallengeFriend v-if="currentState === 'friend'" @before="before" />
         <BeforeGame v-if="currentState === 'before'" />
         <!-- <ClassementGame /> -->
       </div>
@@ -99,7 +99,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>  
+<style scoped>
 .wrapper-page {
   height: 100%;
   overflow-y: hidden;
