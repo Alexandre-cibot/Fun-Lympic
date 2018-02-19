@@ -13,7 +13,8 @@ const utils = require('./utils')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 
 var definePlugin = new webpack.DefinePlugin({
-  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'false'))
+  __DEV__: JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'false')),
+  'isProduction': 'true'
 })
 
 function resolve (dir) {
