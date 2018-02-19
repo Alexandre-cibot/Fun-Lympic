@@ -66,22 +66,22 @@ module.exports = {
       hash: true
     }),
     new WebpackPwaManifest({
-      name: 'Finger Games',
+      name: 'Fun\'lympics Games',
       display: 'standalone',
-      short_name: 'Finger Games',
+      short_name: 'Fun\'lympics Games',
       description: 'Best game',
       orientation: 'portrait',
-      background_color: '#EFDFBB',
+      background_color: '#ffffff',
       theme_color: '#573399',
       start_url: '../index.html',
       publicPath: '/dist',
       icons: [
         {
           src: path.resolve('assets/logo.png'),
-          sizes: [ 96, 128, 192, 256, 384, 512, 1024, ],
-        },
-      ],
-    }),
+          sizes: [ 96, 128, 192, 256, 384, 512, 1024 ]
+        }
+      ]
+    })
   ],
   module: {
     rules: [
