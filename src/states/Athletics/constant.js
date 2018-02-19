@@ -25,6 +25,15 @@ module.exports = {
     heightRatio: 4.3,
     heightFix: -70
   },
+  sprinterFallSprite: {
+    width: 1396,
+    height: 280,
+    nbSprites: 4,
+    spriteSpeed: 1,
+    speed: 0,
+    heightRatio: 4.3,
+    heightFix: -70
+  },
   mamieSprite: {
     width: 316,
     height: 250,
