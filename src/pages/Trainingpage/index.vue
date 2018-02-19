@@ -35,11 +35,7 @@ export default {
       this.$router.push({path: '/athletics'})
     },
     runSwimmingGame(){
-      if(this.firstSwimming){
-        this.$router.push({path: '/swimming/tuto'})
-      }else{
         this.$router.push({path: '/swimming'})
-      }
     }
   },
   mounted() {
