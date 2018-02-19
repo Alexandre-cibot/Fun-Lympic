@@ -151,7 +151,7 @@ export default {
 .other-buttons button:nth-child(3) img {
   height: 150%;
   width: 150%;
-  margin-left: -1.1em;
+  margin-left: -1.2em;
   margin-top: -1em;
 }
 .other-buttons button:nth-child(1) img, .other-buttons button:nth-child(2) img {
