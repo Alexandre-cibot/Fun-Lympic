@@ -31,7 +31,7 @@ export default {
   },
   mounted() {
     // Handle redirection after connexion.
-    if (window.location.href.startsWith('https://jo-games.netlify.com/#/access_token')) {
+    if (window.location.href.startsWith('https://jo-games.netlify.com/#/access_token') || window.location.href.startsWith('http://localhost:3000/#/access_token')) {
       this.auth.handleAuthentication();
     }
   },
