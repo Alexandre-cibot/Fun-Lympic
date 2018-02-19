@@ -16,12 +16,15 @@
         <h2>LANGUE</h2>
         <div class="langages">
           <div v-for="(lang, key) in languages" :key="key">
-            <BasicButton :title="lang.text" btnColor="blue" btnSize="mid" @click="selectLanguage(lang.name)" />
+            <!-- Selected one -->
+            <BasicButton v-if="lang.name==='french'" :title="lang.text" btnColor="yellow" btnSize="mid" @click="selectLanguage(lang.name)" />
+            <!-- Others -->
+            <BasicButton v-else :title="lang.text" btnColor="blue" btnSize="mid" @click="selectLanguage(lang.name)" />
           </div>
         </div>
       </div>
       <div class="block3" v-if="authenticated">
-        <BasicButton title="déconnexion" image="facebook" btnColor="red" @click="auth.logout()" />
+        <BasicButton title="déconnexion" image="facebook" btnColor="red" btnSize="mid" @click="auth.logout()" />
       </div>
     </div>
 
@@ -106,13 +109,11 @@ h2 {
   font-size: 1.2em;
   letter-spacing: 1px;
 }
-
 .block1 {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   text-align:center;
-  padding: 10px 0px 30px 0px;
 }
 .sound, .music {
   display: flex;
@@ -134,10 +135,6 @@ h2 {
   flex-direction: column;
   justify-content: space-evenly;
   text-align:center;
-}
-
-.block3 {
-  margin-top: 35px; /* TODO: Gerer l'affichage des block proprement */
 }
 
 </style>
