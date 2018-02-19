@@ -49,11 +49,11 @@ export default {
       const popin = this.$el.querySelector('.know')
       popin.classList.remove('zoomIn')
       popin.classList.add('bounceOut')
-      let opcacityLevel = 0.5;
+      let opacityLevel = 0.5;
       let clearOpacity = setInterval(()=>{
-        this.$el.style.background = `rgba(0, 0, 0, ${opcacityLevel})`
-        opcacityLevel -= 0.01
-        if (opcacityLevel <= 0) {
+        this.$el.style.background = `rgba(0, 0, 0, ${opacityLevel})`
+        opacityLevel -= 0.01
+        if (opacityLevel <= 0) {
           clearInterval(clearOpacity)
         }
       },10)
