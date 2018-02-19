@@ -6,15 +6,16 @@
         <img src="@/assets/enora.jpg" class="profil_pic" />
       </div>
       <div class="score">
-        <img src="@/assets/silver.png" class="stars"/><p>{{ secondScore }}</p>
+        <img src="@/assets/silver.svg" class="stars"/><p>{{ secondScore }}</p>
       </div>
     </div>
     <div class="first">
       <div class="circle circleCenter">
         <img :src="imagePath" class="profil_pic" />
-        </div>
+        <img src="@/assets/crown.svg" class="crown" />
+      </div>
       <div class="score">
-        <img src="@/assets/gold.png" class="stars" /><p>{{ firstScore }}</p>
+        <img src="@/assets/gold.svg" class="stars" /><p>{{ firstScore }}</p>
       </div>
     </div>
     <div class="third">
@@ -22,8 +23,8 @@
         <img src="@/assets/hugo.jpg" class="profil_pic" />
         </div>
       <div class="score">
-        <img src="@/assets/bronze.png" class="stars"/><p>{{ thirdScore }}</p>
-      </div>      
+        <img src="@/assets/bronze.svg" class="stars"/><p>{{ thirdScore }}</p>
+      </div>
     </div>
   </div>
   </div>
@@ -37,7 +38,7 @@ export default {
     firstScore: {
       type: String,
       required: true,
-    }, 
+    },
     secondScore: {
       type: String,
       required: true,
@@ -71,14 +72,20 @@ export default {
   overflow: visible;
   height: 84%;
   text-align: center;
+  position: relative;
 }
 .circleCenter{
-  margin: 0 10px !important;
+  margin: 0 18px !important;
 }
 .circleCenter img {
   transform: scale(1.2);
   position: relative;
   bottom: 13%;
+}
+.crown {
+  position: absolute !important;
+  top: -35%;
+  right: -15%;
 }
 .score{
   display: flex;
@@ -87,13 +94,10 @@ export default {
   align-items: center;
   height: 3vh;
 }
-.stars {
-  margin-bottom: 5px;
-  height: 100%;
-}
 .score p {
   margin-left: 5px;
   margin-bottom: 0;
+  font-size: 1.2em;
 }
 .first, .second, .third {
   display: flex;
@@ -110,7 +114,7 @@ export default {
   left: 0;
   right: 0;
   margin: 0 auto;
-  height: 11vh;
+  height: 9.75vh;
   border-radius: 10px 10px 0 0;
   background: #2D1862;
 }
@@ -121,13 +125,13 @@ export default {
   justify-content: center;
   bottom: 20%;
   width: 100%;
-  height: 160%;
+  height: 150%;
 }
 .circle .profil_pic{
   height: 80%;
   max-width:100%;
   border-radius: 50%;
   border: 8px solid #2D1862;
-} 
+}
 
 </style>
