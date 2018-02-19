@@ -81,7 +81,7 @@ export default class extends Phaser.State {
     this.water = game.add.audio('water');
     let bling = game.add.audio('bling');
     // let music = new Phaser.Sound(game,'water',1,true);
-    this.water.volume -= 0.7;
+    this.water.volume -= 0.8;
 
     // Jury
     this.jury = game.add.sprite(game.width - 300, 70, 'jury');
@@ -432,6 +432,7 @@ export default class extends Phaser.State {
               if(this.textScore.text >= oldRecord) {
                 newRecord.visible = true;
               }
+              this.water.pause();
               game.time.events.remove(myLoop1);
               game.time.events.remove(myLoop2);
               textScoreFinal.text = this.textScore.text;
@@ -574,6 +575,9 @@ export default class extends Phaser.State {
       this.textCountDown.visible = false;
       this.image.visible = true;
       this.water.play();
+    }
+    if(this.life == 0){
+      this.water.pause();
     }
   }
 }
