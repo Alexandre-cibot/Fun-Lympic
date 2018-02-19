@@ -2,7 +2,7 @@
 <div class="background">
   <div class="wrapper">
     <div class="game-title">
-      <p>Fun'lympics Games</p>
+      <p class="animated fadeInDown">Fun'lympics Games</p>
     </div>
       <DidYouKnow :show="show" image="ducks" @closeModal="closeModal" />
       <div class="select-category">
@@ -120,7 +120,8 @@ export default {
   justify-content: center;
   text-align: center;
   font-size: 54px;
-  text-shadow: -3px 1px 4px rgba(255, 255, 255, 1);
+  /* text-shadow: -3px 1px 4px rgba(255, 255, 255, 1); */
+  text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25);
 }
 .game-title p {
   color: #2AD4E2;
