@@ -8,7 +8,7 @@
       <Card class="animated card hidden" text="Le grand bleu" image="grandbleu" :islock="true" background="rose" />
       <Card class="animated card hidden" text="Cool Schwarzy" image="schwarzy" :islock="true" background="yellow" />
       <Card class="animated card hidden" text="La guerre des sabres" image="sabres" :islock="true" background="green" />
-      <div class="gutter"><h1>Coucou</h1></div>
+      <div class="gutter"></div>
     </div>
     <Classement class="animated classement hidden" firstScore="237" secondScore="183" thirdScore="93" image="@/assets/alex.png"/>
   </div>
@@ -88,15 +88,12 @@ h2, p {
   padding: 0;
   margin: 0;
 }
-.gutter{
+.gutter:before{
+  content: '';
   position: relative;
   display: block;
-  width: 200px;
-  height: 200px;
-  background:transparent;
-}
-.gutter h1 {
-  color: transparent;
+  width: 15vw;
+  height: 1px;
 }
 h2 {
   font-size: 1.1em;
