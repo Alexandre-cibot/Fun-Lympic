@@ -20,17 +20,6 @@ export default {
     BasicButton
   },
   methods: {
-    connectionFb() {
-      FB.getLoginStatus(function(response) {
-        console.log(response)
-          if (response.status !== "connected") {
-            FB.login();
-          }
-      });
-    },
-    showChallenge () {
-      this.$emit('showChallenge')
-    }
   },
   mounted() {
     console.log(this.authenticated);
