@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="block3">
+      <div class="block3" v-if="authenticated">
         <BasicButton title="déconnexion" image="facebook" btnColor="red" @click="auth.logout()" />
       </div>
     </div>
@@ -34,7 +34,7 @@ import BasicButton from '@/components/BasicButton';
 
 export default {
   name: 'Stade',
-  props:['auth'],
+  props:['auth', 'authenticated'],
   components: {
     Navbar,
     BasicButton
