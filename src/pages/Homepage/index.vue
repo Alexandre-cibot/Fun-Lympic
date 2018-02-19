@@ -6,8 +6,8 @@
     </div>
       <DidYouKnow :show="show" image="ducks" @closeModal="closeModal" />
       <div class="select-category">
-          <BasicButton class="animated mainButton hidden" title="Jouer" btnColor="yellow" btnSize="big" image="play" @click="goTrainingPage"/>
-          <BasicButton class="animated mainButton hidden" style="margin-top:3vh;" title="Compétitions" btnColor="yellow" btnSize="big" image="olympique" @click="goCompetition"/>
+          <BasicButton class="animated mainButton hidden" title="Défie tes amis" btnColor="yellow" btnSize="big" image="olympique" @click="goCompetition"/>
+          <BasicButton class="animated mainButton hidden" style="margin-top:3vh;"  title="Entraîne toi" btnColor="yellow" btnSize="big" image="play" @click="goTrainingPage"/>
       </div>
 
       <div class="other-buttons animated hidden">
