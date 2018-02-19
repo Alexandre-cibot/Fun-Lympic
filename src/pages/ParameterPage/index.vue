@@ -20,6 +20,9 @@
           </div>
         </div>
       </div>
+      <div class="block3" v-if="authenticated">
+        <BasicButton title="déconnexion" image="facebook" btnColor="red" @click="auth.logout()" />
+      </div>
     </div>
 
   </div>
@@ -31,6 +34,7 @@ import BasicButton from '@/components/BasicButton';
 
 export default {
   name: 'Stade',
+  props:['auth', 'authenticated'],
   components: {
     Navbar,
     BasicButton
@@ -130,6 +134,10 @@ h2 {
   flex-direction: column;
   justify-content: space-evenly;
   text-align:center;
+}
+
+.block3 {
+  margin-top: 35px; /* TODO: Gerer l'affichage des block proprement */
 }
 
 </style>

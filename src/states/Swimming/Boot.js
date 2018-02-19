@@ -13,8 +13,6 @@ export default class extends Phaser.State {
   }
 
   preload() {
-    this.load.image('loaderBg', './assets/images/loader-bg.png')
-    this.load.image('loaderBar', './assets/images/loader-bar.png')
     this.load.image('background', './assets/images/swimming_background.jpg')
     this.load.image('coeur', './assets/images/coeur.png')
     this.load.image('jury', './assets/images/swimming_jury.png')
