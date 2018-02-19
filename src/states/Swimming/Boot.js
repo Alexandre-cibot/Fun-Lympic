@@ -13,7 +13,8 @@ export default class extends Phaser.State {
   }
 
   preload() {
-    this.load.image('background', './assets/images/swimming_background.jpg')
+    this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+    this.load.image('background', './assets/images/piscine.jpg')
     this.load.image('coeur', './assets/images/coeur.png')
     this.load.image('jury', './assets/images/swimming_jury.png')
     this.load.image('juryHappy', './assets/images/swimming_jury_happy.png')
@@ -41,6 +42,9 @@ export default class extends Phaser.State {
     this.load.image('pose3Nag2', './assets/images/swimming_Pose3_nag2.png')
     this.load.image('pose3Nag3', './assets/images/swimming_Pose3_nag3.png')
 
+    this.load.spritesheet('dead1', './assets/images/noyade-3-min.png', 120, 400)
+    this.load.spritesheet('dead2', './assets/images/noyade-2-min.gif', 84, 214)
+    this.load.spritesheet('dead3', './assets/images/noyade-3-min.gif',67, 215)
     this.load.spritesheet('star', './assets/images/swimming_stars.png', 280, 500)
     this.load.spritesheet('nageuse1', './assets/images/swimming_little_nageuse1.png', 60, 213)
     this.load.spritesheet('nageuse2', './assets/images/swimming_little_nageuse2.png', 84, 214)
@@ -52,37 +56,14 @@ export default class extends Phaser.State {
     game.load.audio('bouh', ['./assets/musique/bouh.mp3']);
   }
   
+  // WebFontConfig = {
+  //   active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
+  //   google: {
+  //     families: ['Nunito']
+  //   },   
+  // }
+
   create() {
-
-    var fontReadys = false;
-    var windowReadys = false;
-    function fontReady(){
-      fontReadys = true;
-      checkIfBothReady();
-    }
-  
-    function windowLoaded(){
-      windowReadys = true;
-      checkIfBothReady();
-    }
-    function checkIfBothReady(){
-      if(windowReadys == true && fontReadys == true){
-        game = new Phaser.Game(window.innerWidth , window.innerHeight , Phaser.AUTO, 'game',{  create: create, render: render });
-      }      
-    }
-
-    WebFont.load({
-      custom: {
-        families: [ 'myfrida_bold' ],
-        urls:['../../assets/font.css'],   
-      },
-        active: function(){
-            fontReady();
-            console.log('loaded')
-          },
-      inactive: function() {console.log('failed')}
-    });
-
     const scaleRatio = window.devicePixelRatio / 3
     this.background = game.add.sprite(0, 0, 'background');
     this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
@@ -143,6 +124,11 @@ export default class extends Phaser.State {
     this.nageuse2.play('run', 8, true)
     this.nageuse3.play('run', 8, true)
 
+    let dead1 = this.game.add.sprite(responsive.getWidthFromPercentage(40), responsive.getHeightFromPercentage(54), 'dead1')
+    dead1.animations.add('run')
+    dead1.scale.setTo(0.7)
+    dead1.play('run', 8, true)
+
     //Stars
     this.star = this.game.add.sprite(responsive.getWidthFromPercentage(45), responsive.getHeightFromPercentage(55), 'star')
     this.star2 = this.game.add.sprite(responsive.getWidthFromPercentage(70), responsive.getHeightFromPercentage(40), 'star')    
@@ -171,9 +157,9 @@ export default class extends Phaser.State {
     this.fail.anchor.setTo(0.5);
     this.perfect.anchor.setTo(0.5);
 
-    let styleRecord = {font: "1.6em myfrida-bold", fill: "#ffffff"};
-    let styleScoreFinal = {font: "14em myfrida-bold", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
-    let styleScore = {font: "4.5em myfrida-bold", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
+    let styleRecord = {font:'1.6em',fill: "#ffffff"};
+    let styleScoreFinal = {font: "14em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
+    let styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
     this.rec = 5;
 
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
@@ -265,13 +251,13 @@ export default class extends Phaser.State {
       }
     },1000);
     
-    let styleCountDown = {font: "14em myfrida-bold", fill: "#F4426D", align: "center", boundsAlignV: "middle"};
+    let styleCountDown = {font: "14em Nunito", fill: "#F4426D", align: "center", boundsAlignV: "middle"};
     this.textCountDown = game.add.text(game.world.centerX, game.world.centerY, '3', styleCountDown);
     this.textCountDown.anchor.setTo(0.5)
     this.textCountDown.stroke = '#C53054';
     this.textCountDown.strokeThickness = 12;
 
-    var style = { font: "5em myfrida-bold", fill: "#ffffff", align: "center" };
+    var style = { font: "5em Nunito", fill: "#ffffff", align: "center" };
 
     var home = game.add.sprite(game.world.centerX - 60, game.world.centerY, 'home');
     var play = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'play');
@@ -345,8 +331,14 @@ export default class extends Phaser.State {
     }
     var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.timeRandom, displayCircle, this);
     // var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * this.timeRandom) +2, displayCircle, this);
-    
+    let pointSuperCircle = [20, 40];
     function displayCircle(e){
+      if(this.textScore.text >= pointSuperCircle[0]){
+        pointSuperCircle.push(pointSuperCircle[1] + 20)
+        pointSuperCircle.shift();
+        this.superCircle = true;
+        console.log(pointSuperCircle);
+      }
       let last = this.spawnArr[this.spawnArr.length-1]
       if(this.superCircle){
         this.spawnArr.push(1);
@@ -532,12 +524,16 @@ export default class extends Phaser.State {
           starArray[i].visible = false;
           nageuseArr[i].visible = true;
           canChange = false
-          console.log('ca a change')
         }
       }, 1000)
     }
     store.commit('isSwimmingLoaded', true)
   }
+
+  createText(){
+    this.textScore.font = "Nunito"
+  }
+
   update () {
     // Condition to review
     //Use if/else for performance and not switch
@@ -561,9 +557,6 @@ export default class extends Phaser.State {
       this.textCountDown.visible = false;
       this.image.visible = true;
       this.water.play();
-    }
-    if(this.textScore.text > 2 && this.textScore.text < 4){
-      this.superCircle = true;
     }
   }
 }
