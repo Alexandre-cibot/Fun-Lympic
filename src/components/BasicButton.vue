@@ -91,6 +91,9 @@ export default {
         case "blue":
           color = "btnBlue";
         break;
+        case "red":
+          color = "btnRed";
+        break;
       }
 
       switch(this.btnSize) {
@@ -137,11 +140,18 @@ export default {
     border-radius: 10px;
     min-height: 9vh;
   }
+  .btnRed {
+    box-shadow: 0px 8px 0px 0px #B42649;
+    background-color: #F4426D;
+    font-size: 0.8em;
+    border-radius: 10px;
+    min-height: 9vh;
+  }
   .btnYellow .btn-fLeft {
     width: 30px;
     height: 30px;
   }
-  .bg_red p, .bg_blue p, .btnBlue p{
+  .bg_red p, .bg_blue p, .btnBlue p, .btnRed p{
     font-size: 1.8em;
   }
   .btnYellow p {
