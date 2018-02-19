@@ -14,6 +14,7 @@ const pallier = [
 const gameWidth = 140000
 const obstacleWidthFrequency = 600
 const xValueWhenSpriteKilled = -200
+let speedCoef = 1.3
 
 const mamieInfo = {
   name: 'mamie',
@@ -52,7 +53,6 @@ const obstacles = [
   duckInfo,
   plotInfo
 ]
-
 export default class extends Phaser.State {
   init() {
     this.stage.backgroundColor = '#EDEEC9'
@@ -107,6 +107,10 @@ export default class extends Phaser.State {
         clearInterval(this.countDown)
       }
     }, 1000)
+
+    const speedCoefInterval = setInterval(() => {
+      speedCoef = speedCoef * constant.speed.multiplicator
+    }, constant.speed.every)
 
     this.swipe = new Swipe(this.game)
     this.playerRace = 1
@@ -230,6 +234,7 @@ export default class extends Phaser.State {
     store.commit('isSprintLoaded', true)
   }
   update () {
+    console.log('speedCoef', speedCoef);
     // console.log('FPS', game.time.fps);
     if (this.go) {
       this.sprinter.visible = true
@@ -240,7 +245,7 @@ export default class extends Phaser.State {
         this.obstacleOrderIndex = this.obstacleOrderIndex + 1
         this.mamie.x = getXFromSpriteName(this, 'mamie')
       } else {
-        this.mamie.x = this.mamie.x + (this.mamie.x > responsive.width ? constant.background.speed : constant.mamieSprite.speed)
+        this.mamie.x = this.mamie.x + (this.mamie.x > responsive.width ? constant.background.speed * speedCoef : constant.mamieSprite.speed * speedCoef)
         this.physics.arcade.overlap(this.sprinter, this.mamie, mamieCollisionHandler, null, this)
       }
 
@@ -249,7 +254,7 @@ export default class extends Phaser.State {
         this.obstacleOrderIndex = this.obstacleOrderIndex + 1
         this.cat.x = getXFromSpriteName(this, 'cat')
       } else {
-        this.cat.x = this.cat.x + (this.cat.x > responsive.width ? constant.background.speed : constant.catSprite.speed)
+        this.cat.x = this.cat.x + (this.cat.x > responsive.width ? constant.background.speed * speedCoef : constant.catSprite.speed * speedCoef)
         this.physics.arcade.overlap(this.sprinter, this.cat, catCollisionHandler, null, this)
       }
 
@@ -257,7 +262,7 @@ export default class extends Phaser.State {
         this.obstacleOrderIndex = this.obstacleOrderIndex + 1
         this.dancer.x = getXFromSpriteName(this, 'dancer')
       } else {
-        this.dancer.x = this.dancer.x + (this.dancer.x > responsive.width ? constant.background.speed : constant.dancerSprite.speed)
+        this.dancer.x = this.dancer.x + (this.dancer.x > responsive.width ? constant.background.speed * speedCoef : constant.dancerSprite.speed * speedCoef)
         this.physics.arcade.overlap(this.sprinter, this.dancer, dancerCollisionHandler, null, this)
       }
 
@@ -265,7 +270,7 @@ export default class extends Phaser.State {
         this.obstacleOrderIndex = this.obstacleOrderIndex + 1
         this.duck.x = getXFromSpriteName(this, 'duck')
       } else {
-        this.duck.x = this.duck.x + (this.duck.x > responsive.width ? constant.background.speed : constant.duckSprite.speed)
+        this.duck.x = this.duck.x + (this.duck.x > responsive.width ? constant.background.speed * speedCoef : constant.duckSprite.speed * speedCoef)
         this.physics.arcade.overlap(this.sprinter, this.duck, duckCollisionHandler, null, this)
       }
 
@@ -273,7 +278,7 @@ export default class extends Phaser.State {
         this.obstacleOrderIndex = this.obstacleOrderIndex + 1
         this.plot.x = getXFromSpriteName(this, 'plot')
       } else {
-        this.plot.x = this.plot.x + (this.plot.x > responsive.width ? constant.background.speed : constant.plotSprite.speed)
+        this.plot.x = this.plot.x + (this.plot.x > responsive.width ? constant.background.speed * speedCoef : constant.plotSprite.speed * speedCoef)
         this.physics.arcade.overlap(this.sprinter, this.plot, plotCollisionHandler, null, this)
       }
 
@@ -313,7 +318,7 @@ export default class extends Phaser.State {
 }
 
 var moveBackground = function (background) {
-  background.x = background.x + constant.background.speed
+  background.x = background.x + (constant.background.speed * speedCoef)
 }
 
 function movePlayerRace (self, boolean) {
