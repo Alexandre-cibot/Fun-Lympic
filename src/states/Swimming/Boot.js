@@ -14,7 +14,7 @@ export default class extends Phaser.State {
 
   preload() {
     this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-    this.load.image('background', './assets/images/piscine.jpg')
+    this.load.image('background', './assets/images/piscine2.jpg')
     this.load.image('coeur', './assets/images/coeur.png')
     this.load.image('jury', './assets/images/swimming_jury.png')
     this.load.image('juryHappy', './assets/images/swimming_jury_happy.png')
@@ -43,8 +43,9 @@ export default class extends Phaser.State {
     this.load.image('pose3Nag3', './assets/images/swimming_Pose3_nag3.png')
 
     this.load.spritesheet('dead1', './assets/images/noyade-3-min.png', 120, 400)
-    this.load.spritesheet('dead2', './assets/images/noyade-2-min.gif', 84, 214)
-    this.load.spritesheet('dead3', './assets/images/noyade-3-min.gif',67, 215)
+    this.load.spritesheet('dead2', './assets/images/noyade-1-min.png', 120, 400)
+    this.load.spritesheet('dead3', './assets/images/noyade-2-min.png', 136, 420)
+
     this.load.spritesheet('star', './assets/images/swimming_stars.png', 280, 500)
     this.load.spritesheet('nageuse1', './assets/images/swimming_little_nageuse1.png', 60, 213)
     this.load.spritesheet('nageuse2', './assets/images/swimming_little_nageuse2.png', 84, 214)
@@ -80,7 +81,7 @@ export default class extends Phaser.State {
     this.water = game.add.audio('water');
     let bling = game.add.audio('bling');
     // let music = new Phaser.Sound(game,'water',1,true);
-    this.water.volume -= 0.7;
+    this.water.volume -= 0.8;
 
     // Jury
     this.jury = game.add.sprite(game.width - 300, 70, 'jury');
@@ -124,10 +125,19 @@ export default class extends Phaser.State {
     this.nageuse2.play('run', 8, true)
     this.nageuse3.play('run', 8, true)
 
-    let dead1 = this.game.add.sprite(responsive.getWidthFromPercentage(40), responsive.getHeightFromPercentage(54), 'dead1')
+    let dead1 = this.game.add.sprite(responsive.getWidthFromPercentage(40), responsive.getHeightFromPercentage(54), 'dead3')
+    let dead2 = this.game.add.sprite(responsive.getWidthFromPercentage(70), responsive.getHeightFromPercentage(40), 'dead1')
+    let dead3 = this.game.add.sprite(responsive.getWidthFromPercentage(15), responsive.getHeightFromPercentage(40), 'dead2')
     dead1.animations.add('run')
+    dead2.animations.add('run')
+    dead3.animations.add('run')
     dead1.scale.setTo(0.7)
-    dead1.play('run', 8, true)
+    dead2.scale.setTo(0.6)
+    dead3.scale.setTo(0.7)
+    dead1.visible = false;
+    dead2.visible = false;
+    dead3.visible = false;
+    let deadArr = [dead1,dead2,dead3];
 
     //Stars
     this.star = this.game.add.sprite(responsive.getWidthFromPercentage(45), responsive.getHeightFromPercentage(55), 'star')
@@ -407,6 +417,13 @@ export default class extends Phaser.State {
             for(let i = 0; i<this.arrPos[this.life-1].length; i++){
               this.arrPos[i][this.life-1].kill();
             }
+            console.log('life :' + this.life)
+            deadArr[this.life-1].visible = true;
+            deadArr[this.life-1].play('run', 8)
+
+            setTimeout(()=>{
+              deadArr[this.life-1].visible = false;
+            }, 1000)
             
             starArray[this.life-1].kill();
             this.life--;
@@ -415,6 +432,7 @@ export default class extends Phaser.State {
               if(this.textScore.text >= oldRecord) {
                 newRecord.visible = true;
               }
+              this.water.pause();
               game.time.events.remove(myLoop1);
               game.time.events.remove(myLoop2);
               textScoreFinal.text = this.textScore.text;
@@ -557,6 +575,9 @@ export default class extends Phaser.State {
       this.textCountDown.visible = false;
       this.image.visible = true;
       this.water.play();
+    }
+    if(this.life == 0){
+      this.water.pause();
     }
   }
 }
