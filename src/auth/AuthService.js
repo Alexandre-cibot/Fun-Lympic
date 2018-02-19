@@ -2,6 +2,7 @@ import auth0 from 'auth0-js'
 import { AUTH_CONFIG } from './auth0-variables'
 import EventEmitter from 'eventemitter3'
 import router from './../router'
+import axios from 'axios'
 
 export default class AuthService {
   constructor () {
@@ -31,11 +32,19 @@ export default class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult)
         router.replace('competition')
+        // Envoie des informations User dans l'API
+        this.postToAPI(authResult)
       } else if (err) {
         router.replace('competition')
         console.error(`Error: ${err.error}.`)
       }
     })
+  }
+
+  postToAPI (authResult) {
+    // Sending to the API.
+    // The API must to check if that user already exist or it is a new one.
+    // axios.post('http://alexandrecibot.com:3000/auth', authResult)
   }
 
   getUserProfile () {

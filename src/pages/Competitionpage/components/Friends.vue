@@ -1,7 +1,7 @@
 <template>
   <div class="">
   <h2>Lancer un défi à</h2>
-  <div v-for="friend in friends" :key="friend.name" class="friendBlock">
+  <div v-for="(friend, i) in friends" :key="i" class="friendBlock">
     <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country" @click.native="$emit('friend')" />
   </div>
   </div>
@@ -93,7 +93,7 @@ h2 {
   padding: 3vh 0px 5vh 0;
 }
 .friendBlock {
-  margin-bottom: 1vh;
+  margin-bottom: 1.5vh;
 }
 .score {
   font-size: 2.2em;
