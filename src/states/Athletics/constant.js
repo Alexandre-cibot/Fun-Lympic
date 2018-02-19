@@ -1,4 +1,8 @@
 module.exports = {
+  speed: {
+    every: 3000,
+    multiplicator: 1.1
+  },
   background: {
     height: 668,
     speed: -1
@@ -7,7 +11,16 @@ module.exports = {
     width: 2982,
     height: 300,
     nbSprites: 12,
-    spriteSpeed: 22,
+    spriteSpeed: 23,
+    speed: 0,
+    heightRatio: 4.3,
+    heightFix: -70
+  },
+  sprinterStopSprite: {
+    width: 118,
+    height: 280,
+    nbSprites: 1,
+    spriteSpeed: 1,
     speed: 0,
     heightRatio: 4.3,
     heightFix: -70
