@@ -91,13 +91,14 @@ export default {
   justify-content: space-evenly;
   align-items: center;
   margin: auto;
-  letter-spacing: 1.5px;
+  margin-bottom: 2vh;
+  padding: 7px;
   height: 4vh;
   width: 20vw;
-  font-size: 1.8em ;
-  background:#B42649 ;
+  font-size: 1.8em;
+  letter-spacing: 1.5px;
+  background:#B42649;
   border-radius: 15px;
-  padding: 7px;
 }
 .medal {
   width: auto;
