@@ -1,7 +1,7 @@
 <template>
   <div class="">
   <h2>Lancer un défi à</h2>
-  <div v-for="friend in friends" :key="friend.name" class="friendBlock">
+  <div v-for="(friend, i) in friends" :key="i" class="friendBlock">
     <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country" @click.native="$emit('friend')" />
   </div>
   </div>
