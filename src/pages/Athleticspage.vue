@@ -29,7 +29,11 @@ export default {
     };
   },
   mounted () {
+    store.commit('runSprintGame')
     this.runGame()
+  },
+  beforeDestroy () {
+    store.commit('destroySprintGame')
   },
   methods: {
     runGame () {

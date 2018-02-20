@@ -40,11 +40,15 @@ export default {
     SwimmingTuto
   },
   mounted () {
+    store.commit('runSwimmingGame')
     if (!window.localStorage.getItem('swimmingTutoShown')) {
       window.localStorage.setItem('swimmingTutoShown', 'true')
       this.showTuto = true
     }
     this.runGame()
+  },
+  beforeDestroy () {
+    store.commit('destroySwimmingGame')
   },
   methods: {
     hideTuto(){
