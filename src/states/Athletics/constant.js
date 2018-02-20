@@ -46,7 +46,7 @@ module.exports = {
     width: 479,
     height: 130,
     nbSprites: 4,
-    spriteSpeed: 17,
+    spriteSpeed: 11,
     speed: -1,
     heightRatio: 6
   },
@@ -54,7 +54,7 @@ module.exports = {
     width: 1742,
     height: 270,
     nbSprites: 6,
-    spriteSpeed: 17,
+    spriteSpeed: 10,
     speed: -1,
     heightRatio: 6,
     heightFix: -15
