@@ -10,8 +10,13 @@
 <script>
 
 // Redirection to Https.
-if (location.protocol != 'https:' && !location.origin.includes('localhost') && !location.origin.includes('127.0.0.1') && !location.origin.includes('192.168')) {
-  location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+// if (location.protocol != 'https:' && !location.origin.includes('localhost') && !location.origin.includes('127.0.0.1') && !location.origin.includes('192.168')) {
+//   location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+// }
+
+// Redirection to Http --> Waiting for Heroku server for API.
+if (location.protocol != 'http:') {
+  location.href = 'http:' + window.location.href.substring(window.location.protocol.length);
 }
 
 import AuthService from './auth/AuthService'
@@ -31,7 +36,7 @@ export default {
   },
   mounted() {
     // Handle redirection after connexion.
-    if (window.location.href.startsWith('https://jo-games.netlify.com/#/access_token') || window.location.href.startsWith('http://localhost:3000/#/access_token')) {
+    if (window.location.href.startsWith('https://jo-games.netlify.com/#/access_token') || window.location.href.startsWith('http://jo-games.netlify.com/#/access_token') || window.location.href.startsWith('http://localhost:3000/#/access_token')) {
       this.auth.handleAuthentication();
     }
   },

@@ -5,10 +5,12 @@
         <img src="@/assets/arrow.png" />
       </button>
     </div>
-    <div class="money" v-if="money">
-      <img src="@/assets/coin.png" alt="jo_coin">
-      {{money}}
-    </div>
+    <router-link v-if="money" :to="{ path: '/shopping'}">
+      <div class="money">
+        <img src="@/assets/coin.png" alt="jo_coin">
+        {{money}}
+      </div>
+    </router-link>
     <h1 v-if="!shopping" class="titleAlone">{{text}}</h1>
     <img v-if="flag" :src="flag" class="flag" />
     <router-link v-if="secondBtn && secondBtn == 'shopping'" :to="{ path: '/shopping'}">
