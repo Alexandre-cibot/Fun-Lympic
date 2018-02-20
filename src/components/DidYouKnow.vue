@@ -1,6 +1,6 @@
 <template>
   <div class="container" v-show="show" @click="closeModal">
-    <div class="know">
+    <div class="know animated zoomIn">
       <div class="title">
         <img src="@/assets/title_know.png" alt="" class="title_img">
       </div>
@@ -46,7 +46,20 @@ export default {
   },
   methods: {
     closeModal () {
-      this.$emit('closeModal')
+      const popin = this.$el.querySelector('.know')
+      popin.classList.remove('zoomIn')
+      popin.classList.add('bounceOut')
+      let opacityLevel = 0.5;
+      let clearOpacity = setInterval(()=>{
+        this.$el.style.background = `rgba(0, 0, 0, ${opacityLevel})`
+        opacityLevel -= 0.01
+        if (opacityLevel <= 0) {
+          clearInterval(clearOpacity)
+        }
+      },10)
+      setTimeout(()=> {
+        this.$emit('closeModal')
+      },800)
     }
   }
 };

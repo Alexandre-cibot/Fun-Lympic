@@ -1,6 +1,6 @@
 <template>
   <div class="container" @click.self="closeModal">
-    <div class="know">
+    <div class="know animated zoomIn">
       <div class="title">
         <img src="@/assets/nation.png" alt="" class="title_img">
       </div>
