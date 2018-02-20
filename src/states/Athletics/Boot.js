@@ -271,6 +271,7 @@ export default class extends Phaser.State {
 
         this.sprinter.visible = false
         this.sprinterStop.visible = false
+        this.sprinterFall.y = pallier[this.playerRace].height + constant.sprinterFallSprite.heightFix
         this.sprinterFall.visible = true
       } else {
         this.sprinter.visible = false
@@ -290,7 +291,7 @@ export default class extends Phaser.State {
     // console.log('flash', this.sprinter.nbFlashing);
     if (this.sprinter.nbFlashing > 0) {
       if (this.sprinter.flashBoolean) {
-        this.sprinter.alpha = 0.4
+        this.sprinter.alpha = 0.1
       } else {
         this.sprinter.alpha = 1
       }
