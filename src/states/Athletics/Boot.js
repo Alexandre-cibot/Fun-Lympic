@@ -19,6 +19,9 @@ const sprinterFallFrameFlag = {
   counter: 0,
   max: constant.sprinterFallSprite.nbSprites - 1
 }
+const speedCoefInterval = setInterval(() => {
+  speedCoef = speedCoef * constant.speed.multiplicator
+}, constant.speed.every)
 
 const mamieInfo = {
   name: 'mamie',
@@ -113,10 +116,6 @@ export default class extends Phaser.State {
         clearInterval(this.countDown)
       }
     }, 1000)
-
-    const speedCoefInterval = setInterval(() => {
-      speedCoef = speedCoef * constant.speed.multiplicator
-    }, constant.speed.every)
 
     this.swipe = new Swipe(this.game)
     this.playerRace = 1
@@ -268,6 +267,7 @@ export default class extends Phaser.State {
         game.physics.destroy()
         game.plugins.destroy()
         clearInterval(destroyGame)
+        clearInterval(speedCoefInterval)
       }
     }, 500)
   }
