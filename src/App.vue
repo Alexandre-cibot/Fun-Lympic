@@ -10,8 +10,13 @@
 <script>
 
 // Redirection to Https.
-if (location.protocol != 'https:' && !location.origin.includes('localhost') && !location.origin.includes('127.0.0.1') && !location.origin.includes('192.168')) {
-  location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+// if (location.protocol != 'https:' && !location.origin.includes('localhost') && !location.origin.includes('127.0.0.1') && !location.origin.includes('192.168')) {
+//   location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+// }
+
+// Redirection to Http --> Waiting for Heroku server for API.
+if (location.protocol != 'http:') {
+  location.href = 'http:' + window.location.href.substring(window.location.protocol.length);
 }
 
 import AuthService from './auth/AuthService'
