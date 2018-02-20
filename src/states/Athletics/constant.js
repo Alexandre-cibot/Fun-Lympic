@@ -4,7 +4,7 @@ module.exports = {
     multiplicator: 1.025
   },
   background: {
-    height: 668,
+    height: 1334,
     speed: -1
   },
   sprinterSprite: {

@@ -76,7 +76,7 @@ export default class extends Phaser.State {
     // let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
     // text.anchor.setTo(0.5, 0.5)
     this.load.image('pause', './assets/images/pause.svg')
-    this.load.image('background', './assets/images/background.jpg')
+    this.load.image('background', './assets/images/background.png')
     this.load.image('home', './assets/images/home.svg')
     this.load.image('play', './assets/images/play.svg')
     this.load.spritesheet('sprinter', './assets/images/sprint_sprinter_run.png', constant.sprinterSprite.width / constant.sprinterSprite.nbSprites, constant.sprinterSprite.height)
