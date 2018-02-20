@@ -11,7 +11,6 @@
 import Phaser from 'phaser'
 
 import BootState from '@/states/Athletics/Boot'
-import GameState from '@/states/Athletics/Game'
 import responsive from '../states/responsive_helper'
 import store from '../store'
 
