@@ -91,26 +91,41 @@ export default class extends Phaser.State {
 
     // Stance Nageuse
     this.pos1Nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(40), responsive.getHeightFromPercentage(54), 'pose1Nag1')
-    this.pos1Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(10), responsive.getHeightFromPercentage(39), 'pose1Nag2')
-    this.pos1Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(65), responsive.getHeightFromPercentage(39), 'pose1Nag3')
+    this.pos1Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(10), responsive.getHeightFromPercentage(43), 'pose1Nag2')
+    this.pos1Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(65), responsive.getHeightFromPercentage(43), 'pose1Nag3')
     this.pos2Nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(30), responsive.getHeightFromPercentage(54), 'pose2Nag1')
-    this.pos2Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(0), responsive.getHeightFromPercentage(39), 'pose2Nag2')
-    this.pos2Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(55), responsive.getHeightFromPercentage(39), 'pose2Nag3')
+    this.pos2Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(0), responsive.getHeightFromPercentage(45), 'pose2Nag2')
+    this.pos2Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(55), responsive.getHeightFromPercentage(45), 'pose2Nag3')
     this.pos3Nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(30), responsive.getHeightFromPercentage(54), 'pose3Nag1')
-    this.pos3Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(0), responsive.getHeightFromPercentage(39), 'pose3Nag2')
-    this.pos3Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(55), responsive.getHeightFromPercentage(39), 'pose3Nag3')
+    this.pos3Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(0), responsive.getHeightFromPercentage(43), 'pose3Nag2')
+    this.pos3Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(55), responsive.getHeightFromPercentage(43), 'pose3Nag3')    
 
     this.arrPos = [
       [this.pos1Nageuse, this.pos1Nageuse3, this.pos1Nageuse2], 
       [this.pos2Nageuse, this.pos2Nageuse3, this.pos2Nageuse2],
       [this.pos3Nageuse, this.pos3Nageuse3, this.pos3Nageuse2],
     ];
+    
     for(let i = 0; i<this.arrPos.length; i++){
       for(let u = 0; u<this.arrPos[i].length; u++){
         this.arrPos[i][u].visible = false;
         this.arrPos[i][u].scale.setTo(0.4);
       }
     }
+
+    let dead1 = this.game.add.sprite(responsive.getWidthFromPercentage(41), responsive.getHeightFromPercentage(55), 'dead1')
+    let dead2 = this.game.add.sprite(responsive.getWidthFromPercentage(69), responsive.getHeightFromPercentage(45), 'dead2')
+    let dead3 = this.game.add.sprite(responsive.getWidthFromPercentage(9), responsive.getHeightFromPercentage(45), 'dead3')
+    dead1.animations.add('run')
+    dead2.animations.add('run')
+    dead3.animations.add('run')
+    dead1.scale.setTo(0.7)
+    dead2.scale.setTo(0.6)
+    dead3.scale.setTo(0.7)
+    // dead1.visible = false;
+    // dead2.visible = false;
+    // dead3.visible = false;
+    let deadArr = [dead1,dead2,dead3];
 
     // Nageuse
     this.nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(45), responsive.getHeightFromPercentage(55), 'nageuse1')
@@ -123,20 +138,6 @@ export default class extends Phaser.State {
     this.nageuse.play('run', 8, true)
     this.nageuse2.play('run', 8, true)
     this.nageuse3.play('run', 8, true)
-
-    let dead1 = this.game.add.sprite(responsive.getWidthFromPercentage(40), responsive.getHeightFromPercentage(54), 'dead3')
-    let dead2 = this.game.add.sprite(responsive.getWidthFromPercentage(70), responsive.getHeightFromPercentage(45), 'dead1')
-    let dead3 = this.game.add.sprite(responsive.getWidthFromPercentage(15), responsive.getHeightFromPercentage(45), 'dead2')
-    dead1.animations.add('run')
-    dead2.animations.add('run')
-    dead3.animations.add('run')
-    dead1.scale.setTo(0.7)
-    dead2.scale.setTo(0.6)
-    dead3.scale.setTo(0.7)
-    dead1.visible = false;
-    dead2.visible = false;
-    dead3.visible = false;
-    let deadArr = [dead1,dead2,dead3];
 
     //Stars
     this.star = this.game.add.sprite(responsive.getWidthFromPercentage(45), responsive.getHeightFromPercentage(55), 'star')
