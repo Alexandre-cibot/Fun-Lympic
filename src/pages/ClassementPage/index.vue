@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper-page">
+  <div class="wrapper-page bg_purple_light">
     <div v-for="user in users" :key="user.index">
       <Navbar :text="user.text" :flag="user.image" @goBack="goBack"/>
     </div>
