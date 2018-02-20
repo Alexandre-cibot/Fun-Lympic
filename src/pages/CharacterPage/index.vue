@@ -36,6 +36,13 @@ export default {
           price: 200,
           bought: false,
           select: false
+        },
+        {
+          name: "Mamie",
+          picture: require('@/assets/mamie.png'),
+          price: 300,
+          bought: false,
+          select: false
         }
       ]
     }
