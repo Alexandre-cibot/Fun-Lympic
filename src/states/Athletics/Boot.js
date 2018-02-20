@@ -10,7 +10,7 @@ const pallier = [
   {height: responsive.getHeightFromPercentage(53)},
   {height: responsive.getHeightFromPercentage(66)}
 ]
-const gameWidth = 140000
+const gameWidth = 1400000
 const obstacleWidthFrequency = 600
 const speedCoefIfTakeObstacle = 0.8
 const xValueWhenSpriteKilled = -200
