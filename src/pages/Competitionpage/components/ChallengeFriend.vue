@@ -1,12 +1,12 @@
 <template>
-  <div class="">
+  <div class="challengeFriend">
   <h2 class="challenge" >Lancer un défi à</h2>
     <div v-for="friend in friends" :key="friend.name" class="friendBlock">
       <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country"/>
     </div>
     <h2 class="sport">Choisir un sport</h2>
       <BasicButton class="animated hidden bg_red" title="Athletisme" image="lose" @click="$emit('before')"/>
-      <BasicButton class="animated hidden bg_blue" title="Natation Synchronisée" image="win" style="margin-top:3vh;"/>
+      <BasicButton class="animated hidden bg_blue" title="Natation Synchronisée" image="win" style="margin-top:3vh;" @click="$emit('before')"/>
   </div>
 </template>
 
@@ -52,6 +52,9 @@ export default {
 </script>
 
 <style scoped>
+.challengeFriend {
+  height: 100%;
+}
 h2, p {
   color: #ffffff;
   font-weight: 100;

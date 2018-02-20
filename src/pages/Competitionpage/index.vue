@@ -3,7 +3,7 @@
     <Navbar text="Défie tes amis" secondBtn="podium" @goBack="goBack"/>
     <div class="wrapper">
       <ConnexionFB v-if="!authenticated" :authenticated="authenticated" :auth="auth" />
-      <div v-else>
+      <div v-else style="height:100%">
         <CompetitionDashboard v-if="currentState === 'competitionDashboard' || currentState === 'chooseFlag'" :profile="profile" @chooseFlag="chooseFlag"/>
         <Nation v-if="currentState === 'chooseFlag'"  @closeModal="closeModal" @chooseFriends="chooseFriends" />
         <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/>
