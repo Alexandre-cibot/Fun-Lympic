@@ -12,8 +12,9 @@ const pallier = [
 ]
 const gameWidth = 140000
 const obstacleWidthFrequency = 600
+const speedCoefIfTakeObstacle = 0.8
 const xValueWhenSpriteKilled = -200
-let speedCoef = 1.3
+let speedCoef = 1.8
 const sprinterFallFrameFlag = {
   counter: 0,
   max: constant.sprinterFallSprite.nbSprites - 1
@@ -408,6 +409,7 @@ function mamieCollisionHandler (sprinter, mamie) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     mamie.x = xValueWhenSpriteKilled
     this.substractLife()
+    speedCoef = speedCoef * speedCoefIfTakeObstacle
   }
 }
 
@@ -416,6 +418,7 @@ function catCollisionHandler (sprinter, cat) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     cat.x = xValueWhenSpriteKilled
     this.substractLife()
+    speedCoef = speedCoef * speedCoefIfTakeObstacle
   }
 }
 
@@ -425,6 +428,7 @@ function dancerCollisionHandler (sprinter, dancer) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     dancer.x = xValueWhenSpriteKilled
     this.substractLife()
+    speedCoef = speedCoef * speedCoefIfTakeObstacle
   }
 }
 
@@ -434,6 +438,7 @@ function duckCollisionHandler (sprinter, duck) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     duck.x = xValueWhenSpriteKilled
     this.substractLife()
+    speedCoef = speedCoef * speedCoefIfTakeObstacle
   }
 }
 
@@ -443,6 +448,7 @@ function plotCollisionHandler (sprinter, plot) {
     this.obstacleOrderIndex = this.obstacleOrderIndex + 1
     plot.x = xValueWhenSpriteKilled
     this.substractLife()
+    speedCoef = speedCoef * speedCoefIfTakeObstacle
   }
 }
 
