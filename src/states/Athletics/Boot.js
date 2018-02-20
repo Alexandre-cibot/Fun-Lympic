@@ -176,7 +176,7 @@ export default class extends Phaser.State {
     // life system
     this.lifeRemaining = 3
     this.sprinter.nbFlashing = 0
-    this.sprinter.flashBoolean = true
+    // this.sprinter.flashBoolean = true
     console.log('life', this.lifeRemaining);
     this.substractLife = function () {
       this.sprinter.nbFlashing = 80
@@ -303,12 +303,11 @@ export default class extends Phaser.State {
     }
     // console.log('flash', this.sprinter.nbFlashing);
     if (this.sprinter.nbFlashing > 0) {
-      if (this.sprinter.flashBoolean) {
-        this.sprinter.alpha = 0.1
+      if ((this.sprinter.nbFlashing % 3) === 0) {
+        this.sprinter.alpha = 0.05
       } else {
         this.sprinter.alpha = 1
       }
-      this.sprinter.flashBoolean = !this.sprinter.flashBoolean
       this.sprinter.nbFlashing = this.sprinter.nbFlashing - 1
     } else {
       this.sprinter.alpha = 1
