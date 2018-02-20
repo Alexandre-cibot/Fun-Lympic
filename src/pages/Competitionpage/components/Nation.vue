@@ -4,18 +4,18 @@
       <div class="title">
         <img src="@/assets/nation.png" alt="" class="title_img">
       </div>
-      <p>Quel pays souhaites-tu représenter ?</p>
+      <p>Quelle nation représentes-tu ?</p>
       <form action="">
-        <div class="flag">          
+        <div class="flag">
           <input type="radio" name="flag" value="france" id="france">
           <label for="france"><img src="@/assets/flag/France.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="uk" id="royaume-uni"> 
+          <input type="radio" name="flag" value="uk" id="royaume-uni">
           <label for="royaume-uni"><img src="@/assets/flag/Royaume-Uni.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="netherland" id="pays-bas"> 
+          <input type="radio" name="flag" value="netherland" id="pays-bas">
           <label for="pays-bas"><img src="@/assets/flag/Pays-Bas.png" alt=""></label>
         </div>
         <div class="flag">
@@ -26,24 +26,24 @@
           <input type="radio" name="flag" value="italy" id="italie">
           <label for="italie"><img src="@/assets/flag/Italie.png" alt=""></label>
         </div>
-        <div class="flag">          
-          <input type="radio" name="flag" value="greece" id="grece"> 
+        <div class="flag">
+          <input type="radio" name="flag" value="greece" id="grece">
           <label for="grece"><img src="@/assets/flag/Grece.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="france" id="espagne"> 
+          <input type="radio" name="flag" value="france" id="espagne">
           <label for="espagne"><img src="@/assets/flag/Espagne.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="japon">  
+          <input type="radio" name="flag" value="japan" id="japon">
           <label for="japon"><img src="@/assets/flag/Japon.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="portugal">  
+          <input type="radio" name="flag" value="japan" id="portugal">
           <label for="portugal"><img src="@/assets/flag/Portugal.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="allemagne">  
+          <input type="radio" name="flag" value="japan" id="allemagne">
           <label for="allemagne"><img src="@/assets/flag/Allemagne.png" alt=""></label>
         </div>
         <div class="flag">
@@ -51,11 +51,11 @@
           <label for="belgique"><img src="@/assets/flag/Belgique.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="canada">  
+          <input type="radio" name="flag" value="japan" id="canada">
           <label for="canada"><img src="@/assets/flag/Canada.png" alt=""></label>
         </div>
         <div class="flag">
-          <input type="radio" name="flag" value="japan" id="chine">  
+          <input type="radio" name="flag" value="japan" id="chine">
           <label for="chine"><img src="@/assets/flag/Chine.png" alt=""></label>
         </div>
         <div class="flag">
@@ -111,41 +111,44 @@ export default {
   letter-spacing: 1.5px;
   min-height: 8vh;
   border-radius: 10px;
-  margin: auto;
+  margin: 0 auto;
 }
 form {
   width: 80%;
   margin: auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 .flag {
-  display: inline-block;
-  position: relative; 
-  width: 20%;
-  margin-left: 1vh;
-  margin-top: 5vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  width: calc(100%/4);
+  margin-bottom: 4vh;
 }
 .dis {
   display: none;
 }
 input[type="radio"]{
   position: relative;
+  display: none;
 }
-input[type="radio"]:checked+label {
-  transform-origin: center;
-  transform: scale(0.92) translateY(4px) translateX(-3px);
+input[type="radio"]:checked+label img {
   border: 3px solid #F7BE51;
+  box-sizing: border-box;
+  border-radius: 3px;
 }
 label img {
   box-sizing: border-box;
   height: 4vh;
 }
 label{
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-  height: 4vh;
-  border-radius: 3px;
-  left: 0;
+  display: flex;
+    justify-content: center;
+    flex-direction: row;
 }
 .container {
   display: flex;
@@ -171,6 +174,7 @@ label{
   background: white;
   border-radius: 10px;
   z-index: 30;
+  padding-bottom: 40px;
 }
 .title{
   position: absolute;
@@ -182,6 +186,7 @@ label{
 }
 .title_img {
   width: 100%;
+  margin-left: 1px;
 }
 .content_img{
   width: 56%;
@@ -199,9 +204,9 @@ label{
 p {
   text-align: center;
   line-height: 1.5em ;
-  font-size: 1.1em;
+  font-size: 1.2em;
   padding: 0 1.5vh;
   color: #493B35;
-  margin-top: 14vh;
+  margin-top: 16vh;
 }
 </style>
