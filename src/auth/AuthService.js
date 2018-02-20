@@ -2,7 +2,7 @@ import auth0 from 'auth0-js'
 import { AUTH_CONFIG } from './auth0-variables'
 import EventEmitter from 'eventemitter3'
 import router from './../router'
-import axios from 'axios'
+import API from '../api/index.js'
 
 export default class AuthService {
   constructor () {
@@ -30,10 +30,12 @@ export default class AuthService {
     this.auth0.parseHash((err, authResult) => {
       console.log(authResult)
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult)
-        router.replace('competition')
-        // Envoie des informations User dans l'API
-        this.postToAPI(authResult)
+        // Envoie des informations renvoyées par Facebook dans l'API
+        API.postUser(authResult, (dataFromAPI) => {
+          console.log('Callback', dataFromAPI)
+          this.setSession(dataFromAPI)
+          router.replace('competition')
+        })
       } else if (err) {
         router.replace('competition')
         console.error(`Error: ${err.error}.`)
@@ -41,33 +43,22 @@ export default class AuthService {
     })
   }
 
-  postToAPI (authResult) {
-    // Sending to the API.
-    // The API must to check if that user already exist or it is a new one.
-    // axios.post('http://alexandrecibot.com:3000/auth', authResult)
-  }
-
-  getUserProfile () {
+  getUserProfileFromCache () {
     return JSON.parse(localStorage.getItem('profile'))
   }
 
-  setSession (authResult) {
+  setSession (dataFromAPI) {
     // Set the time that the access token will expire at
-    let expiresAt = JSON.stringify(
-      authResult.expiresIn * 1000 + new Date().getTime()
-    )
-    localStorage.setItem('access_token', authResult.accessToken)
-    localStorage.setItem('id_token', authResult.idToken)
-    localStorage.setItem('expires_at', expiresAt)
-    localStorage.setItem('profile', JSON.stringify(authResult.idTokenPayload))
+    // let expiresAt = JSON.stringify(
+    //   authResult.expiresIn * 1000 + new Date().getTime()
+    // )
+    console.log('Ajout/update du profile dans le cache')
+    localStorage.setItem('profile', JSON.stringify(dataFromAPI.data))
     this.authNotifier.emit('authChange', { authenticated: true })
   }
 
   logout () {
     // Clear access token and ID token from local storage
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('id_token')
-    localStorage.removeItem('expires_at')
     localStorage.removeItem('profile')
     this.userProfile = null
     this.authNotifier.emit('authChange', false)
@@ -78,7 +69,8 @@ export default class AuthService {
   isAuthenticated () {
     // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
-    return new Date().getTime() < expiresAt
+    // let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
+    // return new Date().getTime() < expiresAt
+    return localStorage.hasOwnProperty('profile')
   }
 }

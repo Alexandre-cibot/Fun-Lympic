@@ -19,6 +19,7 @@
 <script>
 import Navbar from '@/components/Navbar';
 import BasicButton from '@/components/BasicButton';
+import API from '@/api/index.js'
 // Composants propre a cette page
 import BeforeGame from './components/BeforeGame.vue';
 import ClassementGame from './components/ClassementGame.vue';
@@ -54,7 +55,10 @@ export default {
   computed: {
     profile() {
       if (this.authenticated) {
-        return this.auth.getUserProfile();
+        console.log('Données du cache utilsé')
+        return this.auth.getUserProfileFromCache();
+      } else {
+        console.log("Connecté, en attente de syncronisation des données avec le serveurs.")
       }
     }
   },
@@ -94,7 +98,7 @@ export default {
         this.history.pop(); // Remove the last one
       }
     }
-  }
+  },
 };
 </script>
 
