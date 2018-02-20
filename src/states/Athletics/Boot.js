@@ -258,6 +258,18 @@ export default class extends Phaser.State {
       image.visible = true;
     }
     store.commit('isSprintLoaded', true)
+    const destroyGame = setInterval(function () {
+      if (!store.state.sprintGame) {
+        game.state.destroy()
+        game.sound.destroy()
+        game.scale.destroy()
+        game.stage.destroy()
+        game.input.destroy()
+        game.physics.destroy()
+        game.plugins.destroy()
+        clearInterval(destroyGame)
+      }
+    }, 500)
   }
   update () {
     // console.log('speedCoef', speedCoef);

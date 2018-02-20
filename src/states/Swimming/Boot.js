@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
 import WebFont from 'webfontloader'
-import constant from './constant'
 import responsive from '../responsive_helper'
 import store from '../../store'
 
@@ -546,6 +545,18 @@ export default class extends Phaser.State {
       }, 1000)
     }
     store.commit('isSwimmingLoaded', true)
+    const destroyGame = setInterval(function () {
+      if (!store.state.swimmingGame) {
+        game.state.destroy()
+        game.sound.destroy()
+        game.scale.destroy()
+        game.stage.destroy()
+        game.input.destroy()
+        game.physics.destroy()
+        game.plugins.destroy()
+        clearInterval(destroyGame)
+      }
+    }, 500)
   }
 
   createText(){
