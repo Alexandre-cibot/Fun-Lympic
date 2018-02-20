@@ -305,6 +305,7 @@ export default class extends Phaser.State {
     if (this.mamie.x < xValueWhenSpriteKilled) {
       this.obstacleOrderIndex = this.obstacleOrderIndex + 1
       this.mamie.x = getXFromSpriteName(this, 'mamie')
+      this.mamie.y = mamieInfo.y[getRandom(0, mamieInfo.y.length - 1)].height
     } else {
       this.mamie.x = this.mamie.x + (this.mamie.x > responsive.width ? constant.background.speed * speedCoef : constant.mamieSprite.speed * speedCoef)
       this.physics.arcade.overlap(this.sprinter, this.mamie, mamieCollisionHandler, null, this)
@@ -314,30 +315,36 @@ export default class extends Phaser.State {
       // this.cat.x = responsive.width
       this.obstacleOrderIndex = this.obstacleOrderIndex + 1
       this.cat.x = getXFromSpriteName(this, 'cat')
+      this.cat.y = catInfo.y[getRandom(0, catInfo.y.length - 1)].height
     } else {
       this.cat.x = this.cat.x + (this.cat.x > responsive.width ? constant.background.speed * speedCoef : constant.catSprite.speed * speedCoef)
       this.physics.arcade.overlap(this.sprinter, this.cat, catCollisionHandler, null, this)
     }
 
     if (this.dancer.x < xValueWhenSpriteKilled) {
+      const {heightFix} = constant.dancerSprite
       this.obstacleOrderIndex = this.obstacleOrderIndex + 1
       this.dancer.x = getXFromSpriteName(this, 'dancer')
+      this.dancer.y = dancerInfo.y[getRandom(0, dancerInfo.y.length - 1)].height + heightFix
     } else {
       this.dancer.x = this.dancer.x + (this.dancer.x > responsive.width ? constant.background.speed * speedCoef : constant.dancerSprite.speed * speedCoef)
       this.physics.arcade.overlap(this.sprinter, this.dancer, dancerCollisionHandler, null, this)
     }
 
     if (this.duck.x < xValueWhenSpriteKilled) {
+      const {heightFix} = constant.duckSprite
       this.obstacleOrderIndex = this.obstacleOrderIndex + 1
       this.duck.x = getXFromSpriteName(this, 'duck')
+      this.duck.y = duckInfo.y[getRandom(0, duckInfo.y.length - 1)].height + heightFix
     } else {
       this.duck.x = this.duck.x + (this.duck.x > responsive.width ? constant.background.speed * speedCoef : constant.duckSprite.speed * speedCoef)
       this.physics.arcade.overlap(this.sprinter, this.duck, duckCollisionHandler, null, this)
     }
-
     if (this.plot.x < xValueWhenSpriteKilled) {
+      const {heightFix} = constant.plotSprite
       this.obstacleOrderIndex = this.obstacleOrderIndex + 1
       this.plot.x = getXFromSpriteName(this, 'plot')
+      this.plot.y = plotInfo.y[getRandom(0, plotInfo.y.length - 1)].height + heightFix
     } else {
       this.plot.x = this.plot.x + (this.plot.x > responsive.width ? constant.background.speed * speedCoef : constant.plotSprite.speed * speedCoef)
       this.physics.arcade.overlap(this.sprinter, this.plot, plotCollisionHandler, null, this)
