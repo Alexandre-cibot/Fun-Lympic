@@ -1,7 +1,7 @@
 module.exports = {
   speed: {
-    every: 3000,
-    multiplicator: 1.1
+    every: 1000,
+    multiplicator: 1.025
   },
   background: {
     height: 668,
