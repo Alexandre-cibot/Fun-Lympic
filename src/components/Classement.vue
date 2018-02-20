@@ -75,7 +75,7 @@ export default {
   position: relative;
 }
 .circleCenter{
-  margin: 0 18px !important;
+  margin: 0 1em !important;
 }
 .circleCenter img {
   transform: scale(1.2);
