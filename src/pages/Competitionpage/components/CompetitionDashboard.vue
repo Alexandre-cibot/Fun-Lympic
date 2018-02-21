@@ -7,11 +7,11 @@
       <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" />
       <h3 class="animated fadeInUp">Ils te défient</h3>
       <div v-for="chall in challengesNotDone" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" logo="challenge" :image="chall.picture" :finish="notFinish" />
+        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" logo="challenge" :image="chall.picture" :finish="notFinish"  @click.native="playWithFriend" />
       </div>
       <h3 class="animated fadeInUp">Les défis terminés</h3>
       <div v-for="chall in challengesDone" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" :currentName="curName" :currentPoints="chall.curPoints" :logo="chall.status" :image="chall.picture" :finish="finish" />
+        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" :currentName="curName" :currentPoints="chall.curPoints" :logo="chall.status" :image="chall.picture" :finish="finish"/>
       </div>
   </div>
 </template>
@@ -101,6 +101,9 @@ export default {
   methods: {
     chooseFlag() {
       this.$emit('chooseFlag');
+    },
+    playWithFriend(){
+      this.$emit('playWithFriend');
     }
   },
   mounted() {
