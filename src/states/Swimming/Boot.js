@@ -71,20 +71,8 @@ export default class extends Phaser.State {
 
   render () {
     if (isFontsLoaded) {
-      var myText = game.add.text(game.world.centerX, game.world.centerY, "best font ever");
-      myText.anchor.setTo(0.5);
-
-      myText.font = 'Nunito';
-      myText.fontSize = 60;
-
-      myText.align = 'center';
-      myText.stroke = '#999999';
-      myText.strokeThickness = 2;
-      myText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
-
-      myText.inputEnabled = true;
-      myText.input.enableDrag();
     }
+
   }
 
   create() {
@@ -145,9 +133,9 @@ export default class extends Phaser.State {
     dead1.scale.setTo(0.7)
     dead2.scale.setTo(0.6)
     dead3.scale.setTo(0.7)
-    // dead1.visible = false;
-    // dead2.visible = false;
-    // dead3.visible = false;
+    dead1.visible = false;
+    dead2.visible = false;
+    dead3.visible = false;
     let deadArr = [dead1,dead2,dead3];
 
     // Nageuse
@@ -190,7 +178,7 @@ export default class extends Phaser.State {
     this.fail.anchor.setTo(0.5);
     this.perfect.anchor.setTo(0.5);
 
-    let styleRecord = {font:'1.6em',fill: "#ffffff"};
+    let styleRecord = {font:'1.6em Nunito',fill: "#ffffff"};
     let styleScoreFinal = {font: "14em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
     let styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
     this.rec = 5;
@@ -198,8 +186,8 @@ export default class extends Phaser.State {
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     let textScoreFinal = game.add.text(game.world.centerX, 80, '0', styleScoreFinal);
     this.textRecord = game.add.text(game.world.centerX - 45,  22, 'RECORD :', styleRecord);
-    let textFail = game.add.text(game.world.centerX,  game.world.centerY + 200, 'RATE', styleRecord);
-    let textPerfect = game.add.text(game.world.centerX,  game.world.centerY + 200, 'PARFAIT', styleRecord);
+    let textFail = game.add.text(game.world.centerX,  game.world.centerY + 202, 'Raté', styleRecord);
+    let textPerfect = game.add.text(game.world.centerX,  game.world.centerY + 202, 'Parfait', styleRecord);
     var oldRecord = 5;
     
     this.textRecord.text = 'Record : ' + this.rec;
@@ -284,13 +272,13 @@ export default class extends Phaser.State {
       }
     },1000);
     
+    let style = { font: "5em Nunito", fill: "#ffffff", align: "center" };
+    
     let styleCountDown = {font: "14em Nunito", fill: "#F4426D", align: "center", boundsAlignV: "middle"};
     this.textCountDown = game.add.text(game.world.centerX, game.world.centerY, '3', styleCountDown);
     this.textCountDown.anchor.setTo(0.5)
     this.textCountDown.stroke = '#C53054';
     this.textCountDown.strokeThickness = 12;
-
-    var style = { font: "5em Nunito", fill: "#ffffff", align: "center" };
 
     var home = game.add.sprite(game.world.centerX - 60, game.world.centerY, 'home');
     var play = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'play');
@@ -352,25 +340,47 @@ export default class extends Phaser.State {
     }
 
     //Test random circle
+    this.timeRandom = 4
     var numCircle;
     this.superCircle = false;
-    this.timeRandom =4;
+    game.time.events.loop(Phaser.Timer.SECOND, setRandom, this);
+
+    function setRandom(){
+      if(this.score >= 2){
+        this.timeRandom = 1
+      }
+      if(this.score > 40){
+        this.timeRandom = 2
+      }
+      if(this.score > 80){
+        this.timeRandom = 1
+      }
+      if(this.score > 120){
+        this.timeRandom -= 0.5
+      }
+      if(this.score > 300){
+        this.timeRandom -= 0.5
+      }
+    }
+    
     let cirLength = this.circleArr.length -1;
     this.sec = 2;
     var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * this.timeRandom, setNumCircle, this);
     
     function setNumCircle(){
+      console.log('time' + this.timeRandom)
       numCircle = Math.round(Math.random() * 2);
     }
     var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.timeRandom, displayCircle, this);
-    // var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * this.timeRandom) +2, displayCircle, this);
+    
+    // var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * timeRandom) +2, displayCircle, this);
     let pointSuperCircle = [20, 40];
+
     function displayCircle(e){
       if(this.textScore.text >= pointSuperCircle[0]){
         pointSuperCircle.push(pointSuperCircle[1] + 20)
         pointSuperCircle.shift();
         this.superCircle = true;
-        console.log(pointSuperCircle);
       }
       let last = this.spawnArr[this.spawnArr.length-1]
       if(this.superCircle){
@@ -440,7 +450,6 @@ export default class extends Phaser.State {
             for(let i = 0; i<this.arrPos[this.life-1].length; i++){
               this.arrPos[i][this.life-1].kill();
             }
-            console.log('life :' + this.life)
             deadArr[this.life-1].visible = true;
             deadArr[this.life-1].play('run', 8)
 
@@ -476,7 +485,6 @@ export default class extends Phaser.State {
             //Re-balancing of length
             if(this.spawnArr.length > this.clickArr.length){
               let diff = this.spawnArr.length - this.clickArr.length;
-              console.log(diff);
               (diff == 1) ? this.clickArr.push(2) : this.clickArr.push.apply(this.clickArr,[2, 2]);
             }else if(this.spawnArr.length < this.clickArr.length){
               let diff = this.clickArr.length - this.spawnArr.length;
@@ -540,11 +548,6 @@ export default class extends Phaser.State {
         this.textRecord.text = 'Record : ' + this.score;
       }
       let v = Math.round(Math.random() * 2);
-      // for(let u = 0; u< this.life; u++){
-      //     for(let w = 0; w<this.life; w++){
-      //       this.arrPos[u][w].visible = false;
-      //     }
-      //   }
       
 
       for(let u = 0; u< this.life; u++){
@@ -590,21 +593,6 @@ export default class extends Phaser.State {
   update () {
     // Condition to review
     //Use if/else for performance and not switch
-    if(this.score > 20){
-      this.timeRandom -= 0.5
-    }
-    if(this.score > 40){
-      this.timeRandom -= 0.5
-    }
-    if(this.score > 80){
-      this.timeRandom -= 0.5
-    }
-    if(this.score > 120){
-      this.timeRandom -= 0.5
-    }
-    if(this.score > 300){
-      this.timeRandom -= 0.5
-    }
     if(this.time == -1){
       clearInterval(this.countDown)
       this.textCountDown.visible = false;
