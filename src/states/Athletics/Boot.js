@@ -19,10 +19,6 @@ const sprinterSpeedCoefSlowDown = 0.98
 const nbLife = 3
 let isFontsLoaded = false
 
-function fontsLoaded () {
-  isFontsLoaded = true
-}
-
 const sprinterFallFrameFlag = {
   counter: 0,
   max: constant.sprinterFallSprite.nbSprites - 1
@@ -71,11 +67,8 @@ const obstacles = [
   plotInfo
 ]
 
-window.WebFontConfig = {
-  active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
-  google: {
-    families: ['Nunito']
-  }
+function fontsLoaded () {
+  isFontsLoaded = true
 }
 
 export default class extends Phaser.State {
@@ -84,6 +77,12 @@ export default class extends Phaser.State {
   }
 
   preload() {
+    window.WebFontConfig = {
+      active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
+      google: {
+        families: ['Nunito']
+      }
+    }
     game.time.advancedTiming = true
 
     this.load.image('pause', './assets/images/pause.svg')
