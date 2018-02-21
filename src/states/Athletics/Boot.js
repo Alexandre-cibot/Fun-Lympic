@@ -15,12 +15,16 @@ const obstacleWidthFrequency = 600
 const speedCoefIfTakeObstacle = 0.8
 const xValueWhenSpriteKilled = -200
 let speedCoef = 1.8
+const sprinterSpeedCoefSlowDown = 0.98
+const nbLife = 3
 const sprinterFallFrameFlag = {
   counter: 0,
   max: constant.sprinterFallSprite.nbSprites - 1
 }
 const speedCoefInterval = setInterval(() => {
-  speedCoef = speedCoef * constant.speed.multiplicator
+  if (speedCoef !== sprinterSpeedCoefSlowDown) {
+    speedCoef = speedCoef * constant.speed.multiplicator
+  }
 }, constant.speed.every)
 
 const mamieInfo = {
@@ -174,7 +178,7 @@ export default class extends Phaser.State {
     this.physics.arcade.enable(this.sprinterFall)
 
     // life system
-    this.lifeRemaining = 3
+    this.lifeRemaining = nbLife
     this.sprinter.nbFlashing = 0
     // this.sprinter.flashBoolean = true
     console.log('life', this.lifeRemaining);
@@ -286,6 +290,8 @@ export default class extends Phaser.State {
         this.sprinterStop.visible = false
         this.sprinterFall.y = pallier[this.playerRace].height + constant.sprinterFallSprite.heightFix
         this.sprinterFall.visible = true
+        moveBackground(this.background)
+        speedCoef = sprinterSpeedCoefSlowDown
       } else {
         this.sprinter.visible = false
         this.sprinterStop.visible = true
@@ -395,6 +401,12 @@ export default class extends Phaser.State {
 }
 
 var moveBackground = function (background) {
+  if (speedCoef === sprinterSpeedCoefSlowDown) {
+    if (constant.background.speed > -0.11) {
+      constant.background.speed = 0
+    }
+    constant.background.speed = constant.background.speed * speedCoef
+  }
   background.x = background.x + (constant.background.speed * speedCoef)
 }
 
