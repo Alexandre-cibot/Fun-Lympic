@@ -35,7 +35,7 @@
       <div class="button_bottom">
         <ClassementButton image="facebook"  @click.native="facebook" :class="currentState == 'facebook' ? 'btnYellow' : 'btnBlue'"/>
         <ClassementButton image="flag" @click.native="flag" :class="currentState == 'flag' ? 'btnYellow' : 'btnBlue'"/>
-        <ClassementButton image="planet" @click.native="planet" :class="currentState == 'planet' ? 'btnYellow' : 'btnBlue'"/>
+        <ClassementButton :image="currentState == 'planet' ? 'planet_active' : 'planet'" @click.native="planet" :class="currentState == 'planet' ? 'btnYellow' : 'btnBlue'"/>
         <ClassementButton image="nations" @click.native="nations" :class="currentState == 'nations' ? 'btnYellow' : 'btnBlue'"/>
       </div>
     </div>
