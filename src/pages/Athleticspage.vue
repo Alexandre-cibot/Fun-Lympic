@@ -2,6 +2,7 @@
   <div id="wrapper">
     <div id="load" v-show="!gameLoaded"></div>
     <div id="content" v-show="gameLoaded"></div>
+    <AthleticsTuto v-if="showTuto && !gameLoaded" @hideMe="hideTuto"/>
     <div v-show="gameLoaded" id="bg"></div>
   </div>
 </template>
@@ -12,6 +13,7 @@ import Phaser from 'phaser'
 
 import BootState from '@/states/Athletics/Boot'
 import responsive from '../states/responsive_helper'
+import AthleticsTuto from '@/pages/TutoPage/Athletics.vue'
 import store from '../store'
 
 import config from '@/config'
@@ -25,17 +27,27 @@ export default {
   },
   data () {
     return {
-      
+      showTuto: false,
     };
   },
   mounted () {
     store.commit('runSprintGame')
+    if (!window.localStorage.getItem('athleticsTutoShown')) {
+      window.localStorage.setItem('athleticsTutoShown', 'true')
+      this.showTuto = true
+    }
     this.runGame()
   },
   beforeDestroy () {
     store.commit('destroySprintGame')
   },
+  components:{
+    AthleticsTuto,
+  },
   methods: {
+    hideTuto(){
+      this.showTuto = false
+    },
     runGame () {
       class Game extends Phaser.Game {
         constructor () {
