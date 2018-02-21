@@ -61,6 +61,7 @@ export default {
 </script>
 
 <style scoped>
+
 button {
   position: relative;
   display: flex;
