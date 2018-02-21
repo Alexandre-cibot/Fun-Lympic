@@ -17,6 +17,12 @@ const xValueWhenSpriteKilled = -200
 let speedCoef = 1.8
 const sprinterSpeedCoefSlowDown = 0.98
 const nbLife = 3
+let isFontsLoaded = false
+
+function fontsLoaded () {
+  isFontsLoaded = true
+}
+
 const sprinterFallFrameFlag = {
   counter: 0,
   max: constant.sprinterFallSprite.nbSprites - 1
@@ -64,24 +70,22 @@ const obstacles = [
   duckInfo,
   plotInfo
 ]
+
+window.WebFontConfig = {
+  active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
+  google: {
+    families: ['Nunito']
+  }
+}
+
 export default class extends Phaser.State {
   init() {
     this.stage.backgroundColor = '#EDEEC9'
-    this.fontsReady = false
-    this.fontsLoaded = this.fontsLoaded.bind(this)
   }
 
   preload() {
     game.time.advancedTiming = true
-    // WebFont.load({
-    //   custom: {
-    //     families: ['myfrida-bold'],
-    //     urls: ["../../css/main.css"]
-    //   }
-    // })
 
-    // let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
-    // text.anchor.setTo(0.5, 0.5)
     this.load.image('pause', './assets/images/pause.svg')
     this.load.image('background', './assets/images/background.png')
     this.load.image('home', './assets/images/home.svg')
@@ -94,16 +98,26 @@ export default class extends Phaser.State {
     this.load.spritesheet('dancer', './assets/images/sprint_dancer.png', constant.dancerSprite.width / constant.dancerSprite.nbSprites, constant.dancerSprite.height)
     this.load.spritesheet('duck', './assets/images/sprint_duck.png', constant.duckSprite.width / constant.duckSprite.nbSprites, constant.duckSprite.height)
     this.load.spritesheet('plot', './assets/images/sprint_plot.png', constant.plotSprite.width / constant.plotSprite.nbSprites, constant.plotSprite.height)
+    this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
   }
 
   render() {
     game.debug.text(game.time.fps || 25, 2, 14, "black");
-    // if (this.fontsReady) {
-    // }
-  }
-
-  fontsLoaded () {
-    this.fontsReady = true
+    if (isFontsLoaded) {
+      var myText = game.add.text(game.world.centerX, game.world.centerY, "best font ever");
+      myText.anchor.setTo(0.5);
+    
+      myText.font = 'Nunito';
+      myText.fontSize = 60;
+    
+      myText.align = 'center';
+      myText.stroke = '#999999';
+      myText.strokeThickness = 2;
+      myText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+    
+      myText.inputEnabled = true;
+      myText.input.enableDrag();
+    }
   }
 
   create () {

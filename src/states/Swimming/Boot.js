@@ -3,6 +3,18 @@ import WebFont from 'webfontloader'
 import responsive from '../responsive_helper'
 import store from '../../store'
 
+let isFontsLoaded = false
+
+function fontsLoaded () {
+  isFontsLoaded = true
+}
+window.WebFontConfig = {
+  active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
+  google: {
+    families: ['Nunito']
+  }
+}
+
 export default class extends Phaser.State {
   init() {
     this.stage.backgroundColor = '#EDEEC9'
@@ -54,17 +66,28 @@ export default class extends Phaser.State {
     game.load.audio('sifflet', ['./assets/musique/sifflet.mp3']);
     game.load.audio('bling', ['./assets/musique/bling.mp3']);
     game.load.audio('bouh', ['./assets/musique/bouh.mp3']);
+    game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
   }
-  
-  // WebFontConfig = {
-  //   active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
-  //   google: {
-  //     families: ['Nunito']
-  //   },   
-  // }
+
+  render () {
+    if (isFontsLoaded) {
+      var myText = game.add.text(game.world.centerX, game.world.centerY, "best font ever");
+      myText.anchor.setTo(0.5);
+    
+      myText.font = 'Nunito';
+      myText.fontSize = 60;
+    
+      myText.align = 'center';
+      myText.stroke = '#999999';
+      myText.strokeThickness = 2;
+      myText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+    
+      myText.inputEnabled = true;
+      myText.input.enableDrag();
+    }
+  }
 
   create() {
-    const scaleRatio = window.devicePixelRatio / 3
     this.background = game.add.sprite(0, 0, 'background');
     this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
     this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
