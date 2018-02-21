@@ -21,8 +21,14 @@
             <ClassementFriends v-else :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" />
           </div>
         </div>
+        <div v-else-if="nationsClassement"  class="scrollDiv">
+          <div v-for="(nation, key) in nationArray" :key="key" class="classement">
+            <ClassementNation v-if="key == 0" :classement="key + 1" :nation="nation" :owner="true" />
+            <ClassementNation v-else :classement="key + 1" :nation="nation" />
+          </div>
+        </div>
         <div v-else>
-          <p class="text_friends">Aucun ami ne joue encore à <br/> Finger Games :(</p>
+          <p class="text_friends">Aucun ami ne joue encore à <br/> Fun'lympic :(</p>
           <BasicButton btnColor="blue" btnSize="big" title="Inviter des amis !" image="facebook" @click="facebook"/>
         </div>
       </div>
@@ -30,6 +36,7 @@
         <ClassementButton image="facebook"  @click.native="facebook" :class="currentState == 'facebook' ? 'btnYellow' : 'btnBlue'"/>
         <ClassementButton image="flag" @click.native="flag" :class="currentState == 'flag' ? 'btnYellow' : 'btnBlue'"/>
         <ClassementButton image="planet" @click.native="planet" :class="currentState == 'planet' ? 'btnYellow' : 'btnBlue'"/>
+        <ClassementButton image="nations" @click.native="nations" :class="currentState == 'nations' ? 'btnYellow' : 'btnBlue'"/>
       </div>
     </div>
   </div>
@@ -38,6 +45,7 @@
 <script>
 import Navbar from '@/components/Navbar';
 import ClassementFriends from '@/components/ClassementFriends';
+import ClassementNation from '@/components/ClassementNation';
 import ClassementButton from '@/components/ClassementButton';
 import BasicButton from '@/components/BasicButton';
 export default {
@@ -45,6 +53,7 @@ export default {
   components: {
     ClassementFriends,
     ClassementButton,
+    ClassementNation,
     BasicButton,
     Navbar
   },
@@ -54,7 +63,8 @@ export default {
       facebookClassement : false,
       flagClassement : false,
       planetClassement : false,
-      sport : "Athlétisme",
+      nationsClassement : false,
+      sport : "Cours Forrest",
       users : [
         {
           text: "Classement",
@@ -228,15 +238,98 @@ export default {
           picture: require('@/assets/julien.jpg'),
           flag: require('@/assets/flag/France.png'),
         },
+      ],
+      nationsArray: [
+        {
+          name: "Allemagne",
+          moyenne: 63,
+          flag: require('@/assets/flag/Allemagne.png'),
+        },
+        {
+          name: "Belgique",
+          moyenne: 89,
+          flag: require('@/assets/flag/Belgique.png'),
+        },
+        {
+          name: "Canada",
+          moyenne: 21,
+          flag: require('@/assets/flag/Canada.png'),
+        },
+        {
+          name: "Chine",
+          moyenne: 383,
+          flag: require('@/assets/flag/Chine.png'),
+        },
+        {
+          name: "Espagne",
+          moyenne: 217,
+          flag: require('@/assets/flag/Espagne.png'),
+        },
+        {
+          name: "États-Unis",
+          moyenne: 326,
+          flag: require('@/assets/flag/Etats-Unis.png'),
+        },
+        {
+          name: "France",
+          moyenne: 420,
+          flag: require('@/assets/flag/France.png'),
+        },
+        {
+          name: "Grèce",
+          moyenne: 100,
+          flag: require('@/assets/flag/Grece.png'),
+        },
+        {
+          name: "Italie",
+          moyenne: 10,
+          flag: require('@/assets/flag/Italie.png'),
+        },
+        {
+          name: "Japon",
+          moyenne: 88,
+          flag: require('@/assets/flag/Japon.png'),
+        },
+        {
+          name: "Pays-Bas",
+          moyenne: 190,
+          flag: require('@/assets/flag/Pays-Bas.png'),
+        },
+        {
+          name: "Portugal",
+          moyenne: 210,
+          flag: require('@/assets/flag/Grece.png'),
+        },
+        {
+          name: "Royaume-Uni",
+          moyenne: 286,
+          flag: require('@/assets/flag/Royaume-Uni.png'),
+        },
+        {
+          name: "Russie",
+          moyenne: 407,
+          flag: require('@/assets/flag/Russie.png'),
+        },
+        {
+          name: "Suède",
+          moyenne: 49,
+          flag: require('@/assets/flag/Suede.png'),
+        },
+        {
+          name: "Suisse",
+          moyenne: 4,
+          flag: require('@/assets/flag/Suisse.png'),
+        },
+
       ]
     }
   },
   methods: {
     changeSport(){
-      if(this.sport == "Athlétisme"){
-        this.sport = "Natation";
+      if(this.sport == "Cours Forrest"){
+        this.sport = "Flash Dance";
       }else {
-        this.sport = "Athlétisme";
+        this.sport = "Cours Forrest";
       }
     },
     facebook(){
@@ -244,18 +337,28 @@ export default {
       this.flagClassement = false;
       this.facebookClassement = true;
       this.planetClassement = false;
+      this.nationsClassement = false;
     },
     flag(){
       this.currentState = `flag`;
       this.flagClassement = true;
       this.facebookClassement = false;
       this.planetClassement = false;
+      this.nationsClassement = false;
     },
     planet(){
       this.currentState = `planet`;
       this.flagClassement = false;
       this.facebookClassement = false;
       this.planetClassement = true;
+      this.nationsClassement = false;
+    },
+    nations(){
+      this.currentState = `nations`;
+      this.flagClassement = false;
+      this.facebookClassement = false;
+      this.planetClassement = false;
+      this.nationsClassement = true;
     },
     goBack(){
       this.$router.push('/');
@@ -265,9 +368,9 @@ export default {
     friendsArray () {
       if(this.currentState == 'facebook'){
         this.array = this.friends;
-      }else if (this.currentState == 'flag') {
+      } else if (this.currentState == 'flag') {
         this.array = this.friendsFlag;
-      }else {
+      } else if (this.currentState == 'planet'){
         this.array = this.friendsPlanet;
       }
 
@@ -279,6 +382,13 @@ export default {
         return 0;
       }
       return this.array.sort(compare);
+    },
+
+    nationArray() {
+      if(this.currentState == 'nations') {
+        this.array = this.nationsArray;
+      }
+      return this.array.sort( (a,b) => { if(a.moyenne > b.moyenne) return -1; if(a.moyenne < b.moyenne) return 1; return 0 } )
     }
   },
 }
@@ -319,7 +429,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 9vh;
-  width: 80%;
+  width: 100%;
   background: #FFD360;
   border: none;
   border-radius: 10px;
@@ -374,7 +484,7 @@ export default {
   flex-direction: row;
   justify-content: space-around ;
   align-items: center;
-  width: 70%;
+  width: 90%;
   margin: auto;
   margin-top: 3vh;
 }
