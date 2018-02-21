@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-    <p style="color: black" v-show="!gameLoaded">chargement</p>
+    <div id="load" v-show="!gameLoaded"></div>
     <div id="content" v-show="gameLoaded"></div>
     <div v-show="gameLoaded" id="bg"></div>
   </div>
@@ -87,6 +87,14 @@ export default {
   height: 100vh;
   width: 100%;
   overflow: hidden;
+}
+#load {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: url('../assets/exemple_chargement.gif');
+  background-size: cover;
+  background-position: center;
 }
 #bg{
   background: #66DF91;
