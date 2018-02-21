@@ -100,6 +100,8 @@ export default class extends Phaser.State {
     this.load.spritesheet('plot', './assets/images/sprint_plot.png', constant.plotSprite.width / constant.plotSprite.nbSprites, constant.plotSprite.height)
     this.load.image('coeur', './assets/images/coeur.png')
     this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
+    this.load.image('record', './assets/images/swimming_record.png')
+    this.load.image('newRecord', './assets/images/swimming_new_record.png')
   }
 
   render() {
@@ -278,11 +280,23 @@ export default class extends Phaser.State {
 
     // score
     const styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
+    let styleRecord = {font:'1.6em Nunito',fill: "#ffffff"};
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     this.textScore.anchor.setTo(0.5, 0);
     this.textScore.stroke = '#69629A';
     this.textScore.strokeThickness = 4;
     // END score
+
+    // record
+    this.oldRecord = getRecord()
+    this.record = game.add.sprite(game.world.centerX, 32, 'record');
+    this.record.anchor.setTo(0.5);
+    this.textRecord = game.add.text(game.world.centerX - 45, 22, 'RECORD :', styleRecord);
+    this.textRecord.text = 'Record : ' + this.oldRecord
+    this.newRecord = game.add.sprite(game.world.centerX, 32, 'newRecord');
+    this.newRecord.anchor.setTo(0.5);
+    this.newRecord.visible = false;
+    // END record
 
     // Heart
     const heart1 = game.add.sprite(game.width - 50, 20, 'coeur');
@@ -316,6 +330,9 @@ export default class extends Phaser.State {
     this.heart[2].visible = this.lifeRemaining > 2
     this.score = parseInt(-this.background.x / 100)
     this.textScore.text = this.score
+    if (this.score > this.oldRecord) {
+      this.newRecord.visible = true;
+    }
     if (!this.go) {
       if (this.fall) {
         if (sprinterFallFrameFlag.counter <= sprinterFallFrameFlag.max) {
@@ -329,6 +346,7 @@ export default class extends Phaser.State {
         this.sprinterFall.y = pallier[this.playerRace].height + constant.sprinterFallSprite.heightFix
         this.sprinterFall.visible = true
         moveBackground(this.background)
+        setRecord(this.score)
         speedCoef = sprinterSpeedCoefSlowDown
       } else {
         this.sprinter.visible = false
@@ -442,6 +460,9 @@ var moveBackground = function (background) {
   if (speedCoef === sprinterSpeedCoefSlowDown) {
     if (constant.background.speed > -0.11) {
       constant.background.speed = 0
+      if (game.oldRecord < game.record) {
+        setRecord(game.record)
+      }
     }
     constant.background.speed = constant.background.speed * speedCoef
   }
@@ -604,4 +625,12 @@ function getRandom (min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+function getRecord () {
+  return window.localStorage.getItem('athleticsRecord') || 0
+}
+
+function setRecord (record) {
+  return window.localStorage.setItem('athleticsRecord', record)
 }
