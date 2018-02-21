@@ -11,7 +11,8 @@
       </div>
       <h3 class="animated fadeInUp">Tes défis terminés</h3>
       <div v-for="chall in challengesDone" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" :currentName="curName" :currentPoints="chall.curPoints" :logo="chall.status" :image="chall.picture" :finish="finish"/>
+        <ChallengeButton v-if="chall.status == 'win'" class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" :currentName="curName" :currentPoints="chall.curPoints" :logo="chall.status" :image="chall.picture" :finish="finish" @click.native="winGame"/>
+        <ChallengeButton v-else class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" :currentName="curName" :currentPoints="chall.curPoints" :logo="chall.status" :image="chall.picture" :finish="finish"  @click.native="loseGame"/>
       </div>
   </div>
 </template>
@@ -104,6 +105,12 @@ export default {
     },
     playWithFriend(){
       this.$emit('playWithFriend');
+    },
+    winGame(){
+      this.$emit('winGame');
+    },
+    loseGame(){
+      this.$emit('loseGame');
     }
   },
   mounted() {
