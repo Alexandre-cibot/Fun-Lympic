@@ -181,7 +181,7 @@ export default class extends Phaser.State {
     let styleRecord = {font:'1.6em Nunito',fill: "#ffffff"};
     let styleScoreFinal = {font: "14em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
     let styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
-    this.rec = 5;
+    this.rec = (localStorage.getItem('record') ? parseFloat(localStorage.getItem('record')) : 5 );
 
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     let textScoreFinal = game.add.text(game.world.centerX, 80, '0', styleScoreFinal);
@@ -463,6 +463,7 @@ export default class extends Phaser.State {
             if(this.life == 0){
               if(this.textScore.text >= oldRecord) {
                 newRecord.visible = true;
+                localStorage.setItem('record', this.textScore.text);
               }
               this.water.pause();
               game.time.events.remove(myLoop1);
@@ -569,7 +570,7 @@ export default class extends Phaser.State {
           nageuseArr[i].visible = true;
           canChange = false
         }
-      }, 1000)
+      }, 500)
     }
     store.commit('isSwimmingLoaded', true)
     const destroyGame = setInterval(function () {
