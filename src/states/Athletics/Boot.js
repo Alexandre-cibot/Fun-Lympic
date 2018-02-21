@@ -227,7 +227,7 @@ export default class extends Phaser.State {
     graphics.drawRect(0, 0, game.width, 2000);
     graphics.visible = false;
 
-    var style = { font: "5em myfrida-bold", fill: "#ffffff", align: "center" };
+    var style = { font: "5em myfrida_bold", fill: "#ffffff", align: "center" };
 
     var home = game.add.sprite(game.world.centerX - 60, game.world.centerY, 'home');
     var play = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'play');
