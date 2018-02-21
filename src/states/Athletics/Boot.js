@@ -74,6 +74,7 @@ function fontsLoaded () {
 export default class extends Phaser.State {
   init() {
     this.stage.backgroundColor = '#EDEEC9'
+    this.score = 0
   }
 
   preload() {
@@ -103,19 +104,19 @@ export default class extends Phaser.State {
   render() {
     game.debug.text(game.time.fps || 25, 2, 14, "black");
     if (isFontsLoaded) {
-      var myText = game.add.text(game.world.centerX, game.world.centerY, "best font ever");
-      myText.anchor.setTo(0.5);
+      // var myText = game.add.text(game.world.centerX, game.world.centerY, "best font ever");
+      // myText.anchor.setTo(0.5);
     
-      myText.font = 'Nunito';
-      myText.fontSize = 60;
+      // myText.font = 'Nunito';
+      // myText.fontSize = 60;
     
-      myText.align = 'center';
-      myText.stroke = '#999999';
-      myText.strokeThickness = 2;
-      myText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+      // myText.align = 'center';
+      // myText.stroke = '#999999';
+      // myText.strokeThickness = 2;
+      // myText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
     
-      myText.inputEnabled = true;
-      myText.input.enableDrag();
+      // myText.inputEnabled = true;
+      // myText.input.enableDrag();
     }
   }
 
@@ -273,6 +274,15 @@ export default class extends Phaser.State {
       text.visible = false;
       image.visible = true;
     }
+
+    // score
+    let styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
+    this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
+    this.textScore.anchor.setTo(0.5, 0);
+    this.textScore.stroke = '#69629A';
+    this.textScore.strokeThickness = 4;
+    // END score
+
     store.commit('isSprintLoaded', true)
     const destroyGame = setInterval(function () {
       if (!store.state.sprintGame) {
@@ -291,6 +301,8 @@ export default class extends Phaser.State {
   update () {
     // console.log('speedCoef', speedCoef);
     // console.log('FPS', game.time.fps);
+    this.score = parseInt(-this.background.x / 100)
+    this.textScore.text = this.score
     if (!this.go) {
       if (this.fall) {
         if (sprinterFallFrameFlag.counter <= sprinterFallFrameFlag.max) {
