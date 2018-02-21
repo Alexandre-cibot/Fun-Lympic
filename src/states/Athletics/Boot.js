@@ -15,8 +15,8 @@ const obstacleWidthFrequency = 600
 const speedCoefIfTakeObstacle = 0.8
 const xValueWhenSpriteKilled = -200
 let speedCoef = 1.8
-const sprinterSpeedCoefSlowDown = 0.98
-const nbLife = 3
+const sprinterSpeedCoefSlowDown = 0.992
+const nbLife = 1
 let isFontsLoaded = false
 
 const sprinterFallFrameFlag = {
