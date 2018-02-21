@@ -8,12 +8,6 @@ let isFontsLoaded = false
 function fontsLoaded () {
   isFontsLoaded = true
 }
-window.WebFontConfig = {
-  active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
-  google: {
-    families: ['Nunito']
-  }
-}
 
 export default class extends Phaser.State {
   init() {
@@ -24,6 +18,12 @@ export default class extends Phaser.State {
   }
 
   preload() {
+    window.WebFontConfig = {
+      active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
+      google: {
+        families: ['Nunito']
+      }
+    }
     this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
     this.load.image('background', './assets/images/piscine2.jpg')
     this.load.image('coeur', './assets/images/coeur.png')
@@ -73,15 +73,15 @@ export default class extends Phaser.State {
     if (isFontsLoaded) {
       var myText = game.add.text(game.world.centerX, game.world.centerY, "best font ever");
       myText.anchor.setTo(0.5);
-    
+
       myText.font = 'Nunito';
       myText.fontSize = 60;
-    
+
       myText.align = 'center';
       myText.stroke = '#999999';
       myText.strokeThickness = 2;
       myText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
-    
+
       myText.inputEnabled = true;
       myText.input.enableDrag();
     }
