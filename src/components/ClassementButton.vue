@@ -26,9 +26,12 @@ export default {
           return require('@/assets/flag.svg');
         break;
         case 'planet':
+          return require('@/assets/worldindiv.svg');
+        break;
+        case 'nations':
           return require('@/assets/planet.svg');
         break;
-        default: 
+        default:
         break;
       }
     }
