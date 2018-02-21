@@ -16,7 +16,7 @@ const speedCoefIfTakeObstacle = 0.8
 const xValueWhenSpriteKilled = -200
 let speedCoef = 1.8
 const sprinterSpeedCoefSlowDown = 0.992
-const nbLife = 1
+const nbLife = 3
 let isFontsLoaded = false
 
 const sprinterFallFrameFlag = {
@@ -126,17 +126,6 @@ export default class extends Phaser.State {
   create () {
     this.go = false
     this.fall = false
-
-    this.time = 3
-    this.countDown = setInterval(() => {
-      this.time--
-      console.log('Compte à rebours', this.time)
-      // this.textCountDown.text = this.time
-      if (this.time === 0) {
-        this.go = true
-        clearInterval(this.countDown)
-      }
-    }, 1000)
 
     this.swipe = new Swipe(this.game)
     this.playerRace = 1
@@ -308,6 +297,23 @@ export default class extends Phaser.State {
     this.heart = [heart1, heart2, heart3];
     // END hesart
     store.commit('isSprintLoaded', true)
+
+    let styleCountDown = {font: "14em Nunito", fill: "#F4426D", align: "center", boundsAlignV: "middle"};
+    this.textCountDown = game.add.text(game.world.centerX, game.world.centerY, '3', styleCountDown);
+    this.textCountDown.anchor.setTo(0.5)
+    this.textCountDown.stroke = '#C53054';
+    this.textCountDown.strokeThickness = 12;
+    this.time = 3
+    this.countDown = setInterval(() => {
+      this.time--
+      this.textCountDown.text = this.time
+      if (this.time === 0) {
+        this.go = true
+        this.textCountDown.visible = false
+        clearInterval(this.countDown)
+      }
+    }, 1000)
+
     const destroyGame = setInterval(function () {
       if (!store.state.sprintGame) {
         game.state.destroy()
@@ -325,6 +331,7 @@ export default class extends Phaser.State {
   update () {
     // console.log('speedCoef', speedCoef);
     // console.log('FPS', game.time.fps);
+    console.log(this.time);
     this.heart[0].visible = this.lifeRemaining > 0
     this.heart[1].visible = this.lifeRemaining > 1
     this.heart[2].visible = this.lifeRemaining > 2
