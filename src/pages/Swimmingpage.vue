@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-    <p style="color: black" v-show="!gameLoaded">ça charge</p>
+    <div id="load" v-show="!gameLoaded"></div>
     <SwimmingTuto v-if="showTuto && !gameLoaded" @hideMe="hideTuto"/>
     <div id="content" v-show="gameLoaded"></div>
   <!-- <ClassementGame v-if="gameLoaded"/> -->
@@ -107,7 +107,6 @@ export default {
 <style scoped>
 #wrapper {
   height: 100vh;
-  width: 100%;
   overflow: hidden;
 }
 #menu {
@@ -117,6 +116,14 @@ export default {
   bottom: 0;
   right: 0;
   background: rgba(0,0,0,0.5);
+}
+#load {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: url('../assets/exemple_chargement.gif');
+  background-size: cover;
+  background-position: center;
 }
 #content{
   display: flex;
