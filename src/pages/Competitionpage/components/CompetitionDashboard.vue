@@ -1,7 +1,7 @@
 <template>
   <div style="padding-bottom: 3vh;">
       <div v-for="user in currentUser" :key="user.index">
-        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="true" :competition="true" :defeat="user.defeat" :victory="user.victory"/>
+        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="true" :competition="true" :defeat="profile.defeats" :victory="profile.victories"/>
       </div>
       <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
       <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" />
