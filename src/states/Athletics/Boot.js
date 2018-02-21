@@ -102,6 +102,11 @@ export default class extends Phaser.State {
     this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
     this.load.image('record', './assets/images/swimming_record.png')
     this.load.image('newRecord', './assets/images/swimming_new_record.png')
+
+    this.load.audio('pas', ['./assets/musique/pas.mp3']);
+    this.load.audio('swipe', ['./assets/musique/swipe.mp3']);
+    this.load.audio('impact', ['./assets/musique/impact.mp3']);
+    this.load.audio('pan', ['./assets/musique/pan.mp3']);
   }
 
   render() {
@@ -196,6 +201,14 @@ export default class extends Phaser.State {
       }
     }
     // END life system
+
+    // song
+    this.pasSong = game.add.audio('pas')
+    this.pasSong.volume = 0.1
+    this.swipeSong = game.add.audio('swipe')
+    this.impactSong = game.add.audio('impact')
+    this.panSong = game.add.audio('pan')
+    // END song
 
     // Create menu
     var image = game.add.sprite(20, 20, 'pause');
@@ -312,7 +325,14 @@ export default class extends Phaser.State {
       if (this.time === 0) {
         this.go = true
         this.textCountDown.visible = false
+        this.panSong.play();
         clearInterval(this.countDown)
+      }
+    }, 1000)
+
+    const pasSong = setInterval(() => {
+      if (this.go) {
+        this.pasSong.play()
       }
     }, 1000)
 
@@ -327,6 +347,7 @@ export default class extends Phaser.State {
         game.plugins.destroy()
         clearInterval(destroyGame)
         clearInterval(speedCoefInterval)
+        clearInterval(pasSong)
       }
     }, 500)
   }
@@ -479,6 +500,7 @@ var moveBackground = function (background) {
 }
 
 function movePlayerRace (self, boolean) {
+  self.swipeSong.play()
   if (boolean) {
     const plusOne = self.playerRace + 1
     if (plusOne < pallier.length) {
@@ -501,6 +523,7 @@ function mamieCollisionHandler (sprinter, mamie) {
     mamie.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
+    this.impactSong.play()
   }
 }
 
@@ -510,6 +533,7 @@ function catCollisionHandler (sprinter, cat) {
     cat.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
+    this.impactSong.play()
   }
 }
 
@@ -520,6 +544,7 @@ function dancerCollisionHandler (sprinter, dancer) {
     dancer.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
+    this.impactSong.play()
   }
 }
 
@@ -530,6 +555,7 @@ function duckCollisionHandler (sprinter, duck) {
     duck.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
+    this.impactSong.play()
   }
 }
 
@@ -540,6 +566,7 @@ function plotCollisionHandler (sprinter, plot) {
     plot.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
+    this.impactSong.play()
   }
 }
 
