@@ -15,7 +15,7 @@ const obstacleWidthFrequency = 600
 const speedCoefIfTakeObstacle = 0.8
 const xValueWhenSpriteKilled = -200
 let speedCoef = 1.8
-const sprinterSpeedCoefSlowDown = 0.98
+const sprinterSpeedCoefSlowDown = 0.992
 const nbLife = 3
 let isFontsLoaded = false
 
@@ -100,6 +100,8 @@ export default class extends Phaser.State {
     this.load.spritesheet('plot', './assets/images/sprint_plot.png', constant.plotSprite.width / constant.plotSprite.nbSprites, constant.plotSprite.height)
     this.load.image('coeur', './assets/images/coeur.png')
     this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
+    this.load.image('record', './assets/images/swimming_record.png')
+    this.load.image('newRecord', './assets/images/swimming_new_record.png')
   }
 
   render() {
@@ -124,17 +126,6 @@ export default class extends Phaser.State {
   create () {
     this.go = false
     this.fall = false
-
-    this.time = 3
-    this.countDown = setInterval(() => {
-      this.time--
-      console.log('Compte à rebours', this.time)
-      // this.textCountDown.text = this.time
-      if (this.time === 0) {
-        this.go = true
-        clearInterval(this.countDown)
-      }
-    }, 1000)
 
     this.swipe = new Swipe(this.game)
     this.playerRace = 1
@@ -280,11 +271,23 @@ export default class extends Phaser.State {
 
     // score
     const styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
+    let styleRecord = {font:'1.6em Nunito',fill: "#ffffff"};
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     this.textScore.anchor.setTo(0.5, 0);
     this.textScore.stroke = '#69629A';
     this.textScore.strokeThickness = 4;
     // END score
+
+    // record
+    this.oldRecord = getRecord()
+    this.record = game.add.sprite(game.world.centerX, 32, 'record');
+    this.record.anchor.setTo(0.5);
+    this.textRecord = game.add.text(game.world.centerX - 45, 22, 'RECORD :', styleRecord);
+    this.textRecord.text = 'Record : ' + this.oldRecord
+    this.newRecord = game.add.sprite(game.world.centerX, 32, 'newRecord');
+    this.newRecord.anchor.setTo(0.5);
+    this.newRecord.visible = false;
+    // END record
 
     // Heart
     const heart1 = game.add.sprite(game.width - 50, 20, 'coeur');
@@ -296,6 +299,23 @@ export default class extends Phaser.State {
     this.heart = [heart1, heart2, heart3];
     // END hesart
     store.commit('isSprintLoaded', true)
+
+    let styleCountDown = {font: "14em Nunito", fill: "#F4426D", align: "center", boundsAlignV: "middle"};
+    this.textCountDown = game.add.text(game.world.centerX, game.world.centerY, '3', styleCountDown);
+    this.textCountDown.anchor.setTo(0.5)
+    this.textCountDown.stroke = '#C53054';
+    this.textCountDown.strokeThickness = 12;
+    this.time = 3
+    this.countDown = setInterval(() => {
+      this.time--
+      this.textCountDown.text = this.time
+      if (this.time === 0) {
+        this.go = true
+        this.textCountDown.visible = false
+        clearInterval(this.countDown)
+      }
+    }, 1000)
+
     const destroyGame = setInterval(function () {
       if (!store.state.sprintGame) {
         game.state.destroy()
@@ -313,11 +333,15 @@ export default class extends Phaser.State {
   update () {
     // console.log('speedCoef', speedCoef);
     // console.log('FPS', game.time.fps);
+    console.log(this.time);
     this.heart[0].visible = this.lifeRemaining > 0
     this.heart[1].visible = this.lifeRemaining > 1
     this.heart[2].visible = this.lifeRemaining > 2
     this.score = parseInt(-this.background.x / 100)
     this.textScore.text = this.score
+    if (this.score > this.oldRecord) {
+      this.newRecord.visible = true;
+    }
     if (!this.go) {
       if (this.fall) {
         if (sprinterFallFrameFlag.counter <= sprinterFallFrameFlag.max) {
@@ -331,6 +355,7 @@ export default class extends Phaser.State {
         this.sprinterFall.y = pallier[this.playerRace].height + constant.sprinterFallSprite.heightFix
         this.sprinterFall.visible = true
         moveBackground(this.background)
+        setRecord(this.score)
         speedCoef = sprinterSpeedCoefSlowDown
       } else {
         this.sprinter.visible = false
@@ -444,6 +469,9 @@ var moveBackground = function (background) {
   if (speedCoef === sprinterSpeedCoefSlowDown) {
     if (constant.background.speed > -0.11) {
       constant.background.speed = 0
+      if (game.oldRecord < game.record) {
+        setRecord(game.record)
+      }
     }
     constant.background.speed = constant.background.speed * speedCoef
   }
@@ -606,4 +634,12 @@ function getRandom (min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+function getRecord () {
+  return window.localStorage.getItem('athleticsRecord') || 0
+}
+
+function setRecord (record) {
+  return window.localStorage.setItem('athleticsRecord', record)
 }
