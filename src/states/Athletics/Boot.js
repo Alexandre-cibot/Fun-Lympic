@@ -306,9 +306,9 @@ export default class extends Phaser.State {
     const heart1 = game.add.sprite(game.width - 50, 20, 'coeur');
     const heart2 = game.add.sprite(game.width - 80, 20, 'coeur');
     const heart3 = game.add.sprite(game.width - 110, 20, 'coeur');
-    heart1.scale.setTo(1.5, 1.5);
-    heart2.scale.setTo(1.5, 1.5);
-    heart3.scale.setTo(1.5, 1.5);
+    heart1.scale.setTo(1.2, 1.2);
+    heart2.scale.setTo(1.2, 1.2);
+    heart3.scale.setTo(1.2, 1.2);
     this.heart = [heart1, heart2, heart3];
     // END hesart
     store.commit('isSprintLoaded', true)
