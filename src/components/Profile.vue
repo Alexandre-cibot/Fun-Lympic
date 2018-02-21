@@ -8,7 +8,8 @@
     <div class="infos">
         <h3>{{firstName}}</h3><img :src="flag" alt="" class="flag"/><br/>
     </div>
-    <h4>{{victory}} victoires / {{defeat}} défaites</h4>
+    <h4 v-if="victory">{{victory}} victoires / {{defeat}} défaites</h4>
+    <h4 v-if="score" class="score">{{score}}</h4>
   </div>
 </template>
 
@@ -16,6 +17,12 @@
 export default {
   name: "profile",
   props: {
+    infos: {
+      type: Boolean
+    },
+    score: {
+      type: String,
+    },
     picture:{
       type: String,
       required: true,
@@ -78,6 +85,11 @@ export default {
   }
 }
 
+.score {
+  color: white;
+  font-size: 2em;
+  opacity: 1;
+}
 .wrapper_profile{
   display: flex;
   flex-direction: column; 
@@ -89,7 +101,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 2vh;
+  margin-top: 13vh;
 }
 .infos img {
   display: inline-block;
@@ -124,8 +136,7 @@ export default {
   animation: rotating 60s linear infinite;
 }
 h4{
-  margin-top: 1vh;
-  margin-bottom: 5vh;
+  margin-top: 2vh;
   letter-spacing: 1.5px;
   opacity: 0.5;
   text-transform: uppercase;
