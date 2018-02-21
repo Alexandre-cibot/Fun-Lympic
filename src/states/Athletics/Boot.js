@@ -98,6 +98,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('dancer', './assets/images/sprint_dancer.png', constant.dancerSprite.width / constant.dancerSprite.nbSprites, constant.dancerSprite.height)
     this.load.spritesheet('duck', './assets/images/sprint_duck.png', constant.duckSprite.width / constant.duckSprite.nbSprites, constant.duckSprite.height)
     this.load.spritesheet('plot', './assets/images/sprint_plot.png', constant.plotSprite.width / constant.plotSprite.nbSprites, constant.plotSprite.height)
+    this.load.image('coeur', './assets/images/coeur.png')
     this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
   }
 
@@ -276,13 +277,22 @@ export default class extends Phaser.State {
     }
 
     // score
-    let styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
+    const styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     this.textScore.anchor.setTo(0.5, 0);
     this.textScore.stroke = '#69629A';
     this.textScore.strokeThickness = 4;
     // END score
 
+    // Heart
+    const heart1 = game.add.sprite(game.width - 50, 20, 'coeur');
+    const heart2 = game.add.sprite(game.width - 80, 20, 'coeur');
+    const heart3 = game.add.sprite(game.width - 110, 20, 'coeur');
+    heart1.scale.setTo(1.5, 1.5);
+    heart2.scale.setTo(1.5, 1.5);
+    heart3.scale.setTo(1.5, 1.5);
+    this.heart = [heart1, heart2, heart3];
+    // END hesart
     store.commit('isSprintLoaded', true)
     const destroyGame = setInterval(function () {
       if (!store.state.sprintGame) {
@@ -301,6 +311,9 @@ export default class extends Phaser.State {
   update () {
     // console.log('speedCoef', speedCoef);
     // console.log('FPS', game.time.fps);
+    this.heart[0].visible = this.lifeRemaining > 0
+    this.heart[1].visible = this.lifeRemaining > 1
+    this.heart[2].visible = this.lifeRemaining > 2
     this.score = parseInt(-this.background.x / 100)
     this.textScore.text = this.score
     if (!this.go) {
