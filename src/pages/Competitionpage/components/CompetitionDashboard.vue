@@ -3,13 +3,13 @@
       <div v-for="user in currentUser" :key="user.index">
         <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="true" :competition="true" :defeat="profile.defeats" :victory="profile.victories"/>
       </div>
-      <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
+      <BasicButton class="challengeBtn animated hidden" title="défie un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
       <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" />
-      <h3 class="animated fadeInUp">Ils te défient</h3>
+      <h3 class="animated fadeInUp">Tes défis</h3>
       <div v-for="chall in challengesNotDone" :key="chall.index">
         <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" logo="challenge" :image="chall.picture" :finish="notFinish" />
       </div>
-      <h3 class="animated fadeInUp">Les défis terminés</h3>
+      <h3 class="animated fadeInUp">Tes défis terminés</h3>
       <div v-for="chall in challengesDone" :key="chall.index">
         <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" :currentName="curName" :currentPoints="chall.curPoints" :logo="chall.status" :image="chall.picture" :finish="finish" />
       </div>
@@ -119,7 +119,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>  
+<style scoped>
 .page-wrapper {
   background: #F5F5F5;
   height: 100vh;
