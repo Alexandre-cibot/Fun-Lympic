@@ -15,6 +15,7 @@ export default class extends Phaser.State {
     this.fontsReady = false
     this.life = 3
     this.score = 0
+    this.timeRandom = 4
   }
 
   preload() {
@@ -30,8 +31,8 @@ export default class extends Phaser.State {
     this.load.image('jury', './assets/images/swimming_jury.png')
     this.load.image('juryHappy', './assets/images/swimming_jury_happy.png')
     this.load.image('juryUnhappy', './assets/images/swimming_jury_unhappy.png')
-    this.load.image('home', './assets/images/home.svg')
-    this.load.image('play', './assets/images/play.svg')
+    this.load.image('home', './assets/images/home.png')
+    this.load.image('play', './assets/images/play.png')
     this.load.image('pause', './assets/images/pause.svg')
     this.load.image('share', './assets/images/share.png')
     this.load.image('btn1', './assets/images/swimming_BTN_1.png')
@@ -52,6 +53,9 @@ export default class extends Phaser.State {
     this.load.image('pose3Nag1', './assets/images/swimming_Pose3_nag1.png')
     this.load.image('pose3Nag2', './assets/images/swimming_Pose3_nag2.png')
     this.load.image('pose3Nag3', './assets/images/swimming_Pose3_nag3.png')
+    this.load.image('pose4Nag1', './assets/images/swimming_pos4_nag1-min.png')
+    this.load.image('pose4Nag2', './assets/images/swimming_pos4_nag2-min.png')
+    this.load.image('pose4Nag3', './assets/images/swimming_pos4_nag3-min.png')
 
     this.load.spritesheet('dead1', './assets/images/noyade-3-min.png', 120, 400)
     this.load.spritesheet('dead2', './assets/images/noyade-1-min.png', 120, 400)
@@ -110,11 +114,15 @@ export default class extends Phaser.State {
     this.pos3Nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(30), responsive.getHeightFromPercentage(54), 'pose3Nag1')
     this.pos3Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(0), responsive.getHeightFromPercentage(43), 'pose3Nag2')
     this.pos3Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(55), responsive.getHeightFromPercentage(43), 'pose3Nag3')    
+    this.pos4Nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(38), responsive.getHeightFromPercentage(56), 'pose4Nag3')
+    this.pos4Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(10), responsive.getHeightFromPercentage(45), 'pose4Nag2')
+    this.pos4Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(65), responsive.getHeightFromPercentage(45), 'pose4Nag1')    
 
     this.arrPos = [
       [this.pos1Nageuse, this.pos1Nageuse3, this.pos1Nageuse2], 
       [this.pos2Nageuse, this.pos2Nageuse3, this.pos2Nageuse2],
       [this.pos3Nageuse, this.pos3Nageuse3, this.pos3Nageuse2],
+      [this.pos4Nageuse, this.pos4Nageuse3, this.pos4Nageuse2],
     ];
     
     for(let i = 0; i<this.arrPos.length; i++){
@@ -123,15 +131,18 @@ export default class extends Phaser.State {
         this.arrPos[i][u].scale.setTo(0.4);
       }
     }
+    this.pos4Nageuse.scale.setTo(0.5);
+    this.pos4Nageuse2.scale.setTo(0.5);
+    this.pos4Nageuse3.scale.setTo(0.5);
 
     let dead1 = this.game.add.sprite(responsive.getWidthFromPercentage(41), responsive.getHeightFromPercentage(55), 'dead1')
-    let dead2 = this.game.add.sprite(responsive.getWidthFromPercentage(69), responsive.getHeightFromPercentage(45), 'dead2')
+    let dead2 = this.game.add.sprite(responsive.getWidthFromPercentage(67), responsive.getHeightFromPercentage(45), 'dead2')
     let dead3 = this.game.add.sprite(responsive.getWidthFromPercentage(9), responsive.getHeightFromPercentage(45), 'dead3')
     dead1.animations.add('run')
     dead2.animations.add('run')
     dead3.animations.add('run')
     dead1.scale.setTo(0.7)
-    dead2.scale.setTo(0.6)
+    dead2.scale.setTo(0.7)
     dead3.scale.setTo(0.7)
     dead1.visible = false;
     dead2.visible = false;
@@ -286,6 +297,8 @@ export default class extends Phaser.State {
     text.anchor.setTo(0.5, 0);
     home.anchor.setTo(0.5)
     play.anchor.setTo(0.5)
+    home.scale.setTo(0.5)
+    play.scale.setTo(0.5)
     play.visible = false;
     home.visible = false;
     text.visible = false;
@@ -340,14 +353,15 @@ export default class extends Phaser.State {
     }
 
     //Test random circle
-    this.timeRandom = 4
+
     var numCircle;
     this.superCircle = false;
     game.time.events.loop(Phaser.Timer.SECOND, setRandom, this);
 
     function setRandom(){
-      if(this.score >= 2){
-        this.timeRandom = 1
+      this.timeRandom = 4
+      if(this.score > 2){
+        this.timeRandom += 4
       }
       if(this.score > 40){
         this.timeRandom = 2
@@ -365,13 +379,13 @@ export default class extends Phaser.State {
     
     let cirLength = this.circleArr.length -1;
     this.sec = 2;
-    var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * this.timeRandom, setNumCircle, this);
+    var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * this.life, setNumCircle, this);
     
     function setNumCircle(){
       console.log('time' + this.timeRandom)
       numCircle = Math.round(Math.random() * 2);
     }
-    var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.timeRandom, displayCircle, this);
+    var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.life, displayCircle, this);
     
     // var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * timeRandom) +2, displayCircle, this);
     let pointSuperCircle = [20, 40];
@@ -447,14 +461,15 @@ export default class extends Phaser.State {
             }, 1000)
             heart[this.life-1].visible = false;
             nageuseArr[this.life-1].kill();
-            for(let i = 0; i<this.arrPos[this.life-1].length; i++){
+
+            for(let i = 0; i<=this.arrPos[this.life].length; i++){
               this.arrPos[i][this.life-1].kill();
             }
             deadArr[this.life-1].visible = true;
             deadArr[this.life-1].play('run', 8)
 
             setTimeout(()=>{
-              deadArr[this.life-1].visible = false;
+              deadArr[this.life].visible = false;
             }, 1000)
             
             starArray[this.life-1].kill();
@@ -549,11 +564,12 @@ export default class extends Phaser.State {
         this.textRecord.text = 'Record : ' + this.score;
       }
       let v = Math.round(Math.random() * 2);
+      let k = Math.round(Math.random() * 3);
       
 
       for(let u = 0; u< this.life; u++){
         if(!canChange){
-          this.arrPos[v][u].visible = true;
+          this.arrPos[k][u].visible = true;
         }
       }
       canChange = true;
@@ -565,7 +581,7 @@ export default class extends Phaser.State {
       }
       setTimeout(()=>{
         for(var i = 0; i < this.life; i++ ){
-          this.arrPos[v][i].visible = false;
+          this.arrPos[k][i].visible = false;
           starArray[i].visible = false;
           nageuseArr[i].visible = true;
           canChange = false

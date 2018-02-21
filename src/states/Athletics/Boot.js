@@ -88,8 +88,8 @@ export default class extends Phaser.State {
 
     this.load.image('pause', './assets/images/pause.svg')
     this.load.image('background', './assets/images/background.png')
-    this.load.image('home', './assets/images/home.svg')
-    this.load.image('play', './assets/images/play.svg')
+    this.load.image('home', './assets/images/home.png')
+    this.load.image('play', './assets/images/play.png')
     this.load.spritesheet('sprinter', './assets/images/sprint_sprinter_run.png', constant.sprinterSprite.width / constant.sprinterSprite.nbSprites, constant.sprinterSprite.height)
     this.load.spritesheet('sprinter_stop', './assets/images/sprint_sprinter_stop.png', constant.sprinterStopSprite.width / constant.sprinterStopSprite.nbSprites, constant.sprinterStopSprite.height)
     this.load.spritesheet('sprinter_fall', './assets/images/sprint_sprinter_fall.png', constant.sprinterFallSprite.width / constant.sprinterFallSprite.nbSprites, constant.sprinterFallSprite.height)
@@ -244,6 +244,8 @@ export default class extends Phaser.State {
     text.anchor.setTo(0.5, 0);
     home.anchor.setTo(0.5)
     play.anchor.setTo(0.5)
+    home.scale.setTo(0.5)
+    play.scale.setTo(0.5)
     play.visible = false;
     home.visible = false;
     text.visible = false;
