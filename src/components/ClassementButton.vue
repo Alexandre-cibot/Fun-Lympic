@@ -28,6 +28,9 @@ export default {
         case 'planet':
           return require('@/assets/worldindiv.svg');
         break;
+        case 'planet_active':
+          return require('@/assets/worldindiv_active.svg');
+        break;
         case 'nations':
           return require('@/assets/planet.svg');
         break;
