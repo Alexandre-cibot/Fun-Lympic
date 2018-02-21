@@ -204,7 +204,7 @@ label{
 p {
   text-align: center;
   line-height: 1.5em ;
-  font-size: 1.2em;
+  font-size: 1.1em;
   padding: 0 1.5vh;
   color: #493B35;
   margin-top: 16vh;
