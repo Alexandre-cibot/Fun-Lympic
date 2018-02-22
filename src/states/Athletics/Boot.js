@@ -194,7 +194,7 @@ export default class extends Phaser.State {
     this.lifeRemaining = nbLife
     this.sprinter.nbFlashing = 0
     // this.sprinter.flashBoolean = true
-    console.log('life', this.lifeRemaining);
+    // console.log('life', this.lifeRemaining);
     this.substractLife = function () {
       this.sprinter.nbFlashing = 80
       this.lifeRemaining = this.lifeRemaining - 1
@@ -361,7 +361,7 @@ export default class extends Phaser.State {
   update () {
     // console.log('speedCoef', speedCoef);
     // console.log('FPS', game.time.fps);
-    console.log(this.time);
+    // console.log(this.time);
     this.heart[0].visible = this.lifeRemaining > 0
     this.heart[1].visible = this.lifeRemaining > 1
     this.heart[2].visible = this.lifeRemaining > 2
@@ -497,6 +497,8 @@ var moveBackground = function (background) {
   if (speedCoef === sprinterSpeedCoefSlowDown) {
     if (constant.background.speed > -0.11) {
       constant.background.speed = 0
+      store.commit('sprintFinish', true)
+      game.paused = true
       if (game.oldRecord < game.record) {
         setRecord(game.record)
       }
