@@ -85,7 +85,7 @@ export default class extends Phaser.State {
     window.WebFontConfig = {
       active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
       google: {
-        families: ['Nunito']
+        families: ['Nunito:300,400,500,700,900']
       }
     }
     game.time.advancedTiming = true
@@ -104,6 +104,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('dancer', './assets/images/sprint_dancer.png', constant.dancerSprite.width / constant.dancerSprite.nbSprites, constant.dancerSprite.height)
     this.load.spritesheet('duck', './assets/images/sprint_duck.png', constant.duckSprite.width / constant.duckSprite.nbSprites, constant.duckSprite.height)
     this.load.spritesheet('plot', './assets/images/sprint_plot.png', constant.plotSprite.width / constant.plotSprite.nbSprites, constant.plotSprite.height)
+    this.load.spritesheet('confettis', './assets/images/confettis.png', 434, 770)
     this.load.image('coeur', './assets/images/coeur.png')
     this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
     this.load.image('record', './assets/images/swimming_record.png')
@@ -217,9 +218,14 @@ export default class extends Phaser.State {
     // END song
 
     // Create menu
-    var image = game.add.sprite(20, 20, 'pause');
-    image.inputEnabled = true;
-    image.events.onInputDown.add(listener, this);
+    this.image = game.add.sprite(20, 20, 'pause');
+    this.image.inputEnabled = true;
+    this.image.visible = false;
+    setTimeout(()=>{
+      this.image.visible = true;
+    }, 3000)
+
+    this.image.events.onInputDown.add(listener, this);
 
     var bg = document.createElement('div');
     let bgSty = bg.style;
@@ -246,30 +252,38 @@ export default class extends Phaser.State {
     graphics.drawRect(0, 0, game.width, 2000);
     graphics.visible = false;
 
-    var style = { font: "5em myfrida_bold", fill: "#ffffff", align: "center" };
+    var style = { font: "5em Nunito", fill: "#ffffff", align: "center" };
 
     var home = game.add.sprite(game.world.centerX - 60, game.world.centerY, 'home');
     var play = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'play');
+    this.confettis = game.add.sprite(0,0, 'confettis');
     var text = game.add.text(game.world.centerX, game.world.centerY - 150, 'Pause', style);
-    let share = game.add.sprite(20, 20, 'share');
-    let next = game.add.sprite(game.width - 70, 20, 'next');
-    next.scale.setTo(0.5)
-    next.visible = false;
-    share.visible = false;
-    next.inputEnabled = true;
-    next.events.onInputDown.add(redirectNext, this);
+    this.share = game.add.sprite(20, 20, 'share');
+    this.next = game.add.sprite(game.width - 70, 20, 'next');
+    
+    this.next.scale.setTo(0.5)
+    this.next.visible = false;
+    this.next.inputEnabled = true;
+    this.next.events.onInputDown.add(redirectNext, this);
+    
+    this.confettis.animations.add('run')
+    this.confettis.visible = false;
+
+    this.share.visible = false;
     text.anchor.setTo(0.5, 0);
-    home.anchor.setTo(0.5)
-    play.anchor.setTo(0.5)
+    text.visible = false;
+
     home.scale.setTo(0.5)
+    home.anchor.setTo(0.5)
+    home.visible = false;
+    home.inputEnabled = true;
+    home.events.onInputDown.add(redirect, this);
+
+    play.anchor.setTo(0.5)
     play.scale.setTo(0.5)
     play.visible = false;
-    home.visible = false;
-    text.visible = false;
     play.inputEnabled = true;
-    home.inputEnabled = true;
     play.events.onInputDown.add(unpaused, this);
-    home.events.onInputDown.add(redirect, this);
     
     function redirect(){
       location.replace("/#/");
@@ -292,7 +306,7 @@ export default class extends Phaser.State {
       graphics.visible = true;
       play.visible = true;
       home.visible = true;
-      image.visible = false;
+      this.image.visible = false;
     }  
 
     function unpaused(){
@@ -302,23 +316,31 @@ export default class extends Phaser.State {
       home.visible = false;
       graphics.visible = false;
       text.visible = false;
-      image.visible = true;
+      this.image.visible = true;
     }
 
     // score
     const styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
-    let styleRecord = {font:'1.6em Nunito',fill: "#ffffff"};
+    let styleRecord = {font:'700 1.6em Nunito',fill: "#ffffff"};
+    let styleScoreFinal = {font: "14em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
+
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
+    this.textScoreFinal = game.add.text(game.world.centerX, 80, '0', styleScoreFinal);
     this.textScore.anchor.setTo(0.5, 0);
     this.textScore.stroke = '#69629A';
     this.textScore.strokeThickness = 4;
+
+    this.textScoreFinal.anchor.setTo(0.5, 0);
+    this.textScoreFinal.stroke = '#69629A';
+    this.textScoreFinal.strokeThickness = 8;
+    this.textScoreFinal.visible = false;
     // END score
 
     // record
     this.oldRecord = getRecord()
     this.record = game.add.sprite(game.world.centerX, 32, 'record');
     this.record.anchor.setTo(0.5);
-    this.textRecord = game.add.text(game.world.centerX - 45, 22, 'RECORD :', styleRecord);
+    this.textRecord = game.add.text(game.world.centerX - 35,  22, 'RECORD :', styleRecord);
     this.textRecord.text = 'Record : ' + this.oldRecord
     this.newRecord = game.add.sprite(game.world.centerX, 32, 'newRecord');
     this.newRecord.anchor.setTo(0.5);
@@ -388,9 +410,6 @@ export default class extends Phaser.State {
     this.heart[2].visible = this.lifeRemaining > 2
     this.score = parseInt(-this.background.x / 100)
     this.textScore.text = this.score
-    if (this.score > this.oldRecord) {
-      this.newRecord.visible = true;
-    }
     if (!this.go) {
       if (this.fall) {
         if (sprinterFallFrameFlag.counter <= sprinterFallFrameFlag.max) {
@@ -405,8 +424,17 @@ export default class extends Phaser.State {
         this.sprinterFall.visible = true
         moveBackground(this.background)
         if (!isSetInLocalStorage) {
-          // TODO
           setHistory(this.score)
+          this.textScoreFinal.text = this.textScore.text;
+          setTimeout(()=>{
+            this.textScoreFinal.visible = true;
+            this.textScore.visible = false;
+            this.next.visible = true;
+            this.share.visible = true;
+            if (this.score > this.oldRecord) {
+              this.newRecord.visible = true;
+            }
+          }, 5000)
         }
         speedCoef = sprinterSpeedCoefSlowDown
       } else {

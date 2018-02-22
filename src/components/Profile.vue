@@ -11,7 +11,7 @@
     <div v-if="!navbar" class="infos">
         <h3>{{firstName}}</h3><img :src="flag" @click="$emit('chooseFlag')" alt="" class="flag"/><br/>
     </div>
-    <h4 class="victoriesAndDefeats">{{victory}} victoires / {{defeat}} défaites</h4>
+    <h4 v-if="showStats" class="victoriesAndDefeats">{{victory}} victoires / {{defeat}} défaites</h4>
     <h4 v-if="score" class="score">{{score}}</h4>
     <div v-if="money" class="money">
       <img src="@/assets/coin.png" alt="jo_coin">
@@ -24,6 +24,11 @@
 export default {
   name: "profile",
   props: {
+    showStats: {
+      type:Boolean,
+      required: false,
+      default: true
+    },
     infos: {
       type: Boolean
     },
