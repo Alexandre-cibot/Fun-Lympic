@@ -31,7 +31,7 @@ export default class AuthService {
       console.log(authResult)
       if (authResult && authResult.accessToken && authResult.idToken) {
         // Envoie des informations renvoyées par Facebook dans l'API
-        API.postUser(authResult, (dataFromAPI) => {
+        API.postUser(authResult).then(dataFromAPI => {
           console.log('Callback', dataFromAPI)
           this.setSession(dataFromAPI)
           router.replace('competition')
@@ -55,6 +55,10 @@ export default class AuthService {
     console.log('Ajout/update du profile dans le cache')
     localStorage.setItem('profile', JSON.stringify(dataFromAPI.data))
     this.authNotifier.emit('authChange', { authenticated: true })
+  }
+
+  setLocalStorage (dataFromAPI) {
+    localStorage.setItem('profile', JSON.stringify(dataFromAPI.data))
   }
 
   logout () {
