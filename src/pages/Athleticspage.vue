@@ -1,7 +1,8 @@
 <template>
   <div id="wrapper">
-    <p style="color: black" v-show="!gameLoaded">chargement</p>
+    <div id="load" v-show="!gameLoaded"></div>
     <div id="content" v-show="gameLoaded"></div>
+    <AthleticsTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div v-show="gameLoaded" id="bg"></div>
   </div>
 </template>
@@ -12,6 +13,7 @@ import Phaser from 'phaser'
 
 import BootState from '@/states/Athletics/Boot'
 import responsive from '../states/responsive_helper'
+import AthleticsTuto from '@/pages/TutoPage/Athletics.vue'
 import store from '../store'
 
 import config from '@/config'
@@ -25,17 +27,35 @@ export default {
   },
   data () {
     return {
-      
+      showTuto: false,
     };
   },
   mounted () {
+    setInterval(() => {
+      console.log('init');
+      console.log('showTuto', this.showTuto);
+      console.log('gameLoaded', this.gameLoaded);
+    }, 200)
     store.commit('runSprintGame')
+    store.commit('updateTutoOk', true)
+    if (!window.localStorage.getItem('athleticsTutoShown')) {
+      store.commit('updateTutoOk', false)
+      window.localStorage.setItem('athleticsTutoShown', 'true')
+      this.showTuto = true
+    }
     this.runGame()
   },
   beforeDestroy () {
     store.commit('destroySprintGame')
   },
+  components:{
+    AthleticsTuto,
+  },
   methods: {
+    hideTuto(){
+      store.commit('updateTutoOk', true)
+      this.showTuto = false
+    },
     runGame () {
       class Game extends Phaser.Game {
         constructor () {
@@ -87,6 +107,14 @@ export default {
   height: 100vh;
   width: 100%;
   overflow: hidden;
+}
+#load {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: url('../assets/exemple_chargement.gif');
+  background-size: cover;
+  background-position: center;
 }
 #bg{
   background: #66DF91;

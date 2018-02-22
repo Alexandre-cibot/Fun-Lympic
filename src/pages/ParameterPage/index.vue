@@ -8,8 +8,8 @@
           <BasicButton image="sound" btnColor="yellow" btnSize="mid" @click="()=>{console.log('click')}" />
         </div>
         <div class="music">
-          <h2>MUSIC</h2>
-          <BasicButton image="music" btnColor="yellow" btnSize="mid" @click="()=>{console.log('click')}" />
+          <h2>NOTIF</h2>
+          <BasicButton image="notifs" btnColor="yellow" btnSize="mid" @click="()=>{console.log('click')}" />
         </div>
       </div>
       <div class="block2">

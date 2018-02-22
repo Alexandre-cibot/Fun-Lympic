@@ -14,7 +14,7 @@ h2,h3,h4,p, button{
   opacity: 1;
 }
 .bg_purple_light {
-  background-color: #573399;
+  background: linear-gradient(#41287F,  #573399);
 }
 .bg_purple_dark {
   background-color: #2D1862;

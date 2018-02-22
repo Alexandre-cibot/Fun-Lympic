@@ -1,10 +1,13 @@
 <template>
   <div class="wrapper-page bg_purple_light">
-    <Navbar text="Défie tes amis" secondBtn="podium" @goBack="goBack"/>
+    <Navbar v-if="currentState != 'winGame' && currentState != 'loseGame' && currentState != 'playWithFriend'" text="Défie tes amis" secondBtn="podium" @goBack="goBack"/>
     <div class="wrapper">
       <ConnexionFB v-if="!authenticated" :authenticated="authenticated" :auth="auth" />
       <div v-else style="height:100%">
-        <CompetitionDashboard v-if="currentState === 'competitionDashboard' || currentState === 'chooseFlag'" :profile="profile" @chooseFlag="chooseFlag"/>
+        <CompetitionDashboard v-if="currentState === 'competitionDashboard' || currentState === 'chooseFlag'" :profile="profile" @chooseFlag="chooseFlag" @playWithFriend="playWithFriend" @winGame="winGame" @loseGame="loseGame"/>
+        <ChallengeGame v-if="currentState === 'playWithFriend'" @pushRoute="pushRoute"/>
+        <WinGame v-if="currentState === 'winGame'" @pushRoute="pushRoute"/>
+        <LoseGame  v-if="currentState === 'loseGame'" @pushRoute="pushRoute"/>
         <Nation v-if="currentState === 'chooseFlag'"  @closeModal="closeModal" @chooseFriends="chooseFriends" />
         <Friends v-if="currentState === 'chooseFriends'" @friend="friend"/>
         <ChallengeFriend v-if="currentState === 'friend'" @before="before" />
@@ -28,6 +31,9 @@ import ConnexionFB from './components/ConnexionFB.vue';
 import ChallengeFriend from './components/ChallengeFriend.vue';
 import Friends from './components/Friends.vue';
 import Nation from './components/Nation';
+import ChallengeGame from './components/ChallengeGame';
+import WinGame from './components/WinGame';
+import LoseGame from './components/LoseGame';
 
 export default {
   name: 'Stade',
@@ -36,7 +42,10 @@ export default {
     Navbar,
     Friends,
     BasicButton,
+    WinGame,
+    LoseGame,
     ConnexionFB,
+    ChallengeGame,
     ChallengeFriend,
     CompetitionDashboard,
     BeforeGame,
@@ -67,6 +76,10 @@ export default {
       this.updateHistory(this.currentState);
       this.currentState = "competitionDashboard";
     },
+    pushRoute(){
+      this.updateHistory(this.currentState);
+      this.currentState = "competitionDashboard";
+    },
     // connection() {
     //   this.connexion = !this.connexion;
     // },
@@ -74,9 +87,21 @@ export default {
       this.updateHistory(this.currentState);
       this.currentState = "chooseFriends"
     },
+    playWithFriend(){
+      this.updateHistory(this.currentState);
+      this.currentState = "playWithFriend"
+    },
     chooseFlag() {
       this.updateHistory(this.currentState);
       this.currentState = "chooseFlag"
+    },
+    loseGame(){
+      this.updateHistory(this.currentState);
+      this.currentState = "loseGame";
+    },
+    winGame(){
+      this.updateHistory(this.currentState);
+      this.currentState = "winGame";
     },
     friend() {
       this.updateHistory(this.currentState);

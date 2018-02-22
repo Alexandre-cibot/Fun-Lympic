@@ -5,10 +5,18 @@
         <img v-else src="@/assets/first_circle.svg" alt="" class="circle">
         <img :src="picture" alt="" class="first_character">
     </div>
-    <div class="infos">
+    <div v-if="navbar" class="infos2">
         <h3>{{firstName}}</h3><img :src="flag" alt="" class="flag"/><br/>
     </div>
-    <h4>{{victory}} victoires / {{defeat}} défaites</h4>
+    <div v-if="!navbar" class="infos">
+        <h3>{{firstName}}</h3><img :src="flag" alt="" class="flag"/><br/>
+    </div>
+    <h4 class="victoriesAndDefeats">{{victory}} victoires / {{defeat}} défaites</h4>
+    <h4 v-if="score" class="score">{{score}}</h4>
+    <div v-if="money" class="money">
+      <img src="@/assets/coin.png" alt="jo_coin">
+      +{{money}}
+    </div>
   </div>
 </template>
 
@@ -16,6 +24,15 @@
 export default {
   name: "profile",
   props: {
+    infos: {
+      type: Boolean
+    },
+    money: {
+      type: Number
+    },
+    score: {
+      type: String,
+    },
     picture:{
       type: String,
       required: true,
@@ -41,6 +58,9 @@ export default {
     },
     victory: {
       type: Number
+    },
+    navbar:{
+      type: Boolean
     }
   },
   
@@ -77,7 +97,14 @@ export default {
     transform: rotate(360deg);
   }
 }
-
+.victoriesAndDefeats {
+  margin-top: 5px;
+}
+.score {
+  color: white;
+  font-size: 2em;
+  opacity: 1; 
+}
 .wrapper_profile{
   display: flex;
   flex-direction: column; 
@@ -90,6 +117,13 @@ export default {
   flex-direction: row;
   align-items: center;
   margin-top: 2vh;
+}
+.infos2 {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 8vh;
 }
 .infos img {
   display: inline-block;
@@ -105,7 +139,6 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 20vh;
 }
 .circle_second{
   display: flex;
@@ -113,7 +146,6 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 20vh;
 }
 .circle {
   height: 20vh;
@@ -124,8 +156,6 @@ export default {
   animation: rotating 60s linear infinite;
 }
 h4{
-  margin-top: 1vh;
-  margin-bottom: 5vh;
   letter-spacing: 1.5px;
   opacity: 0.5;
   text-transform: uppercase;
@@ -135,5 +165,24 @@ h4{
   border: 7px solid #a997c9;
   border-radius: 50%;
   height: 11vh;
+}
+.money{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 19vw;
+  font-family:"myfrida_bold";
+  font-size: 1em;
+  color: white;
+  background: #4F2F90;
+  border-radius: 5px;
+  margin: auto;
+  padding: 0 4px;
+  letter-spacing: 1.5px;
+  margin-top: 3vh;
+}
+.money img {
+  transform: scale(0.7)
 }
 </style>
