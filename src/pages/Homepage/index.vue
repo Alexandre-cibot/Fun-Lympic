@@ -15,8 +15,8 @@
         <button @click="goParameterPage">
           <img src="@/assets/first.svg" alt="">
         </button>
-        <button>
-          <img src="@/assets/second.svg" alt="">
+        <button @click="toggleSound">
+          <img :src="soundImage" alt="">
         </button>
         <button @click="goClassementPage">
           <img src="@/assets/third.svg" alt="">
@@ -36,6 +36,7 @@
 <script>
 import BasicButton from '@/components/BasicButton';
 import DidYouKnow from '@/components/DidYouKnow';
+import store from '@/store';
 
 export default {
   name: 'Homepage',
@@ -46,7 +47,7 @@ export default {
   data() {
     return {
       msg: 'test',
-      show: false,
+      show: false
     };
   },
   methods: {
@@ -73,6 +74,14 @@ export default {
     },
     goClassementPage() {
       this.$router.push('/classement');
+    },
+    toggleSound() {
+      store.commit('toggleSoundMute', {'isMuted' : !store.state.isSoundMuted, 'muteBy' : 'player'})
+    }
+  },
+  computed: {
+    soundImage(){
+      return store.state.isSoundMuted ? require('@/assets/sound_muted.svg') : require('@/assets/second.svg');
     }
   },
   mounted() {
