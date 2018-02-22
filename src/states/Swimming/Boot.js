@@ -15,6 +15,7 @@ export default class extends Phaser.State {
     this.fontsReady = false
     this.life = 3
     this.score = 0
+    this.isSetInLocalStorage = false
   }
 
   preload() {
@@ -647,6 +648,44 @@ export default class extends Phaser.State {
     if(this.life == 0){
       store.commit('swimmingFinish', true)
       this.water.pause();
+      if (!this.isSetInLocalStorage) {
+        this.setHistory(this.score)
+      }      
     }
+  }
+
+
+  getHistory () {
+    let arrayInLS = window.localStorage.hasOwnProperty('natationPersonnalScore') ? JSON.parse(window.localStorage.getItem('natationPersonnalScore')) : []
+    return arrayInLS
+  }
+
+  setHistory (score) {
+    console.log('Set natation history with new values')
+    console.log('new score', score)
+    let thisParty = {
+      date: this.getDay(),
+      timestamp: Date.now(),
+      score
+    }
+    let oldHistory = this.getHistory()
+    console.log('oldHistory', oldHistory)
+    oldHistory.unshift(thisParty)
+    window.localStorage.setItem('natationPersonnalScore', JSON.stringify(oldHistory))
+    this.isSetInLocalStorage = true
+  }
+
+  getDay () {
+    var today = new Date()
+    var dd = today.getDate()
+    var mm = today.getMonth() + 1 // January is 0!
+    var yyyy = today.getFullYear()
+    if (dd < 10) {
+      dd = '0' + dd
+    }
+    if (mm < 10) {
+      mm = '0' + mm
+    }
+    return (dd + '/' + mm + '/' + yyyy)
   }
 }

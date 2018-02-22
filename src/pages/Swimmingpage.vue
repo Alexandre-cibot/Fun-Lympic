@@ -3,7 +3,7 @@
     <div id="load" v-show="!gameLoaded"></div>
     <SwimmingTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div id="content" v-show="gameLoaded"></div>
-  <!-- <ClassementGame v-if="gameLoaded"/> -->
+    <HistoryScores v-if="gameIsFinished" :history='getHistory' />
   </div>
 </template>
 
@@ -17,12 +17,18 @@ import BootState from '@/states/Swimming/Boot'
 import responsive from '../states/responsive_helper'
 import ClassementGame from './Competitionpage/components/ClassementGame.vue'
 import SwimmingTuto from '@/pages/TutoPage/Swimming.vue'
+import HistoryScores from '@/pages/Trainingpage/components/HistoryScores.vue'
 import store from '../store'
 
 import config from '@/config'
 
 export default {
   name: 'SwimmingGame',
+  components:{
+    ClassementGame,
+    SwimmingTuto,
+    HistoryScores
+  },
   data() {
     return {
       show: false,
@@ -35,12 +41,13 @@ export default {
       return store.state.swimmingLoaded
     },
     gameIsFinished () {
-      return store.state.isSprintFinish
+      console.log('gameIsFinished');
+      return store.state.isSwimmingFinish
+    },
+    getHistory () {
+      return window.localStorage.hasOwnProperty('natationPersonnalScore') 
+      ? JSON.parse(window.localStorage.getItem('natationPersonnalScore')) : []
     }
-  },
-  components:{
-    ClassementGame,
-    SwimmingTuto
   },
   mounted () {
     store.commit('runSwimmingGame')

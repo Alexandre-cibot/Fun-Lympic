@@ -2,14 +2,14 @@
   <div class="before">
     <div class="background"></div>
       <div v-for="user in currentUser" :key="user.index" class="circle_first">
-        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="false" :navbar="true"/>
+        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :showStats="false" :other="false" :navbar="true"/>
       </div>
     <button class="animated hidden">
       <img src="@/assets/win_white.svg" alt="" class="icon_button">
-      <h2 @click="runAthletismeGame">Jouer</h2>
+      <h2 @click="runGame">Jouer</h2>
     </button>
     <div v-for="user in otherUser" :key="user.index" class="circle_first">
-        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="true" :navbar="true"/>
+        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :showStats="false" :other="true" :navbar="true"/>
     </div>
   </div>
 </template>
@@ -20,6 +20,7 @@ import store from '../../../store'
 
 export default {
   name: 'BeforeGame',
+  props:['game'],
   data() {
     return {
       currentUser: [
@@ -42,8 +43,9 @@ export default {
     Profile
   },
   methods:{
-    runAthletismeGame(){
-      this.$router.push('/athletics')
+    runGame(){
+      console.log(this.game)
+      this.$router.push({path: `/${this.game}`})
     }
   },
   mounted() {
