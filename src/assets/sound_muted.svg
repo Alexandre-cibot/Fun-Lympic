@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48.3 34.91">
+  <defs>
+    <style>.cls-1{fill:#fff;}.cls-2{fill:#ec1140;}.cls-3{mask:url(#mask);}.cls-4{fill:#10b2c0;}.cls-5{fill:#2ad4e2;}.cls-6{mask:url(#mask-2);}</style>
+    <mask id="mask" x="0" y="0" width="48.3" height="34.91" maskUnits="userSpaceOnUse">
+      <g id="mask-8">
+        <path id="path-7" class="cls-1" d="M10,0H37.8a7.2,7.2,0,0,1,7.13,6.17l3.32,23A5,5,0,0,1,44,34.86a5.81,5.81,0,0,1-.72,0H5a5,5,0,0,1-5-5,4.21,4.21,0,0,1,0-.62L2.88,6.31A7.2,7.2,0,0,1,10,0Z"/>
+      </g>
+      </mask>
+      <mask id="mask-2" x="0.08" y="0" width="48.12" height="31.29" maskUnits="userSpaceOnUse">
+        <g id="mask-12"><path id="path-11" class="cls-1" d="M9.94,0h28A7.19,7.19,0,0,1,45,6.05l3.13,19.39A5,5,0,0,1,44,31.22a5.54,5.54,0,0,1-.81.07h-38a5,5,0,0,1-5-5,5.21,5.21,0,0,1,.05-.69L2.8,6.21A7.21,7.21,0,0,1,9.94,0Z"/></g>
+      </mask>
+  </defs>
+  <title>Fichier 3</title>
+  <g id="Calque_2" data-name="Calque 2">
+    <g id="Calque_1-2" data-name="Calque 1">
+      <g id="Rectangle-2">
+        <g id="Mask-3" data-name="Mask">
+          <path id="path-7-2" data-name="path-7" class="cls-2" d="M10,0H37.8a7.2,7.2,0,0,1,7.13,6.17l3.32,23A5,5,0,0,1,44,34.86a5.81,5.81,0,0,1-.72,0H5a5,5,0,0,1-5-5,4.21,4.21,0,0,1,0-.62L2.88,6.31A7.2,7.2,0,0,1,10,0Z"/>
+        </g>
+        <g class="cls-3">
+          <g id="Mask-Copy-2">
+            <g id="Mask-4" data-name="Mask">
+              <path id="path-9" class="cls-4" d="M10,0H37.8a7.2,7.2,0,0,1,7.13,6.17l3.32,23A5,5,0,0,1,44,34.86a5.81,5.81,0,0,1-.72,0H5a5,5,0,0,1-5-5,4.21,4.21,0,0,1,0-.62L2.88,6.31A7.2,7.2,0,0,1,10,0Z"/>
+            </g>
+            <path id="path-11-2" data-name="path-11" class="cls-5" d="M9.94,0h28A7.19,7.19,0,0,1,45,6.05l3.13,19.39A5,5,0,0,1,44,31.22a5.54,5.54,0,0,1-.81.07h-38a5,5,0,0,1-5-5,5.21,5.21,0,0,1,.05-.69L2.8,6.21A7.21,7.21,0,0,1,9.94,0Z"/>
+            <g class="cls-6">
+              <g id="noun_1279584_cc" data-name="noun 1279584 cc">
+                <g id="Shape">
+                  <path class="cls-1" d="M16.53,20.55h1.39l5.42,4.25A1.36,1.36,0,0,0,24.8,25a1.39,1.39,0,0,0,.79-1.25V8a1.41,1.41,0,0,0-.79-1.25,1.38,1.38,0,0,0-1.46.16l-5.41,4.25H16.54a3.63,3.63,0,0,0-3.62,3.64v2.12A3.63,3.63,0,0,0,16.53,20.55Z"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
