@@ -1,15 +1,15 @@
 <template>
   <div class="before">
     <div class="background"></div>
-      <div v-for="user in currentUser" :key="user.index" class="circle_first">
-        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :showStats="false" :other="false" :navbar="true"/>
+      <div class="circle_first">
+        <Profile :firstName="profile.given_name" :flag="nationsObj[profile.locale].flag" :picture="profile.picture" :showStats="false" :other="false" :navbar="true"/>
       </div>
     <button class="animated hidden">
       <img src="@/assets/win_white.svg" alt="" class="icon_button">
       <h2 @click="runGame">Jouer</h2>
     </button>
-    <div v-for="user in otherUser" :key="user.index" class="circle_first">
-        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :showStats="false" :other="true" :navbar="true"/>
+    <div class="circle_first">
+        <Profile :firstName="challenger.given_name" :flag="nationsObj[profile.locale].flag" :picture="challenger.picture" :showStats="false" :other="true" :navbar="true"/>
     </div>
   </div>
 </template>
@@ -20,32 +20,78 @@ import store from '../../../store'
 
 export default {
   name: 'BeforeGame',
-  props:['game'],
-  data() {
-    return {
-      currentUser: [
-        {
-          firstname: "Alexandre",
-          flag: require('@/assets/flag/France.png'),
-          picture: require('@/assets/alex.png'),
-        },
-      ],
-      otherUser: [
-        {
-          firstname: "Enora",
-          flag: require('@/assets/flag/France.png'),
-          picture: require('@/assets/enora.jpg'),
-        },
-      ]
-    }
-  },
+  props:['game', 'challenger', 'profile'],
   components: {
     Profile
+  },
+  data() {
+    return {
+       nationsObj: {
+        'fr-FR': {
+          flag: require('@/assets/flag/France.png'),
+        },
+        'de_DE': {
+          flag: require('@/assets/flag/Allemagne.png'),
+        },
+        'fr_CA': {
+          flag: require('@/assets/flag/Canada.png'),
+        },
+        'zh_CN': {
+          flag: require('@/assets/flag/Chine.png'),
+        },
+        'es_ES': {
+          flag: require('@/assets/flag/Espagne.png'),
+        },
+        'en_US': {
+          flag: require('@/assets/flag/Etats-Unis.png'),
+        },
+        'el_GR': {
+          flag: require('@/assets/flag/Grece.png'),
+        },
+        'it_IT': {
+          flag: require('@/assets/flag/Italie.png'),
+        },
+        'ja_JP': {
+          flag: require('@/assets/flag/Japon.png'),
+        },
+        'pt_PT': {
+          flag: require('@/assets/flag/Grece.png'),
+        },
+        'en_GB': {
+          flag: require('@/assets/flag/Royaume-Uni.png'),
+        },
+        'ru_RU': {        
+          flag: require('@/assets/flag/Russie.png'),
+        },
+        'ru_RU': {
+          flag: require('@/assets/flag/Suede.png'),
+        },
+        PaysBas: {
+          flag: require('@/assets/flag/Pays-Bas.png'),
+        },
+        Suisse: {
+          flag: require('@/assets/flag/Suisse.png'),
+        },
+        Belgique: {
+          flag: require('@/assets/flag/Belgique.png'),
+        },
+      }
+    }
   },
   methods:{
     runGame(){
       console.log(this.game)
       this.$router.push({path: `/${this.game}`})
+    },
+    flagPath(userType) {
+      switch(this[userType].locale) {
+        case 'fr-FR': 
+          return this.nationsObj.France.flag;
+        break;
+        default:
+          return require('@/assets/flag/France.png');
+        break;
+      }
     }
   },
   mounted() {
