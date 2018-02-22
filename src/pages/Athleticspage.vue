@@ -29,8 +29,8 @@ export default {
       return store.state.isSprintFinish
     },
     getHistory () {
-      let arrayInLS = window.localStorage.hasOwnProperty('athelicsPersonnalScore') ? JSON.parse(window.localStorage.getItem('athelicsPersonnalScore')) : []
-      return arrayInLS
+      return window.localStorage.hasOwnProperty('athelicsPersonnalScore') 
+      ? JSON.parse(window.localStorage.getItem('athelicsPersonnalScore')) : []
     }
   },
   data () {
