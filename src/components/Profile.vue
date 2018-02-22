@@ -11,7 +11,7 @@
     <div v-if="!navbar" class="infos">
         <h3>{{firstName}}</h3><img :src="flag" alt="" class="flag"/><br/>
     </div>
-    <h4 v-if="victory">{{victory}} victoires / {{defeat}} défaites</h4>
+    <h4 class="victoriesAndDefeats">{{victory}} victoires / {{defeat}} défaites</h4>
     <h4 v-if="score" class="score">{{score}}</h4>
     <div v-if="money" class="money">
       <img src="@/assets/coin.png" alt="jo_coin">
@@ -97,11 +97,13 @@ export default {
     transform: rotate(360deg);
   }
 }
-
+.victoriesAndDefeats {
+  margin-top: 5px;
+}
 .score {
   color: white;
   font-size: 2em;
-  opacity: 1;
+  opacity: 1; 
 }
 .wrapper_profile{
   display: flex;
