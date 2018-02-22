@@ -500,10 +500,8 @@ export default class extends Phaser.State {
 var moveBackground = function (background) {
   if (speedCoef === sprinterSpeedCoefSlowDown) {
     if (constant.background.speed > -0.11) {
-      if (!isSetInLocalStorage) {
-        constant.background.speed = 0
-        store.commit('sprintFinish', true)
-      }
+      constant.background.speed = 0
+      store.commit('sprintFinish', true)
       game.paused = true
       if (game.oldRecord < game.record) {
         setRecord(game.record)
