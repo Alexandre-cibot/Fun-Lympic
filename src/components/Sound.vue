@@ -33,8 +33,9 @@ export default {
       break;
       case 'ambiance':
         this.audio = new Audio(require('@/assets/mp3/ambiance.mp3'));
+        this.audio.volume = 0.2
         this.audio.addEventListener('timeupdate', function(){
-          if((this.currentTime / this.duration) > 0.95 ){
+          if((this.currentTime / this.duration) > 0.9 ){
               this.currentTime = 0
               this.play()
           }
