@@ -33,6 +33,7 @@ export default class extends Phaser.State {
     this.load.image('juryUnhappy', './assets/images/swimming_jury_unhappy.png')
     this.load.image('home', './assets/images/home.png')
     this.load.image('play', './assets/images/play.png')
+    this.load.image('next', './assets/images/next.png')
     this.load.image('pause', './assets/images/pause.svg')
     this.load.image('share', './assets/images/share.png')
     this.load.image('btn1', './assets/images/swimming_BTN_1.png')
@@ -60,6 +61,7 @@ export default class extends Phaser.State {
     this.load.spritesheet('dead1', './assets/images/noyade-3-min.png', 120, 400)
     this.load.spritesheet('dead2', './assets/images/noyade-1-min.png', 120, 400)
     this.load.spritesheet('dead3', './assets/images/noyade-2-min.png', 136, 420)
+    this.load.spritesheet('confettis', './assets/images/confettis.png', 434, 770)
 
     this.load.spritesheet('star', './assets/images/swimming_stars.png', 280, 500)
     this.load.spritesheet('nageuse1', './assets/images/swimming_little_nageuse1.png', 60, 213)
@@ -263,8 +265,13 @@ export default class extends Phaser.State {
   
     // Create menu
     this.image = game.add.sprite(20, 20, 'pause');
-    let share = game.add.sprite(game.width - 70, 20, 'share');
+    let share = game.add.sprite(20, 20, 'share');
+    let next = game.add.sprite(game.width - 70, 20, 'next');
+    next.scale.setTo(0.5)
+    next.visible = false;
     share.visible = false;
+    next.inputEnabled = true;
+    next.events.onInputDown.add(redirectNext, this);
     this.image.visible = false;
     this.image.inputEnabled = true;
     this.image.events.onInputDown.add(listener, this);
@@ -293,9 +300,14 @@ export default class extends Phaser.State {
     this.textCountDown.stroke = '#C53054';
     this.textCountDown.strokeThickness = 12;
 
+    var confettis = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'conffetis');
     var home = game.add.sprite(game.world.centerX - 60, game.world.centerY, 'home');
     var play = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'play');
     var text = game.add.text(game.world.centerX, game.world.centerY - 150, 'Pause', style);
+    
+    confettis.animations.add('run')
+    confettis.play('run', 8, true)
+    
     text.anchor.setTo(0.5, 0);
     home.anchor.setTo(0.5)
     play.anchor.setTo(0.5)
@@ -332,6 +344,16 @@ export default class extends Phaser.State {
 
     function redirect(){
       location.replace("/#/");
+    }
+    function redirectNext(){
+      const gameOrigin = store.state.gameOrigin
+      if (gameOrigin === 'entrainement') {
+        location.replace("/#/training");
+      } else if (gameOrigin === 'competition') {
+        location.replace("/#/competition");
+      } else {
+        location.replace("/#/");
+      }
     }
 
     function listener() {
@@ -491,6 +513,7 @@ export default class extends Phaser.State {
               this.textRecord.visible = false;
               this.record.visible = false;
               share.visible = true;
+              next.visible = true;
               textScoreFinal.visible = true;
               for(var i = 0; i<btnArray.length; i++){
                 btnArray[i].visible = false;
