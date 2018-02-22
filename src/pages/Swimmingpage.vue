@@ -33,6 +33,9 @@ export default {
   computed: {
     gameLoaded () {
       return store.state.swimmingLoaded
+    },
+    gameIsFinished () {
+      return store.state.isSprintFinish
     }
   },
   components:{

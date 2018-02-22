@@ -11,7 +11,9 @@ const store = new Vuex.Store({
     sprintGame: false,
     swimmingLoaded: false,
     swimmingGame: false,
-    tutoOK: true
+    tutoOK: true,
+    isSwimmingFinish: false,
+    isSprintFinish: false
   },
   mutations: {
     isSprintLoaded (state, boolean) {
@@ -34,6 +36,12 @@ const store = new Vuex.Store({
     },
     updateTutoOk (state, boolean) {
       state.tutoOK = boolean
+    },
+    sprintFinish (state, boolean) {
+      state.isSprintFinish = boolean
+    },
+    swimmingFinish (state, boolean) {
+      state.isSwimmingFinish = boolean
     }
   }
 })
