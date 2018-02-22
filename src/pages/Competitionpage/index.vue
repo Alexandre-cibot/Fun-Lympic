@@ -11,7 +11,7 @@
         <Nation v-if="currentState === 'chooseFlag'"  @closeModal="closeModal" @updateFlag="updateFlag" />
         <Friends v-if="currentState === 'chooseFriends'" :friends="profile.friends" @selectFriend="selectFriend"/>
         <ChallengeFriend v-if="currentState === 'friend'" :challenger="selectedFriend" @before="before" />
-        <BeforeGame v-if="currentState === 'before'" />
+        <BeforeGame v-if="currentState === 'before'" :game="selectedGame" />
         <!-- <ClassementGame /> -->
       </div>
     </div>
@@ -58,7 +58,8 @@ export default {
       history: [],
       selectedFriend: {},
       reloadMode: false,
-      updatedProfile: null
+      updatedProfile: null,
+      selectedGame: "atlhetics"
     };
   },
   computed: {
@@ -111,8 +112,9 @@ export default {
       this.updateHistory(this.currentState);
       this.currentState = "friend";
     },
-    before() {
+    before(gameName) {
       this.updateHistory(this.currentState);
+      this.selectedGame = gameName
       this.currentState = "before";
     },
     updateHistory(previousState) {
