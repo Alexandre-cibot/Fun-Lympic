@@ -31,11 +31,6 @@ export default {
     };
   },
   mounted () {
-    setInterval(() => {
-      console.log('init');
-      console.log('showTuto', this.showTuto);
-      console.log('gameLoaded', this.gameLoaded);
-    }, 200)
     store.commit('runSprintGame')
     store.commit('updateTutoOk', true)
     if (!window.localStorage.getItem('athleticsTutoShown')) {
