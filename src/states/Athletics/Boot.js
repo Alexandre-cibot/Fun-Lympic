@@ -405,6 +405,7 @@ export default class extends Phaser.State {
         this.sprinterFall.visible = true
         moveBackground(this.background)
         if (!isSetInLocalStorage) {
+          // TODO
           setHistory(this.score)
         }
         speedCoef = sprinterSpeedCoefSlowDown
