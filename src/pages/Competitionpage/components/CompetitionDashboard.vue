@@ -1,17 +1,15 @@
 <template>
   <div style="padding-bottom: 3vh;">
-      <div v-for="user in currentUser" :key="user.index">
-        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="true" :competition="true" :defeat="profile.defeats" :victory="profile.victories"/>
-      </div>
+      <Profile :firstName="currentUser.name" :flag="currentUser.flag" :picture="currentUser.picture" :other="true" :competition="true" :defeat="profile.defeats" :victory="profile.victories"/>
       <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
       <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" />
       <h3 class="animated fadeInUp">Ils te défient</h3>
-      <div v-for="chall in challengesNotDone" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" logo="challenge" :image="chall.picture" :finish="notFinish" />
+      <div v-for="chall in challengesPending" :key="chall.index">
+        <ChallengeButton class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" logo="challenge" :image="chall.challengerPicture" :finish="notFinish" />
       </div>
       <h3 class="animated fadeInUp">Les défis terminés</h3>
-      <div v-for="chall in challengesDone" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" :currentName="curName" :currentPoints="chall.curPoints" :logo="chall.status" :image="chall.picture" :finish="finish" />
+      <div v-for="chall in challengesCompleted" :key="chall.index">
+        <ChallengeButton class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" :currentName="currentUser.name" :currentPoints="chall.myScore" :logo="chall.status" :image="chall.challengerPicture" :finish="finish" />
       </div>
   </div>
 </template>
@@ -37,65 +35,16 @@ export default {
       msg: 'test',
       finish: false,
       notFinish: true,
-      curName: "Véronique",
-      currentUser: [
+      currentUser: 
         {
-          firstname: this.profile.name,
+          name: this.profile.given_name,
           flag: require('@/assets/flag/France.png'),
           picture: this.profile.picture,
           victory : 90,
           defeat: 23
         },
-      ],
-       challengesNotDone: [
-        {
-          challName: "Julien",
-          challPoints: 120,
-          picture: "enora",
-        },
-        {
-          challName: "Enora",
-          challPoints: 150,
-          picture: "enora",
-        },
-      ],
-      challengesDone: [
-        {
-          challName: "Enora",
-          challPoints: 120,
-          curPoints: 150,
-          status: "lose",
-          picture: "enora",
-        },
-        {
-          challName: "Enora",
-          challPoints: 150,
-          curPoints: 120,
-          status: "win",
-          picture: "enora",
-        },
-        {
-          challName: "Enora",
-          challPoints: 120,
-          curPoints: 150,
-          status: "win",
-          picture: "enora",
-        },
-        {
-          challName: "Enora",
-          challPoints: 300,
-          curPoints: 150,
-          status: "win",
-          picture: "enora",
-        },
-        {
-          challName: "Enora",
-          challPoints: 120,
-          curPoints: 150,
-          status: "lose",
-          picture: "enora",
-        }
-      ]
+      challengesPending: this.profile.challenges_pending || [],
+      challengesCompleted: this.profile.challenges_completed || []
     };
   },
   methods: {
