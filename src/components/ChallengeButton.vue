@@ -1,6 +1,6 @@
 <template>
   <button class="challengeButton bg_purple_dark" @click="handleClick">
-    <img :src="imagePath" class="btnLeft"/>
+    <img :src="image" class="btnLeft"/>
       <div v-if="!finish" class="name">
         <p>{{currentName}} <span class="points">{{currentPoints}} points</span></p> 
         <p>{{challengerName}} <span class="points">{{challengerPoints}} points</span></p> 
@@ -25,14 +25,14 @@ export default {
       type: String,
     },
     currentPoints: {
-      type: Number
+      type: String
     },
     challengerName: {
       type: String,
       required: true
     },
     challengerPoints: {
-      type: Number,
+      type: String,
       required: true
     },
     logo: {
@@ -50,27 +50,14 @@ export default {
   computed: {
     logoPath() {
       switch (this.logo) {
-        case 'lose': 
+        case 'defeat': 
           return require('@/assets/lose.svg');
         break;
-        case 'win': 
+        case 'victory': 
           return require('@/assets/win.svg');
         break;
         case 'challenge':
           return require('@/assets/challenge.svg');
-        break;
-        default: 
-          console.log('No image found');
-        break;
-      }
-    },
-    imagePath() {
-      switch (this.image) {
-        case 'julien': 
-          return require('@/assets/julien.jpg');
-        break;
-        case 'enora': 
-          return require('@/assets/enora.jpg');
         break;
         default: 
           console.log('No image found');
