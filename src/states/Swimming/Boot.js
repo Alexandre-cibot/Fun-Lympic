@@ -3,23 +3,36 @@ import WebFont from 'webfontloader'
 import responsive from '../responsive_helper'
 import store from '../../store'
 
+let isFontsLoaded = false
+
+function fontsLoaded () {
+  isFontsLoaded = true
+}
+
 export default class extends Phaser.State {
   init() {
     this.stage.backgroundColor = '#EDEEC9'
     this.fontsReady = false
     this.life = 3
     this.score = 0
+    this.timeRandom = 4
   }
 
   preload() {
+    window.WebFontConfig = {
+      active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
+      google: {
+        families: ['Nunito']
+      }
+    }
     this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
     this.load.image('background', './assets/images/piscine2.jpg')
     this.load.image('coeur', './assets/images/coeur.png')
     this.load.image('jury', './assets/images/swimming_jury.png')
     this.load.image('juryHappy', './assets/images/swimming_jury_happy.png')
     this.load.image('juryUnhappy', './assets/images/swimming_jury_unhappy.png')
-    this.load.image('home', './assets/images/home.svg')
-    this.load.image('play', './assets/images/play.svg')
+    this.load.image('home', './assets/images/home.png')
+    this.load.image('play', './assets/images/play.png')
     this.load.image('pause', './assets/images/pause.svg')
     this.load.image('share', './assets/images/share.png')
     this.load.image('btn1', './assets/images/swimming_BTN_1.png')
@@ -40,6 +53,9 @@ export default class extends Phaser.State {
     this.load.image('pose3Nag1', './assets/images/swimming_Pose3_nag1.png')
     this.load.image('pose3Nag2', './assets/images/swimming_Pose3_nag2.png')
     this.load.image('pose3Nag3', './assets/images/swimming_Pose3_nag3.png')
+    this.load.image('pose4Nag1', './assets/images/swimming_pos4_nag1-min.png')
+    this.load.image('pose4Nag2', './assets/images/swimming_pos4_nag2-min.png')
+    this.load.image('pose4Nag3', './assets/images/swimming_pos4_nag3-min.png')
 
     this.load.spritesheet('dead1', './assets/images/noyade-3-min.png', 120, 400)
     this.load.spritesheet('dead2', './assets/images/noyade-1-min.png', 120, 400)
@@ -54,17 +70,16 @@ export default class extends Phaser.State {
     game.load.audio('sifflet', ['./assets/musique/sifflet.mp3']);
     game.load.audio('bling', ['./assets/musique/bling.mp3']);
     game.load.audio('bouh', ['./assets/musique/bouh.mp3']);
+    game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
   }
-  
-  // WebFontConfig = {
-  //   active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
-  //   google: {
-  //     families: ['Nunito']
-  //   },   
-  // }
+
+  render () {
+    if (isFontsLoaded) {
+    }
+
+  }
 
   create() {
-    const scaleRatio = window.devicePixelRatio / 3
     this.background = game.add.sprite(0, 0, 'background');
     this.background.scale.setTo(responsive.getRatioFromHeight(this.background.height), responsive.getRatioFromHeight(this.background.height))
     this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
@@ -99,11 +114,15 @@ export default class extends Phaser.State {
     this.pos3Nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(30), responsive.getHeightFromPercentage(54), 'pose3Nag1')
     this.pos3Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(0), responsive.getHeightFromPercentage(43), 'pose3Nag2')
     this.pos3Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(55), responsive.getHeightFromPercentage(43), 'pose3Nag3')    
+    this.pos4Nageuse = this.game.add.sprite(responsive.getWidthFromPercentage(38), responsive.getHeightFromPercentage(56), 'pose4Nag3')
+    this.pos4Nageuse2 = this.game.add.sprite(responsive.getWidthFromPercentage(10), responsive.getHeightFromPercentage(45), 'pose4Nag2')
+    this.pos4Nageuse3 = this.game.add.sprite(responsive.getWidthFromPercentage(65), responsive.getHeightFromPercentage(45), 'pose4Nag1')    
 
     this.arrPos = [
       [this.pos1Nageuse, this.pos1Nageuse3, this.pos1Nageuse2], 
       [this.pos2Nageuse, this.pos2Nageuse3, this.pos2Nageuse2],
       [this.pos3Nageuse, this.pos3Nageuse3, this.pos3Nageuse2],
+      [this.pos4Nageuse, this.pos4Nageuse3, this.pos4Nageuse2],
     ];
     
     for(let i = 0; i<this.arrPos.length; i++){
@@ -112,19 +131,22 @@ export default class extends Phaser.State {
         this.arrPos[i][u].scale.setTo(0.4);
       }
     }
+    this.pos4Nageuse.scale.setTo(0.5);
+    this.pos4Nageuse2.scale.setTo(0.5);
+    this.pos4Nageuse3.scale.setTo(0.5);
 
     let dead1 = this.game.add.sprite(responsive.getWidthFromPercentage(41), responsive.getHeightFromPercentage(55), 'dead1')
-    let dead2 = this.game.add.sprite(responsive.getWidthFromPercentage(69), responsive.getHeightFromPercentage(45), 'dead2')
+    let dead2 = this.game.add.sprite(responsive.getWidthFromPercentage(67), responsive.getHeightFromPercentage(45), 'dead2')
     let dead3 = this.game.add.sprite(responsive.getWidthFromPercentage(9), responsive.getHeightFromPercentage(45), 'dead3')
     dead1.animations.add('run')
     dead2.animations.add('run')
     dead3.animations.add('run')
     dead1.scale.setTo(0.7)
-    dead2.scale.setTo(0.6)
+    dead2.scale.setTo(0.7)
     dead3.scale.setTo(0.7)
-    // dead1.visible = false;
-    // dead2.visible = false;
-    // dead3.visible = false;
+    dead1.visible = false;
+    dead2.visible = false;
+    dead3.visible = false;
     let deadArr = [dead1,dead2,dead3];
 
     // Nageuse
@@ -167,16 +189,16 @@ export default class extends Phaser.State {
     this.fail.anchor.setTo(0.5);
     this.perfect.anchor.setTo(0.5);
 
-    let styleRecord = {font:'1.6em',fill: "#ffffff"};
+    let styleRecord = {font:'1.6em Nunito',fill: "#ffffff"};
     let styleScoreFinal = {font: "14em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
     let styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
-    this.rec = 5;
+    this.rec = (localStorage.getItem('record') ? parseFloat(localStorage.getItem('record')) : 5 );
 
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     let textScoreFinal = game.add.text(game.world.centerX, 80, '0', styleScoreFinal);
     this.textRecord = game.add.text(game.world.centerX - 45,  22, 'RECORD :', styleRecord);
-    let textFail = game.add.text(game.world.centerX,  game.world.centerY + 200, 'RATE', styleRecord);
-    let textPerfect = game.add.text(game.world.centerX,  game.world.centerY + 200, 'PARFAIT', styleRecord);
+    let textFail = game.add.text(game.world.centerX,  game.world.centerY + 202, 'Raté', styleRecord);
+    let textPerfect = game.add.text(game.world.centerX,  game.world.centerY + 202, 'Parfait', styleRecord);
     var oldRecord = 5;
     
     this.textRecord.text = 'Record : ' + this.rec;
@@ -234,9 +256,9 @@ export default class extends Phaser.State {
     let heart1 = game.add.sprite(game.width - 50, 20, 'coeur');
     let heart2 = game.add.sprite(game.width - 80, 20, 'coeur');
     let heart3 = game.add.sprite(game.width - 110, 20, 'coeur');
-    heart1.scale.setTo(1.5, 1.5);
-    heart2.scale.setTo(1.5, 1.5);
-    heart3.scale.setTo(1.5, 1.5);
+    heart1.scale.setTo(1.2, 1.2);
+    heart2.scale.setTo(1.2, 1.2);
+    heart3.scale.setTo(1.2, 1.2);
     let heart = [heart1, heart2, heart3];
   
     // Create menu
@@ -254,12 +276,16 @@ export default class extends Phaser.State {
     
     this.time = 3;
     this.countDown = setInterval(()=>{
-      this.time--
-      this.textCountDown.text = this.time;
-      if(this.time == 0){
-        this.sifflet.play();
+      if (store.state.tutoOK) {
+        this.time--
+        this.textCountDown.text = this.time;
+        if(this.time == 0){
+          this.sifflet.play();
+        }
       }
     },1000);
+    
+    let style = { font: "5em Nunito", fill: "#ffffff", align: "center" };
     
     let styleCountDown = {font: "14em Nunito", fill: "#F4426D", align: "center", boundsAlignV: "middle"};
     this.textCountDown = game.add.text(game.world.centerX, game.world.centerY, '3', styleCountDown);
@@ -267,14 +293,14 @@ export default class extends Phaser.State {
     this.textCountDown.stroke = '#C53054';
     this.textCountDown.strokeThickness = 12;
 
-    var style = { font: "5em Nunito", fill: "#ffffff", align: "center" };
-
     var home = game.add.sprite(game.world.centerX - 60, game.world.centerY, 'home');
     var play = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'play');
     var text = game.add.text(game.world.centerX, game.world.centerY - 150, 'Pause', style);
     text.anchor.setTo(0.5, 0);
     home.anchor.setTo(0.5)
     play.anchor.setTo(0.5)
+    home.scale.setTo(0.5)
+    play.scale.setTo(0.5)
     play.visible = false;
     home.visible = false;
     text.visible = false;
@@ -329,25 +355,48 @@ export default class extends Phaser.State {
     }
 
     //Test random circle
+
     var numCircle;
     this.superCircle = false;
-    this.timeRandom =4;
+    game.time.events.loop(Phaser.Timer.SECOND, setRandom, this);
+
+    function setRandom(){
+      this.timeRandom = 4
+      if(this.score > 2){
+        this.timeRandom += 4
+      }
+      if(this.score > 40){
+        this.timeRandom = 2
+      }
+      if(this.score > 80){
+        this.timeRandom = 1
+      }
+      if(this.score > 120){
+        this.timeRandom -= 0.5
+      }
+      if(this.score > 300){
+        this.timeRandom -= 0.5
+      }
+    }
+    
     let cirLength = this.circleArr.length -1;
     this.sec = 2;
-    var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * this.timeRandom, setNumCircle, this);
+    var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * this.life, setNumCircle, this);
     
     function setNumCircle(){
+      console.log('time' + this.timeRandom)
       numCircle = Math.round(Math.random() * 2);
     }
-    var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.timeRandom, displayCircle, this);
-    // var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * this.timeRandom) +2, displayCircle, this);
+    var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.life, displayCircle, this);
+    
+    // var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * timeRandom) +2, displayCircle, this);
     let pointSuperCircle = [20, 40];
+
     function displayCircle(e){
       if(this.textScore.text >= pointSuperCircle[0]){
         pointSuperCircle.push(pointSuperCircle[1] + 20)
         pointSuperCircle.shift();
         this.superCircle = true;
-        console.log(pointSuperCircle);
       }
       let last = this.spawnArr[this.spawnArr.length-1]
       if(this.superCircle){
@@ -414,15 +463,15 @@ export default class extends Phaser.State {
             }, 1000)
             heart[this.life-1].visible = false;
             nageuseArr[this.life-1].kill();
-            for(let i = 0; i<this.arrPos[this.life-1].length; i++){
+
+            for(let i = 0; i<=this.arrPos[this.life].length; i++){
               this.arrPos[i][this.life-1].kill();
             }
-            console.log('life :' + this.life)
             deadArr[this.life-1].visible = true;
             deadArr[this.life-1].play('run', 8)
 
             setTimeout(()=>{
-              deadArr[this.life-1].visible = false;
+              deadArr[this.life].visible = false;
             }, 1000)
             
             starArray[this.life-1].kill();
@@ -431,6 +480,7 @@ export default class extends Phaser.State {
             if(this.life == 0){
               if(this.textScore.text >= oldRecord) {
                 newRecord.visible = true;
+                localStorage.setItem('record', this.textScore.text);
               }
               this.water.pause();
               game.time.events.remove(myLoop1);
@@ -453,7 +503,6 @@ export default class extends Phaser.State {
             //Re-balancing of length
             if(this.spawnArr.length > this.clickArr.length){
               let diff = this.spawnArr.length - this.clickArr.length;
-              console.log(diff);
               (diff == 1) ? this.clickArr.push(2) : this.clickArr.push.apply(this.clickArr,[2, 2]);
             }else if(this.spawnArr.length < this.clickArr.length){
               let diff = this.clickArr.length - this.spawnArr.length;
@@ -517,16 +566,12 @@ export default class extends Phaser.State {
         this.textRecord.text = 'Record : ' + this.score;
       }
       let v = Math.round(Math.random() * 2);
-      // for(let u = 0; u< this.life; u++){
-      //     for(let w = 0; w<this.life; w++){
-      //       this.arrPos[u][w].visible = false;
-      //     }
-      //   }
+      let k = Math.round(Math.random() * 3);
       
 
       for(let u = 0; u< this.life; u++){
         if(!canChange){
-          this.arrPos[v][u].visible = true;
+          this.arrPos[k][u].visible = true;
         }
       }
       canChange = true;
@@ -538,12 +583,12 @@ export default class extends Phaser.State {
       }
       setTimeout(()=>{
         for(var i = 0; i < this.life; i++ ){
-          this.arrPos[v][i].visible = false;
+          this.arrPos[k][i].visible = false;
           starArray[i].visible = false;
           nageuseArr[i].visible = true;
           canChange = false
         }
-      }, 1000)
+      }, 500)
     }
     store.commit('isSwimmingLoaded', true)
     const destroyGame = setInterval(function () {
@@ -567,21 +612,6 @@ export default class extends Phaser.State {
   update () {
     // Condition to review
     //Use if/else for performance and not switch
-    if(this.score > 20){
-      this.timeRandom -= 0.5
-    }
-    if(this.score > 40){
-      this.timeRandom -= 0.5
-    }
-    if(this.score > 80){
-      this.timeRandom -= 0.5
-    }
-    if(this.score > 120){
-      this.timeRandom -= 0.5
-    }
-    if(this.score > 300){
-      this.timeRandom -= 0.5
-    }
     if(this.time == -1){
       clearInterval(this.countDown)
       this.textCountDown.visible = false;

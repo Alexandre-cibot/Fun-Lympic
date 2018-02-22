@@ -41,7 +41,7 @@ export default {
   position: relative;
   width: 100%;
   height: 24vh;
-  font-family: 'myfrida-bold';
+  font-family: 'myfrida_bold';
   text-align: center;
   border-radius: 10px;
   padding: 1px 0 8px 0;
@@ -80,6 +80,6 @@ export default {
 .promo h5{
   font-size: 1.2em;
   color: white;
-  font-family: 'myfrida-bold';
+  font-family: 'myfrida_bold';
 }
 </style>
