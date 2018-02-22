@@ -4,14 +4,14 @@
     <div id="content" v-show="gameLoaded"></div>
     <AthleticsTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div v-show="gameLoaded" id="bg"></div>
-    <ClassementGame v-if="gameIsFinished" />
+    <HistoryScores v-if="gameIsFinished" />
   </div>
 </template>
 
 <script>
 
 import Phaser from 'phaser'
-import ClassementGame from './Competitionpage/components/ClassementGame.vue'
+import HistoryScores from '@/pages/Trainingpage/components/HistoryScores.vue'
 import BootState from '@/states/Athletics/Boot'
 import responsive from '../states/responsive_helper'
 import AthleticsTuto from '@/pages/TutoPage/Athletics.vue'
@@ -47,7 +47,7 @@ export default {
   },
   components:{
     AthleticsTuto,
-    ClassementGame
+    HistoryScores
   },
   methods: {
     hideTuto(){
