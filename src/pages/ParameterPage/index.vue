@@ -9,7 +9,7 @@
         </div>
         <div class="music">
           <h2>NOTIF</h2>
-          <BasicButton image="notifs" btnColor="yellow" btnSize="mid" @click="()=>{console.log('click')}" />
+          <BasicButton image="notif" btnColor="yellow" btnSize="mid" @click="()=>{console.log('click')}" />
         </div>
       </div>
       <div class="block2">

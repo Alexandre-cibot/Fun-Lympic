@@ -20,6 +20,7 @@ import Card from '@/components/Card';
 import Navbar from '@/components/Navbar';
 import Classement from '@/components/Classement';
 import DidYouKnow from '@/components/DidYouKnow';
+import store from '../../store'
 
 export default {
   name: 'Training',
@@ -46,6 +47,7 @@ export default {
     }
   },
   mounted() {
+    store.commit('updateGameOrigin', 'entrainement')
     let cards = this.$el.querySelectorAll('.card');
     let classement = this.$el.querySelector('.classement');
      cards.forEach((card, idx) => {
