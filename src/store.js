@@ -15,7 +15,8 @@ const store = new Vuex.Store({
     isSwimmingFinish: false,
     isSprintFinish: false,
     gameOrigin: 'entrainement',
-    isSoundMuted: false
+    isSoundMuted: false,
+    muteBy: 'none'
   },
   mutations: {
     isSprintLoaded (state, boolean) {
@@ -64,6 +65,7 @@ const store = new Vuex.Store({
     },
     toggleSoundMute(state, val) {
       state.isSoundMuted = val.isMuted;
+      state.muteBy = val.muteBy
       localStorage.setItem('sound', JSON.stringify(val))
     }
   }
