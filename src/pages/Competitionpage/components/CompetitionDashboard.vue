@@ -1,18 +1,18 @@
 <template>
   <div style="padding-bottom: 3vh;">
-      <div v-for="user in currentUser" :key="user.index">
-        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="true" :competition="true" :defeat="profile.defeats" :victory="profile.victories"/>
+      <Profile :firstName="currentUser.name" :flag="currentUser.flag" :picture="currentUser.picture" :other="true" :competition="true" :defeat="currentUser.defeats" :victory="currentUser.victories"/>
+      <div class="blockChallengesBtn">
+        <BasicButton class="challengeBtn animated hidden" title="défie un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
+        <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" /> 
       </div>
-      <BasicButton class="challengeBtn animated hidden" title="défie un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
-      <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" />
       <h3 class="animated fadeInUp">Tes défis</h3>
-      <div v-for="chall in challengesNotDone" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" logo="challenge" :image="chall.picture" :finish="notFinish"  @click.native="playWithFriend" />
+      <div v-for="chall in challengesPending" :key="chall.index">
+        <ChallengeButton class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" logo="challenge" :image="chall.challengerPicture" :finish="false"  @click.native="playWithFriend" />
       </div>
       <h3 class="animated fadeInUp">Tes défis terminés</h3>
-      <div v-for="chall in challengesDone" :key="chall.index">
-        <ChallengeButton v-if="chall.status == 'win'" class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" :currentName="curName" :currentPoints="chall.curPoints" :logo="chall.status" :image="chall.picture" :finish="finish" @click.native="winGame"/>
-        <ChallengeButton v-else class="animated hidden" :challengerName="chall.challName" :challengerPoints="chall.challPoints" :currentName="curName" :currentPoints="chall.curPoints" :logo="chall.status" :image="chall.picture" :finish="finish"  @click.native="loseGame"/>
+      <div v-for="chall in challengesCompleted" :key="chall.index">
+        <ChallengeButton v-if="chall.status == 'victory'" class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" :currentName="currentUser.name" :currentPoints="chall.myScore" :logo="chall.status" :image="chall.challengerPicture" :finish="true" @click.native="winGame"/>
+        <ChallengeButton v-else class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" :currentName="currentUser.name" :currentPoints="chall.myScore" :logo="chall.status" :image="chall.challengerPicture" :finish="true"  @click.native="loseGame"/>
       </div>
   </div>
 </template>
@@ -38,65 +38,16 @@ export default {
       msg: 'test',
       finish: false,
       notFinish: true,
-      curName: "Véronique",
-      currentUser: [
+      currentUser: 
         {
-          firstname: this.profile.name,
+          name: this.profile.given_name,
           flag: require('@/assets/flag/France.png'),
           picture: this.profile.picture,
-          victory : 90,
-          defeat: 23
+          victories : this.profile.victories,
+          defeats: this.profile.defeats
         },
-      ],
-       challengesNotDone: [
-        {
-          challName: "Julien",
-          challPoints: 120,
-          picture: "enora",
-        },
-        {
-          challName: "Enora",
-          challPoints: 150,
-          picture: "enora",
-        },
-      ],
-      challengesDone: [
-        {
-          challName: "Enora",
-          challPoints: 120,
-          curPoints: 150,
-          status: "lose",
-          picture: "enora",
-        },
-        {
-          challName: "Enora",
-          challPoints: 150,
-          curPoints: 120,
-          status: "win",
-          picture: "enora",
-        },
-        {
-          challName: "Enora",
-          challPoints: 120,
-          curPoints: 150,
-          status: "win",
-          picture: "enora",
-        },
-        {
-          challName: "Enora",
-          challPoints: 300,
-          curPoints: 150,
-          status: "win",
-          picture: "enora",
-        },
-        {
-          challName: "Enora",
-          challPoints: 120,
-          curPoints: 150,
-          status: "lose",
-          picture: "enora",
-        }
-      ]
+      challengesPending: this.profile.challenges_pending || [],
+      challengesCompleted: this.profile.challenges_completed || []
     };
   },
   methods: {
@@ -141,5 +92,8 @@ h3 {
 }
 .challengeBtn {
   margin-bottom: 3vh;
+}
+.blockChallengesBtn {
+  margin-top:8vh;
 }
 </style>
