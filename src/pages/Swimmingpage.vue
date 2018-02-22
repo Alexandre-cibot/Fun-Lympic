@@ -4,6 +4,7 @@
     <SwimmingTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div id="content" v-show="gameLoaded"></div>
     <HistoryScores v-if="gameIsFinished" :history='getHistory' />
+    <div v-if="gameIsFinished"><Sound file="artifice"/></div>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import BootState from '@/states/Swimming/Boot'
 // import GameState from '@/states/Game'
 import responsive from '../states/responsive_helper'
 import ClassementGame from './Competitionpage/components/ClassementGame.vue'
+import Sound from '@/components/Sound'
 import SwimmingTuto from '@/pages/TutoPage/Swimming.vue'
 import HistoryScores from '@/pages/Trainingpage/components/HistoryScores.vue'
 import store from '../store'
@@ -27,7 +29,8 @@ export default {
   components:{
     ClassementGame,
     SwimmingTuto,
-    HistoryScores
+    HistoryScores,
+    Sound
   },
   data() {
     return {
@@ -45,7 +48,7 @@ export default {
       return store.state.isSwimmingFinish
     },
     getHistory () {
-      return window.localStorage.hasOwnProperty('natationPersonnalScore') 
+      return window.localStorage.hasOwnProperty('natationPersonnalScore')
       ? JSON.parse(window.localStorage.getItem('natationPersonnalScore')) : []
     }
   },
@@ -60,6 +63,7 @@ export default {
     this.runGame()
   },
   beforeDestroy () {
+    store.commit('sprintFinish', true)
     store.commit('destroySwimmingGame')
   },
   methods: {
@@ -153,4 +157,3 @@ export default {
   margin: auto;
 }
 </style>
-
