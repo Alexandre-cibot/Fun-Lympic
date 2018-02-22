@@ -121,15 +121,15 @@ export default class extends Phaser.State {
     if (isFontsLoaded) {
       // var myText = game.add.text(game.world.centerX, game.world.centerY, "best font ever");
       // myText.anchor.setTo(0.5);
-    
+
       // myText.font = 'Nunito';
       // myText.fontSize = 60;
-    
+
       // myText.align = 'center';
       // myText.stroke = '#999999';
       // myText.strokeThickness = 2;
       // myText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
-    
+
       // myText.inputEnabled = true;
       // myText.input.enableDrag();
     }
@@ -260,12 +260,12 @@ export default class extends Phaser.State {
     var text = game.add.text(game.world.centerX, game.world.centerY - 150, 'Pause', style);
     this.share = game.add.sprite(20, 20, 'share');
     this.next = game.add.sprite(game.width - 70, 20, 'next');
-    
+
     this.next.scale.setTo(0.5)
     this.next.visible = false;
     this.next.inputEnabled = true;
     this.next.events.onInputDown.add(redirectNext, this);
-    
+
     this.confettis.animations.add('run')
     this.confettis.visible = false;
 
@@ -284,7 +284,7 @@ export default class extends Phaser.State {
     play.visible = false;
     play.inputEnabled = true;
     play.events.onInputDown.add(unpaused, this);
-    
+
     function redirect(){
       location.replace("/#/");
     }
@@ -307,7 +307,7 @@ export default class extends Phaser.State {
       play.visible = true;
       home.visible = true;
       this.image.visible = false;
-    }  
+    }
 
     function unpaused(){
       divSty.display = "none";
@@ -371,7 +371,8 @@ export default class extends Phaser.State {
         if (this.time === 0) {
           this.go = true
           this.textCountDown.visible = false
-          this.panSong.play();
+          console.log(store.state.isSoundMuted);
+          if(store.state.isSoundMuted && store.state.muteBy == 'game') this.panSong.play();
           clearInterval(this.countDown)
         }
       }
@@ -380,7 +381,7 @@ export default class extends Phaser.State {
     const pasSong = setInterval(() => {
       if (store.state.tutoOK) {
         if (this.go) {
-          this.pasSong.play()
+          if(store.state.isSoundMuted && store.state.muteBy == 'game') this.pasSong.play()
         }
       }
     }, 1000)
@@ -561,7 +562,7 @@ var moveBackground = function (background) {
 }
 
 function movePlayerRace (self, boolean) {
-  self.swipeSong.play()
+  if(store.state.isSoundMuted && store.state.muteBy == 'game') self.swipeSong.play()
   if (boolean) {
     const plusOne = self.playerRace + 1
     if (plusOne < pallier.length) {
@@ -584,7 +585,7 @@ function mamieCollisionHandler (sprinter, mamie) {
     mamie.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
-    this.impactSong.play()
+    if(store.state.isSoundMuted && store.state.muteBy == 'game') this.impactSong.play()
   }
 }
 
@@ -594,7 +595,7 @@ function catCollisionHandler (sprinter, cat) {
     cat.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
-    this.impactSong.play()
+    if(store.state.isSoundMuted && store.state.muteBy == 'game') this.impactSong.play()
   }
 }
 
@@ -605,7 +606,7 @@ function dancerCollisionHandler (sprinter, dancer) {
     dancer.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
-    this.impactSong.play()
+    if(store.state.isSoundMuted && store.state.muteBy == 'game') this.impactSong.play()
   }
 }
 
@@ -616,7 +617,7 @@ function duckCollisionHandler (sprinter, duck) {
     duck.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
-    this.impactSong.play()
+    if(store.state.isSoundMuted && store.state.muteBy == 'game') this.impactSong.play()
   }
 }
 
@@ -627,7 +628,7 @@ function plotCollisionHandler (sprinter, plot) {
     plot.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
-    this.impactSong.play()
+    if(store.state.isSoundMuted && store.state.muteBy == 'game') this.impactSong.play()
   }
 }
 
