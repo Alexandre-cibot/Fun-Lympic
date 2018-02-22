@@ -5,6 +5,7 @@
     <AthleticsTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div v-show="gameLoaded" id="bg"></div>
     <HistoryScores v-if="gameIsFinished" :history='getHistory' />
+    <div class="gif" v-if="gameIsFinished"></div>
   </div>
 </template>
 
@@ -117,6 +118,17 @@ export default {
   width: 100%;
   overflow: hidden;
   background: url('../assets/exemple_chargement.gif');
+  background-size: cover;
+  background-position: center;
+}
+.gif {
+  position: absolute;
+  z-index: 999;
+  top:0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: url('../assets/confettis.gif');
   background-size: cover;
   background-position: center;
 }
