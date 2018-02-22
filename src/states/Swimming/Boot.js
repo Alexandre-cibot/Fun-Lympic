@@ -15,14 +15,14 @@ export default class extends Phaser.State {
     this.fontsReady = false
     this.life = 3
     this.score = 0
-    this.timeRandom = 4
+    this.isSetInLocalStorage = false
   }
 
   preload() {
     window.WebFontConfig = {
       active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
       google: {
-        families: ['Nunito']
+        families: ['Nunito:300,400,500,700,900']
       }
     }
     this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
@@ -191,17 +191,19 @@ export default class extends Phaser.State {
     this.fail.anchor.setTo(0.5);
     this.perfect.anchor.setTo(0.5);
 
-    let styleRecord = {font:'1.6em Nunito',fill: "#ffffff"};
+    let styleRecord = {font:'900 1.6em Nunito',fill: "#ffffff"};
     let styleScoreFinal = {font: "14em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
     let styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
-    this.rec = (localStorage.getItem('record') ? parseFloat(localStorage.getItem('record')) : 5 );
+    this.rec = (localStorage.getItem('recordSwimming') ? parseFloat(localStorage.getItem('recordSwimming')) : 5 );
 
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     let textScoreFinal = game.add.text(game.world.centerX, 80, '0', styleScoreFinal);
-    this.textRecord = game.add.text(game.world.centerX - 45,  22, 'RECORD :', styleRecord);
+    this.textRecord = game.add.text(game.world.centerX - 35,  22, 'RECORD :', styleRecord);
     let textFail = game.add.text(game.world.centerX,  game.world.centerY + 202, 'Raté', styleRecord);
     let textPerfect = game.add.text(game.world.centerX,  game.world.centerY + 202, 'Parfait', styleRecord);
     var oldRecord = 5;
+
+    this.textRecord.fontWeight = "700"
     
     this.textRecord.text = 'Record : ' + this.rec;
     this.textScore.anchor.setTo(0.5, 0);
@@ -300,14 +302,14 @@ export default class extends Phaser.State {
     this.textCountDown.stroke = '#C53054';
     this.textCountDown.strokeThickness = 12;
 
-    var confettis = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'conffetis');
+    var confettis = game.add.sprite(0,0, 'confettis');
     var home = game.add.sprite(game.world.centerX - 60, game.world.centerY, 'home');
     var play = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'play');
     var text = game.add.text(game.world.centerX, game.world.centerY - 150, 'Pause', style);
     
     confettis.animations.add('run')
-    confettis.play('run', 8, true)
-    
+    confettis.visible = false;
+
     text.anchor.setTo(0.5, 0);
     home.anchor.setTo(0.5)
     play.anchor.setTo(0.5)
@@ -380,26 +382,22 @@ export default class extends Phaser.State {
 
     var numCircle;
     this.superCircle = false;
-    game.time.events.loop(Phaser.Timer.SECOND, setRandom, this);
-
-    function setRandom(){
-      this.timeRandom = 4
-      if(this.score > 2){
-        this.timeRandom += 4
-      }
-      if(this.score > 40){
+    setInterval(()=>{
+      this.timeRandom = (this.clickArr.length == 0) ? 4 : 2;
+      if(this.score < 20){
+        this.timeRandom = 3
+      }else if(this.score > 20){
+        this.timeRandom = 2.8
+      }else if(this.score > 30){
+        this.timeRandom = 2.6
+      }else if(this.score > 40){
+        this.timeRandom = 2.4
+      }else if(this.score > 50){
+        this.timeRandom = 2.2
+      }else if(this.score > 70){
         this.timeRandom = 2
       }
-      if(this.score > 80){
-        this.timeRandom = 1
-      }
-      if(this.score > 120){
-        this.timeRandom -= 0.5
-      }
-      if(this.score > 300){
-        this.timeRandom -= 0.5
-      }
-    }
+    }, 200)
     
     let cirLength = this.circleArr.length -1;
     this.sec = 2;
@@ -407,6 +405,7 @@ export default class extends Phaser.State {
     
     function setNumCircle(){
       console.log('time' + this.timeRandom)
+      console.log(this.clickArr.length)
       numCircle = Math.round(Math.random() * 2);
     }
     var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.life, displayCircle, this);
@@ -490,11 +489,11 @@ export default class extends Phaser.State {
               this.arrPos[i][this.life-1].kill();
             }
             deadArr[this.life-1].visible = true;
-            deadArr[this.life-1].play('run', 8)
+            deadArr[this.life-1].play('run', 16)
 
-            setTimeout(()=>{
-              deadArr[this.life].visible = false;
-            }, 1000)
+            // setTimeout(()=>{
+            //   deadArr[this.life].visible = false;
+            // }, 1200)
             
             starArray[this.life-1].kill();
             this.life--;
@@ -502,11 +501,16 @@ export default class extends Phaser.State {
             if(this.life == 0){
               if(this.textScore.text >= oldRecord) {
                 newRecord.visible = true;
-                localStorage.setItem('record', this.textScore.text);
+                localStorage.setItem('recordSwimming', this.textScore.text);
               }
               this.water.pause();
               game.time.events.remove(myLoop1);
               game.time.events.remove(myLoop2);
+              setTimeout(()=>{
+                confettis.visible = true;
+                confettis.play('run', 8)
+              })
+
               textScoreFinal.text = this.textScore.text;
               this.image.visible = false;
               this.textScore.visible = false;
@@ -644,6 +648,44 @@ export default class extends Phaser.State {
     if(this.life == 0){
       store.commit('swimmingFinish', true)
       this.water.pause();
+      if (!this.isSetInLocalStorage) {
+        this.setHistory(this.score)
+      }      
     }
+  }
+
+
+  getHistory () {
+    let arrayInLS = window.localStorage.hasOwnProperty('natationPersonnalScore') ? JSON.parse(window.localStorage.getItem('natationPersonnalScore')) : []
+    return arrayInLS
+  }
+
+  setHistory (score) {
+    console.log('Set natation history with new values')
+    console.log('new score', score)
+    let thisParty = {
+      date: this.getDay(),
+      timestamp: Date.now(),
+      score
+    }
+    let oldHistory = this.getHistory()
+    console.log('oldHistory', oldHistory)
+    oldHistory.unshift(thisParty)
+    window.localStorage.setItem('natationPersonnalScore', JSON.stringify(oldHistory))
+    this.isSetInLocalStorage = true
+  }
+
+  getDay () {
+    var today = new Date()
+    var dd = today.getDate()
+    var mm = today.getMonth() + 1 // January is 0!
+    var yyyy = today.getFullYear()
+    if (dd < 10) {
+      dd = '0' + dd
+    }
+    if (mm < 10) {
+      mm = '0' + mm
+    }
+    return (dd + '/' + mm + '/' + yyyy)
   }
 }
