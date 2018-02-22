@@ -15,7 +15,6 @@ export default class extends Phaser.State {
     this.fontsReady = false
     this.life = 3
     this.score = 0
-    this.timeRandom = 4
   }
 
   preload() {
@@ -382,26 +381,22 @@ export default class extends Phaser.State {
 
     var numCircle;
     this.superCircle = false;
-    game.time.events.loop(Phaser.Timer.SECOND, setRandom, this);
-
-    function setRandom(){
-      this.timeRandom = 4
-      if(this.score > 2){
-        this.timeRandom += 4
-      }
-      if(this.score > 40){
+    setInterval(()=>{
+      this.timeRandom = (this.clickArr.length == 0) ? 4 : 2;
+      if(this.score < 20){
+        this.timeRandom = 3
+      }else if(this.score > 20){
+        this.timeRandom = 2.8
+      }else if(this.score > 30){
+        this.timeRandom = 2.6
+      }else if(this.score > 40){
+        this.timeRandom = 2.4
+      }else if(this.score > 50){
+        this.timeRandom = 2.2
+      }else if(this.score > 70){
         this.timeRandom = 2
       }
-      if(this.score > 80){
-        this.timeRandom = 1
-      }
-      if(this.score > 120){
-        this.timeRandom -= 0.5
-      }
-      if(this.score > 300){
-        this.timeRandom -= 0.5
-      }
-    }
+    }, 200)
     
     let cirLength = this.circleArr.length -1;
     this.sec = 2;
@@ -409,6 +404,7 @@ export default class extends Phaser.State {
     
     function setNumCircle(){
       console.log('time' + this.timeRandom)
+      console.log(this.clickArr.length)
       numCircle = Math.round(Math.random() * 2);
     }
     var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.life, displayCircle, this);
