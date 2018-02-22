@@ -699,7 +699,7 @@ function setHistory (score) {
   }
   let oldHistory = getHistory()
   console.log('oldHistory', oldHistory)
-  oldHistory.push(thisParty)
+  oldHistory.unshift(thisParty)
   window.localStorage.setItem('athelicsPersonnalScore', JSON.stringify(oldHistory))
   isSetInLocalStorage = true
 }
