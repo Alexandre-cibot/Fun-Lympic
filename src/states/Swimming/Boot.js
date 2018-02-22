@@ -300,14 +300,14 @@ export default class extends Phaser.State {
     this.textCountDown.stroke = '#C53054';
     this.textCountDown.strokeThickness = 12;
 
-    var confettis = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'conffetis');
+    var confettis = game.add.sprite(0,0, 'confettis');
     var home = game.add.sprite(game.world.centerX - 60, game.world.centerY, 'home');
     var play = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'play');
     var text = game.add.text(game.world.centerX, game.world.centerY - 150, 'Pause', style);
     
     confettis.animations.add('run')
-    confettis.play('run', 8, true)
-    
+    confettis.visible = false;
+
     text.anchor.setTo(0.5, 0);
     home.anchor.setTo(0.5)
     play.anchor.setTo(0.5)
@@ -490,11 +490,11 @@ export default class extends Phaser.State {
               this.arrPos[i][this.life-1].kill();
             }
             deadArr[this.life-1].visible = true;
-            deadArr[this.life-1].play('run', 8)
+            deadArr[this.life-1].play('run', 16)
 
-            setTimeout(()=>{
-              deadArr[this.life].visible = false;
-            }, 1000)
+            // setTimeout(()=>{
+            //   deadArr[this.life].visible = false;
+            // }, 1200)
             
             starArray[this.life-1].kill();
             this.life--;
@@ -507,6 +507,8 @@ export default class extends Phaser.State {
               this.water.pause();
               game.time.events.remove(myLoop1);
               game.time.events.remove(myLoop2);
+              confettis.visible = true;
+              confettis.play('run', 8)
               textScoreFinal.text = this.textScore.text;
               this.image.visible = false;
               this.textScore.visible = false;
