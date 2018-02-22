@@ -4,7 +4,7 @@
     <div id="content" v-show="gameLoaded"></div>
     <AthleticsTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div v-show="gameLoaded" id="bg"></div>
-    <HistoryScores v-if="gameIsFinished" />
+    <HistoryScores v-if="gameIsFinished" :history='getHistory' />
   </div>
 </template>
 
@@ -27,6 +27,10 @@ export default {
     },
     gameIsFinished () {
       return store.state.isSprintFinish
+    },
+    getHistory () {
+      let arrayInLS = window.localStorage.hasOwnProperty('athelicsPersonnalScore') ? JSON.parse(window.localStorage.getItem('athelicsPersonnalScore')) : []
+      return arrayInLS
     }
   },
   data () {
@@ -55,7 +59,7 @@ export default {
     hideTuto(){
       store.commit('updateTutoOk', true)
       this.showTuto = false
-    },
+    },    
     runGame () {
       class Game extends Phaser.Game {
         constructor () {

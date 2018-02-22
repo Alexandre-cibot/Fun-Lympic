@@ -2,10 +2,10 @@
   <div class="classement">
     <h2>Tes derniers scores</h2>
     <div class="list">
-      <div v-for="(score, i) in scores" :key="i">
+      <div v-for="(score, i) in history" :key="i">
         <ClassementScoreLocal v-if="i === 0" class="animated hidden" :medal="true" :date="score.date" :points="score.score"/>
         <ClassementScoreLocal v-if="i === 2" class="animated hidden" :today="true" :date="score.date" :points="score.score"/>
-        <ClassementScoreLocal class="animated hidden" :date="score.date" :points="score.score"/>
+        <ClassementScoreLocal v-if="i!==0 && i!==2" class="animated hidden" :date="score.date" :points="score.score"/>
       </div>
     </div>
   </div>
@@ -19,29 +19,13 @@ export default {
   components: {
     ClassementScoreLocal
   },
+  props:['history'],
   data() {
     return {
-      scores: [
-        {
-          date: '02/02/18',
-          score: '203'
-        },
-        {
-          date: '02/02/18',
-          score: '133'
-        },
-        {
-          date: '21/01/18',
-          score: '343'
-        },
-        {
-          date: '19/01/18',
-          score: '40'
-        },
-      ]
     }
   },
   mounted() {
+    console.log('history', this.history)
     let buttons = this.$el.querySelectorAll('.hidden');
     buttons.forEach((btn, idx) => {
       setTimeout(()=>{
