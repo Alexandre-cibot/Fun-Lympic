@@ -3,8 +3,8 @@
     <h2>Tes derniers scores</h2>
     <div class="list">
       <div v-for="(score, i) in history" :key="i">
-        <ClassementScoreLocal v-if="i === 0" class="animated hidden" :medal="true" :date="score.date" :points="score.score"/>
-        <ClassementScoreLocal v-if="i === 2" class="animated hidden" :today="true" :date="score.date" :points="score.score"/>
+        <ClassementScoreLocal v-if="i === 0" class="animated hidden" :today="true" :date="score.date" :points="score.score"/>
+        <!-- <ClassementScoreLocal v-if="i === 2" class="animated hidden" :medal="true" :date="score.date" :points="score.score"/> -->
         <ClassementScoreLocal v-if="i!==0 && i!==2" class="animated hidden" :date="score.date" :points="score.score"/>
       </div>
     </div>
