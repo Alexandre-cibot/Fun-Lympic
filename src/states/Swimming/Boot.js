@@ -619,6 +619,7 @@ export default class extends Phaser.State {
       this.water.play();
     }
     if(this.life == 0){
+      store.commit('swimmingFinish', true)
       this.water.pause();
     }
   }
