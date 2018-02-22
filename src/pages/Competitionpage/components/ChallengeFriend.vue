@@ -29,6 +29,7 @@ export default {
     }
   },
   mounted() {
+    updateGameWillBePlay
     let buttons = this.$el.querySelectorAll('.hidden');
     buttons.forEach((btn, idx) => {
       setTimeout(()=>{
