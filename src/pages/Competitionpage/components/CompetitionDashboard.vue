@@ -1,8 +1,8 @@
 <template>
   <div style="padding-bottom: 3vh;">
-      <Profile :firstName="currentUser.name" :flag="currentUser.flag" :picture="currentUser.picture" :other="true" :competition="true" :defeat="currentUser.defeats" :victory="currentUser.victories"/>
+      <Profile :firstName="currentUser.name" :flag="currentUser.flag" :picture="currentUser.picture" :other="true" :competition="true" :defeat="currentUser.defeats" :victory="currentUser.victories" @chooseFlag="$emit('chooseFlag')"/>
       <div class="blockChallengesBtn">
-        <BasicButton class="challengeBtn animated hidden" title="défie un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
+        <BasicButton class="challengeBtn animated hidden" title="défie un ami" btnColor="yellow" image="facebook" @click="chooseFriends" />
         <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" /> 
       </div>
       <h3 class="animated fadeInUp">Tes défis</h3>
@@ -35,24 +35,22 @@ export default {
   data() {
     console.log("profile", this.profile);
     return {
-      msg: 'test',
-      finish: false,
-      notFinish: true,
+      msg: 'CompetitionDashboard',
       currentUser: 
         {
           name: this.profile.given_name,
           flag: require('@/assets/flag/France.png'),
           picture: this.profile.picture,
           victories : this.profile.victories,
-          defeats: this.profile.defeats
+          defeats: this.profile.defeats,
         },
       challengesPending: this.profile.challenges_pending || [],
       challengesCompleted: this.profile.challenges_completed || []
     };
   },
   methods: {
-    chooseFlag() {
-      this.$emit('chooseFlag');
+    chooseFriends() {
+      this.$emit('chooseFriends');
     },
     playWithFriend(){
       this.$emit('playWithFriend');

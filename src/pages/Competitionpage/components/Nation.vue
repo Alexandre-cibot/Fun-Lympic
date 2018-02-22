@@ -1,5 +1,5 @@
 <template>
-  <div class="container" @click.self="closeModal">
+  <div class="container" @click.self="$emit('closeModal')">
     <div class="know animated zoomIn">
       <div class="title">
         <img src="@/assets/nation.png" alt="" class="title_img">
@@ -71,7 +71,7 @@
           <label for="suisse"><img src="@/assets/flag/Suisse.png" alt=""></label>
         </div>
       </form>
-      <button class="BasicButton" @click="chooseFriends">
+      <button class="BasicButton" @click="updateFlag">
         Valider
       </button>
     </div>
@@ -91,10 +91,8 @@ export default {
   computed: {
   },
   methods: {
-    chooseFriends () {
-      this.$emit('chooseFriends')
-    },
-    closeModal () {
+    updateFlag () {
+      this.$emit('updateFlag')
       this.$emit('closeModal')
     }
   }

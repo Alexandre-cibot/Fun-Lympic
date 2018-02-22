@@ -1,9 +1,7 @@
 <template>
   <div class="challengeFriend">
   <h2 class="challenge" >Lancer un défi à</h2>
-    <div v-for="friend in friends" :key="friend.name" class="friendBlock">
-      <FriendsButton class="animated hidden" :name="friend.name" :image="friend.picture" :country="friend.country"/>
-    </div>
+      <FriendsButton class="animated hidden" :name="challenger.given_name" :image="challenger.picture" :country="challenger.country"/>
     <h2 class="sport">Choisir un sport</h2>
       <BasicButton class="animated hidden bg_red" title="Athletisme" image="lose" @click="$emit('before')"/>
       <BasicButton class="animated hidden bg_blue" title="Natation Synchronisée" image="win" style="margin-top:3vh;" @click="$emit('before')"/>
@@ -16,15 +14,9 @@ import BasicButton from '@/components/BasicButton.vue';
 
 export default {
   name: 'ChallengeFriend',
+  props: ['challenger'],
   data() {
     return {
-      friends: [
-        {
-          name: "enora",
-          picture: require('@/assets/enora.jpg'),
-          country: "fr"
-        },
-      ]
     }
   },
   components: {
