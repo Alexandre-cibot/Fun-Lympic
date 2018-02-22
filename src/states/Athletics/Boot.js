@@ -3,6 +3,7 @@ import WebFont from 'webfontloader'
 import responsive from '../responsive_helper'
 import constant from './constant'
 import store from '../../store'
+import { win32 } from 'path';
 const Swipe = require('../../vendor/swipe')
 
 const pallier = [
@@ -18,6 +19,7 @@ let speedCoef = 1.8
 const sprinterSpeedCoefSlowDown = 0.992
 const nbLife = 3
 let isFontsLoaded = false
+let isSetInLocalStorage = false
 
 const sprinterFallFrameFlag = {
   counter: 0,
@@ -402,7 +404,9 @@ export default class extends Phaser.State {
         this.sprinterFall.y = pallier[this.playerRace].height + constant.sprinterFallSprite.heightFix
         this.sprinterFall.visible = true
         moveBackground(this.background)
-        setRecord(this.score)
+        if (!isSetInLocalStorage) {
+          setHistory(this.score)
+        }
         speedCoef = sprinterSpeedCoefSlowDown
       } else {
         this.sprinter.visible = false
@@ -697,4 +701,38 @@ function getRecord () {
 
 function setRecord (record) {
   return window.localStorage.setItem('athleticsRecord', record)
+}
+
+function getHistory () {
+  let arrayInLS = window.localStorage.hasOwnProperty('athelicsPersonnalScore') ? JSON.parse(window.localStorage.getItem('athelicsPersonnalScore')) : []
+  return arrayInLS
+}
+
+function setHistory (score) {
+  console.log('SETHISTORY  with new values!!!!')
+  console.log('score', score)
+  let thisParty = {
+    date: getDay(),
+    timestamp: Date.now(),
+    score
+  }
+  let oldHistory = getHistory()
+  console.log('oldHistory', oldHistory)
+  oldHistory.push(thisParty)
+  window.localStorage.setItem('athelicsPersonnalScore', JSON.stringify(oldHistory))
+  isSetInLocalStorage = true
+}
+
+function getDay () {
+  var today = new Date()
+  var dd = today.getDate()
+  var mm = today.getMonth() + 1 // January is 0!
+  var yyyy = today.getFullYear()
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+  return (dd + '/' + mm + '/' + yyyy)
 }
