@@ -1,12 +1,12 @@
 <template>
   <button class="challengeButton bg_purple_dark" @click="handleClick">
     <img :src="image" class="btnLeft"/>
-      <div v-if="!finish" class="name">
+      <div v-if="finish" class="name">
         <p>{{currentName}} <span class="points">{{currentPoints}} points</span></p> 
         <p>{{challengerName}} <span class="points">{{challengerPoints}} points</span></p> 
       </div>
       
-      <div v-if="finish" class="name">
+      <div v-if="!finish" class="name">
         <p>{{challengerName}} <br> <span class="points">{{challengerPoints}} points</span></p> 
       </div>
     <img :src="logoPath" class="btnIcone" >
