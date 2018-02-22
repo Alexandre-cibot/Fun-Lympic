@@ -17,7 +17,7 @@ const speedCoefIfTakeObstacle = 0.8
 const xValueWhenSpriteKilled = -200
 let speedCoef = 1.8
 const sprinterSpeedCoefSlowDown = 0.992
-const nbLife = 3
+const nbLife = 1
 let isFontsLoaded = false
 let isSetInLocalStorage = false
 
@@ -432,6 +432,7 @@ export default class extends Phaser.State {
             this.next.visible = true;
             this.share.visible = true;
             if (this.score > this.oldRecord) {
+              setRecord(this.score)
               this.newRecord.visible = true;
             }
           }, 5000)
@@ -551,9 +552,6 @@ var moveBackground = function (background) {
       constant.background.speed = 0
       store.commit('sprintFinish', true)
       game.paused = true
-      if (game.oldRecord < game.record) {
-        setRecord(game.record)
-      }
     }
     constant.background.speed = constant.background.speed * speedCoef
   }

@@ -198,7 +198,7 @@ export default class extends Phaser.State {
 
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     let textScoreFinal = game.add.text(game.world.centerX, 80, '0', styleScoreFinal);
-    this.textRecord = game.add.text(game.world.centerX - 35,  22, 'RECORD :', styleRecord);
+    this.textRecord = game.add.text(game.world.centerX,  22, 'RECORD :', styleRecord);
     let textFail = game.add.text(game.world.centerX,  game.world.centerY + 202, 'Raté', styleRecord);
     let textPerfect = game.add.text(game.world.centerX,  game.world.centerY + 202, 'Parfait', styleRecord);
     var oldRecord = 5;
@@ -206,6 +206,7 @@ export default class extends Phaser.State {
     this.textRecord.fontWeight = "700"
     
     this.textRecord.text = 'Record : ' + this.rec;
+    this.textRecord.anchor.setTo(0.5, 0);
     this.textScore.anchor.setTo(0.5, 0);
     textScoreFinal.anchor.setTo(0.5, 0);
     this.textScore.stroke = '#69629A';
@@ -381,34 +382,20 @@ export default class extends Phaser.State {
     //Test random circle
 
     var numCircle;
+    this.timeRandom;
     this.superCircle = false;
-    setInterval(()=>{
-      this.timeRandom = (this.clickArr.length == 0) ? 4 : 2;
-      if(this.score < 20){
-        this.timeRandom = 3
-      }else if(this.score > 20){
-        this.timeRandom = 2.8
-      }else if(this.score > 30){
-        this.timeRandom = 2.6
-      }else if(this.score > 40){
-        this.timeRandom = 2.4
-      }else if(this.score > 50){
-        this.timeRandom = 2.2
-      }else if(this.score > 70){
-        this.timeRandom = 2
-      }
-    }, 200)
+
     
     let cirLength = this.circleArr.length -1;
     this.sec = 2;
-    var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * this.life, setNumCircle, this);
+    var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * this.timeRandom, setNumCircle, this);
     
     function setNumCircle(){
       console.log('time' + this.timeRandom)
       console.log(this.clickArr.length)
       numCircle = Math.round(Math.random() * 2);
     }
-    var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.life, displayCircle, this);
+    var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.timeRandom, displayCircle, this);
     
     // var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * timeRandom) +2, displayCircle, this);
     let pointSuperCircle = [20, 40];
