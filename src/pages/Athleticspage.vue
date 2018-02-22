@@ -2,7 +2,7 @@
   <div id="wrapper">
     <div id="load" v-show="!gameLoaded"></div>
     <div id="content" v-show="gameLoaded"></div>
-    <AthleticsTuto v-if="showTuto && !gameLoaded" @hideMe="hideTuto"/>
+    <AthleticsTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div v-show="gameLoaded" id="bg"></div>
   </div>
 </template>
@@ -31,8 +31,15 @@ export default {
     };
   },
   mounted () {
+    setInterval(() => {
+      console.log('init');
+      console.log('showTuto', this.showTuto);
+      console.log('gameLoaded', this.gameLoaded);
+    }, 200)
     store.commit('runSprintGame')
+    store.commit('updateTutoOk', true)
     if (!window.localStorage.getItem('athleticsTutoShown')) {
+      store.commit('updateTutoOk', false)
       window.localStorage.setItem('athleticsTutoShown', 'true')
       this.showTuto = true
     }
@@ -46,6 +53,7 @@ export default {
   },
   methods: {
     hideTuto(){
+      store.commit('updateTutoOk', true)
       this.showTuto = false
     },
     runGame () {

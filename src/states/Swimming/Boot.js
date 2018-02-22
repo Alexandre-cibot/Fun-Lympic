@@ -276,10 +276,12 @@ export default class extends Phaser.State {
     
     this.time = 3;
     this.countDown = setInterval(()=>{
-      this.time--
-      this.textCountDown.text = this.time;
-      if(this.time == 0){
-        this.sifflet.play();
+      if (store.state.tutoOK) {
+        this.time--
+        this.textCountDown.text = this.time;
+        if(this.time == 0){
+          this.sifflet.play();
+        }
       }
     },1000);
     
