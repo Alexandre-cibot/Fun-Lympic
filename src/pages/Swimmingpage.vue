@@ -4,6 +4,10 @@
     <SwimmingTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div id="content" v-show="gameLoaded"></div>
     <HistoryScores v-if="gameIsFinished" :history='getHistory' />
+    <div v-if="gameIsFinished" class="money">
+      <img src="@/assets/coin.png" alt="jo_coin">
+      +{{money}}
+    </div>
   </div>
 </template>
 
@@ -33,6 +37,7 @@ export default {
     return {
       show: false,
       first: true,
+      money: 10,
       showTuto: false,
     };
   },
@@ -118,6 +123,31 @@ export default {
 </script>
 
 <style scoped>
+.money {
+  position: absolute;
+  z-index: 999;
+  top: 30vh;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  width: 19vw;
+  font-family:"myfrida_bold";
+  font-size: 1em;
+  color: white;
+  background: #4F2F90;
+  border-radius: 5px;
+  margin: auto;
+  padding: 0 4px;
+  letter-spacing: 1.5px;
+  margin-top: 3vh;
+}
+.money img {
+  transform: scale(0.7)
+}
 #wrapper {
   height: 100vh;
   overflow: hidden;
