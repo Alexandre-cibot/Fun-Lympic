@@ -1,7 +1,7 @@
 <template>
   <div id="wrapper">
     <div id="load" v-show="!gameLoaded"></div>
-    <SwimmingTuto v-if="showTuto && !gameLoaded" @hideMe="hideTuto"/>
+    <SwimmingTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div id="content" v-show="gameLoaded"></div>
   <!-- <ClassementGame v-if="gameLoaded"/> -->
   </div>
@@ -41,7 +41,9 @@ export default {
   },
   mounted () {
     store.commit('runSwimmingGame')
+    store.commit('updateTutoOk', true)
     if (!window.localStorage.getItem('swimmingTutoShown')) {
+      store.commit('updateTutoOk', false)
       window.localStorage.setItem('swimmingTutoShown', 'true')
       this.showTuto = true
     }
@@ -52,6 +54,7 @@ export default {
   },
   methods: {
     hideTuto(){
+      store.commit('updateTutoOk', true)
       this.showTuto = false
     },
     runGame () {

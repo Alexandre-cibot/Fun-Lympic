@@ -24,8 +24,10 @@ const sprinterFallFrameFlag = {
   max: constant.sprinterFallSprite.nbSprites - 1
 }
 const speedCoefInterval = setInterval(() => {
-  if (speedCoef !== sprinterSpeedCoefSlowDown) {
-    speedCoef = speedCoef * constant.speed.multiplicator
+  if (store.state.tutoOK) {
+    if (speedCoef !== sprinterSpeedCoefSlowDown) {
+      speedCoef = speedCoef * constant.speed.multiplicator
+    }
   }
 }, constant.speed.every)
 
@@ -320,23 +322,28 @@ export default class extends Phaser.State {
     this.textCountDown.strokeThickness = 12;
     this.time = 3
     this.countDown = setInterval(() => {
-      this.time--
-      this.textCountDown.text = this.time
-      if (this.time === 0) {
-        this.go = true
-        this.textCountDown.visible = false
-        this.panSong.play();
-        clearInterval(this.countDown)
+      if (store.state.tutoOK) {
+        this.time--
+        this.textCountDown.text = this.time
+        if (this.time === 0) {
+          this.go = true
+          this.textCountDown.visible = false
+          this.panSong.play();
+          clearInterval(this.countDown)
+        }
       }
     }, 1000)
 
     const pasSong = setInterval(() => {
-      if (this.go) {
-        this.pasSong.play()
+      if (store.state.tutoOK) {
+        if (this.go) {
+          this.pasSong.play()
+        }
       }
     }, 1000)
 
     const destroyGame = setInterval(function () {
+      game.paused = !store.state.tutoOK
       if (!store.state.sprintGame) {
         game.state.destroy()
         game.sound.destroy()
