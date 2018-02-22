@@ -6,10 +6,10 @@
         <img :src="picture" alt="" class="first_character">
     </div>
     <div v-if="navbar" class="infos2">
-        <h3>{{firstName}}</h3><img :src="flag" alt="" class="flag"/><br/>
+        <h3>{{firstName}}</h3><img :src="flag" @click="$emit('chooseFlag')" alt="" class="flag"/><br/>
     </div>
     <div v-if="!navbar" class="infos">
-        <h3>{{firstName}}</h3><img :src="flag" alt="" class="flag"/><br/>
+        <h3>{{firstName}}</h3><img :src="flag" @click="$emit('chooseFlag')" alt="" class="flag"/><br/>
     </div>
     <h4 class="victoriesAndDefeats">{{victory}} victoires / {{defeat}} défaites</h4>
     <h4 v-if="score" class="score">{{score}}</h4>
@@ -63,7 +63,11 @@ export default {
       type: Boolean
     }
   },
-  
+  methods: {
+    chooseFlag() {
+      this.emit('chooseFlag');
+    }
+  }
 }
 </script>
 
