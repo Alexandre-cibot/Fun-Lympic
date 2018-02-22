@@ -7,7 +7,7 @@
       </div>
       <h3 class="animated fadeInUp">Tes défis</h3>
       <div v-for="chall in challengesPending" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" logo="challenge" :image="chall.challengerPicture"  @click.native="playWithFriend" />
+        <ChallengeButton class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" logo="challenge" :image="chall.challengerPicture" :finish="false"  @click.native="playWithFriend" />
       </div>
       <h3 class="animated fadeInUp">Tes défis terminés</h3>
       <div v-for="chall in challengesCompleted" :key="chall.index">
