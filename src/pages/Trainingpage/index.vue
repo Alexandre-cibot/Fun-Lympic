@@ -41,9 +41,11 @@ export default {
     },
     runAthletismeGame () {
       this.$router.push({path: '/athletics'})
+      if(!store.state.isSoundMuted) store.commit('toggleSoundMute', {'isMuted' : true, 'muteBy' : 'game'});
     },
     runSwimmingGame(){
-        this.$router.push({path: '/swimming'})
+      this.$router.push({path: '/swimming'})
+      if(!store.state.isSoundMuted) store.commit('toggleSoundMute', {'isMuted' : true, 'muteBy' : 'game'});
     }
   },
   mounted() {

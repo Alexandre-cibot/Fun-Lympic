@@ -14,7 +14,8 @@ const store = new Vuex.Store({
     tutoOK: true,
     isSwimmingFinish: false,
     isSprintFinish: false,
-    gameOrigin: 'entrainement'
+    gameOrigin: 'entrainement',
+    isSoundMuted: false
   },
   mutations: {
     isSprintLoaded (state, boolean) {
@@ -40,12 +41,28 @@ const store = new Vuex.Store({
     },
     sprintFinish (state, boolean) {
       state.isSprintFinish = boolean
+      var sound = JSON.parse(localStorage.getItem('sound'));
+      if(boolean && sound && sound.muteBy == 'game') {
+        state.isSoundMuted = false;
+        var val = {isMuted: false, muteBy: 'none'};
+        localStorage.setItem('sound', JSON.stringify(val))
+      }
     },
     swimmingFinish (state, boolean) {
       state.isSwimmingFinish = boolean
+      var sound = JSON.parse(localStorage.getItem('sound'));
+      if(boolean && sound && sound.muteBy == 'game') {
+        state.isSoundMuted = false;
+        var val = {isMuted: false, muteBy: 'none'};
+        localStorage.setItem('sound', JSON.stringify(val))
+      }
     },
     updateGameOrigin (state, origin) {
       state.gameOrigin = origin
+    },
+    toggleSoundMute(state, val) {
+      state.isSoundMuted = val.isMuted;
+      localStorage.setItem('sound', JSON.stringify(val))
     }
   }
 })
