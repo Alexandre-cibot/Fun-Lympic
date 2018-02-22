@@ -92,6 +92,8 @@ export default class extends Phaser.State {
     this.load.image('background', './assets/images/background.png')
     this.load.image('home', './assets/images/home.png')
     this.load.image('play', './assets/images/play.png')
+    this.load.image('next', './assets/images/next.png')
+    this.load.image('share', './assets/images/share.png')
     this.load.spritesheet('sprinter', './assets/images/sprint_sprinter_run.png', constant.sprinterSprite.width / constant.sprinterSprite.nbSprites, constant.sprinterSprite.height)
     this.load.spritesheet('sprinter_stop', './assets/images/sprint_sprinter_stop.png', constant.sprinterStopSprite.width / constant.sprinterStopSprite.nbSprites, constant.sprinterStopSprite.height)
     this.load.spritesheet('sprinter_fall', './assets/images/sprint_sprinter_fall.png', constant.sprinterFallSprite.width / constant.sprinterFallSprite.nbSprites, constant.sprinterFallSprite.height)
@@ -247,6 +249,13 @@ export default class extends Phaser.State {
     var home = game.add.sprite(game.world.centerX - 60, game.world.centerY, 'home');
     var play = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'play');
     var text = game.add.text(game.world.centerX, game.world.centerY - 150, 'Pause', style);
+    let share = game.add.sprite(20, 20, 'share');
+    let next = game.add.sprite(game.width - 70, 20, 'next');
+    next.scale.setTo(0.5)
+    next.visible = false;
+    share.visible = false;
+    next.inputEnabled = true;
+    next.events.onInputDown.add(redirectNext, this);
     text.anchor.setTo(0.5, 0);
     home.anchor.setTo(0.5)
     play.anchor.setTo(0.5)
@@ -262,6 +271,16 @@ export default class extends Phaser.State {
     
     function redirect(){
       location.replace("/#/");
+    }
+    function redirectNext(){
+      const gameOrigin = store.state.gameOrigin
+      if (gameOrigin === 'entrainement') {
+        location.replace("/#/training");
+      } else if (gameOrigin === 'competition') {
+        location.replace("/#/competition");
+      } else {
+        location.replace("/#/");
+      }
     }
 
     function listener() {

@@ -16,6 +16,7 @@
 
 <script>
 import Profile from '@/components/Profile.vue';
+import store from '../../../store'
 
 export default {
   name: 'BeforeGame',
@@ -46,6 +47,7 @@ export default {
     }
   },
   mounted() {
+    store.commit('updateGameOrigin', 'competition')
     let buttons = this.$el.querySelectorAll('.hidden');
     buttons.forEach((btn, idx) => {
       setTimeout(()=>{
