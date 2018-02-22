@@ -29,12 +29,14 @@ const store = new Vuex.Store({
     },
     runSwimmingGame (state) {
       state.swimmingGame = true
+      state.isSwimmingFinish = false;
     },
     destroySprintGame (state) {
       state.sprintGame = false
     },
     runSprintGame (state) {
       state.sprintGame = true
+      state.isSprintFinish = false;
     },
     updateTutoOk (state, boolean) {
       state.tutoOK = boolean
