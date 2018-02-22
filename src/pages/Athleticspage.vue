@@ -24,12 +24,14 @@ export default {
   computed: {
     gameLoaded () {
       return store.state.sprintLoaded
+    },
+    gameIsFinished () {
+      return store.state.isSprintFinish
     }
   },
   data () {
     return {
       showTuto: false,
-      gameIsFinished: false
     };
   },
   mounted () {
