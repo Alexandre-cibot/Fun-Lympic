@@ -43,7 +43,7 @@ export default {
   },
   methods:{
     runAthletismeGame(){
-      this.$router.push({path: '/athletics'})
+      this.$router.push('/athletics')
     }
   },
   mounted() {

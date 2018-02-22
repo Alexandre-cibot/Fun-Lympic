@@ -5,7 +5,7 @@
     <AthleticsTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div v-show="gameLoaded" id="bg"></div>
     <HistoryScores v-if="gameIsFinished" :history='getHistory' />
-    <div class="gif" v-if="gameIsFinished"></div>
+    <div class="gif" v-if="gameIsFinished && gif"></div>
   </div>
 </template>
 
@@ -27,6 +27,11 @@ export default {
       return store.state.sprintLoaded
     },
     gameIsFinished () {
+      if(store.state.isSprintFinish){
+        setTimeout(()=>{
+        this.gif = false;
+      }, 2000)
+      }
       return store.state.isSprintFinish
     },
     getHistory () {
@@ -36,6 +41,7 @@ export default {
   },
   data () {
     return {
+      gif: true,      
       showTuto: false,
     };
   },
