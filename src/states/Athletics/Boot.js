@@ -15,15 +15,19 @@ const obstacleWidthFrequency = 600
 const speedCoefIfTakeObstacle = 0.8
 const xValueWhenSpriteKilled = -200
 let speedCoef = 1.8
-const sprinterSpeedCoefSlowDown = 0.98
+const sprinterSpeedCoefSlowDown = 0.992
 const nbLife = 3
+let isFontsLoaded = false
+
 const sprinterFallFrameFlag = {
   counter: 0,
   max: constant.sprinterFallSprite.nbSprites - 1
 }
 const speedCoefInterval = setInterval(() => {
-  if (speedCoef !== sprinterSpeedCoefSlowDown) {
-    speedCoef = speedCoef * constant.speed.multiplicator
+  if (store.state.tutoOK) {
+    if (speedCoef !== sprinterSpeedCoefSlowDown) {
+      speedCoef = speedCoef * constant.speed.multiplicator
+    }
   }
 }, constant.speed.every)
 
@@ -64,28 +68,30 @@ const obstacles = [
   duckInfo,
   plotInfo
 ]
+
+function fontsLoaded () {
+  isFontsLoaded = true
+}
+
 export default class extends Phaser.State {
   init() {
     this.stage.backgroundColor = '#EDEEC9'
-    this.fontsReady = false
-    this.fontsLoaded = this.fontsLoaded.bind(this)
+    this.score = 0
   }
 
   preload() {
+    window.WebFontConfig = {
+      active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
+      google: {
+        families: ['Nunito']
+      }
+    }
     game.time.advancedTiming = true
-    // WebFont.load({
-    //   custom: {
-    //     families: ['myfrida-bold'],
-    //     urls: ["../../css/main.css"]
-    //   }
-    // })
 
-    // let text = this.add.text(this.world.centerX, this.world.centerY, 'loading fonts', { font: '16px Arial', fill: '#dddddd', align: 'center' })
-    // text.anchor.setTo(0.5, 0.5)
     this.load.image('pause', './assets/images/pause.svg')
     this.load.image('background', './assets/images/background.png')
-    this.load.image('home', './assets/images/home.svg')
-    this.load.image('play', './assets/images/play.svg')
+    this.load.image('home', './assets/images/home.png')
+    this.load.image('play', './assets/images/play.png')
     this.load.spritesheet('sprinter', './assets/images/sprint_sprinter_run.png', constant.sprinterSprite.width / constant.sprinterSprite.nbSprites, constant.sprinterSprite.height)
     this.load.spritesheet('sprinter_stop', './assets/images/sprint_sprinter_stop.png', constant.sprinterStopSprite.width / constant.sprinterStopSprite.nbSprites, constant.sprinterStopSprite.height)
     this.load.spritesheet('sprinter_fall', './assets/images/sprint_sprinter_fall.png', constant.sprinterFallSprite.width / constant.sprinterFallSprite.nbSprites, constant.sprinterFallSprite.height)
@@ -94,32 +100,39 @@ export default class extends Phaser.State {
     this.load.spritesheet('dancer', './assets/images/sprint_dancer.png', constant.dancerSprite.width / constant.dancerSprite.nbSprites, constant.dancerSprite.height)
     this.load.spritesheet('duck', './assets/images/sprint_duck.png', constant.duckSprite.width / constant.duckSprite.nbSprites, constant.duckSprite.height)
     this.load.spritesheet('plot', './assets/images/sprint_plot.png', constant.plotSprite.width / constant.plotSprite.nbSprites, constant.plotSprite.height)
+    this.load.image('coeur', './assets/images/coeur.png')
+    this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js')
+    this.load.image('record', './assets/images/swimming_record.png')
+    this.load.image('newRecord', './assets/images/swimming_new_record.png')
+
+    this.load.audio('pas', ['./assets/musique/pas.mp3']);
+    this.load.audio('swipe', ['./assets/musique/swipe.mp3']);
+    this.load.audio('impact', ['./assets/musique/impact.mp3']);
+    this.load.audio('pan', ['./assets/musique/pan.mp3']);
   }
 
   render() {
     game.debug.text(game.time.fps || 25, 2, 14, "black");
-    // if (this.fontsReady) {
-    // }
-  }
-
-  fontsLoaded () {
-    this.fontsReady = true
+    if (isFontsLoaded) {
+      // var myText = game.add.text(game.world.centerX, game.world.centerY, "best font ever");
+      // myText.anchor.setTo(0.5);
+    
+      // myText.font = 'Nunito';
+      // myText.fontSize = 60;
+    
+      // myText.align = 'center';
+      // myText.stroke = '#999999';
+      // myText.strokeThickness = 2;
+      // myText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+    
+      // myText.inputEnabled = true;
+      // myText.input.enableDrag();
+    }
   }
 
   create () {
     this.go = false
     this.fall = false
-
-    this.time = 3
-    this.countDown = setInterval(() => {
-      this.time--
-      console.log('Compte à rebours', this.time)
-      // this.textCountDown.text = this.time
-      if (this.time === 0) {
-        this.go = true
-        clearInterval(this.countDown)
-      }
-    }, 1000)
 
     this.swipe = new Swipe(this.game)
     this.playerRace = 1
@@ -191,6 +204,14 @@ export default class extends Phaser.State {
     }
     // END life system
 
+    // song
+    this.pasSong = game.add.audio('pas')
+    this.pasSong.volume = 0.1
+    this.swipeSong = game.add.audio('swipe')
+    this.impactSong = game.add.audio('impact')
+    this.panSong = game.add.audio('pan')
+    // END song
+
     // Create menu
     var image = game.add.sprite(20, 20, 'pause');
     image.inputEnabled = true;
@@ -221,7 +242,7 @@ export default class extends Phaser.State {
     graphics.drawRect(0, 0, game.width, 2000);
     graphics.visible = false;
 
-    var style = { font: "5em myfrida-bold", fill: "#ffffff", align: "center" };
+    var style = { font: "5em myfrida_bold", fill: "#ffffff", align: "center" };
 
     var home = game.add.sprite(game.world.centerX - 60, game.world.centerY, 'home');
     var play = game.add.sprite(game.world.centerX + 60, game.world.centerY, 'play');
@@ -229,6 +250,8 @@ export default class extends Phaser.State {
     text.anchor.setTo(0.5, 0);
     home.anchor.setTo(0.5)
     play.anchor.setTo(0.5)
+    home.scale.setTo(0.5)
+    play.scale.setTo(0.5)
     play.visible = false;
     home.visible = false;
     text.visible = false;
@@ -260,8 +283,67 @@ export default class extends Phaser.State {
       text.visible = false;
       image.visible = true;
     }
+
+    // score
+    const styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
+    let styleRecord = {font:'1.6em Nunito',fill: "#ffffff"};
+    this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
+    this.textScore.anchor.setTo(0.5, 0);
+    this.textScore.stroke = '#69629A';
+    this.textScore.strokeThickness = 4;
+    // END score
+
+    // record
+    this.oldRecord = getRecord()
+    this.record = game.add.sprite(game.world.centerX, 32, 'record');
+    this.record.anchor.setTo(0.5);
+    this.textRecord = game.add.text(game.world.centerX - 45, 22, 'RECORD :', styleRecord);
+    this.textRecord.text = 'Record : ' + this.oldRecord
+    this.newRecord = game.add.sprite(game.world.centerX, 32, 'newRecord');
+    this.newRecord.anchor.setTo(0.5);
+    this.newRecord.visible = false;
+    // END record
+
+    // Heart
+    const heart1 = game.add.sprite(game.width - 50, 20, 'coeur');
+    const heart2 = game.add.sprite(game.width - 80, 20, 'coeur');
+    const heart3 = game.add.sprite(game.width - 110, 20, 'coeur');
+    heart1.scale.setTo(1.2, 1.2);
+    heart2.scale.setTo(1.2, 1.2);
+    heart3.scale.setTo(1.2, 1.2);
+    this.heart = [heart1, heart2, heart3];
+    // END hesart
     store.commit('isSprintLoaded', true)
+
+    let styleCountDown = {font: "14em Nunito", fill: "#F4426D", align: "center", boundsAlignV: "middle"};
+    this.textCountDown = game.add.text(game.world.centerX, game.world.centerY, '3', styleCountDown);
+    this.textCountDown.anchor.setTo(0.5)
+    this.textCountDown.stroke = '#C53054';
+    this.textCountDown.strokeThickness = 12;
+    this.time = 3
+    this.countDown = setInterval(() => {
+      if (store.state.tutoOK) {
+        this.time--
+        this.textCountDown.text = this.time
+        if (this.time === 0) {
+          this.go = true
+          this.textCountDown.visible = false
+          this.panSong.play();
+          clearInterval(this.countDown)
+        }
+      }
+    }, 1000)
+
+    const pasSong = setInterval(() => {
+      if (store.state.tutoOK) {
+        if (this.go) {
+          this.pasSong.play()
+        }
+      }
+    }, 1000)
+
     const destroyGame = setInterval(function () {
+      game.paused = !store.state.tutoOK
       if (!store.state.sprintGame) {
         game.state.destroy()
         game.sound.destroy()
@@ -272,12 +354,22 @@ export default class extends Phaser.State {
         game.plugins.destroy()
         clearInterval(destroyGame)
         clearInterval(speedCoefInterval)
+        clearInterval(pasSong)
       }
     }, 500)
   }
   update () {
     // console.log('speedCoef', speedCoef);
     // console.log('FPS', game.time.fps);
+    console.log(this.time);
+    this.heart[0].visible = this.lifeRemaining > 0
+    this.heart[1].visible = this.lifeRemaining > 1
+    this.heart[2].visible = this.lifeRemaining > 2
+    this.score = parseInt(-this.background.x / 100)
+    this.textScore.text = this.score
+    if (this.score > this.oldRecord) {
+      this.newRecord.visible = true;
+    }
     if (!this.go) {
       if (this.fall) {
         if (sprinterFallFrameFlag.counter <= sprinterFallFrameFlag.max) {
@@ -291,6 +383,7 @@ export default class extends Phaser.State {
         this.sprinterFall.y = pallier[this.playerRace].height + constant.sprinterFallSprite.heightFix
         this.sprinterFall.visible = true
         moveBackground(this.background)
+        setRecord(this.score)
         speedCoef = sprinterSpeedCoefSlowDown
       } else {
         this.sprinter.visible = false
@@ -404,6 +497,9 @@ var moveBackground = function (background) {
   if (speedCoef === sprinterSpeedCoefSlowDown) {
     if (constant.background.speed > -0.11) {
       constant.background.speed = 0
+      if (game.oldRecord < game.record) {
+        setRecord(game.record)
+      }
     }
     constant.background.speed = constant.background.speed * speedCoef
   }
@@ -411,6 +507,7 @@ var moveBackground = function (background) {
 }
 
 function movePlayerRace (self, boolean) {
+  self.swipeSong.play()
   if (boolean) {
     const plusOne = self.playerRace + 1
     if (plusOne < pallier.length) {
@@ -433,6 +530,7 @@ function mamieCollisionHandler (sprinter, mamie) {
     mamie.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
+    this.impactSong.play()
   }
 }
 
@@ -442,6 +540,7 @@ function catCollisionHandler (sprinter, cat) {
     cat.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
+    this.impactSong.play()
   }
 }
 
@@ -452,6 +551,7 @@ function dancerCollisionHandler (sprinter, dancer) {
     dancer.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
+    this.impactSong.play()
   }
 }
 
@@ -462,6 +562,7 @@ function duckCollisionHandler (sprinter, duck) {
     duck.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
+    this.impactSong.play()
   }
 }
 
@@ -472,6 +573,7 @@ function plotCollisionHandler (sprinter, plot) {
     plot.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
+    this.impactSong.play()
   }
 }
 
@@ -566,4 +668,12 @@ function getRandom (min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+function getRecord () {
+  return window.localStorage.getItem('athleticsRecord') || 0
+}
+
+function setRecord (record) {
+  return window.localStorage.setItem('athleticsRecord', record)
 }

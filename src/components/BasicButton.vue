@@ -72,8 +72,8 @@ export default {
         case 'sound':
           return require('@/assets/sound.svg');
         break;
-        case 'music':
-          return require('@/assets/music.svg');
+        case 'notif':
+          return require('@/assets/tick.png');
         break;
         default:
           console.log('no image default found.');

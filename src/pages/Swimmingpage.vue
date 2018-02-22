@@ -1,7 +1,7 @@
 <template>
   <div id="wrapper">
-    <p style="color: black" v-show="!gameLoaded">ça charge</p>
-    <SwimmingTuto v-if="showTuto && !gameLoaded" @hideMe="hideTuto"/>
+    <div id="load" v-show="!gameLoaded"></div>
+    <SwimmingTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div id="content" v-show="gameLoaded"></div>
   <!-- <ClassementGame v-if="gameLoaded"/> -->
   </div>
@@ -41,7 +41,9 @@ export default {
   },
   mounted () {
     store.commit('runSwimmingGame')
+    store.commit('updateTutoOk', true)
     if (!window.localStorage.getItem('swimmingTutoShown')) {
+      store.commit('updateTutoOk', false)
       window.localStorage.setItem('swimmingTutoShown', 'true')
       this.showTuto = true
     }
@@ -52,6 +54,7 @@ export default {
   },
   methods: {
     hideTuto(){
+      store.commit('updateTutoOk', true)
       this.showTuto = false
     },
     runGame () {
@@ -107,7 +110,6 @@ export default {
 <style scoped>
 #wrapper {
   height: 100vh;
-  width: 100%;
   overflow: hidden;
 }
 #menu {
@@ -117,6 +119,14 @@ export default {
   bottom: 0;
   right: 0;
   background: rgba(0,0,0,0.5);
+}
+#load {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: url('../assets/exemple_chargement.gif');
+  background-size: cover;
+  background-position: center;
 }
 #content{
   display: flex;

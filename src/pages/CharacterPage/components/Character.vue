@@ -90,7 +90,7 @@ h3{
   margin-top: 9vh;
   padding: 6px;
   color: white;
-  font-family:"myfrida-bold";
+  font-family:"myfrida_bold";
   font-size: 1.9em;
   letter-spacing: 1.5px;
 }

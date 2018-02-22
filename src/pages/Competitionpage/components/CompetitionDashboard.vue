@@ -1,15 +1,18 @@
 <template>
   <div style="padding-bottom: 3vh;">
-      <Profile :firstName="currentUser.name" :flag="currentUser.flag" :picture="currentUser.picture" :other="true" :competition="true" :defeat="profile.defeats" :victory="profile.victories"/>
-      <BasicButton class="challengeBtn animated hidden" title="défier un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
-      <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" />
-      <h3 class="animated fadeInUp">Ils te défient</h3>
-      <div v-for="chall in challengesPending" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" logo="challenge" :image="chall.challengerPicture" :finish="notFinish" />
+      <Profile :firstName="currentUser.name" :flag="currentUser.flag" :picture="currentUser.picture" :other="true" :competition="true" :defeat="currentUser.defeats" :victory="currentUser.victories"/>
+      <div class="blockChallengesBtn">
+        <BasicButton class="challengeBtn animated hidden" title="défie un ami" btnColor="yellow" image="facebook" @click="chooseFlag" />
+        <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" /> 
       </div>
-      <h3 class="animated fadeInUp">Les défis terminés</h3>
+      <h3 class="animated fadeInUp">Tes défis</h3>
+      <div v-for="chall in challengesPending" :key="chall.index">
+        <ChallengeButton class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" logo="challenge" :image="chall.challengerPicture"  @click.native="playWithFriend" />
+      </div>
+      <h3 class="animated fadeInUp">Tes défis terminés</h3>
       <div v-for="chall in challengesCompleted" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" :currentName="currentUser.name" :currentPoints="chall.myScore" :logo="chall.status" :image="chall.challengerPicture" :finish="finish" />
+        <ChallengeButton v-if="chall.status == 'victory'" class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" :currentName="currentUser.name" :currentPoints="chall.myScore" :logo="chall.status" :image="chall.challengerPicture" :finish="true" @click.native="winGame"/>
+        <ChallengeButton v-else class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" :currentName="currentUser.name" :currentPoints="chall.myScore" :logo="chall.status" :image="chall.challengerPicture" :finish="true"  @click.native="loseGame"/>
       </div>
   </div>
 </template>
@@ -40,8 +43,8 @@ export default {
           name: this.profile.given_name,
           flag: require('@/assets/flag/France.png'),
           picture: this.profile.picture,
-          victory : 90,
-          defeat: 23
+          victories : this.profile.victories,
+          defeats: this.profile.defeats
         },
       challengesPending: this.profile.challenges_pending || [],
       challengesCompleted: this.profile.challenges_completed || []
@@ -50,6 +53,15 @@ export default {
   methods: {
     chooseFlag() {
       this.$emit('chooseFlag');
+    },
+    playWithFriend(){
+      this.$emit('playWithFriend');
+    },
+    winGame(){
+      this.$emit('winGame');
+    },
+    loseGame(){
+      this.$emit('loseGame');
     }
   },
   mounted() {
@@ -68,7 +80,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>  
+<style scoped>
 .page-wrapper {
   background: #F5F5F5;
   height: 100vh;
@@ -80,5 +92,8 @@ h3 {
 }
 .challengeBtn {
   margin-bottom: 3vh;
+}
+.blockChallengesBtn {
+  margin-top:8vh;
 }
 </style>

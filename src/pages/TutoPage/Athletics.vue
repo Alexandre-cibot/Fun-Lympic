@@ -1,9 +1,9 @@
 <template>
-  <div id="tuto" @click="disappear"></div>  
+  <div id="tuto" @click="disappear"></div>
 </template>
 <script>
 export default {
-  name:"SwimmingTuto",
+  name:"AthleticsTuto",
   methods:{
     disappear(){
       this.$emit('hideMe')
@@ -20,7 +20,7 @@ export default {
 }
 #tuto{
   position: absolute;
-  background: url('../../../assets/images/Tuto_swim.jpg');
+  background: url('../../../assets/images/sprint_tuto.jpg');
   background-size: cover;
   top: 0;
   left: 0;

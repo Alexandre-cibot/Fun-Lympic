@@ -2,15 +2,17 @@
   <div class="before">
     <div class="background"></div>
       <div v-for="user in currentUser" :key="user.index" class="circle_first">
-        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="false" :navbar="true"/>
+        <Profile :firstName="user.firstname" :flag="user.flag" :score="user.score" :picture="user.picture" :money="20" :other="false"/>
       </div>
     <button class="animated hidden">
-      <img src="@/assets/win_white.svg" alt="" class="icon_button">
-      <h2 @click="runAthletismeGame">Jouer</h2>
+      <h2 @click="runAthletismeGame">ESSAYES DE ME BATTRE</h2>
     </button>
     <div v-for="user in otherUser" :key="user.index" class="circle_first">
-        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :other="true" :navbar="true"/>
+        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :score="user.score" :other="true"/>
     </div>
+    <button class="next" @click="pushRoute">
+      <img src="@/assets/arrow_right.png" alt="">
+    </button>
   </div>
 </template>
 
@@ -18,7 +20,7 @@
 import Profile from '@/components/Profile.vue';
 
 export default {
-  name: 'BeforeGame',
+  name: 'ChallengeGame',
   data() {
     return {
       currentUser: [
@@ -26,6 +28,7 @@ export default {
           firstname: "Alexandre",
           flag: require('@/assets/flag/France.png'),
           picture: require('@/assets/alex.png'),
+          score: "2:54"
         },
       ],
       otherUser: [
@@ -33,6 +36,7 @@ export default {
           firstname: "Enora",
           flag: require('@/assets/flag/France.png'),
           picture: require('@/assets/enora.jpg'),
+          score: " "
         },
       ]
     }
@@ -43,6 +47,9 @@ export default {
   methods:{
     runAthletismeGame(){
       this.$router.push({path: '/athletics'})
+    },
+    pushRoute(){
+      this.$emit('pushRoute');
     }
   },
   mounted() {
@@ -70,17 +77,19 @@ button {
   justify-content: space-between;
   border: none;
   color : white;
-  border-radius: 15px;
-  padding: 10px 5px;
-  font-size: 1.4em;
+  border-radius: 10px;
+  padding: 15px 10px;
+  font-size: 1.2em;
   background: #ffd360;
   box-shadow: 0px 8px 0px 0px #F1B946;
-  width: 65%;
+  width: 80%;
+  margin-top: -4vh;
 }
 button h2, h3 {
   float: right;
+  text-align: center;
   text-transform: uppercase;
-  padding-right: 1em;
+  width: 100%;
 }
 .icon_button {
   float: left;
@@ -94,6 +103,15 @@ button h2, h3 {
   align-items: center;
   margin-top: 20vh;
 }
+.next{
+  width: auto;
+  background: #ffd360;
+  float: right;
+  position: absolute;
+  right: 7vw;
+  bottom: 3vh;
+  box-shadow: none;
+}
 .infos img {
   display: inline-block;
   height: 3vh;
@@ -104,19 +122,22 @@ button h2, h3 {
 }
 .background{
   position: absolute;
-  top: 60px;
-  height: 47vh;
+  top: 0;
+  height: 50vh;
   width: 100%;
   border-radius: 0 0 30px 30px;
   background: #2d1862;
 }
 .before {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  left: 0;
   display: flex;
-  height: 100%;
   /* add - 3vh for the wrapper */
   margin-top: -3vh;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 .circle_first{
@@ -125,7 +146,7 @@ button h2, h3 {
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 20vh;
+  margin: 5vh 0;
 }
 .circle_second{
   display: flex;
