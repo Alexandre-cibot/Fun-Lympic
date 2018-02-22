@@ -22,7 +22,7 @@ export default class extends Phaser.State {
     window.WebFontConfig = {
       active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
       google: {
-        families: ['Nunito']
+        families: ['Nunito:300,400,500,700,900']
       }
     }
     this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
@@ -191,17 +191,19 @@ export default class extends Phaser.State {
     this.fail.anchor.setTo(0.5);
     this.perfect.anchor.setTo(0.5);
 
-    let styleRecord = {font:'1.6em Nunito',fill: "#ffffff"};
+    let styleRecord = {font:'900 1.6em Nunito',fill: "#ffffff"};
     let styleScoreFinal = {font: "14em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
     let styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
-    this.rec = (localStorage.getItem('record') ? parseFloat(localStorage.getItem('record')) : 5 );
+    this.rec = (localStorage.getItem('recordSwimming') ? parseFloat(localStorage.getItem('recordSwimming')) : 5 );
 
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
     let textScoreFinal = game.add.text(game.world.centerX, 80, '0', styleScoreFinal);
-    this.textRecord = game.add.text(game.world.centerX - 45,  22, 'RECORD :', styleRecord);
+    this.textRecord = game.add.text(game.world.centerX - 35,  22, 'RECORD :', styleRecord);
     let textFail = game.add.text(game.world.centerX,  game.world.centerY + 202, 'Raté', styleRecord);
     let textPerfect = game.add.text(game.world.centerX,  game.world.centerY + 202, 'Parfait', styleRecord);
     var oldRecord = 5;
+
+    this.textRecord.fontWeight = "700"
     
     this.textRecord.text = 'Record : ' + this.rec;
     this.textScore.anchor.setTo(0.5, 0);
@@ -502,7 +504,7 @@ export default class extends Phaser.State {
             if(this.life == 0){
               if(this.textScore.text >= oldRecord) {
                 newRecord.visible = true;
-                localStorage.setItem('record', this.textScore.text);
+                localStorage.setItem('recordSwimming', this.textScore.text);
               }
               this.water.pause();
               game.time.events.remove(myLoop1);
