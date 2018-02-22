@@ -144,7 +144,7 @@ h1{
   justify-content: space-between;
   align-items: center;
   width: 30vw;
-  font-family:"myfrida-bold";
+  font-family:"myfrida_bold";
   font-size: 1.4em;
   color: white;
   background: #422881;
