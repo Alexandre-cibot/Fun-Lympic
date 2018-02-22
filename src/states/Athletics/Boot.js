@@ -85,7 +85,7 @@ export default class extends Phaser.State {
     window.WebFontConfig = {
       active: function() { game.time.events.add(Phaser.Timer.SECOND, fontsLoaded, this); },
       google: {
-        families: ['Nunito']
+        families: ['Nunito:300,400,500,700,900']
       }
     }
     game.time.advancedTiming = true
@@ -320,18 +320,26 @@ export default class extends Phaser.State {
 
     // score
     const styleScore = {font: "4.5em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
-    let styleRecord = {font:'1.6em Nunito',fill: "#ffffff"};
+    let styleRecord = {font:'700 1.6em Nunito',fill: "#ffffff"};
+    let styleScoreFinal = {font: "14em Nunito", fill: "#ffffff", align: "center", boundsAlignV: "middle"};
+
     this.textScore = game.add.text(game.world.centerX, 50, '0', styleScore);
+    this.textScoreFinal = game.add.text(game.world.centerX, 80, '0', styleScoreFinal);
     this.textScore.anchor.setTo(0.5, 0);
     this.textScore.stroke = '#69629A';
     this.textScore.strokeThickness = 4;
+
+    this.textScoreFinal.anchor.setTo(0.5, 0);
+    this.textScoreFinal.stroke = '#69629A';
+    this.textScoreFinal.strokeThickness = 8;
+    this.textScoreFinal.visible = false;
     // END score
 
     // record
     this.oldRecord = getRecord()
     this.record = game.add.sprite(game.world.centerX, 32, 'record');
     this.record.anchor.setTo(0.5);
-    this.textRecord = game.add.text(game.world.centerX - 45, 22, 'RECORD :', styleRecord);
+    this.textRecord = game.add.text(game.world.centerX - 35,  22, 'RECORD :', styleRecord);
     this.textRecord.text = 'Record : ' + this.oldRecord
     this.newRecord = game.add.sprite(game.world.centerX, 32, 'newRecord');
     this.newRecord.anchor.setTo(0.5);
@@ -415,18 +423,16 @@ export default class extends Phaser.State {
         this.sprinterFall.visible = true
         moveBackground(this.background)
         if (!isSetInLocalStorage) {
-          // TODO
           setHistory(this.score)
-          // this.next.visible = true;
-          // this.share.visible = true;
+          this.textScoreFinal.text = this.textScore.text;
           setTimeout(()=>{
+            this.textScoreFinal.visible = true;
+            this.textScore.visible = false;
             this.next.visible = true;
             this.share.visible = true;
             if (this.score > this.oldRecord) {
               this.newRecord.visible = true;
             }
-            // this.confettis.visible = true;
-            // this.confettis.play('run', 8)
           }, 5000)
         }
         speedCoef = sprinterSpeedCoefSlowDown
