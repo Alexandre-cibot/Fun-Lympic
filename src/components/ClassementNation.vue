@@ -2,11 +2,11 @@
   <div :class="[classement ? 'list_score' : 'list_classement', {'bg_white' : owner}]" >
     <h3 v-show="classement" class="classement">{{classement}}</h3>
     <div class="nation_score">
-      <h2 :class=" classement ? 'classement_name' : 'classement_home'" >{{nation.name}}</h2>
-      <p class="moyenne">Moyenne : {{nation.moyenne}}</p>
+      <h2 :class=" classement ? 'classement_name' : 'classement_home'" >{{name}}</h2>
+      <p class="moyenne">{{Math.round(moyenne)}}</p>
     </div>
-    <div v-show="nation.flag">
-      <img :src="nation.flag" alt="" class="flag">
+    <div v-show="nation.country">
+      <img :src="imagePath" alt="" class="flag">
     </div>
   </div>
 </template>
@@ -32,6 +32,103 @@ export default {
   data() {
     return {};
   },
+  computed:{
+    moyenne(){
+      if(this.nation.moyenne !== null){
+        return this.nation.moyenne
+      }else{
+        return 0
+      }
+    },
+    name(){
+      switch(this.nation.country) {
+          case 'fr-FR':
+            return 'France'
+          break;
+          case 'es_ES':
+            return 'Espagne'
+          break;
+          case 'en_US':
+            return 'Etats-Unis';
+          break;
+          case 'ru_RU':
+            return 'Russie';
+          break;
+          case 'it_IT':
+            return 'Italie';
+          break;
+          case 'ja_JP':
+            return 'Japon';
+          break;
+          case 'pt_PT':
+            return 'Portugal';
+          break;
+          case 'fr_CA':
+            return 'Canada';
+          break;
+          case 'el_GR':
+            return 'Grece';
+          break;
+          case 'zh_CN':
+            return 'Suisse';
+          break;
+          case 'en_GB':
+            return 'Royaume-Uni';
+          break;
+          case 'de_DE':
+            return 'Allemagne';
+          break;
+          default:
+            console.log('no image default found.');
+          break;
+      }
+    },
+    imagePath(){
+        switch(this.nation.country) {
+          case 'fr-FR':
+            return require('@/assets/flag/France.png');
+          break;
+          case 'es_ES':
+            // return require('@/assets/olympique.png');
+            return require('@/assets/flag/Espagne.png');
+          break;
+          case 'en_US':
+            // return require('@/assets/facebook.png');
+            return require('@/assets/flag/Etats-Unis.png');
+          break;
+          case 'ru_RU':
+            return require('@/assets/flag/Russie.png');
+          break;
+          case 'it_IT':
+            return require('@/assets/flag/Italie.png');
+          break;
+          case 'ja_JP':
+            return require('@/assets/flag/Japon.png');
+          break;
+          case 'pt_PT':
+            return require('@/assets/flag/Portugal.png');
+          break;
+          case 'fr_CA':
+            return require('@/assets/flag/Canada.png');
+          break;
+          case 'el_GR':
+            return require('@/assets/flag/Grece.png');
+          break;
+          case 'zh_CN':
+            return require('@/assets/flag/Suisse.png');
+          break;
+          case 'en_GB':
+            return require('@/assets/flag/Royaume-Uni.png');
+          break;
+          case 'de_DE':
+            return require('@/assets/flag/Allemagne.png');
+          break;
+          default:
+            console.log('no image default found.');
+          break;
+      }
+    }
+  }
 };
 </script>
 <style scoped>

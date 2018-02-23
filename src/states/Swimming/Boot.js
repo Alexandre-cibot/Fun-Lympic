@@ -10,7 +10,7 @@ let gameShouldBePaused = false
 function fontsLoaded () {
   isFontsLoaded = true
 }
-
+let isDefiResponse = !!store.state.challengeIdToRespond
 export default class extends Phaser.State {
   init() {
     this.stage.backgroundColor = '#EDEEC9'
@@ -18,8 +18,8 @@ export default class extends Phaser.State {
     this.life = 3
     this.score = 0
     this.isSetInLocalStorage = false
-    this.isDefiResponse = !!store.state.challengeIdToRespond
-    console.warn('isDefiResponse ? ', this.isDefiResponse)
+    isDefiResponse = !!store.state.challengeIdToRespond
+    console.warn('isDefiResponse ? ', isDefiResponse)
   }
 
   preload() {
@@ -293,7 +293,7 @@ export default class extends Phaser.State {
       if (store.state.tutoOK) {
         this.time--
         this.textCountDown.text = this.time;
-        if(this.time == 0){
+        if(this.time == 1){
           if(store.state.isSoundMuted && store.state.muteBy == 'game') this.sifflet.play();
         }
       }
@@ -637,21 +637,26 @@ export default class extends Phaser.State {
   update () {
     // Condition to review
     //Use if/else for performance and not switch
-    if(this.time == -1){
+    if(this.time == 0){
       clearInterval(this.countDown)
       this.textCountDown.visible = false;
       this.image.visible = true;
       if(store.state.isSoundMuted && store.state.muteBy == 'game') this.water.play();
     }
     if(this.life == 0){
-      store.commit('swimmingFinish', true)
+      if(!isDefiResponse) {
+        store.commit('swimmingFinish', true)
+      }
       this.water.pause();
-      if (this.isDefiResponse) {
-        // TODO: MAKE A REAL .then logic
+      if (isDefiResponse) {
+        // TODO: Redirection to the result page.
+        isDefiResponse = false
         API.respondToDefi(store.state.challengeIdToRespond, this.score).then(res => {
           console.log('Défi répondu !', res)
-          this.isDefiResponse = false;
-          store.state.setChallengeIdToRespond(null);
+          store.commit('setChallengeIdToRespond', null)
+          setTimeout(() => {
+            location.replace('/#/')
+          }, 2000)
         })
       } else if (!this.isSetInLocalStorage) {
         this.setHistory(this.score)

@@ -14,5 +14,29 @@ export default {
     return axios.patch(`${URL}/challenges/${challengeId}`, {
       scoreTargetUserId: score
     })
-  }
+  },
+  getFacebookSwimming (userId) {
+    return axios.get(`${URL}/ranking/${userId}/perso_facebook/swimming`)
+  },
+  getFacebookAthletics (userId) {
+    return axios.get(`${URL}/ranking/${userId}/perso_facebook/athletics`)
+  },
+  getCountryAthletics (userId) {
+    return axios.get(`${URL}/ranking/${userId}/perso_pays/athletics`)
+  },
+  getCountrySwimming (userId) {
+    return axios.get(`${URL}/ranking/${userId}/perso_pays/swimming`)
+  },
+  getPersoWorldAthletics (userId) {
+    return axios.get(`${URL}/ranking/${userId}/perso_world/athletics`)
+  },
+  getPersoWorldSwimming (userId) {
+    return axios.get(`${URL}/ranking/${userId}/perso_world/swimming`)
+  },
+  getWorldSwimming (userId) {
+    return axios.get(`${URL}/ranking/${userId}/world/swimming`)
+  },
+  getWorldAthletics (userId) {
+    return axios.get(`${URL}/ranking/${userId}/world/athletics`)
+  },
 }
