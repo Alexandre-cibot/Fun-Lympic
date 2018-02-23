@@ -138,6 +138,9 @@ export default {
   display: inline-block;
   height: 3vh;
 }
+.infos2 h3 {
+  padding-right: 10px;
+}
 .infos h3 {
   float: left;
   padding-right: 10px;

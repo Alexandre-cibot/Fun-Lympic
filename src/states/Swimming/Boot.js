@@ -388,14 +388,14 @@ export default class extends Phaser.State {
     
     let cirLength = this.circleArr.length -1;
     this.sec = 2;
-    var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * this.timeRandom, setNumCircle, this);
+    var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * this.life, setNumCircle, this);
     
     function setNumCircle(){
       console.log('time' + this.timeRandom)
       console.log(this.clickArr.length)
       numCircle = Math.round(Math.random() * 2);
     }
-    var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.timeRandom, displayCircle, this);
+    var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.life, displayCircle, this);
     
     // var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * Math.round(Math.random() * timeRandom) +2, displayCircle, this);
     let pointSuperCircle = [20, 40];
