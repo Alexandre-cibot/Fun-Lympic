@@ -56,12 +56,12 @@ export default {
   },
   mounted () {
     store.commit('runSprintGame')
-    store.commit('updateTutoOk', true)
-    if (!window.localStorage.getItem('athleticsTutoShown')) {
+    //store.commit('updateTutoOk', true)
+    //if (!window.localStorage.getItem('athleticsTutoShown')) {
       store.commit('updateTutoOk', false)
-      window.localStorage.setItem('athleticsTutoShown', 'true')
+      //window.localStorage.setItem('athleticsTutoShown', 'true')
       this.showTuto = true
-    }
+    //}
     this.runGame()
   },
   beforeDestroy () {
