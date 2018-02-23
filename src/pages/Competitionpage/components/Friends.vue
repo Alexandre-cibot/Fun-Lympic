@@ -2,7 +2,7 @@
   <div class="">
   <h2>Lancer un défi à</h2>
   <div v-for="(friend, i) in friends" :key="i" class="friendBlock">
-    <FriendsButton class="animated hidden" :name="friend.given_name" :image="friend.picture" :country="friend.country" @click.native="$emit('selectFriend', friend)" />
+    <FriendsButton v-if="profile.id !== friend.sub" class="animated hidden" :name="friend.given_name" :image="friend.picture" :country="friend.country" @click.native="$emit('selectFriend', friend)" />
   </div>
   </div>
 </template>
@@ -11,7 +11,7 @@
 import FriendsButton from '@/components/FriendsButton.vue';
 export default {
   name: 'Friends',
-  props: ['friends'],
+  props: ['friends', 'profile'],
   data() {
     return {
     }
