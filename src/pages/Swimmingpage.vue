@@ -59,16 +59,16 @@ export default {
   },
   mounted () {
     store.commit('runSwimmingGame')
-    store.commit('updateTutoOk', true)
-    if (!window.localStorage.getItem('swimmingTutoShown')) {
+    //store.commit('updateTutoOk', true)
+    //if (!window.localStorage.getItem('swimmingTutoShown')) {
       store.commit('updateTutoOk', false)
-      window.localStorage.setItem('swimmingTutoShown', 'true')
+      //window.localStorage.setItem('swimmingTutoShown', 'true')
       this.showTuto = true
-    }
+    //}
     this.runGame()
   },
   beforeDestroy () {
-    store.commit('sprintFinish', true)
+    store.commit('swimmingFinish', true)
     store.commit('destroySwimmingGame')
   },
   methods: {
