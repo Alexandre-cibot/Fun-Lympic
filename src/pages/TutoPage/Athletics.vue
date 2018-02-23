@@ -1,5 +1,5 @@
 <template>
-  <div id="tuto" @click="disappear"></div>
+  <div id="tuto" class="athletics" @click="disappear"></div>
 </template>
 <script>
 export default {
@@ -16,18 +16,20 @@ export default {
   position: relative;
   height: 100vh;
   width: 100%;
-  background: black;
 }
 #tuto{
   position: absolute;
-  background: url('../../../assets/images/sprint_tuto.jpg');
-  background-size: cover;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
+  width: 100%;
+  height: 100%;
   /* z-index: 99; */
 }
+
+#tuto.athletics {
+  background: url('../../../assets/images/sprint_tuto.jpg');
+  background-size: contain;
+}
 </style>
-
-
