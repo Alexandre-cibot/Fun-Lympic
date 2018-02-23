@@ -7,11 +7,27 @@
       </div>
       <h3 class="animated fadeInUp">Tes défis</h3>
       <div v-for="chall in challengesPending" v-if="chall.originUserId !== currentUser.id" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.originGivenName" :challengerPoints="chall.scores.origin" status="pending" :image="chall.originPicture" :finish="false"  @click.native="playWithFriend" />
+        <ChallengeButton class="animated hidden"
+          :challengerName="chall.originGivenName" 
+          :challengerPoints="chall.scores.origin"
+          status="pending"
+          :image="chall.originPicture"
+          :finish="false" 
+          @click.native="playWithFriend"
+        />
       </div>
       <h3 class="animated fadeInUp">Tes défis terminés</h3>
       <div v-for="chall in challengesCompleted" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.originGivenName" :challengerPoints="chall.scores.origin" :currentName="chall.targetGivenName" :currentPoints="chall.scores.target" :status="getChallengeStatus(chall)" :image="chall.originPicture" :finish="true"  @click.native="showResult(chall)"/>
+        <ChallengeButton class="animated hidden" 
+          :challengerName="chall.originGivenName" 
+          :challengerPoints="chall.scores.origin"
+          :currentName="chall.targetGivenName" 
+          :currentPoints="chall.scores.target"
+          :status="getChallengeStatus(chall)"
+          :image="chall.originPicture"
+          :finish="true" 
+          @click.native="showResult(chall)"
+        />
       </div>
   </div>
 </template>
@@ -57,9 +73,9 @@ export default {
     },
     showResult(chall) {
       if(this.getChallengeStatus(chall) === 'victory') {
-        this.$emit('winGame');
+        this.$emit('winGame', chall);
       } else {
-        this.$emit('loseGame');
+        this.$emit('loseGame', chall);
       }
     },
     getChallengeStatus(challenge) {
