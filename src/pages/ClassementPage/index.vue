@@ -64,7 +64,7 @@ export default {
   data(){
     return{
       profile : JSON.parse(localStorage.getItem('profile')),
-      currentState: '',
+      currentState: 'facebook',
       classement: '',
       facebookClassement : true,
       flagClassement : false,
@@ -79,7 +79,7 @@ export default {
       ]
     }
   },
-  mounted:{
+  mounted(){
     API.getFacebookAthletics(this.profile.id)
     .then((response)=>{
       this.classement = response.data
