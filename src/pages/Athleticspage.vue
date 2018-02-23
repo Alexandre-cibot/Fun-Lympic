@@ -5,11 +5,13 @@
     <AthleticsTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div v-show="gameLoaded" id="bg"></div>
     <HistoryScores v-if="gameIsFinished" :history='getHistory' />
-    <div class="gif" v-if="gameIsFinished && gif"></div>
+    <div class="gif" v-if="gameIsFinished && gif"><Sound file="artifice"/></div>
     <div v-if="gameIsFinished" class="money">
       <img src="@/assets/coin.png" alt="jo_coin">
       +{{money}}
     </div>
+
+
   </div>
 </template>
 
@@ -18,6 +20,7 @@
 import Phaser from 'phaser'
 import HistoryScores from '@/pages/Trainingpage/components/HistoryScores.vue'
 import BootState from '@/states/Athletics/Boot'
+import Sound from '@/components/Sound'
 import responsive from '../states/responsive_helper'
 import AthleticsTuto from '@/pages/TutoPage/Athletics.vue'
 import store from '../store'
@@ -39,13 +42,13 @@ export default {
       return store.state.isSprintFinish
     },
     getHistory () {
-      return window.localStorage.hasOwnProperty('athelicsPersonnalScore') 
+      return window.localStorage.hasOwnProperty('athelicsPersonnalScore')
       ? JSON.parse(window.localStorage.getItem('athelicsPersonnalScore')) : []
     }
   },
   data () {
     return {
-      gif: true,      
+      gif: true,
       showTuto: false,
       money: 10
     };
@@ -61,17 +64,19 @@ export default {
     this.runGame()
   },
   beforeDestroy () {
+    store.commit('sprintFinish', true)
     store.commit('destroySprintGame')
   },
   components:{
     AthleticsTuto,
-    HistoryScores
+    HistoryScores,
+    Sound
   },
   methods: {
     hideTuto(){
       store.commit('updateTutoOk', true)
       this.showTuto = false
-    },    
+    },
     runGame () {
       class Game extends Phaser.Game {
         constructor () {
@@ -187,4 +192,3 @@ export default {
   background: rgba(0,0,0,0.5);
 }
 </style>
-

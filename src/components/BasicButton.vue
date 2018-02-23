@@ -8,12 +8,18 @@ Exemple pour apeller ce composant :
     <p v-if="title" class="btn-fRight btn-title">
       {{title}}
     </p>
+
+    <Sound v-if="clicked" file="clic" :isMuted="isMuted" />
   </button>
 </template>
 
 <script>
+
+import Sound from '@/components/Sound';
+
 export default {
   name: 'BasicButton',
+  components: { Sound },
   props: {
     btnColor: {
       type: String,
@@ -34,13 +40,23 @@ export default {
       required: false,
       default: "",
     },
+    isMuted: {
+      type: Boolean,
+      required: false,
+      defautl: false
+    }
   },
   data() {
-    return {};
+    return {
+      clicked: false
+    };
   },
   methods: {
     handleClick() {
+      const self = this;
       this.$emit('click');
+      this.clicked = true;
+      setInterval( () => {self.clicked = false}, 100);
     }
   },
   computed: {
