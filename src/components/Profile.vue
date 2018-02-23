@@ -36,7 +36,7 @@ export default {
       type: Number
     },
     score: {
-      type: String,
+      type: Number,
     },
     picture:{
       type: String,

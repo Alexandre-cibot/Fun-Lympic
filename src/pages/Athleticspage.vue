@@ -5,11 +5,12 @@
     <AthleticsTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div v-show="gameLoaded" id="bg"></div>
     <HistoryScores v-if="gameIsFinished" :history='getHistory' />
-    <div class="gif" v-if="gameIsFinished && gif"><Sound file="artifice"/></div>
+    <div class="gif" v-if="gameIsFinished && gif"></div>
     <div v-if="gameIsFinished" class="money">
       <img src="@/assets/coin.png" alt="jo_coin">
       +{{money}}
     </div>
+    <div v-if="gameIsFinished"><Sound file="artifice"/></div>
 
 
   </div>
@@ -42,8 +43,9 @@ export default {
       return store.state.isSprintFinish
     },
     getHistory () {
-      return window.localStorage.hasOwnProperty('athelicsPersonnalScore')
+      const history = window.localStorage.hasOwnProperty('athelicsPersonnalScore')
       ? JSON.parse(window.localStorage.getItem('athelicsPersonnalScore')) : []
+      return history.slice(0,19)
     }
   },
   data () {
