@@ -5,9 +5,9 @@
       <ConnexionFB v-if="!authenticated" :authenticated="authenticated" :auth="auth" />
       <div v-else style="height:100%">
         <CompetitionDashboard v-if="currentState === 'competitionDashboard' || currentState === 'chooseFlag'" :profile="profile" @chooseFriends="chooseFriends" @chooseFlag="showFlags" @playWithFriend="playWithFriend" @winGame="winGame" @loseGame="loseGame"/>
-        <ChallengeGame v-if="currentState === 'playWithFriend'" @pushRoute="pushRoute"/>
-        <WinGame v-if="currentState === 'winGame'" @pushRoute="pushRoute"/>
-        <LoseGame  v-if="currentState === 'loseGame'" @pushRoute="pushRoute"/>
+        <ChallengeGame v-if="currentState === 'playWithFriend'" :challenge="statsCurrChallenge" @pushRoute="pushRoute"/>
+        <WinGame v-if="currentState === 'winGame'" :challenge="statsCurrChallenge" @pushRoute="pushRoute"/>
+        <LoseGame  v-if="currentState === 'loseGame'" :challenge="statsCurrChallenge" @pushRoute="pushRoute"/>
         <Nation v-if="currentState === 'chooseFlag'"  @closeModal="closeModal" @updateFlag="updateFlag" />
         <Friends v-if="currentState === 'chooseFriends'" :friends="profile.friends" @selectFriend="selectFriend"/>
         <ChallengeFriend v-if="currentState === 'friend'" :challenger="selectedFriend" @before="before" />
@@ -59,7 +59,8 @@ export default {
       selectedFriend: {},
       reloadMode: false,
       updatedProfile: null,
-      selectedGame: "atlhetics"
+      selectedGame: "atlhetics",
+      statsCurrChallenge: {}
     };
   },
   computed: {
@@ -91,20 +92,23 @@ export default {
       this.updateHistory(this.currentState);
       this.currentState = "chooseFriends"
     },
-    playWithFriend(){
+    playWithFriend(chall){
       this.updateHistory(this.currentState);
+      this.statsCurrChallenge = chall
       this.currentState = "playWithFriend"
     },
     chooseFlag() {
       this.updateHistory(this.currentState);
       this.currentState = "chooseFlag"
     },
-    loseGame(){
+    loseGame(chall){
       this.updateHistory(this.currentState);
+      this.statsCurrChallenge = chall
       this.currentState = "loseGame";
     },
-    winGame(){
+    winGame(chall){
       this.updateHistory(this.currentState);
+      this.statsCurrChallenge = chall
       this.currentState = "winGame";
     },
     selectFriend(friend) {

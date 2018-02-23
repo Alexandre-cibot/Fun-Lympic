@@ -16,10 +16,11 @@ const obstacleWidthFrequency = 600
 const speedCoefIfTakeObstacle = 0.8
 const xValueWhenSpriteKilled = -200
 let speedCoef = 1.8
-const sprinterSpeedCoefSlowDown = 0.992
+const sprinterSpeedCoefSlowDown = 0.980
 const nbLife = 1
 let isFontsLoaded = false
 let isSetInLocalStorage = false
+let gameShouldBePaused = false
 
 const sprinterFallFrameFlag = {
   counter: 0,
@@ -121,15 +122,15 @@ export default class extends Phaser.State {
     if (isFontsLoaded) {
       // var myText = game.add.text(game.world.centerX, game.world.centerY, "best font ever");
       // myText.anchor.setTo(0.5);
-    
+
       // myText.font = 'Nunito';
       // myText.fontSize = 60;
-    
+
       // myText.align = 'center';
       // myText.stroke = '#999999';
       // myText.strokeThickness = 2;
       // myText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
-    
+
       // myText.inputEnabled = true;
       // myText.input.enableDrag();
     }
@@ -260,12 +261,12 @@ export default class extends Phaser.State {
     var text = game.add.text(game.world.centerX, game.world.centerY - 150, 'Pause', style);
     this.share = game.add.sprite(20, 20, 'share');
     this.next = game.add.sprite(game.width - 70, 20, 'next');
-    
+
     this.next.scale.setTo(0.5)
     this.next.visible = false;
     this.next.inputEnabled = true;
     this.next.events.onInputDown.add(redirectNext, this);
-    
+
     this.confettis.animations.add('run')
     this.confettis.visible = false;
 
@@ -284,7 +285,7 @@ export default class extends Phaser.State {
     play.visible = false;
     play.inputEnabled = true;
     play.events.onInputDown.add(unpaused, this);
-    
+
     function redirect(){
       location.replace("/#/");
     }
@@ -301,17 +302,17 @@ export default class extends Phaser.State {
 
     function listener() {
       divSty.display = "block";
-      game.paused = true;
+      gameShouldBePaused = true
       text.visible = true;
       graphics.visible = true;
       play.visible = true;
       home.visible = true;
       this.image.visible = false;
-    }  
+    }
 
     function unpaused(){
       divSty.display = "none";
-      game.paused = false;
+      gameShouldBePaused = false
       play.visible = false;
       home.visible = false;
       graphics.visible = false;
@@ -340,8 +341,9 @@ export default class extends Phaser.State {
     this.oldRecord = getRecord()
     this.record = game.add.sprite(game.world.centerX, 32, 'record');
     this.record.anchor.setTo(0.5);
-    this.textRecord = game.add.text(game.world.centerX - 35,  22, 'RECORD :', styleRecord);
+    this.textRecord = game.add.text(game.world.centerX,  22, 'RECORD :', styleRecord);
     this.textRecord.text = 'Record : ' + this.oldRecord
+    this.textRecord.anchor.setTo(0.5, 0);
     this.newRecord = game.add.sprite(game.world.centerX, 32, 'newRecord');
     this.newRecord.anchor.setTo(0.5);
     this.newRecord.visible = false;
@@ -371,7 +373,8 @@ export default class extends Phaser.State {
         if (this.time === 0) {
           this.go = true
           this.textCountDown.visible = false
-          this.panSong.play();
+          console.log(store.state.isSoundMuted);
+          if(store.state.isSoundMuted && store.state.muteBy == 'game') this.panSong.play();
           clearInterval(this.countDown)
         }
       }
@@ -380,13 +383,18 @@ export default class extends Phaser.State {
     const pasSong = setInterval(() => {
       if (store.state.tutoOK) {
         if (this.go) {
-          this.pasSong.play()
+          if(store.state.isSoundMuted && store.state.muteBy == 'game') this.pasSong.play()
         }
       }
     }, 1000)
 
     const destroyGame = setInterval(function () {
-      game.paused = !store.state.tutoOK
+      if (!store.state.tutoOK || gameShouldBePaused) {
+        game.paused = true
+      }
+      if (store.state.tutoOK && store.state.sprintGame && !gameShouldBePaused) {
+        game.paused = false
+      }
       if (!store.state.sprintGame) {
         game.state.destroy()
         game.sound.destroy()
@@ -435,7 +443,7 @@ export default class extends Phaser.State {
               setRecord(this.score)
               this.newRecord.visible = true;
             }
-          }, 5000)
+          }, 1900)
         }
         speedCoef = sprinterSpeedCoefSlowDown
       } else {
@@ -551,7 +559,7 @@ var moveBackground = function (background) {
     if (constant.background.speed > -0.11) {
       constant.background.speed = 0
       store.commit('sprintFinish', true)
-      game.paused = true
+      gameShouldBePaused = true
     }
     constant.background.speed = constant.background.speed * speedCoef
   }
@@ -559,7 +567,7 @@ var moveBackground = function (background) {
 }
 
 function movePlayerRace (self, boolean) {
-  self.swipeSong.play()
+  if(store.state.isSoundMuted && store.state.muteBy == 'game') self.swipeSong.play()
   if (boolean) {
     const plusOne = self.playerRace + 1
     if (plusOne < pallier.length) {
@@ -582,7 +590,7 @@ function mamieCollisionHandler (sprinter, mamie) {
     mamie.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
-    this.impactSong.play()
+    if(store.state.isSoundMuted && store.state.muteBy == 'game') this.impactSong.play()
   }
 }
 
@@ -592,7 +600,7 @@ function catCollisionHandler (sprinter, cat) {
     cat.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
-    this.impactSong.play()
+    if(store.state.isSoundMuted && store.state.muteBy == 'game') this.impactSong.play()
   }
 }
 
@@ -603,7 +611,7 @@ function dancerCollisionHandler (sprinter, dancer) {
     dancer.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
-    this.impactSong.play()
+    if(store.state.isSoundMuted && store.state.muteBy == 'game') this.impactSong.play()
   }
 }
 
@@ -614,7 +622,7 @@ function duckCollisionHandler (sprinter, duck) {
     duck.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
-    this.impactSong.play()
+    if(store.state.isSoundMuted && store.state.muteBy == 'game') this.impactSong.play()
   }
 }
 
@@ -625,7 +633,7 @@ function plotCollisionHandler (sprinter, plot) {
     plot.x = xValueWhenSpriteKilled
     this.substractLife()
     speedCoef = speedCoef * speedCoefIfTakeObstacle
-    this.impactSong.play()
+    if(store.state.isSoundMuted && store.state.muteBy == 'game') this.impactSong.play()
   }
 }
 

@@ -9,5 +9,10 @@ export default {
   },
   getProfile (userId) {
     return axios.get(`${URL}/users/${userId}`)
+  },
+  respondToDefi (challengeId, score) {
+    return axios.patch(`${URL}/challenges/${challengeId}`, {
+      scoreTargetUserId: score
+    })
   }
 }

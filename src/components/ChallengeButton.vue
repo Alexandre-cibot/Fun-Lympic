@@ -25,17 +25,17 @@ export default {
       type: String,
     },
     currentPoints: {
-      type: String
+      type: Number
     },
     challengerName: {
       type: String,
       required: true
     },
     challengerPoints: {
-      type: String,
+      type: Number,
       required: true
     },
-    logo: {
+    status: {
       type: String,
       required: true
     },
@@ -49,14 +49,14 @@ export default {
   },
   computed: {
     logoPath() {
-      switch (this.logo) {
+      switch (this.status) {
         case 'defeat': 
           return require('@/assets/lose.svg');
         break;
         case 'victory': 
           return require('@/assets/win.svg');
         break;
-        case 'challenge':
+        case 'pending':
           return require('@/assets/challenge.svg');
         break;
         default: 
