@@ -293,7 +293,7 @@ export default class extends Phaser.State {
       if (store.state.tutoOK) {
         this.time--
         this.textCountDown.text = this.time;
-        if(this.time == 0){
+        if(this.time == 1){
           if(store.state.isSoundMuted && store.state.muteBy == 'game') this.sifflet.play();
         }
       }
@@ -637,7 +637,7 @@ export default class extends Phaser.State {
   update () {
     // Condition to review
     //Use if/else for performance and not switch
-    if(this.time == -1){
+    if(this.time == 0){
       clearInterval(this.countDown)
       this.textCountDown.visible = false;
       this.image.visible = true;
