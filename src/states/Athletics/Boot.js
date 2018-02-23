@@ -5,6 +5,7 @@ import constant from './constant'
 import store from '../../store'
 import { win32 } from 'path';
 const Swipe = require('../../vendor/swipe')
+let stopCountScore = false
 
 const pallier = [
   {height: responsive.getHeightFromPercentage(39)},
@@ -416,7 +417,9 @@ export default class extends Phaser.State {
     this.heart[0].visible = this.lifeRemaining > 0
     this.heart[1].visible = this.lifeRemaining > 1
     this.heart[2].visible = this.lifeRemaining > 2
-    this.score = parseInt(-this.background.x / 100)
+    if (!stopCountScore) {
+      this.score = parseInt(-this.background.x / 100)
+    }
     this.textScore.text = this.score
     if (!this.go) {
       if (this.fall) {
@@ -432,6 +435,7 @@ export default class extends Phaser.State {
         this.sprinterFall.visible = true
         moveBackground(this.background)
         if (!isSetInLocalStorage) {
+          stopCountScore = true
           setHistory(this.score)
           this.textScoreFinal.text = this.textScore.text;
           setTimeout(()=>{
