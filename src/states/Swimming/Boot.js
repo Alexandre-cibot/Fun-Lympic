@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import WebFont from 'webfontloader'
 import responsive from '../responsive_helper'
 import store from '../../store'
+import API from '@/api/index.js'
 
 let isFontsLoaded = false
 
@@ -16,6 +17,8 @@ export default class extends Phaser.State {
     this.life = 3
     this.score = 0
     this.isSetInLocalStorage = false
+    this.isDefiResponse = !!store.state.challengeIdToRespond
+    console.warn('isDefiResponse ? ', this.isDefiResponse)
   }
 
   preload() {
@@ -648,7 +651,14 @@ export default class extends Phaser.State {
     if(this.life == 0){
       store.commit('swimmingFinish', true)
       this.water.pause();
-      if (!this.isSetInLocalStorage) {
+      if (this.isDefiResponse) {
+        // TODO: MAKE A REAL .then logic
+        API.respondToDefi(store.state.challengeIdToRespond, this.score).then(res => {
+          console.log('Défi répondu !', res)
+          this.isDefiResponse = false;
+          store.state.setChallengeIdToRespond(null);
+        })
+      } else if (!this.isSetInLocalStorage) {
         this.setHistory(this.score)
       }
     }
