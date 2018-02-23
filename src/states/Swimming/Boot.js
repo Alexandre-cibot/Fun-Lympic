@@ -496,10 +496,6 @@ export default class extends Phaser.State {
               this.water.pause();
               game.time.events.remove(myLoop1);
               game.time.events.remove(myLoop2);
-              setTimeout(()=>{
-                confettis.visible = true;
-                confettis.play('run', 8)
-              })
 
               textScoreFinal.text = this.textScore.text;
               this.image.visible = false;

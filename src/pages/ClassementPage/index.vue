@@ -137,7 +137,6 @@ export default {
         API.getCountryAthletics(this.profile.id)
         .then((response)=>{
           this.classement = response.data
-          console.log(this.classement)
         })
         .catch((error)=>{
           console.log(error)
