@@ -3,8 +3,8 @@
   <h2 class="challenge" >Lancer un défi à</h2>
       <FriendsButton class="animated hidden" :name="challenger.given_name" :image="challenger.picture" :country="challenger.country"/>
     <h2 class="sport">Choisir un sport</h2>
-      <BasicButton class="animated hidden bg_red" title="Athletisme" image="lose" @click="$emit('before', 'athletics')"/>
-      <BasicButton class="animated hidden bg_blue" title="Natation Synchronisée" image="win" style="margin-top:3vh;" @click="$emit('before', 'swimming')"/>
+      <BasicButton class="animated hidden bg_red" title="Cours Forrest" image="lose" @click="$emit('before', 'athletics')"/>
+      <BasicButton class="animated hidden bg_blue" title="Flash dance" image="win" style="margin-top:3vh;" @click="$emit('before', 'swimming')"/>
   </div>
 </template>
 
