@@ -9,7 +9,7 @@
         <WinGame v-if="currentState === 'winGame'" :challenge="statsCurrChallenge" @pushRoute="pushRoute"/>
         <LoseGame  v-if="currentState === 'loseGame'" :challenge="statsCurrChallenge" @pushRoute="pushRoute"/>
         <Nation v-if="currentState === 'chooseFlag'"  @closeModal="closeModal" @updateFlag="updateFlag" />
-        <Friends v-if="currentState === 'chooseFriends'" :friends="profile.friends" @selectFriend="selectFriend"/>
+        <Friends v-if="currentState === 'chooseFriends'" :profile="profile" :friends="profile.friends" @selectFriend="selectFriend"/>
         <ChallengeFriend v-if="currentState === 'friend'" :challenger="selectedFriend" @before="before" />
         <BeforeGame v-if="currentState === 'before'" :game="selectedGame" :profile="profile" :challenger="selectedFriend" />
         <!-- <ClassementGame /> -->
