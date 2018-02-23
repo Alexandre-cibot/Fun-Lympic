@@ -16,9 +16,9 @@
       </button>
       <div class="classement_friends">
         <div v-if="flagClassement || planetClassement || facebookClassement"  class="scrollDiv">
-          <div v-for="(friend, key) in friendsArray" :key="key" class="classement">
-            <ClassementFriends v-if="key == 2" :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" :owner="true" />
-            <ClassementFriends v-else :classement="key + 1" :firstname="friend.firstname" :points="friend.points" :flag="friend.flag" :picture="friend.picture" />
+          <div v-for="(friend, key) in classement" :key="key" class="classement">
+            <ClassementFriends v-if="profile.id.replace('facebook|', '') == friend.userId" :classement="key + 1" :firstname="friend.given_name" :points="friend.score" :flag="friend.flag" :picture="friend.picture" :owner="true" />
+            <ClassementFriends v-else :classement="key + 1" :firstname="friend.given_name" :points="friend.score" :flag="friend.flag" :picture="friend.picture" />
           </div>
         </div>
         <div v-else-if="nationsClassement"  class="scrollDiv">
@@ -43,11 +43,15 @@
 </template>
 
 <script>
+import axios from 'axios';
+import API from '@/api/index.js'
+
 import Navbar from '@/components/Navbar';
 import ClassementFriends from '@/components/ClassementFriends';
 import ClassementNation from '@/components/ClassementNation';
 import ClassementButton from '@/components/ClassementButton';
 import BasicButton from '@/components/BasicButton';
+
 export default {
   name: 'Classement',
   components: {
@@ -59,8 +63,10 @@ export default {
   },
   data(){
     return{
-      currentState: '',
-      facebookClassement : false,
+      profile : JSON.parse(localStorage.getItem('profile')),
+      currentState: 'facebook',
+      classement: '',
+      facebookClassement : true,
       flagClassement : false,
       planetClassement : false,
       nationsClassement : false,
@@ -70,259 +76,18 @@ export default {
           text: "Classement",
           image : require('@/assets/flag/France.png')
         }
-      ],
-      friends: [
-        {
-          firstname: "Enora",
-          points: 250,
-          picture: require('@/assets/enora.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 200,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Enora",
-          points: 170,
-          picture: require('@/assets/enora.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 150,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-                {
-          firstname: "Enora",
-          points: 120,
-          picture: require('@/assets/enora.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 100,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 150,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-                {
-          firstname: "Enora",
-          points: 120,
-          picture: require('@/assets/enora.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 100,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-      ],
-      friendsFlag: [
-        {
-          firstname: "Julien",
-          points: 290,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 220,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Enora",
-          points: 200,
-          picture: require('@/assets/enora.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 190,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-                {
-          firstname: "Enora",
-          points: 170,
-          picture: require('@/assets/enora.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 150,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 140,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-                {
-          firstname: "Enora",
-          points: 130,
-          picture: require('@/assets/enora.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 110,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-      ],
-      friendsPlanet: [
-        {
-          firstname: "Julien",
-          points: 490,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 380,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Enora",
-          points: 360,
-          picture: require('@/assets/enora.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 330,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-                {
-          firstname: "Enora",
-          points: 270,
-          picture: require('@/assets/enora.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 250,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 190,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-                {
-          firstname: "Enora",
-          points: 140,
-          picture: require('@/assets/enora.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          firstname: "Julien",
-          points: 110,
-          picture: require('@/assets/julien.jpg'),
-          flag: require('@/assets/flag/France.png'),
-        },
-      ],
-      nationsArray: [
-        {
-          name: "Allemagne",
-          moyenne: 63,
-          flag: require('@/assets/flag/Allemagne.png'),
-        },
-        {
-          name: "Belgique",
-          moyenne: 89,
-          flag: require('@/assets/flag/Belgique.png'),
-        },
-        {
-          name: "Canada",
-          moyenne: 21,
-          flag: require('@/assets/flag/Canada.png'),
-        },
-        {
-          name: "Chine",
-          moyenne: 383,
-          flag: require('@/assets/flag/Chine.png'),
-        },
-        {
-          name: "Espagne",
-          moyenne: 217,
-          flag: require('@/assets/flag/Espagne.png'),
-        },
-        {
-          name: "États-Unis",
-          moyenne: 326,
-          flag: require('@/assets/flag/Etats-Unis.png'),
-        },
-        {
-          name: "France",
-          moyenne: 420,
-          flag: require('@/assets/flag/France.png'),
-        },
-        {
-          name: "Grèce",
-          moyenne: 100,
-          flag: require('@/assets/flag/Grece.png'),
-        },
-        {
-          name: "Italie",
-          moyenne: 10,
-          flag: require('@/assets/flag/Italie.png'),
-        },
-        {
-          name: "Japon",
-          moyenne: 88,
-          flag: require('@/assets/flag/Japon.png'),
-        },
-        {
-          name: "Pays-Bas",
-          moyenne: 190,
-          flag: require('@/assets/flag/Pays-Bas.png'),
-        },
-        {
-          name: "Portugal",
-          moyenne: 210,
-          flag: require('@/assets/flag/Grece.png'),
-        },
-        {
-          name: "Royaume-Uni",
-          moyenne: 286,
-          flag: require('@/assets/flag/Royaume-Uni.png'),
-        },
-        {
-          name: "Russie",
-          moyenne: 407,
-          flag: require('@/assets/flag/Russie.png'),
-        },
-        {
-          name: "Suède",
-          moyenne: 49,
-          flag: require('@/assets/flag/Suede.png'),
-        },
-        {
-          name: "Suisse",
-          moyenne: 4,
-          flag: require('@/assets/flag/Suisse.png'),
-        },
-
       ]
     }
+  },
+  mounted(){
+    API.getFacebookAthletics(this.profile.id)
+    .then((response)=>{
+      this.classement = response.data
+      console.log(this.classement)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
   },
   methods: {
     changeSport(){
@@ -331,8 +96,36 @@ export default {
       }else {
         this.sport = "Cours Forrest";
       }
+      if(this.flagClassement){
+        this.classement = this.flag();
+      }else if(this.facebookClassement){
+        this.classement = this.facebook();
+      }else if(this.planetClassement){
+        this.classement = this.planet();
+      }else if(this.nationsClassement){
+        this.classement = this.nations();
+      }
     },
     facebook(){
+      if(this.sport == "Cours Forrest"){
+        API.getFacebookAthletics(this.profile.id)
+        .then((response)=>{
+          this.classement = response.data
+          console.log(this.classement)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+      }else{
+        API.getFacebookSwimming(this.profile.id)
+        .then((response)=>{
+          this.classement = response.data
+          console.log(this.classement)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+      }
       this.currentState = `facebook`;
       this.flagClassement = false;
       this.facebookClassement = true;
@@ -340,6 +133,25 @@ export default {
       this.nationsClassement = false;
     },
     flag(){
+      if(this.sport == "Cours Forrest"){
+        API.getCountryAthletics(this.profile.id)
+        .then((response)=>{
+          this.classement = response.data
+          console.log(this.classement)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+      }else{
+        API.getCountrySwimming(this.profile.id)
+        .then((response)=>{
+          this.classement = response.data
+          console.log(this.classement)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+      }
       this.currentState = `flag`;
       this.flagClassement = true;
       this.facebookClassement = false;
@@ -347,6 +159,25 @@ export default {
       this.nationsClassement = false;
     },
     planet(){
+      if(this.sport == "Cours Forrest"){
+        API.getPersoWorldAthletics(this.profile.id)
+        .then((response)=>{
+          this.classement = response.data
+          console.log(this.classement)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+      }else{
+        API.getPersoWorldSwimming(this.profile.id)
+        .then((response)=>{
+          this.classement = response.data
+          console.log(this.classement)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+      }
       this.currentState = `planet`;
       this.flagClassement = false;
       this.facebookClassement = false;
@@ -354,6 +185,25 @@ export default {
       this.nationsClassement = false;
     },
     nations(){
+      if(this.sport == "Cours Forrest"){
+        API.getWorldAthletics(this.profile.id)
+        .then((response)=>{
+          this.classement = response.data
+          console.log(this.classement)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+      }else{
+        API.getWorldSwimming(this.profile.id)
+        .then((response)=>{
+          this.classement = response.data
+          console.log(this.classement)
+        })
+        .catch((error)=>{
+          console.log(error)
+        })
+      }  
       this.currentState = `nations`;
       this.flagClassement = false;
       this.facebookClassement = false;
@@ -367,17 +217,19 @@ export default {
   computed: {
     friendsArray () {
       if(this.currentState == 'facebook'){
-        this.array = this.friends;
+        this.array = this.classement;
       } else if (this.currentState == 'flag') {
-        this.array = this.friendsFlag;
+        this.array = this.classement;
       } else if (this.currentState == 'planet'){
-        this.array = this.friendsPlanet;
+        this.array = this.classement;
+      } else if (this.currentState == 'nations'){
+        this.array = this.classement;
       }
 
       function compare(a, b) {
-        if (a.points > b.points)
+        if (a.score > b.score)
           return -1;
-        if (a.points < b.points)
+        if (a.score < b.score)
           return 1;
         return 0;
       }
@@ -386,9 +238,9 @@ export default {
 
     nationArray() {
       if(this.currentState == 'nations') {
-        this.array = this.nationsArray;
+        this.array = this.classement;
       }
-      return this.array.sort( (a,b) => { if(a.moyenne > b.moyenne) return -1; if(a.moyenne < b.moyenne) return 1; return 0 } )
+      return this.array.sort((a,b) => { if(a.moyenne > b.moyenne) return -1; if(a.moyenne < b.moyenne) return 1; return 0 } )
     }
   },
 }
