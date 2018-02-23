@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      money: 397,
+      money: 400,
       firstSwimming : true,
     };
   },
