@@ -18,6 +18,7 @@
 
 <script>
 import Profile from '@/components/Profile.vue';
+import store from '@/store';
 
 export default {
   name: 'ChallengeGame',
@@ -47,6 +48,8 @@ export default {
   },
   methods:{
     runGame(){
+      console.log('Réponse au défis: ', this.challenge.challengeId);
+      store.commit('setChallengeIdToRespond', this.challenge.challengeId)
       this.$router.push({path: `/${this.challenge.gameName}`})
     },
     pushRoute(){
