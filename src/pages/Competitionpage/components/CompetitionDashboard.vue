@@ -13,7 +13,7 @@
           status="pending"
           :image="chall.originPicture"
           :finish="false" 
-          @click.native="playWithFriend"
+          @click.native="playWithFriend(chall)"
         />
       </div>
       <h3 class="animated fadeInUp">Tes défis terminés</h3>
@@ -68,8 +68,8 @@ export default {
     chooseFriends() {
       this.$emit('chooseFriends');
     },
-    playWithFriend(){
-      this.$emit('playWithFriend');
+    playWithFriend(chall){
+      this.$emit('playWithFriend', chall);
     },
     showResult(chall) {
       if(this.getChallengeStatus(chall) === 'victory') {

@@ -1,14 +1,14 @@
 <template>
   <div class="before">
     <div class="background"></div>
-      <div v-for="user in currentUser" :key="user.index" class="circle_first">
-        <Profile :firstName="user.firstname" :flag="user.flag" :score="user.score" :picture="user.picture" :money="20" :other="false"/>
+      <div class="circle_first">
+        <Profile :firstName="challenge.originGivenName" flag="fr-FR" :picture="challenge.originPicture" :score="challenge.scores.origin" :money="20" :showStats="false" :other="false" />
       </div>
     <button class="animated hidden">
       <h2 @click="runAthletismeGame">ESSAYES DE ME BATTRE</h2>
     </button>
-    <div v-for="user in otherUser" :key="user.index" class="circle_first">
-        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :score="user.score" :other="true"/>
+    <div class="circle_first">
+      <Profile :firstName="challenge.targetGivenName" flag="fr-FR" :picture="challenge.targetPicture" :showStats="false" :other="true" />
     </div>
     <button class="next" @click="pushRoute">
       <img src="@/assets/arrow_right.png" alt="">
@@ -21,6 +21,7 @@ import Profile from '@/components/Profile.vue';
 
 export default {
   name: 'ChallengeGame',
+  props: ['challenge'],
   data() {
     return {
       currentUser: [
