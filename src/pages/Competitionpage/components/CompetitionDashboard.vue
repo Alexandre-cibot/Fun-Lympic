@@ -5,7 +5,10 @@
         <BasicButton class="challengeBtn animated hidden" title="défie un ami" btnColor="yellow" image="facebook" @click="chooseFriends" />
         <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" /> 
       </div>
-      <h3 class="animated fadeInUp">Tes défis</h3>
+      <h3 class="animated fadeInUp">
+        <span v-if="hasPendingChallenges">Tes défis</span>
+        <span v-else>Auncun défis en cours !</span>
+      </h3>
       <div v-for="chall in challengesPending" v-if="chall.originUserId !== currentUser.id" :key="chall.index">
         <ChallengeButton class="animated hidden"
           :challengerName="chall.originGivenName" 
@@ -16,7 +19,9 @@
           @click.native="playWithFriend(chall)"
         />
       </div>
-      <h3 class="animated fadeInUp">Tes défis terminés</h3>
+      <h3 class="animated fadeInUp">
+        <span v-if="hasCompletedChallenges">Tes défis terminés</span>
+      </h3>
       <div v-for="chall in challengesCompleted" :key="chall.index">
         <ChallengeButton class="animated hidden" 
           :challengerName="chall.originGivenName" 
@@ -63,6 +68,17 @@ export default {
       challengesPending: this.profile.challenges_pending || [],
       challengesCompleted: this.profile.challenges_completed || []
     };
+  },
+  computed: {
+    hasPendingChallenges() {
+      return this.challengesPending.filter(chall => {
+          return chall.originUserId !== this.currentUser.id
+        }).length
+    },
+    hasCompletedChallenges() {
+      // We also show defis when we are the origin.
+      return this.challengesCompleted.length
+    }
   },
   methods: {
     chooseFriends() {
