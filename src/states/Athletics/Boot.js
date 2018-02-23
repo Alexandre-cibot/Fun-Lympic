@@ -3,7 +3,8 @@ import WebFont from 'webfontloader'
 import responsive from '../responsive_helper'
 import constant from './constant'
 import store from '../../store'
-import { win32 } from 'path';
+import API from '@/api/index.js'
+import { win32 } from 'path'
 const Swipe = require('../../vendor/swipe')
 
 const pallier = [
@@ -17,7 +18,7 @@ const speedCoefIfTakeObstacle = 0.8
 const xValueWhenSpriteKilled = -200
 let speedCoef = 1.8
 const sprinterSpeedCoefSlowDown = 0.992
-const nbLife = 3
+const nbLife = 1
 let isFontsLoaded = false
 let isSetInLocalStorage = false
 
@@ -74,11 +75,12 @@ const obstacles = [
 function fontsLoaded () {
   isFontsLoaded = true
 }
-
+let isDefiResponse = !!store.state.challengeIdToRespond
 export default class extends Phaser.State {
   init() {
     this.stage.backgroundColor = '#EDEEC9'
     this.score = 0
+    console.warn('isDefiResponse ? ', isDefiResponse)
   }
 
   preload() {
@@ -424,7 +426,18 @@ export default class extends Phaser.State {
         this.sprinterFall.y = pallier[this.playerRace].height + constant.sprinterFallSprite.heightFix
         this.sprinterFall.visible = true
         moveBackground(this.background)
-        if (!isSetInLocalStorage) {
+        if (isDefiResponse) {
+          console.log('this.isDefiResponse', isDefiResponse)
+          // TODO: Redirection to the result page.
+          isDefiResponse = false
+          API.respondToDefi(store.state.challengeIdToRespond, this.score).then(res => {
+            console.log('Défi répondu !', res)
+            store.commit('setChallengeIdToRespond', null)
+            setTimeout(() => {
+              location.replace('/#/')
+            }, 2000)
+          })
+        } else if (!isSetInLocalStorage) {
           setHistory(this.score)
           this.textScoreFinal.text = this.textScore.text;
           setTimeout(()=>{
@@ -550,7 +563,10 @@ var moveBackground = function (background) {
   if (speedCoef === sprinterSpeedCoefSlowDown) {
     if (constant.background.speed > -0.11) {
       constant.background.speed = 0
-      store.commit('sprintFinish', true)
+      console.log('isDefiResponse', isDefiResponse)
+      if (!isDefiResponse) {
+        store.commit('sprintFinish', true)
+      }
       game.paused = true
       if (game.oldRecord < game.record) {
         setRecord(game.record)
