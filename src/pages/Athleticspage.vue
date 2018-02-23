@@ -5,7 +5,6 @@
     <AthleticsTuto v-if="showTuto" @hideMe="hideTuto"/>
     <div v-show="gameLoaded" id="bg"></div>
     <HistoryScores v-if="gameIsFinished" :history='getHistory' />
-    <div class="gif" v-if="gameIsFinished && gif"></div>
     <div v-if="gameIsFinished" class="money">
       <img src="@/assets/coin.png" alt="jo_coin">
       +{{money}}
