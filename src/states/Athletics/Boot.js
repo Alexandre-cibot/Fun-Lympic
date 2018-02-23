@@ -6,6 +6,7 @@ import store from '../../store'
 import API from '@/api/index.js'
 import { win32 } from 'path'
 const Swipe = require('../../vendor/swipe')
+let stopCountScore = false
 
 const pallier = [
   {height: responsive.getHeightFromPercentage(39)},
@@ -17,10 +18,11 @@ const obstacleWidthFrequency = 600
 const speedCoefIfTakeObstacle = 0.8
 const xValueWhenSpriteKilled = -200
 let speedCoef = 1.8
-const sprinterSpeedCoefSlowDown = 0.992
-const nbLife = 1
+const sprinterSpeedCoefSlowDown = 0.980
+const nbLife = 3
 let isFontsLoaded = false
 let isSetInLocalStorage = false
+let gameShouldBePaused = false
 
 const sprinterFallFrameFlag = {
   counter: 0,
@@ -303,7 +305,7 @@ export default class extends Phaser.State {
 
     function listener() {
       divSty.display = "block";
-      game.paused = true;
+      gameShouldBePaused = true
       text.visible = true;
       graphics.visible = true;
       play.visible = true;
@@ -313,7 +315,7 @@ export default class extends Phaser.State {
 
     function unpaused(){
       divSty.display = "none";
-      game.paused = false;
+      gameShouldBePaused = false
       play.visible = false;
       home.visible = false;
       graphics.visible = false;
@@ -342,8 +344,9 @@ export default class extends Phaser.State {
     this.oldRecord = getRecord()
     this.record = game.add.sprite(game.world.centerX, 32, 'record');
     this.record.anchor.setTo(0.5);
-    this.textRecord = game.add.text(game.world.centerX - 35,  22, 'RECORD :', styleRecord);
+    this.textRecord = game.add.text(game.world.centerX,  22, 'RECORD :', styleRecord);
     this.textRecord.text = 'Record : ' + this.oldRecord
+    this.textRecord.anchor.setTo(0.5, 0);
     this.newRecord = game.add.sprite(game.world.centerX, 32, 'newRecord');
     this.newRecord.anchor.setTo(0.5);
     this.newRecord.visible = false;
@@ -389,7 +392,12 @@ export default class extends Phaser.State {
     }, 1000)
 
     const destroyGame = setInterval(function () {
-      game.paused = !store.state.tutoOK
+      if (!store.state.tutoOK || gameShouldBePaused) {
+        game.paused = true
+      }
+      if (store.state.tutoOK && store.state.sprintGame && !gameShouldBePaused) {
+        game.paused = false
+      }
       if (!store.state.sprintGame) {
         game.state.destroy()
         game.sound.destroy()
@@ -411,7 +419,9 @@ export default class extends Phaser.State {
     this.heart[0].visible = this.lifeRemaining > 0
     this.heart[1].visible = this.lifeRemaining > 1
     this.heart[2].visible = this.lifeRemaining > 2
-    this.score = parseInt(-this.background.x / 100)
+    if (!stopCountScore) {
+      this.score = parseInt(-this.background.x / 100)
+    }
     this.textScore.text = this.score
     if (!this.go) {
       if (this.fall) {
@@ -437,7 +447,9 @@ export default class extends Phaser.State {
               location.replace('/#/')
             }, 2000)
           })
-        } else if (!isSetInLocalStorage) {
+        }
+        if (!isSetInLocalStorage) {
+          stopCountScore = true
           setHistory(this.score)
           this.textScoreFinal.text = this.textScore.text;
           setTimeout(()=>{
@@ -446,9 +458,10 @@ export default class extends Phaser.State {
             this.next.visible = true;
             this.share.visible = true;
             if (this.score > this.oldRecord) {
+              setRecord(this.score)
               this.newRecord.visible = true;
             }
-          }, 5000)
+          }, 1900)
         }
         speedCoef = sprinterSpeedCoefSlowDown
       } else {
@@ -571,6 +584,7 @@ var moveBackground = function (background) {
       if (game.oldRecord < game.record) {
         setRecord(game.record)
       }
+      gameShouldBePaused = true
     }
     constant.background.speed = constant.background.speed * speedCoef
   }
