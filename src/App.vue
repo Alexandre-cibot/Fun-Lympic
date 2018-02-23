@@ -47,7 +47,7 @@ export default {
     // Sound muted localstorage
     var sound = JSON.parse(localStorage.getItem('sound'));
     if( sound && sound.muteBy == 'player') {
-      store.commit('toggleSoundMute', sound)
+      store.commit('toggleSoundMute', {'isMuted' : sound.isMuted, 'muteBy' : 'player'})
     } else if(sound && sound.isMuted && sound.muteBy == 'game') {
       var newSound = {'isMuted' : false, 'muteBy' : 'none'};
       store.commit('toggleSoundMute', newSound);

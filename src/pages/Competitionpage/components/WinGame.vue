@@ -1,15 +1,15 @@
 <template>
   <div class="before">
     <div class="background"></div>
-      <div v-for="user in currentUser" :key="user.index" class="circle_first">
-        <Profile :firstName="user.firstname" :flag="user.flag" :score="user.score" :picture="user.picture" :money="20" :other="false"/>
+      <div class="circle_first">
+        <Profile :firstName="users.winner.name" flag="fr-FR" :score="users.winner.score" :picture="users.winner.picture" :money="20" :showStats="false" :other="false"/>
       </div>
       <div class="confettis"></div>
     <button class="animated hidden">
       <h2>Tu as gagné !</h2>
     </button>
-    <div v-for="user in otherUser" :key="user.index" class="circle_first">
-        <Profile :firstName="user.firstname" :flag="user.flag" :picture="user.picture" :score="user.score" :other="true"/>
+    <div class="circle_first">
+        <Profile :firstName="users.looser.name" flag="fr-FR" :picture="users.looser.picture" :score="users.looser.score" :showStats="false" :other="true"/>
     </div>
     <button class="next" @click="pushRoute">
       <img src="@/assets/arrow_right.png" alt="">
@@ -22,28 +22,31 @@ import Profile from '@/components/Profile.vue';
 
 export default {
   name: 'WinGame',
+  props: ['challenge'],
   data() {
     return {
-      currentUser: [
-        {
-          firstname: "Alexandre",
-          flag: require('@/assets/flag/France.png'),
-          picture: require('@/assets/alex.png'),
-          score: "02:54"
-        },
-      ],
-      otherUser: [
-        {
-          firstname: "Enora",
-          flag: require('@/assets/flag/France.png'),
-          picture: require('@/assets/enora.jpg'),
-          score: "03:26"
-        },
-      ]
+      
     }
   },
   components: {
     Profile
+  },
+  computed: {
+    users() {
+      const originIsTheWinner = this.challenge.scores.origin > this.challenge.scores.target;
+      return {
+        winner: {
+          name: originIsTheWinner ? this.challenge.originGivenName : this.challenge.targetGivenName,
+          picture: originIsTheWinner ? this.challenge.originPicture : this.challenge.targetPicture,
+          score: originIsTheWinner ? this.challenge.scores.origin : this.challenge.scores.target
+        },
+        looser: {
+          name: originIsTheWinner ? this.challenge.targetGivenName : this.challenge.originGivenName,
+          picture: originIsTheWinner ? this.challenge.targetPicture : this.challenge.originPicture,
+          score: originIsTheWinner ? this.challenge.scores.target : this.challenge.scores.origin 
+        } 
+      }
+    }
   },
   methods:{
     pushRoute(){

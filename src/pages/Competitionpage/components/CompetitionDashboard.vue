@@ -5,14 +5,34 @@
         <BasicButton class="challengeBtn animated hidden" title="défie un ami" btnColor="yellow" image="facebook" @click="chooseFriends" />
         <BasicButton class="challengeBtn animated hidden" title="défi à proximité" btnColor="yellow" image="place" /> 
       </div>
-      <h3 class="animated fadeInUp">Tes défis</h3>
-      <div v-for="chall in challengesPending" :key="chall.index">
-        <ChallengeButton class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" logo="challenge" :image="chall.challengerPicture" :finish="false"  @click.native="playWithFriend" />
+      <h3 class="animated fadeInUp">
+        <span v-if="hasPendingChallenges">Tes défis</span>
+        <span v-else>Auncun défis en cours !</span>
+      </h3>
+      <div v-for="chall in challengesPending" v-if="chall.originUserId !== currentUser.id" :key="chall.index">
+        <ChallengeButton class="animated hidden"
+          :challengerName="chall.originGivenName" 
+          :challengerPoints="chall.scores.origin"
+          status="pending"
+          :image="chall.originPicture"
+          :finish="false" 
+          @click.native="playWithFriend(chall)"
+        />
       </div>
-      <h3 class="animated fadeInUp">Tes défis terminés</h3>
+      <h3 class="animated fadeInUp">
+        <span v-if="hasCompletedChallenges">Tes défis terminés</span>
+      </h3>
       <div v-for="chall in challengesCompleted" :key="chall.index">
-        <ChallengeButton v-if="chall.status == 'victory'" class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" :currentName="currentUser.name" :currentPoints="chall.myScore" :logo="chall.status" :image="chall.challengerPicture" :finish="true" @click.native="winGame"/>
-        <ChallengeButton v-else class="animated hidden" :challengerName="chall.challengerName" :challengerPoints="chall.challengerScore" :currentName="currentUser.name" :currentPoints="chall.myScore" :logo="chall.status" :image="chall.challengerPicture" :finish="true"  @click.native="loseGame"/>
+        <ChallengeButton class="animated hidden" 
+          :challengerName="chall.originGivenName" 
+          :challengerPoints="chall.scores.origin"
+          :currentName="chall.targetGivenName" 
+          :currentPoints="chall.scores.target"
+          :status="getChallengeStatus(chall)"
+          :image="chall.originPicture"
+          :finish="true" 
+          @click.native="showResult(chall)"
+        />
       </div>
   </div>
 </template>
@@ -38,6 +58,7 @@ export default {
       msg: 'CompetitionDashboard',
       currentUser: 
         {
+          id: this.profile.id,
           name: this.profile.given_name,
           flag: require('@/assets/flag/France.png'),
           picture: this.profile.picture,
@@ -48,18 +69,35 @@ export default {
       challengesCompleted: this.profile.challenges_completed || []
     };
   },
+  computed: {
+    hasPendingChallenges() {
+      return this.challengesPending.filter(chall => {
+          return chall.originUserId !== this.currentUser.id
+        }).length
+    },
+    hasCompletedChallenges() {
+      // We also show defis when we are the origin.
+      return this.challengesCompleted.length
+    }
+  },
   methods: {
     chooseFriends() {
       this.$emit('chooseFriends');
     },
-    playWithFriend(){
-      this.$emit('playWithFriend');
+    playWithFriend(chall){
+      this.$emit('playWithFriend', chall);
     },
-    winGame(){
-      this.$emit('winGame');
+    showResult(chall) {
+      if(this.getChallengeStatus(chall) === 'victory') {
+        this.$emit('winGame', chall);
+      } else {
+        this.$emit('loseGame', chall);
+      }
     },
-    loseGame(){
-      this.$emit('loseGame');
+    getChallengeStatus(challenge) {
+      const myScore = challenge.originUserId === this.currentUser.id ? challenge.scores.origin : challenge.scores.target;
+      const challengerScore = challenge.originUserId !== this.currentUser.id ? challenge.scores.origin : challenge.scores.target;
+      return myScore > challengerScore ? 'victory' : 'defeat'
     }
   },
   mounted() {
