@@ -8,7 +8,6 @@
       <img src="@/assets/coin.png" alt="jo_coin">
       +{{money}}
     </div>
-    <div v-if="gameIsFinished"><Sound file="artifice"/></div>
   </div>
 </template>
 
