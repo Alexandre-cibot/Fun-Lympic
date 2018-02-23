@@ -5,7 +5,7 @@
         <Profile :firstName="challenge.originGivenName" flag="fr-FR" :picture="challenge.originPicture" :score="challenge.scores.origin" :money="20" :showStats="false" :other="false" />
       </div>
     <button class="animated hidden">
-      <h2 @click="runAthletismeGame">ESSAYES DE ME BATTRE</h2>
+      <h2 @click="runGame">ESSAYES DE ME BATTRE</h2>
     </button>
     <div class="circle_first">
       <Profile :firstName="challenge.targetGivenName" flag="fr-FR" :picture="challenge.targetPicture" :showStats="false" :other="true" />
@@ -46,8 +46,8 @@ export default {
     Profile
   },
   methods:{
-    runAthletismeGame(){
-      this.$router.push({path: '/athletics'})
+    runGame(){
+      this.$router.push({path: `/${this.challenge.gameName}`})
     },
     pushRoute(){
       this.$emit('pushRoute');
