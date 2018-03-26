@@ -26,19 +26,6 @@ export default {
       return store.state.isSoundMuted
     }
   },
-  methods: {
-    // playAmbiance () {
-    //   this.audio = new Audio(require('@/assets/mp3/ambiance.mp3'));
-    //   this.audio.volume = 0.2
-    //   this.audio.onended = function() {
-    //     console.log('finish');
-    //     this.replayAmbiance()
-    //   };
-    // },
-    // replayAmbiance() {
-    //   return this.playAmbiance()
-    // }
-  },
   mounted() {
     switch(this.file){
       case 'clic':
@@ -48,19 +35,9 @@ export default {
         }
       break;
       case 'ambiance':
-        playAmbiance()
+        // playAmbiance()
         console.log('wesh');
         console.log(this.isMuted);
-        // this.audio.addEventListener('timeupdate', function(){
-        //   if((this.currentTime / this.duration) > 0.9 ){
-        //       this.currentTime = 0
-        //       this.play()
-        //   }
-        // }, false);
-        // setInterval(() => {
-        //   console.log('wesh wesh');
-        //   this.audio.play()
-        // }, 3500)
       break;
       case 'artifice':
         this.audio = new Audio(require('@/assets/mp3/artifice.mp3'));
