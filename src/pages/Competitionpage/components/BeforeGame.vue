@@ -80,7 +80,6 @@ export default {
   },
   methods:{
     runGame(){
-      console.log(this.game)
       this.$router.push({path: `/${this.game}`})
     },
     flagPath(userType) {

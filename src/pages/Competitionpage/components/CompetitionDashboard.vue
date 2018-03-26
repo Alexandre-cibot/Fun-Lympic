@@ -53,7 +53,6 @@ export default {
     Profile
   },
   data() {
-    console.log("profile", this.profile);
     return {
       msg: 'CompetitionDashboard',
       currentUser: 

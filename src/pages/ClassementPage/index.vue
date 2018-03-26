@@ -83,7 +83,6 @@ export default {
     API.getFacebookAthletics(this.profile.id)
     .then((response)=>{
       this.classement = response.data
-      console.log(this.classement)
     })
     .catch((error)=>{
       console.log(error)
@@ -111,7 +110,6 @@ export default {
         API.getFacebookAthletics(this.profile.id)
         .then((response)=>{
           this.classement = response.data
-          console.log(this.classement)
         })
         .catch((error)=>{
           console.log(error)
@@ -120,7 +118,6 @@ export default {
         API.getFacebookSwimming(this.profile.id)
         .then((response)=>{
           this.classement = response.data
-          console.log(this.classement)
         })
         .catch((error)=>{
           console.log(error)
@@ -145,7 +142,6 @@ export default {
         API.getCountrySwimming(this.profile.id)
         .then((response)=>{
           this.classement = response.data
-          console.log(this.classement)
         })
         .catch((error)=>{
           console.log(error)
@@ -162,7 +158,6 @@ export default {
         API.getPersoWorldAthletics(this.profile.id)
         .then((response)=>{
           this.classement = response.data
-          console.log(this.classement)
         })
         .catch((error)=>{
           console.log(error)
@@ -171,7 +166,6 @@ export default {
         API.getPersoWorldSwimming(this.profile.id)
         .then((response)=>{
           this.classement = response.data
-          console.log(this.classement)
         })
         .catch((error)=>{
           console.log(error)
@@ -188,7 +182,6 @@ export default {
         API.getWorldAthletics(this.profile.id)
         .then((response)=>{
           this.classement = response.data
-          console.log(this.classement)
         })
         .catch((error)=>{
           console.log(error)
@@ -197,7 +190,6 @@ export default {
         API.getWorldSwimming(this.profile.id)
         .then((response)=>{
           this.classement = response.data
-          console.log(this.classement)
         })
         .catch((error)=>{
           console.log(error)

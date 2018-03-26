@@ -113,7 +113,7 @@ export default {
           },
 
           receivedEvent: function (id) {
-            console.log('Received Event: ' + id)
+
           }
         }
         app.initialize()

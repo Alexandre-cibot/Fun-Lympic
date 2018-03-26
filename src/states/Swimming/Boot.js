@@ -394,8 +394,6 @@ export default class extends Phaser.State {
     var myLoop1 = game.time.events.loop(Phaser.Timer.SECOND * this.life, setNumCircle, this);
 
     function setNumCircle(){
-      console.log('time' + this.timeRandom)
-      console.log(this.clickArr.length)
       numCircle = Math.round(Math.random() * 2);
     }
     var myLoop2 = game.time.events.loop(Phaser.Timer.SECOND * this.life, displayCircle, this);
@@ -648,7 +646,6 @@ export default class extends Phaser.State {
         // TODO: Redirection to the result page.
         isDefiResponse = false
         API.respondToDefi(store.state.challengeIdToRespond, this.score).then(res => {
-          console.log('Défi répondu !', res)
           store.commit('setChallengeIdToRespond', null)
           setTimeout(() => {
             location.replace('/#/')
@@ -667,15 +664,12 @@ export default class extends Phaser.State {
   }
 
   setHistory (score) {
-    console.log('Set natation history with new values')
-    console.log('new score', score)
     let thisParty = {
       date: this.getDay(),
       timestamp: Date.now(),
       score
     }
     let oldHistory = this.getHistory()
-    console.log('oldHistory', oldHistory)
     oldHistory.unshift(thisParty)
     window.localStorage.setItem('natationPersonnalScore', JSON.stringify(oldHistory))
     this.isSetInLocalStorage = true

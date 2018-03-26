@@ -28,11 +28,9 @@ export default class AuthService {
 
   handleAuthentication () {
     this.auth0.parseHash((err, authResult) => {
-      console.log(authResult)
       if (authResult && authResult.accessToken && authResult.idToken) {
         // Envoie des informations renvoyées par Facebook dans l'API
         API.postUser(authResult).then(dataFromAPI => {
-          console.log('Callback', dataFromAPI)
           this.setSession(dataFromAPI)
           router.replace('competition')
         })
@@ -52,7 +50,6 @@ export default class AuthService {
     // let expiresAt = JSON.stringify(
     //   authResult.expiresIn * 1000 + new Date().getTime()
     // )
-    console.log('Ajout/update du profile dans le cache')
     localStorage.setItem('profile', JSON.stringify(dataFromAPI.data))
     this.authNotifier.emit('authChange', { authenticated: true })
   }

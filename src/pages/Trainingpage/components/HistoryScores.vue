@@ -25,7 +25,6 @@ export default {
     }
   },
   mounted() {
-    console.log('history', this.history)
     let buttons = this.$el.querySelectorAll('.hidden');
     buttons.forEach((btn, idx) => {
       setTimeout(()=>{

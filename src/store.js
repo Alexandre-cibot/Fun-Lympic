@@ -70,7 +70,6 @@ const store = new Vuex.Store({
       localStorage.setItem('sound', JSON.stringify(val))
     },
     setChallengeIdToRespond (state, value) {
-      console.log('setChallengeIdToRespond !', value)
       state.challengeIdToRespond = value
     }
   }

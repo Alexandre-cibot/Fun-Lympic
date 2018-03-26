@@ -36,8 +36,6 @@ export default {
       break;
       case 'ambiance':
         // playAmbiance()
-        console.log('wesh');
-        console.log(this.isMuted);
       break;
       case 'artifice':
         this.audio = new Audio(require('@/assets/mp3/artifice.mp3'));
@@ -60,13 +58,11 @@ export default {
 };
 
 function playAmbiance () {
-  console.log('play audio');
   const audio = new Audio(require('@/assets/mp3/ambiance.mp3'));
   audio.volume = 0.2
   audio.loop = true
   audio.play();
   audio.onended = function() {
-    console.log('finish');
     playAmbiance()
   };
 }

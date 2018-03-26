@@ -65,8 +65,6 @@ export default {
       if(this.characters[i].price<this.money){
         this.characters[i].bought = true;
         this.money -= this.characters[i].price;
-      }else{
-        console.log('c pas possible dsl');
       }
     }
   }

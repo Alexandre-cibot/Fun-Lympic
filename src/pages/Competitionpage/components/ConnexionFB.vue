@@ -21,9 +21,6 @@ export default {
   },
   methods: {
   },
-  mounted() {
-    console.log(this.authenticated);
-  }
 }
 </script>
 

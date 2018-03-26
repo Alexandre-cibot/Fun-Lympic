@@ -48,7 +48,6 @@ export default {
       return store.state.swimmingLoaded
     },
     gameIsFinished () {
-      console.log('gameIsFinished');
       return store.state.isSwimmingFinish
     },
     getHistory () {
@@ -110,18 +109,13 @@ export default {
           },
 
           receivedEvent: function (id) {
-            console.log('Received Event: ' + id)
+
           }
         }
         app.initialize()
       }
     },
   },
-  watch:{
-    first(){
-      console.log('coucou')
-    }
-  }
 };
 
 </script>

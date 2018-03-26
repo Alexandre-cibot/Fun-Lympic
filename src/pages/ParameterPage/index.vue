@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     selectLanguage(lang) {
-      console.log(`select language ${lang}`);
+
     }
   }
 };

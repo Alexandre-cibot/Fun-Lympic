@@ -66,10 +66,7 @@ export default {
   computed: {
     profile() {
       if (this.authenticated) {
-        console.log('Données du cache utilsé')
         return this.reloadMode ? this.updatedProfile : this.auth.getUserProfileFromCache();
-      } else {
-        console.log("Connecté, en attente de syncronisation des données avec le serveurs.")
       }
     }
   },
@@ -82,7 +79,6 @@ export default {
       this.currentState = "competitionDashboard";
     },
     updateFlag() {
-      console.log('TODO: Send request to update flag')
     },
     pushRoute(){
       this.updateHistory(this.currentState);
@@ -140,11 +136,9 @@ export default {
           this.auth.logout();
           return;
         }
-        console.log('Profile updated');
         this.reloadMode = true;
         this.updatedProfile = response.data;
         this.auth.setLocalStorage(response);
-        console.log('Coins', this.profile.coins)
         setTimeout(() => {
           this.reloadProfile()
         }, 6000);
