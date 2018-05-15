@@ -1,5 +1,3 @@
-Crazy video game with the theme of the Olympic Games
-
 ![Home page](https://github.com/juliendasilva/Fun-Lympic/blob/master/assets/home.png)
 
 [The project presentation is available here](https://github.com/juliendasilva/Fun-Lympic/blob/master/Fun'Lympic_Presentation.pdf)
