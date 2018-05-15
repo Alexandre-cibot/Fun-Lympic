@@ -1,4 +1,4 @@
-![Home page](https://github.com/juliendasilva/Fun-Lympic/blob/master/assets/home.png)
+![Home page](https://github.com/juliendasilva/Fun-Lympic/blob/master/assets/presentation.png)
 
 [The project presentation is available here](https://github.com/juliendasilva/Fun-Lympic/blob/master/Fun'Lympic_Presentation.pdf)
 
