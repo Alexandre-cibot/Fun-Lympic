@@ -2,14 +2,19 @@ Crazy video game with the theme of the Olympic Games
 
 ![Home page](https://github.com/juliendasilva/Fun-Lympic/blob/master/assets/home.png)
 
-(The project presentation is available here)[https://github.com/juliendasilva/Fun-Lympic/blob/master/Fun'Lympic_Presentation.pdf]
+[The project presentation is available here](https://github.com/juliendasilva/Fun-Lympic/blob/master/Fun'Lympic_Presentation.pdf)
 
 ## Techno
 Webpack
+
 Phaser.js
+
 Vue.js
+
 Netlify
+
 Heroku
+
 Node.js
 
 # Setup
@@ -86,6 +91,9 @@ https://github.com/lean/phaser-es6-webpack
 ## Contributors
 
 https://github.com/juliendasilva
+
 https://github.com/Alexandre-cibot
+
 https://github.com/Henka-nk
+
 https://github.com/JrBour
