@@ -6,17 +6,20 @@ import Vuex from 'vuex'
 import router from './router'
 import App from './App.vue'
 import store from './store'
-// Vue.config.productionTip = false;
-/* eslint-disable no-new */
 
+import isMobile from '@/helpers/isMobile'
 Vue.use(Vuex)
 Vue.config.devtools = true
 Vue.config.performance = true
 
-new Vue({
-  el: '#app',
-  store,
-  router,
-  template: '<App/>',
-  components: { App }
-})
+if (isMobile.any()) {
+  new Vue({
+    el: '#app',
+    store,
+    router,
+    template: '<App/>',
+    components: { App }
+  })
+} else {
+  alert('Please use a mobile phone')
+}
