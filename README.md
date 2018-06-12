@@ -1,6 +1,6 @@
-![Home page](https://github.com/juliendasilva/Fun-Lympic/blob/master/assets/presentation.png)
+![Home page](https://github.com/Alexandre-cibot/Fun-Lympic/blob/master/assets/presentation.png)
 
-[The project presentation is available here](https://github.com/juliendasilva/Fun-Lympic/blob/master/Fun'Lympic_Presentation.pdf)
+[The project presentation is available here](https://github.com/Alexandre-cibot/Fun-Lympic/blob/master/Fun'Lympic_Presentation.pdf)
 
 ## Techno
 Webpack
